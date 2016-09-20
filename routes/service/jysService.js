@@ -14,6 +14,7 @@ var jysDao = require('../../models/dao/jw_jys/jysDao');
 
 router.get('/getList', function (req, res, next) {
     jysDao.queryAll(req, res, function (result) {
+        console.log("1111111111111111111111");
         res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
     });
 });
