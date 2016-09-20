@@ -13,6 +13,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
     var username=req.body.username;
     var password=req.body.password;
+    var icheck = req.body.icheck;//icheck cookie勾选0或1判断
     userDao.queryByUser(req, res, username, password, function(result){
         if(result.length==0)
         {
