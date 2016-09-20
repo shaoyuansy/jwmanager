@@ -52,8 +52,8 @@
                     <thead>
                     <tr>
                         <th>教研室编号</th>
-                        <th>名称</th>
-                        <th>主任</th>
+                        <th>教研室名称</th>
+                        <th>教研室主任</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -67,6 +67,8 @@
     </section>
     <!-- /.content -->
 </div>
+
+
 
 <script>
     $(document).ready(function () {
@@ -86,13 +88,29 @@
             {
                 "mData": null,
                 "sClass": "center",
-                "fnRender": function (obj) {
-                    return '<a onclick="editPowUser(\'' + obj.aData.pow_id + '\')" href="#" role="button" data-toggle="modal" class="sepV_a" title="编辑"><i class="icon-pencil"></i></a>';
+                "mData": function (obj) {
+                    return '<a style="margin-left: 10px;" href="#" role="button" data-toggle="modal" title="查看"><i class="fa fa-fw fa-search"></i></a>'
+                            +'<a style="margin-left: 10px;" href="#" role="button" data-toggle="modal" title="编辑"><i class="fa fa-fw fa-pencil"></i></a>'
+                            +'<a style="margin-left: 10px;" href="#" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';
                 }
             }
         ];
         CreateDataTable('#datatable', '/jysService/getList', columns);
     });
 
+    //编辑
+//    function editJys(id) {
+//        $.ajax({
+//            url: "/dispatched/_editCommand.html?id=" + id,
+//            type: "get",
+//            dataType: 'html',
+//            async: false,
+//            success: function (htmlContent) {
+//                $('#modal-add-event').html(htmlContent);
+//                $("#modal-add-event").modal('show');
+//                document.getElementById("CO_ID").value = id;
+//            }
+//        });
+//    }
 
 </script>

@@ -16,6 +16,7 @@ function CreateDataTable(id,url,columns) {
         "bDestroy": false,
         "bRetrieve": false,
         "sPaginationType": "full_numbers", //分页，一共两种样式，full_numbers和two_button(默认)
+        "bDeferRender":true,//延迟渲染
         "oLanguage": {
             "sLengthMenu": "_MENU_ 条",
             "sZeroRecords": "对不起，查询不到任何相关数据",
