@@ -5,8 +5,20 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+//路由配置开始
+
 var index = require('./routes/index');
 var users = require('./routes/users');
+//教研室信息
+var jys = require('./routes/jys/jiaoyanshi');
+
+
+
+
+
+//教研室服务
+var jysService = require('./routes/service/jysService');
+//路由配置结束
 
 var app = express();
 
@@ -30,8 +42,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+//路由地址配置开始
+
 app.use('/', index);
 app.use('/users', users);
+app.use('/jys',jys);
+
+//服务路由地址配置
+app.use('/jysService',jysService);
+//路由地址配置结束
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
