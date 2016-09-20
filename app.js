@@ -3,12 +3,14 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
 
 //路由配置开始
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var login = require('./routes/user/login');
 //教研室信息
 var jys = require('./routes/jys/jiaoyanshi');
 
@@ -41,18 +43,30 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//设置session
+app.use(cookieSession({
+    name: 'session',
+    keys: ['123', '321']
+}));
 
+//登陆拦截器
+app.use(function (req, res, next) {
+    var url = req.originalUrl;
+    if (url != '/login' && req.session.userInfo == undefined) {
+        return res.redirect('/login');
+    }
+    next();
+});
 
-//路由地址配置开始
-
-app.use('/', index);
+//路由地址配置
+app.use('/index', index);
+app.use('/login', login);
 app.use('/users', users);
 app.use('/jys',jys);
 
 //服务路由地址配置
 app.use('/jysService',jysService);
 //路由地址配置结束
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
