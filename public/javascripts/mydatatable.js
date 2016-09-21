@@ -1,5 +1,4 @@
-﻿
-function CreateDataTable(id,url,columns) {
+﻿function CreateDataTable(id,url,columns) {
     var data_table=    $(id).dataTable({
         //"sScrollX": "100%", //表格的宽度
         "sScrollXInner": "100%", //表格的内容宽度
@@ -15,7 +14,7 @@ function CreateDataTable(id,url,columns) {
         "bStateSave": true, //保存状态到cookie
         "bDestroy": false,
         "bRetrieve": false,
-        "sPaginationType": "full_numbers", //分页，一共两种样式，full_numbers和two_button(默认)
+        //"sPaginationType": "full_numbers", //分页，一共两种样式，full_numbers和two_button(默认)
         "bDeferRender":true,//延迟渲染
         "oLanguage": {
             "sLengthMenu": "_MENU_ 条",

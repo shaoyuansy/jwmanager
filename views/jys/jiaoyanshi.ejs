@@ -45,6 +45,20 @@
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">教研室信息列表</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" title="批量删除" class="btn btn-box-tool"
+                            onclick="">
+                        <i class="fa fa-fw fa-plus-circle"></i>批量删除</button>
+                    <button type="button" title="添加" class="btn btn-box-tool"
+                            onclick="editJys(0)">
+                        <i class="fa fa-fw fa-plus-circle"></i>添加</button>
+                    <button type="button" title="导入" class="btn btn-box-tool"
+                            onclick="">
+                        <i class="fa fa-fw fa-plus-circle"></i>导入</button>
+                    <button type="button" title="导出" class="btn btn-box-tool"
+                                                                                  onclick="">
+                        <i class="fa fa-fw fa-plus-circle"></i>导出</button>
+                </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -68,10 +82,12 @@
     <!-- /.content -->
 </div>
 
-
-
+<div class="modal" id="modal-edit-event"></div>
 <script>
+    var mytable;
+
     $(document).ready(function () {
+
         var columns = [
             {
                 "mData": "JYSBH",
@@ -89,28 +105,26 @@
                 "mData": null,
                 "sClass": "center",
                 "mData": function (obj) {
-                    return '<a style="margin-left: 10px;" href="#" role="button" data-toggle="modal" title="查看"><i class="fa fa-fw fa-search"></i></a>'
-                            +'<a style="margin-left: 10px;" href="#" role="button" data-toggle="modal" title="编辑"><i class="fa fa-fw fa-pencil"></i></a>'
+                    return '<a style="margin-left: 10px;" onclick="editJys(\'' + obj.ID + '\')" href="#" role="button" data-toggle="modal" title="编辑"><i class="fa fa-fw fa-pencil"></i></a>'
                             +'<a style="margin-left: 10px;" href="#" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';
                 }
             }
         ];
-        CreateDataTable('#datatable', '/jysService/getList', columns);
+        mytable = CreateDataTable('#datatable', '/jysService/getList', columns);
     });
 
     //编辑
-//    function editJys(id) {
-//        $.ajax({
-//            url: "/dispatched/_editCommand.html?id=" + id,
-//            type: "get",
-//            dataType: 'html',
-//            async: false,
-//            success: function (htmlContent) {
-//                $('#modal-add-event').html(htmlContent);
-//                $("#modal-add-event").modal('show');
-//                document.getElementById("CO_ID").value = id;
-//            }
-//        });
-//    }
+    function editJys(id) {
+        $.ajax({
+            url: "/jys/_editJys.html?id=" + id,
+            type: "get",
+            dataType: 'html',
+            async: false,
+            success: function (htmlContent) {
+                $('#modal-edit-event').html(htmlContent);
+                $("#modal-edit-event").modal('show');
+            }
+        });
+    }
 
 </script>
