@@ -22,6 +22,8 @@
 
 <!-- datatable -->
 <script src="../javascripts/mydatatable.js"></script>
+<!-- table2excel导出 -->
+<script src="/table2excel/jquery.table2excel.js"></script>
 
 <!-- page script -->
 
@@ -47,7 +49,7 @@
                 <h3 class="box-title">教研室信息列表</h3>
                 <div class="box-tools pull-right">
                     <button type="button" title="批量删除" class="btn btn-box-tool"
-                            onclick="">
+                            onclick="delSomeJys();">
                         <i class="fa fa-fw fa-plus-circle"></i>批量删除</button>
                     <button type="button" title="添加" class="btn btn-box-tool"
                             onclick="editJys(0)">
@@ -56,7 +58,7 @@
                             onclick="">
                         <i class="fa fa-fw fa-plus-circle"></i>导入</button>
                     <button type="button" title="导出" class="btn btn-box-tool"
-                                                                                  onclick="">
+                                                                                  onclick="exportData();">
                         <i class="fa fa-fw fa-plus-circle"></i>导出</button>
                 </div>
             </div>
@@ -65,6 +67,7 @@
                 <table id="datatable" class="table table-bordered table-striped">
                     <thead>
                     <tr>
+                        <th><input id="checkbox1" name="checkbox1" type="checkbox"></th>
                         <th>教研室编号</th>
                         <th>教研室名称</th>
                         <th>教研室主任</th>
@@ -87,8 +90,29 @@
     var mytable;
 
     $(document).ready(function () {
+        //全选  全反选处理
+        $("#checkbox1").click(function (){
+            var checkbox = document.getElementById('checkbox1');
+            //是否被选中
+            if(checkbox.checked){
+                $('input[type="checkbox"][name="checkbox2"]').each(function () {
+                    this.checked = true;
+                });
+            }else{
+                $('input[type="checkbox"][name="checkbox2"]').each(function () {
+                    this.checked = false;
+                });
+            }
+        });
 
         var columns = [
+            {
+                "mData": null,
+                "sClass": "center",
+                "mData": function (obj) {
+                    return '<input id="checkbox2" name="checkbox2" type="checkbox" value='+obj.ID+'>';
+                }
+            },
             {
                 "mData": "JYSBH",
                 "sClass": "center"
@@ -121,6 +145,7 @@
             dataType: 'html',
             async: false,
             success: function (htmlContent) {
+                //模态框
                 $('#modal-edit-event').html(htmlContent);
                 $("#modal-edit-event").modal('show');
             }
@@ -148,4 +173,56 @@
             });
         }
     }
+
+    //批量删除记录
+    function delSomeJys() {
+        var flag = false;
+        var arr = new Array();
+        //遍历所有checkbox
+        $('input[type="checkbox"][name="checkbox2"]:checked').each(function () {
+            arr.push(this.value);
+        });
+        if(arr.length != 0){
+            var result = confirm("确认要删除这些数据？");
+            if (result) {
+                //数组转字符串 ，拼接
+                var idstr = arr.join(",");
+                $.ajax({
+                    type: "get",
+                    url: '/jysService/delSome',
+                    dataType: "string",
+                    data: {idstr: idstr},
+                    cache: true,
+                    success: function (msg) {
+                        location.reload();
+                    },
+                    error: function (e) {
+                        console.log(e);
+                        location.reload();
+                    }
+                });
+            }
+        }else{
+            alert("请至少选择一项");
+        }
+    }
+    //批量导出
+    function exportData() {
+        //遍历所有checkbox,未选中选项设置class为noExl
+        $('input[type="checkbox"][name="checkbox2"]').each(function () {
+            if(this.checked == false){
+                alert(this.parentNode.parentNode.classList = "noExl");
+            }
+
+        });
+        $("#datatable").table2excel({
+            exclude: ".noExl",//有class = “noExl” 的行不被导出；
+            name: "Excel Document Name",
+            filename: "myFileName",
+            exclude_img: true,
+            exclude_links: true,
+            exclude_inputs: true
+        });
+    }
+
 </script>

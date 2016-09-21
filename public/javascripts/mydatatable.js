@@ -1,6 +1,7 @@
 ﻿function CreateDataTable(id,url,columns) {
     var data_table=    $(id).dataTable({
         //"sScrollX": "100%", //表格的宽度
+        "aoColumnDefs": [ { "bSortable": false, "aTargets": [ 0 ] }],//第一列checkbox不排序
         "sScrollXInner": "100%", //表格的内容宽度
         "bScrollCollapse": true, //当显示的数据不足以支撑表格的默认的高度时，依然显示纵向的滚动条。(默认是false)
         "bPaginate": true, //是否显示分页
