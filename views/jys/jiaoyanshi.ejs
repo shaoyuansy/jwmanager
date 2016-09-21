@@ -106,7 +106,7 @@
                 "sClass": "center",
                 "mData": function (obj) {
                     return '<a style="margin-left: 10px;" onclick="editJys(\'' + obj.ID + '\')" href="#" role="button" data-toggle="modal" title="编辑"><i class="fa fa-fw fa-pencil"></i></a>'
-                            +'<a style="margin-left: 10px;" href="#" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';
+                            +'<a style="margin-left: 10px;" onclick="delJys(\'' + obj.ID + '\')" href="#" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';
                 }
             }
         ];
@@ -126,5 +126,26 @@
             }
         });
     }
-
+    //删除记录
+    function delJys(ID) {
+        var result = confirm("确认要删除？");
+        if (result) {
+            $.ajax({
+                type: "get",
+                url: '/jysService/delOne',
+                dataType: "json",
+                data: {ID: ID},
+                cache: true,
+                success: function (msg) {
+                    if (msg.state == 1) {
+                        alert("删除成功");
+                    }
+                    location.reload();
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        }
+    }
 </script>

@@ -47,9 +47,9 @@ exports.update = function (req, res, arrayPar, fn) {
     });
 };
 //删除记录
-exports.delete = function (req, res, CO_ID, fn) {
+exports.delete = function (req, res, ID, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.delete, [CO_ID], function () {
+        connection.query($sql.delete, [ID], function () {
             connection.release();
             fn(1);
         });
