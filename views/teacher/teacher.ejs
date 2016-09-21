@@ -1,0 +1,134 @@
+<!-- datatable -->
+<script src="../javascripts/mydatatable.js"></script>
+
+<!-- 页面内容 content -->
+<div class="content-wrapper">
+    <!-- 页面内容 Header -->
+    <section class="content-header">
+        <h1>
+            教师信息管理
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/index"><i class="fa fa-home"></i> 首页</a></li>
+            <li class="active">教师信息管理</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- /.box -->
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">教师信息管理列表</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" title="批量删除" class="btn btn-box-tool"
+                            onclick="">
+                        <i class="fa fa-fw fa-plus-circle"></i>批量删除</button>
+                    <button type="button" title="添加" class="btn btn-box-tool"
+                            onclick="editJys(0)">
+                        <i class="fa fa-fw fa-plus-circle"></i>添加</button>
+                    <button type="button" title="导入" class="btn btn-box-tool"
+                            onclick="">
+                        <i class="fa fa-fw fa-plus-circle"></i>导入</button>
+                    <button type="button" title="导出" class="btn btn-box-tool"
+                            onclick="">
+                        <i class="fa fa-fw fa-plus-circle"></i>导出</button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="datatable" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>工号</th>
+                        <th>联系电话</th>
+                        <th>分管负责人</th>
+                        <th>专业技术职称</th>
+                        <th>学历</th>
+                        <th>最高学位</th>
+                        <th>学科类别</th>
+                        <th>导师类型</th>
+                        <th>单位名称</th>
+                        <th>教学效果</th>
+                        <th>是否上交证件</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+</div>
+
+<script>
+    var mytable;
+    $(document).ready(function () {
+        var columns = [
+            {
+                "mData": "XM",
+                "sClass": "center"
+            },
+            {
+                "mData": "GH",
+                "sClass": "center"
+            },
+            {
+                "mData": "LXDH",
+                "sClass": "center"
+            },
+            {
+                "mData": "FGFZR",
+                "sClass": "center"
+            },
+            {
+                "mData": "ZYJSZC",
+                "sClass": "center"
+            },
+            {
+                "mData": "XL",
+                "sClass": "center"
+            },
+            {
+                "mData": "ZGXW",
+                "sClass": "center"
+            },
+            {
+                "mData": "XKLB",
+                "sClass": "center"
+            },
+            {
+                "mData": "DSLX",
+                "sClass": "center"
+            },
+            {
+                "mData": "DWMC",
+                "sClass": "center"
+            },
+            {
+                "mData": "JXXG",
+                "sClass": "center"
+            },
+            {
+                "mData": "FJ",
+                "sClass": "center"
+            },
+            {
+                "mData": null,
+                "sClass": "center",
+                "mData": function (obj) {
+                    return '<a style="margin-left: 10px;" onclick="editJys(\'' + obj.ID + '\')" href="#" role="button" data-toggle="modal" title="编辑"><i class="fa fa-fw fa-pencil"></i></a>'
+                            +'<a style="margin-left: 10px;" href="#" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';
+                }
+            }
+        ];
+        mytable = CreateDataTable('#datatable', '/teacherService/getList', columns);
+    });
+
+</script>
+

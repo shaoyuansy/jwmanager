@@ -4,10 +4,7 @@
 var express = require('express');
 var router = express.Router();
 var jysDao = require('../../models/dao/jw_jys/jysDao');
-/* GET home page. */
-router.get('/', function(req, res, next) {
-    res.render('index', { title: '教务信息管理系统——教研室管理' });
-});
+
 //超链接跳转
 router.get('/jys.html', function(req, res, next) {
     res.render('jys/jiaoyanshi', { title: '教务信息管理系统——教研室管理' });

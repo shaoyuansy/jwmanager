@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
+/* GET teacher page. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+    res.render('teacher/teacher', {
+        title: '教师信息管理'
+    });
 });
 
 module.exports = router;

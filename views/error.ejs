@@ -1,3 +1,42 @@
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            404 Error Page
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="error-page">
+            <h2 class="headline text-yellow"> 404</h2>
+
+            <div class="error-content">
+                <h3><i class="fa fa-warning text-yellow"></i> 糟糕！ 页面找不到了！</h3>
+
+                <p>
+                    我们没有找到您需要的页面。请查看您的请求是否正确。<br>
+                    您可以 <a href="/index">返回首页</a> 再去查看其他页面。
+                </p>
+
+                <form class="search-form">
+                    <div class="input-group">
+                        <input type="text" name="search" class="form-control" placeholder="搜索">
+
+                        <div class="input-group-btn">
+                            <button type="submit" name="submit" class="btn btn-warning btn-flat"><i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.input-group -->
+                </form>
+            </div>
+            <!-- /.error-content -->
+        </div>
+        <!-- /.error-page -->
+    </section>
+    <!-- /.content -->
+    <p>
+    <h4>调试员请看错误信息：<%= message %> | <%= error.status %></h4>
+    <pre><%= error.stack %></pre>
+    </p>
+</div>

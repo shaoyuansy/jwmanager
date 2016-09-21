@@ -50,23 +50,6 @@
 
   //Layout options
   demo_settings.append(
-      "<h4 class='control-sidebar-heading'>"
-      + "布局设置"
-      + "</h4>"
-        //Boxed layout
-      + "<div class='form-group'>"
-      + "<label class='control-sidebar-subheading'>"
-      + "<input type='checkbox' data-layout='layout-boxed'class='pull-right'/> "
-      + "盒子风格"
-      + "</label>"
-      + "</div>"
-        //Control Sidebar Skin Toggle
-      + "<div class='form-group'>"
-      + "<label class='control-sidebar-subheading'>"
-      + "<input type='checkbox' data-sidebarskin='toggle' class='pull-right'/> "
-      + "渲染颜色"
-      + "</label>"
-      + "</div>"
   );
   var skins_list = $("<ul />", {"class": 'list-unstyled clearfix'});
 
