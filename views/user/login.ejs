@@ -48,6 +48,7 @@
                     <div class="checkbox icheck">
                         <label>
                             <input type="checkbox"> 记住信息
+                            <input id="icheck" name="icheck" type="hidden" value="">
                         </label>
                     </div>
                 </div>
@@ -84,7 +85,16 @@
             radioClass: 'iradio_square-blue',
             increaseArea: '20%' // optional
         });
+        //iCheck选中事件
+        $('input').on('ifChecked', function(event){
+            document.getElementById("icheck").setAttribute("value","1");
+        });
+        //iCheck取消选中事件
+        $('input').on('ifUnchecked', function(event){
+            document.getElementById("icheck").setAttribute("value","0");
+        });
     });
+
 </script>
 </body>
 </html>
