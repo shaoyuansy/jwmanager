@@ -1,0 +1,164 @@
+<style type="text/css">
+    #edittable td{
+        text-align: right;
+        vertical-align: middle;
+    }
+</style>
+
+<div class="modal-dialog" style="margin-top: 5%;width: 70%">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">教师信息编辑</h4>
+        </div>
+
+        <div class="modal-body">
+            <div class="box">
+                <!-- box-body -->
+                <div class="box-body">
+                    <form id="teacherform" method="post" action="teacher/_editTeacher.html">
+                        <input id="ID" name="ID" type="hidden" class="form-control" value="<%= id %>">
+                            <table id="edittable" class="table table-bordered">
+                                <tr></tr>
+                                <tr>
+                                    <td style="">工号</td>
+                                    <td><input id="GH" name="GH" type="text" class="form-control" value="<%= gh %>"></td>
+                                    <td>姓名</td>
+                                    <td><input id="XM" name="XM" type="text" class="form-control" value="<%= xm %>"></td>
+                                    <td>性别</td>
+                                    <td><input id="XB" name="XB" type="text" class="form-control" value="<%= xb %>"></td>
+                                </tr>
+                                <tr>
+                                    <td>民族</td>
+                                    <td><input id="MZ" name="MZ" type="text" class="form-control" value="<%= mz %>"></td>
+                                    <td>出生年月</td>
+                                    <td><input id="CSNY" name="CSNY" type="text" class="form-control" value="<%= csny %>"></td>
+                                    <td>联系电话</td>
+                                    <td><input id="LXDH" name="LXDH" type="text" class="form-control" value="<%= lxdh %>"></td>
+                                </tr>
+                                <tr>
+                                    <td>所属教研室</td>
+                                    <td><input id="JYSDM" name="JYSDM" type="text" class="form-control" value="<%= jysdm %>"></td>
+                                    <td>入校时间</td>
+                                    <td><input id="RXSJ" name="RXSJ" type="text" class="form-control" value="<%= rxsj %>"></td>
+                                    <td>身份证号码</td>
+                                    <td><input id="SFZHM" name="SFZHM" type="text" class="form-control" value="<%= sfzhm %>"></td>
+                                </tr>
+                                <tr>
+                                    <td>分管负责人</td>
+                                    <td><input id="FGFZR" name="FGFZR" type="text" class="form-control" value="<%= fgfzr %>"></td>
+                                    <td>定职时间</td>
+                                    <td><input id="DZSJ" name="DZSJ" type="text" class="form-control" value="<%= dzsj %>"></td>
+                                    <td>任职状态</td>
+                                    <td><input id="RZZT" name="RZZT" type="text" class="form-control" value="<%= rzzt %>"></td>
+                                </tr>
+                                <tr>
+                                    <td>单位号</td>
+                                    <td><input id="DWH" name="DWH" type="text" class="form-control" value="<%= dwh %>"></td>
+                                    <td>单位名称</td>
+                                    <td><input id="DWMC" name="DWMC" type="text" class="form-control" value="<%= dwmc %>"></td>
+                                    <td>工作单位类别</td>
+                                    <td><input id="GZDWLB" name="GZDWLB" type="text" class="form-control" value="<%= gzdwlb %>"></td>
+                                </tr>
+                                <tr>
+                                    <td>学历</td>
+                                    <td><input id="XL" name="XL" type="text" class="form-control" value="<%= xl %>"></td>
+                                    <td>最高学位</td>
+                                    <td><input id="ZGXW" name="ZGXW" type="text" class="form-control" value="<%= zgxw %>"></td>
+                                    <td>专业</td>
+                                    <td><input id="ZY" name="ZY" type="text" class="form-control" value="<%= zy %>"></td>
+                                </tr>
+                                <tr>
+                                    <td>毕业时间</td>
+                                    <td><input id="BYSJ" name="BYSJ" type="text" class="form-control" value="<%= bysj %>"></td>
+                                    <td>毕业院校</td>
+                                    <td><input id="BYYX" name="BYYX" type="text" class="form-control" value="<%= byyx %>"></td>
+                                    <td>学院</td>
+                                    <td><input id="XY" name="XY" type="text" class="form-control" value="<%= xy %>"></td>
+                                </tr>
+                                <tr>
+                                    <td>专业技术职称</td>
+                                    <td><input id="ZYJSZC" name="ZYJSZC" type="text" class="form-control" value="<%= zyjszc %>"></td>
+                                    <td>学科类别</td>
+                                    <td><input id="XKLB" name="XKLB" type="text" class="form-control" value="<%= xklb %>"></td>
+                                    <td>导师类型</td>
+                                    <td><input id="DSLX" name="DSLX" type="text" class="form-control" value="<%= dslx %>"></td>
+                                </tr>
+                                <tr>
+                                    <td>地区</td>
+                                    <td><input id="DQ" name="DQ" type="text" class="form-control" value="<%= dq %>"></td>
+                                    <td>教学效果</td>
+                                    <td><input id="JXXG" name="JXXG" type="text" class="form-control" value="<%= jxxg %>"></td>
+                                    <td>初始代课时间</td>
+                                    <td><input id="CSDKSJ" name="CSDKSJ" type="text" class="form-control" value="<%= csdksj %>"></td>
+                                </tr>
+                                <tr>
+                                    <td>可授课程</td>
+                                    <td colspan="3"><textarea id="KSKC" name="KSKC" type="text" class="form-control"
+                                        style="height:5rem;"><%= kskc %></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td>是否具有工程背景</td>
+                                    <td><input id="SFJYGCBJ" name="SFJYGCBJ" type="text" class="form-control" value="<%= sfjygcbj %>"></td>
+                                    <td>是否具有行业背景</td>
+                                    <td><input id="SFJYHYBJ" name="SFJYHYBJ" type="text" class="form-control" value="<%= sfjyhybj %>"></td>
+                                    <td>是否为双师型</td>
+                                    <td><input id="SFWSSX" name="SFWSSX" type="text" class="form-control" value="<%= sfwssx %>"></td>
+                                </tr>
+                                <tr>
+                                    <td>是否上交工作证复印件</td>
+                                    <td><input id="SFSJGZZFYJ" name="SFSJGZZFYJ" type="text" class="form-control" value="<%= sfsjgzzfyj %>"></td>
+                                    <td>是否上交身份证复印件</td>
+                                    <td><input id="SFSJSFZFYJ" name="SFSJSFZFYJ" type="text" class="form-control" value="<%= sfsjsfzfyj %>"></td>
+                                    <td>是否上交教师资格证复印件</td>
+                                    <td><input id="SFSJJSZGZFYJ" name="SFSJJSZGZFYJ" type="text" class="form-control" value="<%= sfsjjszgzfyj %>"></td>
+                                </tr>
+                                <tr>
+                                    <td>是否上交学位证复印件</td>
+                                    <td><input id="SFSJXWZFYJ" name="SFSJXWZFYJ" type="text" class="form-control" value="<%= sfsjxwzfyj %>"></td>
+                                    <td>是否上交毕业证复印件</td>
+                                    <td><input id="SFSJBYZFYJ" name="SFSJBYZFYJ" type="text" class="form-control" value="<%= sfsjbyzfyj %>"></td>
+                                    <td>是否上交职称证复印件</td>
+                                    <td><input id="SFSJZCZFYJ" name="SFSJZCZFYJ" type="text" class="form-control" value="<%= sfsjzczfyj %>"></td>
+                                </tr>
+                                <tr>
+                                    <td>是否上交协议书</td>
+                                    <td><input id="SFSJXYS" name="SFSJXYS" type="text" class="form-control" value="<%= sfsjxys %>"></td>
+                                    <td>附件</td>
+                                    <td><input id="FJ" name="FJ" type="text" class="form-control" value="<%= fj %>"></td>
+                                </tr>
+                            </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" style="text-align:center;margin: auto">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" onclick="submitForm()">提交</button>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal -->
+
+<script>
+    function submitForm(){
+        $.ajax({
+            type: "post",
+            url: '/teacher/_editTeacher.html',
+            dataType: "json",
+            data: $('#teacherform').serialize(),// 你的formid 注：后台req.body由控件name获取数据
+            async: false,
+            cache: true,
+            success: function (msg) {
+                if (msg.result != 0) {
+                    alert("提交成功！");
+                    $("#modal-edit-event").modal('hide');
+                }
+                location.reload();
+            },
+            error: function (e) {
+                alert("提交失败！");
+                console.log(e);
+            }
+        });
+    }
+</script>

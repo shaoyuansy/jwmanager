@@ -14,5 +14,23 @@ router.get('/getList', function (req, res, next) {
     });
 });
 
+//删除一条教师信息记录
+router.get('/delOne', function (req, res, next) {
+    teacherDao.delete(req, res, req.query.ID, function (result) {
+        res.send({"state": result});
+    });
+});
+
+//批量删除教师信息记录
+router.get('/delSome', function (req, res, next) {
+    teacherDao.deleteSome(req, res, req.query.idstr, function (result) {
+        if (result) {
+            res.send({"result":result.affectedRows});
+        } else {
+            //编辑失败
+            res.send({"result":0});
+        }
+    });
+});
 /* 教研室服务结束. */
 module.exports = router;

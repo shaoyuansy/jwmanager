@@ -25,7 +25,6 @@ router.get('/delOne', function (req, res, next) {
 });
 //批量删除教研室信息记录
 router.get('/delSome', function (req, res, next) {
-    console.log("service:"+req.query.idstr);
     jysDao.deleteSome(req, res, req.query.idstr, function (result) {
         res.send({"state": result});
     });
