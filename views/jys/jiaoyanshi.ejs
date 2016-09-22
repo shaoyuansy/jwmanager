@@ -26,6 +26,7 @@
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">教研室信息列表</h3>
+
                 <div class="box-tools pull-right">
                     <button type="button" title="批量删除" class="btn btn-box-tool"
                             onclick="delSomeJys();">
@@ -33,16 +34,18 @@
                     <button type="button" title="添加" class="btn btn-box-tool"
                             onclick="editJys(0)">
                         <i class="fa fa-fw fa-plus-circle"></i>添加</button>
-                    <button type="button" title="导入" class="btn btn-box-tool"
-                            onclick="">
-                        <i class="fa fa-fw fa-plus-circle"></i>导入</button>
                     <button type="button" title="导出" class="btn btn-box-tool"
-                                                                                  onclick="exportData();">
+                            onclick="exportData();">
                         <i class="fa fa-fw fa-plus-circle"></i>导出</button>
+                    <button type="button" title="导入" class="btn btn-box-tool"
+                            onclick="isIE();">
+                        <i class="fa fa-fw fa-plus-circle"></i>导入</button>
                 </div>
+                <div align="right"><input type="file" id="upfile" accept=".xls,.xlsx" /></div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+
                 <table id="datatable" class="table table-bordered table-striped">
                     <thead>
                     <tr>
@@ -62,6 +65,7 @@
         <!-- /.box -->
     </section>
     <!-- /.content -->
+
 </div>
 
 <div class="modal" id="modal-edit-event"></div>
@@ -169,39 +173,118 @@
                 $.ajax({
                     type: "get",
                     url: '/jysService/delSome',
-                    dataType: "string",
+                    dataType: "json",
                     data: {idstr: idstr},
                     cache: true,
                     success: function (msg) {
-                        location.reload();
+                        if (msg.state == 1) {
+                            alert("删除成功");
+                        }
                     },
                     error: function (e) {
                         console.log(e);
-                        location.reload();
                     }
                 });
+                location.reload();
             }
         }else{
             alert("请至少选择一项");
         }
     }
+
     //批量导出
     function exportData() {
-        //遍历所有checkbox,未选中选项设置class为noExl
+        //定义一个flag判断存在单选框被选中
+        var flag = false;
+        //遍历所有checkbox,未选中选项所在行设置class为noExl
         $('input[type="checkbox"][name="checkbox2"]').each(function () {
             if(this.checked == false){
-                alert(this.parentNode.parentNode.classList = "noExl");
+                //设置该checkbox所在行的class属性为noExl
+                this.parentNode.parentNode.classList = "noExl";
+            }else if(this.checked == true){
+                flag = true;
             }
+        });
+        if(flag){
+            $("#datatable").table2excel({
+                exclude: ".noExl",//有class = “noExl” 的行不被导出；
+                name: "Excel Document Name",
+                filename: "myFileName",
+                exclude_img: true,
+                exclude_links: true,
+                exclude_inputs: true
+            });
+        }else{
+            alert("请至少选择一项");
+        }
+    }
 
-        });
-        $("#datatable").table2excel({
-            exclude: ".noExl",//有class = “noExl” 的行不被导出；
-            name: "Excel Document Name",
-            filename: "myFileName",
-            exclude_img: true,
-            exclude_links: true,
-            exclude_inputs: true
-        });
+    //判断当前浏览器是否为IE（支持IE11）
+    function isIE(){
+        var flag = "ActiveXObject" in window;
+        if (flag){
+            ReadExcel();
+        }else{
+            alert("导入功能暂不支持IE外的浏览器");
+        }
+    }
+
+    //导入excel并将数据存储到数据库
+    function ReadExcel() {
+        //得到文件路径的值
+        var filePath = document.getElementById("upfile").value;
+        //判断是否选择文件
+        if(filePath != ""){
+            var oXL = new ActiveXObject("Excel.application");
+            //打开指定路径的excel文件
+            var oWB = oXL.Workbooks.open(filePath);
+            //操作第一个sheet(从一开始，而非零)
+            oWB.worksheets(1).select();
+            var oSheet = oWB.ActiveSheet;
+            //使用的行数
+            var rows =  oSheet .usedrange.rows.count;
+            try {
+                //验证表格格式--即验证表单表头是否与格式匹配
+                if(oSheet.Cells(1, 1).value == "教研室编号"&&oSheet.Cells(1, 2).value == "教研室名称"&&oSheet.Cells(1, 3).value == "教研室主任"){
+                    var flag = true;
+                    for (var i = 2; i <=rows; i++) {
+                        if (!flag) break;
+                        //将表格第i行数据拼接成字符串
+                        var str = oSheet.Cells(i, 1).value +"," + oSheet.Cells(i, 2).value + "," + oSheet.Cells(i, 3).value;
+                        $.ajax({
+                            type: "get",
+                            url: '/jysService/insertSome',
+                            dataType: "json",
+                            data: {str: str},
+                            cache: false,
+                            async:false,//同步
+                            success: function (result) {
+
+                            },
+                            error: function (e) {
+                                flag = false;
+                                alert("出错了");
+                                console.log(e);
+                            }
+                        });
+                    }
+                    if(flag){
+                        alert("导入成功");
+                    }
+                    location.reload();
+                }else{
+                    alert("表格格式错误");
+                }
+            } catch(e) {
+                console.log(e);
+            }
+            //退出操作excel的实例对象
+            oXL.Application.Quit();
+            //手动调用垃圾收集器
+            CollectGarbage();
+        }else{
+            alert("请选择一个文件");
+        }
     }
 
 </script>
