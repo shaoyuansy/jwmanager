@@ -7,14 +7,20 @@ var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
 //路由配置开始
 
-var index = require('./routes/index');
+//登录
 var login = require('./routes/user/login');
+//首页
+var index = require('./routes/index');
+//教师信息
+var teacher = require('./routes/teacher/teacher');
 //教研室信息
 var jys = require('./routes/jys/jiaoyanshi');
 
 
 
-
+//服务类Service路由
+//教师服务
+var teacherService = require('./routes/service/teacherService');
 //教研室服务
 var jysService = require('./routes/service/jysService');
 //路由配置结束
@@ -59,12 +65,15 @@ app.use(function (req, res, next) {
 });
 
 //路由地址配置
+app.use('/', index);
 app.use('/index', index);
 app.use('/login', login);
+app.use('/teacher', teacher);
 app.use('/jys',jys);
 
 //服务路由地址配置
 app.use('/jysService',jysService);
+app.use('/teacherService',teacherService);
 //路由地址配置结束
 
 // catch 404 and forward to error handler
