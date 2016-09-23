@@ -26,23 +26,38 @@
                                     <td>姓名</td>
                                     <td><input id="XM" name="XM" type="text" class="form-control" value="<%= xm %>"></td>
                                     <td>性别</td>
-                                    <td><input id="XB" name="XB" type="text" class="form-control" value="<%= xb %>"></td>
+                                    <td style="text-align: left;">
+                                        <select class="form-control select2" id="XB" name="XB" style="width: 100%">
+                                            <option>男</option>
+                                            <option>女</option>
+                                        </select>
+                                        <input id="XBTEMP" name="XBTEMP" type="hidden" value="<%= xb %>">
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>民族</td>
-                                    <td><input id="MZ" name="MZ" type="text" class="form-control" value="<%= mz %>"></td>
                                     <td>出生年月</td>
                                     <td><input id="CSNY" name="CSNY" type="text" class="form-control" value="<%= csny %>"></td>
-                                    <td>联系电话</td>
-                                    <td><input id="LXDH" name="LXDH" type="text" class="form-control" value="<%= lxdh %>"></td>
+                                    <td>民族</td>
+                                    <td style="text-align: left;">
+                                        <select class="form-control select2" id="MZ" name="MZ" style="width: 100%">
+                                            <option value="汉族">汉族</option>
+                                            <option value="壮族">壮族</option>
+                                            <option value="满族">满族</option>
+                                            <option value="回族">回族</option>
+                                            <option value="其他">其他</option>
+                                        </select>
+                                        <input id="MZTEMP" name="MZTEMP" type="hidden" value="<%= mz %>">
+                                    </td>
+                                    <td>身份证号码</td>
+                                    <td><input id="SFZHM" name="SFZHM" type="text" class="form-control" value="<%= sfzhm %>"></td>
                                 </tr>
                                 <tr>
+                                    <td>联系电话</td>
+                                    <td><input id="LXDH" name="LXDH" type="text" class="form-control" value="<%= lxdh %>"></td>
                                     <td>所属教研室</td>
                                     <td><input id="JYSDM" name="JYSDM" type="text" class="form-control" value="<%= jysdm %>"></td>
                                     <td>入校时间</td>
                                     <td><input id="RXSJ" name="RXSJ" type="text" class="form-control" value="<%= rxsj %>"></td>
-                                    <td>身份证号码</td>
-                                    <td><input id="SFZHM" name="SFZHM" type="text" class="form-control" value="<%= sfzhm %>"></td>
                                 </tr>
                                 <tr>
                                     <td>分管负责人</td>
@@ -50,7 +65,13 @@
                                     <td>定职时间</td>
                                     <td><input id="DZSJ" name="DZSJ" type="text" class="form-control" value="<%= dzsj %>"></td>
                                     <td>任职状态</td>
-                                    <td><input id="RZZT" name="RZZT" type="text" class="form-control" value="<%= rzzt %>"></td>
+                                    <td style="text-align: left;">
+                                        <select class="form-control select2" id="RZZT" name="RZZT" style="width: 100%">
+                                            <option>在职</option>
+                                            <option>离职</option>
+                                        </select>
+                                        <input id="RZZTTEMP" name="RZZTTEMP" type="hidden" value="<%= rzzt %>">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>单位号</td>
@@ -58,13 +79,40 @@
                                     <td>单位名称</td>
                                     <td><input id="DWMC" name="DWMC" type="text" class="form-control" value="<%= dwmc %>"></td>
                                     <td>工作单位类别</td>
-                                    <td><input id="GZDWLB" name="GZDWLB" type="text" class="form-control" value="<%= gzdwlb %>"></td>
+                                    <td style="text-align: left;">
+                                        <select class="form-control select2" id="GZDWLB" name="GZDWLB" style="width: 100%">
+                                            <option>行政单位</option>
+                                            <option>科研单位</option>
+                                            <option>高等学校</option>
+                                            <option>其他事业单位</option>
+                                            <option>企业公司</option>
+                                            <option>部队及其他单位</option>
+                                            <option>其他</option>
+                                        </select>
+                                        <input id="GZDWLBTEMP" name="GZDWLBTEMP" type="hidden" value="<%= gzdwlb %>">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>学历</td>
-                                    <td><input id="XL" name="XL" type="text" class="form-control" value="<%= xl %>"></td>
+                                    <td style="text-align: left;">
+                                        <select class="form-control select2" id="XL" name="XL" style="width: 100%">
+                                            <option>博士研究生</option>
+                                            <option>硕士研究生</option>
+                                            <option>本科</option>
+                                            <option>专科及以下</option>
+                                        </select>
+                                        <input id="XLTEMP" name="XLTEMP" type="hidden" value="<%= xl %>">
+                                    </td>
                                     <td>最高学位</td>
-                                    <td><input id="ZGXW" name="ZGXW" type="text" class="form-control" value="<%= zgxw %>"></td>
+                                    <td style="text-align: left;">
+                                        <select class="form-control select2" id="ZGXW" name="ZGXW" style="width: 100%">
+                                            <option>博士</option>
+                                            <option>硕士</option>
+                                            <option>学士</option>
+                                            <option>无学位</option>
+                                        </select>
+                                        <input id="ZGXWTEMP" name="ZGXWTEMP" type="hidden" value="<%= zgxw %>">
+                                    </td>
                                     <td>专业</td>
                                     <td><input id="ZY" name="ZY" type="text" class="form-control" value="<%= zy %>"></td>
                                 </tr>
@@ -73,37 +121,97 @@
                                     <td><input id="BYSJ" name="BYSJ" type="text" class="form-control" value="<%= bysj %>"></td>
                                     <td>毕业院校</td>
                                     <td><input id="BYYX" name="BYYX" type="text" class="form-control" value="<%= byyx %>"></td>
-                                    <td>学院</td>
-                                    <td><input id="XY" name="XY" type="text" class="form-control" value="<%= xy %>"></td>
+                                    <td>学缘</td>
+                                    <td style="text-align: left;">
+                                        <select class="form-control select2" id="XY" name="XY" style="width: 100%">
+                                            <option>本校</option>
+                                            <option>外校（境内）</option>
+                                            <option>外校（境外）</option>
+                                        </select>
+                                        <input id="XYTEMP" name="XYTEMP" type="hidden" value="<%= xy %>">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>专业技术职称</td>
-                                    <td><input id="ZYJSZC" name="ZYJSZC" type="text" class="form-control" value="<%= zyjszc %>"></td>
+                                    <td style="text-align: left;">
+                                        <select class="form-control select2" id="ZYJSZC" name="ZYJSZC" style="width: 100%">
+                                            <option value="教授">教授</option>
+                                            <option value="副教授">副教授</option>
+                                            <option value="讲师">讲师</option>
+                                            <option value="助教">助教</option>
+                                            <option value="其他正高级">其他正高级</option>
+                                            <option value="其他副高级">其他副高级</option>
+                                            <option value="其他中级">其他中级</option>
+                                            <option value="其他初级">其他初级</option>
+                                            <option value="未评级">未评级</option>
+                                        </select>
+                                        <input id="ZYJSZCTEMP" name="ZYJSZCTEMP" type="hidden" value="<%= zyjszc %>">
+                                    </td>
                                     <td>学科类别</td>
                                     <td><input id="XKLB" name="XKLB" type="text" class="form-control" value="<%= xklb %>"></td>
                                     <td>导师类型</td>
-                                    <td><input id="DSLX" name="DSLX" type="text" class="form-control" value="<%= dslx %>"></td>
+                                    <td style="text-align: left;">
+                                        <select class="form-control select2" id="DSLX" name="DSLX" style="width: 100%">
+                                            <option>博士、硕士导师</option>
+                                            <option>博士导师</option>
+                                            <option>硕士导师</option>
+                                            <option>无</option>
+                                        </select>
+                                        <input id="DSLXTEMP" name="DSLXTEMP" type="hidden" value="<%= dslx %>">
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>地区</td>
-                                    <td><input id="DQ" name="DQ" type="text" class="form-control" value="<%= dq %>"></td>
+                                    <td>地区<br>（受聘前工作所在地）</td>
+                                    <td style="text-align: left;">
+                                        <select class="form-control select2" id="DQ" name="DQ" style="width: 100%">
+                                            <option>境内</option>
+                                            <option>境外（国外及港澳台）</option>
+                                        </select>
+                                        <input id="DQTEMP" name="DQTEMP" type="hidden" value="<%= dq %>">
+                                    </td>
                                     <td>教学效果</td>
-                                    <td><input id="JXXG" name="JXXG" type="text" class="form-control" value="<%= jxxg %>"></td>
+                                    <td style="text-align: left;">
+                                        <select class="form-control select2" id="JXXG" name="JXXG" style="width: 100%">
+                                            <option value="优秀">优秀</option>
+                                            <option value="良好">良好</option>
+                                            <option value="一般">一般</option>
+                                            <option value="差">差</option>
+                                        </select>
+                                        <input id="JXXGTEMP" name="JXXGTEMP" type="hidden" value="<%= jxxg %>">
+                                    </td>
                                     <td>初始代课时间</td>
                                     <td><input id="CSDKSJ" name="CSDKSJ" type="text" class="form-control" value="<%= csdksj %>"></td>
                                 </tr>
                                 <tr>
                                     <td>可授课程</td>
-                                    <td colspan="3"><textarea id="KSKC" name="KSKC" type="text" class="form-control"
-                                        style="height:5rem;"><%= kskc %></textarea></td>
+                                    <td colspan="4"><textarea id="KSKC" name="KSKC" type="text" class="form-control"
+                                        style="height:3.5rem;"><%= kskc %></textarea></td>
                                 </tr>
                                 <tr>
-                                    <td>是否具有工程背景</td>
-                                    <td><input id="SFJYGCBJ" name="SFJYGCBJ" type="text" class="form-control" value="<%= sfjygcbj %>"></td>
-                                    <td>是否具有行业背景</td>
-                                    <td><input id="SFJYHYBJ" name="SFJYHYBJ" type="text" class="form-control" value="<%= sfjyhybj %>"></td>
                                     <td>是否为双师型</td>
-                                    <td><input id="SFWSSX" name="SFWSSX" type="text" class="form-control" value="<%= sfwssx %>"></td>
+                                    <td style="text-align: left;">
+                                        <select class="form-control select2" id="SFWSSX" name="SFWSSX" style="width: 100%">
+                                            <option value="是">是</option>
+                                            <option value="否">否</option>
+                                        </select>
+                                        <input id="SFWSSXTEMP" name="SFWSSXTEMP" type="hidden" value="<%= sfwssx %>">
+                                    </td>
+                                    <td>是否具有工程背景</td>
+                                    <td style="text-align: left;">
+                                        <select class="form-control select2" id="SFJYGCBJ" name="SFJYGCBJ" style="width: 100%">
+                                            <option value="是">是</option>
+                                            <option value="否">否</option>
+                                        </select>
+                                        <input id="SFJYGCBJTEMP" name="SFJYGCBJTEMP" type="hidden" value="<%= sfjygcbj %>">
+                                    </td>
+                                    <td>是否具有行业背景</td>
+                                    <td style="text-align: left;">
+                                        <select class="form-control select2" id="SFJYHYBJ" name="SFJYHYBJ" style="width: 100%">
+                                            <option value="是">是</option>
+                                            <option value="否">否</option>
+                                        </select>
+                                        <input id="SFJYHYBJTEMP" name="SFJYHYBJTEMP" type="hidden" value="<%= sfjyhybj %>">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>是否上交工作证复印件</td>
@@ -140,6 +248,154 @@
 </div><!-- /.modal -->
 
 <script>
+    $(document).ready(function () {
+    //性别下拉选择
+        //注册Select2控件节点
+        var $xbs = $("#XB").select2();
+        //获取select控件
+        var xbs = document.getElementById("XB");
+        //给select赋值为option
+        xbs.value = $("#XBTEMP").val();
+        //设置select2动态显示
+        for(var i=0;i<xbs.length;i++) {
+            if (xbs.options[i].value == $("#XBTEMP").val()) {
+                $xbs.val(xbs.options[i].value).trigger("change");
+                break;
+            }
+        }
+    //民族下拉选择
+        var $mzs = $("#MZ").select2();
+        var mzs = document.getElementById("MZ");
+        mzs.value = $("#MZTEMP").val();
+        for(var i=0;i<mzs.length;i++) {
+            if (mzs.options[i].value == $("#MZTEMP").val()) {
+                $mzs.val(mzs.options[i].value).trigger("change");
+                break;
+            }
+        }
+    //专业技术职称下拉选择
+        var $zyjszcs = $("#ZYJSZC").select2();
+        var zyjszcs = document.getElementById("ZYJSZC");
+        zyjszcs.value = $("#ZYJSZCTEMP").val();
+        for(var i=0;i<zyjszcs.length;i++) {
+            if (zyjszcs.options[i].value == $("#ZYJSZCTEMP").val()) {
+                $zyjszcs.val(zyjszcs.options[i].value).trigger("change");
+                break;
+            }
+        }
+    //任职状态下拉选择
+        var $rzzts = $("#RZZT").select2();
+        var rzzts = document.getElementById("RZZT");
+        rzzts.value = $("#RZZTTEMP").val();
+        for(var i=0;i<rzzts.length;i++) {
+            if (rzzts.options[i].value == $("#RZZTTEMP").val()) {
+                $rzzts.val(rzzts.options[i].value).trigger("change");
+                break;
+            }
+        }
+    //工作单位类别下拉选择
+        var $gzdwlbs = $("#GZDWLB").select2();
+        var gzdwlbs = document.getElementById("GZDWLB");
+        gzdwlbs.value = $("#GZDWLBTEMP").val();
+        for(var i=0;i<gzdwlbs.length;i++) {
+            if (gzdwlbs.options[i].value == $("#GZDWLBTEMP").val()) {
+                $gzdwlbs.val(gzdwlbs.options[i].value).trigger("change");
+                break;
+            }
+        }
+    //学历下拉选择
+        var $xls = $("#XL").select2();
+        var xls = document.getElementById("XL");
+        xls.value = $("#XLTEMP").val();
+        for(var i=0;i<xls.length;i++) {
+            if (xls.options[i].value == $("#XLTEMP").val()) {
+                $xls.val(xls.options[i].value).trigger("change");
+                break;
+            }
+        }
+    //最高学位下拉选择
+        var $zgxws = $("#ZGXW").select2();
+        var zgxws = document.getElementById("ZGXW");
+        zgxws.value = $("#ZGXWTEMP").val();
+        for(var i=0;i<zgxws.length;i++) {
+            if (zgxws.options[i].value == $("#ZGXWTEMP").val()) {
+                $zgxws.val(zgxws.options[i].value).trigger("change");
+                break;
+            }
+        }
+    //导师类型下拉选择
+        var $dslxs = $("#DSLX").select2();
+        var dslxs = document.getElementById("DSLX");
+        dslxs.value = $("#DSLXTEMP").val();
+        for(var i=0;i<dslxs.length;i++) {
+            if (dslxs.options[i].value == $("#DSLXTEMP").val()) {
+                $dslxs.val(dslxs.options[i].value).trigger("change");
+                break;
+            }
+        }
+    //学缘下拉选择
+        var $xys = $("#XY").select2();
+        var xys = document.getElementById("XY");
+        xys.value = $("#XYTEMP").val();
+        for(var i=0;i<xys.length;i++) {
+            if (xys.options[i].value == $("#XYTEMP").val()) {
+                $xys.val(xys.options[i].value).trigger("change");
+                break;
+            }
+        }
+    //地区下拉选择
+        var $dqs = $("#DQ").select2();
+        var dqs = document.getElementById("DQ");
+        dqs.value = $("#DQTEMP").val();
+        for(var i=0;i<dqs.length;i++) {
+            if (dqs.options[i].value == $("#DQTEMP").val()) {
+                $dqs.val(dqs.options[i].value).trigger("change");
+                break;
+            }
+        }
+    //教学效果下拉选择
+        var $jxxgs = $("#JXXG").select2();
+        var jxxgs = document.getElementById("JXXG");
+        jxxgs.value = $("#JXXGTEMP").val();
+        for(var i=0;i<jxxgs.length;i++) {
+            if (jxxgs.options[i].value == $("#JXXGTEMP").val()) {
+                $jxxgs.val(jxxgs.options[i].value).trigger("change");
+                break;
+            }
+        }
+    //是否双师型下拉选择
+        var $sfsssxs = $("#SFWSSX").select2();
+        var sfsssx = document.getElementById("SFWSSX");
+        sfsssx.value = $("#SFWSSXTEMP").val();
+        for(var i=0;i<sfsssx.length;i++) {
+            if (sfsssx.options[i].value == $("#SFWSSXTEMP").val()) {
+                $sfsssxs.val(sfsssx.options[i].value).trigger("change");
+                break;
+            }
+        }
+    //是否具有行业背景下拉选择
+        var $sfjyhybjs = $("#SFJYHYBJ").select2();
+        var sfjyhybjs = document.getElementById("SFJYHYBJ");
+        sfjyhybjs.value = $("#SFJYHYBJTEMP").val();
+        for(var i=0;i<sfjyhybjs.length;i++) {
+            if (sfjyhybjs.options[i].value == $("#SFJYHYBJTEMP").val()) {
+                $sfjyhybjs.val(sfjyhybjs.options[i].value).trigger("change");
+                break;
+            }
+        }
+    //是否具有工程背景下拉选择
+        var $sfjygcbjs = $("#SFJYGCBJ").select2();
+        var sfjygcbjs = document.getElementById("SFJYGCBJ");
+        sfjygcbjs.value = $("#SFJYGCBJTEMP").val();
+        for(var i=0;i<sfjygcbjs.length;i++) {
+            if (sfjygcbjs.options[i].value == $("#SFJYGCBJTEMP").val()) {
+                $sfjygcbjs.val(sfjygcbjs.options[i].value).trigger("change");
+                break;
+            }
+        }
+
+    });
+
     function submitForm(){
         $.ajax({
             type: "post",
