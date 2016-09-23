@@ -3,7 +3,6 @@
 <script src="../javascripts/mydatatable.js"></script>
 <!-- table2excel导出 -->
 <script src="/table2excel/jquery.table2excel.js"></script>
-
 <!-- page script -->
 
 <!-- 页面内容 content -->
@@ -35,13 +34,22 @@
                             onclick="editJys(0)">
                         <i class="fa fa-fw fa-plus-circle"></i>添加</button>
                     <button type="button" title="导出" class="btn btn-box-tool"
-                            onclick="exportData();">
+                            onclick="toExcel('datatable','');">
                         <i class="fa fa-fw fa-plus-circle"></i>导出</button>
                     <button type="button" title="导入" class="btn btn-box-tool"
                             onclick="isIE();">
                         <i class="fa fa-fw fa-plus-circle"></i>导入</button>
                 </div>
-                <div align="right"><input type="file" id="upfile" accept=".xls,.xlsx" /></div>
+                <div style="margin-top: 1%">
+                    <div style="float: left;margin-left: 2%">当前显示的列：&nbsp;&nbsp;&nbsp;&nbsp;
+                        教研室编号：<input id="checkbox3" name="checkbox3" type="checkbox" value="1">&nbsp;&nbsp;&nbsp;&nbsp;
+                        教研室名称：<input id="checkbox3" name="checkbox3" type="checkbox" value="2">&nbsp;&nbsp;&nbsp;&nbsp;
+                        教研室主任：<input id="checkbox3" name="checkbox3" type="checkbox" value="3">&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div style="float: right">
+                        <input type="file" id="upfile" accept=".xls,.xlsx" />
+                    </div>
+                </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -65,6 +73,7 @@
         <!-- /.box -->
     </section>
     <!-- /.content -->
+
 
 </div>
 
@@ -118,6 +127,21 @@
             }
         ];
         mytable = CreateDataTable('#datatable', '/jysService/getList', columns);
+
+        //初始化当前显示列的checkbox判断是否选中
+        $('input[type="checkbox"][name="checkbox3"]').each(function () {
+            // Get the column API object
+            var column = $("#datatable").DataTable().column( $(this).val() );
+            // Toggle the visibility
+            this.checked = column.visible();
+        });
+
+        $('input[type="checkbox"][name="checkbox3"]').change( function () {
+            // Get the column API object
+            var column = $("#datatable").DataTable().column( $(this).val() );
+            // Toggle the visibility
+            column.visible( ! column.visible() );
+        });
     });
 
     //编辑
@@ -192,33 +216,6 @@
         }
     }
 
-    //批量导出
-    function exportData() {
-        //定义一个flag判断存在单选框被选中
-        var flag = false;
-        //遍历所有checkbox,未选中选项所在行设置class为noExl
-        $('input[type="checkbox"][name="checkbox2"]').each(function () {
-            if(this.checked == false){
-                //设置该checkbox所在行的class属性为noExl
-                this.parentNode.parentNode.classList = "noExl";
-            }else if(this.checked == true){
-                flag = true;
-            }
-        });
-        if(flag){
-            $("#datatable").table2excel({
-                exclude: ".noExl",//有class = “noExl” 的行不被导出；
-                name: "Excel Document Name",
-                filename: "myFileName",
-                exclude_img: true,
-                exclude_links: true,
-                exclude_inputs: true
-            });
-        }else{
-            alert("请至少选择一项");
-        }
-    }
-
     //判断当前浏览器是否为IE（支持IE11）
     function isIE(){
         var flag = "ActiveXObject" in window;
@@ -286,5 +283,155 @@
             alert("请选择一个文件");
         }
     }
+
+    function toExcel(inTblId, inWindow) {
+        if ("ActiveXObject" in window) { //如果是IE浏览器
+            try {
+                var allStr = ""; var curStr = "";
+                if (inTblId != null && inTblId != "" && inTblId != "null") {
+                    curStr = getTblData(inTblId, inWindow);
+                }
+                if (curStr != null) {
+                    allStr += curStr;
+                }
+                else {
+                    alert("你要导出的表不存在！");
+                    return;
+                }
+                var fileName = getExcelFileName();
+                doFileExport(fileName, allStr);
+            }
+            catch (e) {
+                alert("导出发生异常:" + e.name + "->" + e.description + "!");
+            }
+        } else {
+            exportData();//批量导出(非IE浏览器)
+        }
+    }
+
+    //批量导出(非IE浏览器)
+    function exportData() {
+        //定义一个flag判断存在单选框被选中
+        var flag = false;
+        //遍历所有checkbox,未选中选项所在行设置class为noExl
+        $('input[type="checkbox"][name="checkbox2"]').each(function () {
+            if(this.checked == false){
+                //设置该checkbox所在行的class属性为noExl
+                this.parentNode.parentNode.classList = "noExl";
+            }else if(this.checked == true){
+                this.parentNode.parentNode.classList = "";
+                flag = true;
+            }
+        });
+        if(flag){
+            $("#datatable").table2excel({
+                exclude: ".noExl",//有class = “noExl” 的行不被导出；
+                name: "Excel Document Name",
+                filename: "教研室信息表",
+                exclude_img: true,
+                exclude_links: true,
+                exclude_inputs: true
+            });
+        }else{
+            alert("请至少选择一项");
+        }
+    }
+
+    function getTblData(inTbl, inWindow) {
+        var rows = 0; var tblDocument = document;
+        if (!!inWindow && inWindow != "") {
+            if (!document.all(inWindow)) {
+                return null;
+            } else {
+                tblDocument = eval(inWindow).document;
+            }
+        }
+        var curTbl = tblDocument.getElementById(inTbl);
+        if (curTbl.rows.length > 65000) {
+            alert('源行数不能大于65000行');
+            return false;
+        }
+        if (curTbl.rows.length <= 1) {
+            alert('数据源没有数据');
+            return false;
+        }
+        var outStr = "";
+
+        if (curTbl != null) {
+            var flag = true;
+            for (var j = 0; j < curTbl.rows.length; j++) {
+                for (var i = 1; i < curTbl.rows[j].cells.length-1; i++) {
+                    if (i == 1 && rows > 0) {
+                        outStr += " \t"; rows -= 1;
+                    }
+//                    var tc = curTbl.rows[j].cells[i];
+                    if (curTbl.rows[j].cells[0].firstChild.type.toLowerCase() == "checkbox") {
+                        if (curTbl.rows[j].cells[0].firstChild.checked == true) {
+                            flag = true;
+                        } else {
+                            flag = false;
+                        }
+                    }
+                    if(flag||j==0){
+                        outStr += " " + curTbl.rows[j].cells[i].innerText + "\t";
+                        if (curTbl.rows[j].cells[i].colSpan > 1) {
+                            for (var k = 0; k < curTbl.rows[j].cells[i].colSpan - 1; k++) {
+                                outStr += " \t";
+                            }
+                        }
+                    }
+                    if (i == 0) {
+                        if (rows == 0 && curTbl.rows[j].cells[i].rowSpan > 1) {
+                            rows = curTbl.rows[j].cells[i].rowSpan - 1;
+                        }
+                    }
+                }
+                if(flag||j==0){
+                    outStr += "\r\n";
+                }
+            }
+        } else {
+            outStr = null; alert(inTbl + "不存在!");
+        }
+        return outStr;
+    }
+    function getExcelFileName() {
+        var d = new Date(); var curYear = d.getYear(); var curMonth = "" + (d.getMonth() + 1);
+        var curDate = "" + d.getDate(); var curHour = "" + d.getHours(); var curMinute = "" +
+                d.getMinutes(); var curSecond = "" + d.getSeconds();
+        if (curMonth.length == 1) {
+            curMonth = "0" + curMonth;
+        }
+        if (curDate.length == 1) {
+            curDate = "0" + curDate;
+        }
+        if (curHour.length == 1) {
+            curHour = "0" + curHour;
+        }
+        if (curMinute.length == 1) {
+            curMinute = "0" + curMinute;
+        }
+        if (curSecond.length == 1) {
+            curSecond = "0" + curSecond;
+        }
+        var fileName = "教研室信息表.xls";
+        return fileName;
+    }
+    function doFileExport(inName, inStr) {
+        var xlsWin = null;
+        if (!!document.all("glbHideFrm")) {
+            xlsWin = glbHideFrm;
+        } else {
+            var width = 1; var height = 1;
+            var openPara = "left=" + (window.screen.width / 2 + width / 2) + ",top=" + (window.screen.height + height / 2) +
+                    ",scrollbars=no,width=" + width + ",height=" + height;
+            xlsWin = window.open("", "_blank", openPara);
+        }
+        xlsWin.document.write(inStr);
+        xlsWin.document.close();
+        xlsWin.document.execCommand('Saveas', true, inName);
+        xlsWin.close();
+    }
+
 
 </script>
