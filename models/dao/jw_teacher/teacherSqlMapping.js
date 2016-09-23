@@ -14,6 +14,7 @@ var teacher = {
     'DZSJ=?,RZZT=?,DWH=?,DWMC=?,GZDWLB=?,XL=?,ZGXW=?,ZY=?,BYSJ=?,BYYX=?,XY=?,ZYJSZC=?,XKLB=?,SFWSSX=?,SFJYGCBJ=?,' +
     'SFJYHYBJ=?,DSLX=?,DQ=?,KSKC=?,CSDKSJ=?,JXXG=?,SFSJSFZFYJ=?,SFSJBYZFYJ=?,SFSJXWZFYJ=?,SFSJZCZFYJ=?,SFSJJSZGZFYJ=?,' +
     'SFSJGZZFYJ=?,SFSJXYS=?,FJ=? WHERE ID=?;',
-    delete: 'DELETE FROM jw_teacher WHERE ID=?;'
+    delete: 'DELETE FROM jw_teacher WHERE ID=?;',
+    queryByJys: 'SELECT DISTINCT t.ZYJSZC AS \'专业技术职称\',COUNT(t.ZYJSZC) AS \'人数\' FROM jw_teacher AS t LEFT JOIN jw_jys AS j ON j.JYSBH=t.JYSDM WHERE j.JYSMC=? group by t.ZYJSZC'
 };
 module.exports = teacher;

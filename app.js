@@ -15,7 +15,8 @@ var index = require('./routes/index');
 var teacher = require('./routes/teacher/teacher');
 //教研室信息
 var jys = require('./routes/jys/jiaoyanshi');
-
+//信息统计
+var chart = require('./routes/chart/chart');
 
 
 //服务类Service路由
@@ -70,6 +71,7 @@ app.use('/index', index);
 app.use('/login', login);
 app.use('/teacher', teacher);
 app.use('/jys',jys);
+app.use('/chart',chart);
 
 //服务路由地址配置
 app.use('/jysService',jysService);

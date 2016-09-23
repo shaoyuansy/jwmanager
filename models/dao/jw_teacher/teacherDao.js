@@ -70,3 +70,13 @@ exports.deleteSome = function (req, res, idstr, fn) {
         });
     });
 };
+
+/* 获取数据列表信息 BY 教研室名称*/
+exports.queryByJys = function (req, res, JYSMC, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.queryByJys, [JYSMC], function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};

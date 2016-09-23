@@ -1,0 +1,149 @@
+<script type="text/javascript" src="/chart/highcharts.js"></script>
+<script type="text/javascript" src="/chart/exporting.js"></script>
+
+<!-- 页面内容 content -->
+<div class="content-wrapper">
+    <!-- 页面内容 Header -->
+    <section class="content-header">
+        <h1>
+            统计信息页面
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+            <li class="active">统计信息</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- /.box -->
+
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">统计信息</h3>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div id="container" style="min-width:700px;height:400px"></div>
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+
+
+</div>
+
+
+<script>
+    var jiaoshouArr = new Array();
+    var fujiaoshouArr = new Array();
+    var jiangshiArr = new Array();
+    var zhujiaoArr = new Array();
+    $(document).ready(function () {
+
+        getDataByJys("软件工程");
+        getDataByJys("物联网工程");
+        getDataByJys("数字媒体");
+    });
+
+    function getDataByJys(jysmc){
+        $.ajax({
+            type: "get",
+            url: '/chart/getListByJys',
+            data:{JYSMC:jysmc},
+            cache: true,
+            success: function (msg) {
+                var jiaoshou = 0, fujiaoshou = 0, jiangshi = 0, zhujiao = 0;
+                for (var i = 0; i < msg.data.length; i++) {
+                    var zyjszc = msg.data[i].专业技术职称;
+                    switch (zyjszc){
+                        case '教授':
+                            jiaoshou = msg.data[i].人数;
+                            break;
+                        case '副教授':
+                            fujiaoshou = msg.data[i].人数;
+                            break;
+                        case '讲师':
+                            jiangshi = msg.data[i].人数;
+                            break;
+                        case '助教':
+                            zhujiao = msg.data[i].人数;
+                            break;
+                    }
+                }
+                jiaoshouArr.push(jiaoshou);
+                fujiaoshouArr.push(fujiaoshou);
+                jiangshiArr.push(jiangshi);
+                zhujiaoArr.push(zhujiao);
+                if(jysmc == "数字媒体"){
+                    huatu();
+                }
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    }
+
+    function huatu(){
+        $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: '教研室各职称教师个数'
+            },
+            xAxis: {
+                categories: [
+                    '软件工程',
+                    '物联网工程',
+                    '数字媒体',
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '数目 (个)'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y} 个</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: '教授',
+                data: jiaoshouArr
+
+            }, {
+                name: '副教授',
+                data: fujiaoshouArr
+
+            }, {
+                name: '讲师',
+                data: jiangshiArr
+
+            }, {
+                name: '助教',
+                data: zhujiaoArr
+
+            }]
+        });
+    }
+</script>
