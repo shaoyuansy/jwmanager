@@ -39,10 +39,11 @@
 
 
 <script>
-    var jiaoshouArr = new Array();
-    var fujiaoshouArr = new Array();
-    var jiangshiArr = new Array();
-    var zhujiaoArr = new Array();
+    var jiaoshouArr = new Array();//教授
+    var fujiaoshouArr = new Array();//副教授
+    var jiangshiArr = new Array();//讲师
+    var zhujiaoArr = new Array();//助教
+    var wpjArr = new Array();//未评级
     $(document).ready(function () {
 
         getDataByJys("软件工程");
@@ -57,7 +58,7 @@
             data:{JYSMC:jysmc},
             cache: true,
             success: function (msg) {
-                var jiaoshou = 0, fujiaoshou = 0, jiangshi = 0, zhujiao = 0;
+                var jiaoshou = 0, fujiaoshou = 0, jiangshi = 0, zhujiao = 0, wpj = 0;
                 for (var i = 0; i < msg.data.length; i++) {
                     var zyjszc = msg.data[i].专业技术职称;
                     switch (zyjszc){
@@ -73,12 +74,28 @@
                         case '助教':
                             zhujiao = msg.data[i].人数;
                             break;
+                        case '其他正高级':
+                            jiaoshou = msg.data[i].人数;
+                            break;
+                        case '其他副高级':
+                            fujiaoshou = msg.data[i].人数;
+                            break;
+                        case '其他中级':
+                            jiangshi = msg.data[i].人数;
+                            break;
+                        case '其他初级':
+                            zhujiao = msg.data[i].人数;
+                            break;
+                        case '未评级':
+                            wpj = msg.data[i].人数;
+                            break;
                     }
                 }
                 jiaoshouArr.push(jiaoshou);
                 fujiaoshouArr.push(fujiaoshou);
                 jiangshiArr.push(jiangshi);
                 zhujiaoArr.push(zhujiao);
+                wpjArr.push(wpj);
                 if(jysmc == "数字媒体"){
                     huatu();
                 }
@@ -128,20 +145,28 @@
                 }
             },
             series: [{
-                name: '教授',
+                name: '教授（包括其他正高级）',
                 data: jiaoshouArr
+                //data: jiaoshouArr.concat(qtzgjArr)
 
             }, {
-                name: '副教授',
+                name: '副教授（包括其他副高级）',
                 data: fujiaoshouArr
+                //data: fujiaoshouArr.concat(qtfgjArr)
 
             }, {
-                name: '讲师',
+                name: '讲师（包括其他中级）',
                 data: jiangshiArr
+                //data: jiangshiArr.concat(qtzjArr)
 
             }, {
-                name: '助教',
+                name: '助教（包括其他初级）',
                 data: zhujiaoArr
+                //data: zhujiaoArr.concat(qtcjArr)
+
+            }, {
+                name: '未评级',
+                data: wpjArr
 
             }]
         });
