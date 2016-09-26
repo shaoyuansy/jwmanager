@@ -44,13 +44,18 @@
     var jiangshiArr = new Array();//讲师
     var zhujiaoArr = new Array();//助教
     var wpjArr = new Array();//未评级
+    var mycategories = new Array();//图表分组
     $(document).ready(function () {
-
+        mycategories = [
+            '软件工程',
+            '物联网工程',
+            '数字媒体'
+        ];
         getDataByJys("软件工程");
         getDataByJys("物联网工程");
         getDataByJys("数字媒体");
     });
-
+    //由教研室名称进行绘图
     function getDataByJys(jysmc){
         $.ajax({
             type: "get",
@@ -91,13 +96,14 @@
                             break;
                     }
                 }
+                //将各类的人数放到各类数组中
                 jiaoshouArr.push(jiaoshou);
                 fujiaoshouArr.push(fujiaoshou);
                 jiangshiArr.push(jiangshi);
                 zhujiaoArr.push(zhujiao);
                 wpjArr.push(wpj);
                 if(jysmc == "数字媒体"){
-                    huatu();
+                    painting();
                 }
             },
             error: function (e) {
@@ -105,8 +111,8 @@
             }
         });
     }
-
-    function huatu(){
+    //绘图
+    function painting(){
         $('#container').highcharts({
             chart: {
                 type: 'column'
@@ -118,11 +124,7 @@
                 text: '教研室各职称教师个数'
             },
             xAxis: {
-                categories: [
-                    '软件工程',
-                    '物联网工程',
-                    '数字媒体',
-                ]
+                categories: mycategories
             },
             yAxis: {
                 min: 0,
