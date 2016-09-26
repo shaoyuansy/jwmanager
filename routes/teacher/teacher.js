@@ -23,7 +23,7 @@ router.get('/_editTeacher.html', function(req, res, next) {
             xb:"",
             csny:"",
             lxdh:"",
-            jysdm:"",
+            jysmc:"",
             fgfzr:"",
             rxsj:"",
             sfzhm:"",
@@ -69,7 +69,7 @@ router.get('/_editTeacher.html', function(req, res, next) {
                 xb:result[0].XB,
                 csny:result[0].CSNY,
                 lxdh:result[0].LXDH,
-                jysdm:result[0].JYSDM,
+                jysmc:result[0].JYSMC,
                 fgfzr:result[0].FGFZR,
                 rxsj:result[0].RXSJ,
                 sfzhm:result[0].SFZHM,
@@ -117,7 +117,7 @@ router.post('/_editTeacher.html', function (req, res, next) {
     var xb = req.body.XB;
     var csny = req.body.CSNY;
     var lxdh = req.body.LXDH;
-    var jysdm = req.body.JYSDM;
+    var jysmc = req.body.JYSMC;
     var fgfzr = req.body.FGFZR;
     var rxsj = req.body.RXSJ;
     var sfzhm = req.body.SFZHM;
@@ -155,7 +155,7 @@ router.post('/_editTeacher.html', function (req, res, next) {
 
     var sqlArr;    //字段数组
     if(id==0){
-        sqlArr = [xm,gh,xb,csny,lxdh,jysdm,fgfzr,rxsj,sfzhm,mz,zc,dzsj,rzzt,dwh,dwmc,gzdwlb,xl,zgxw,zy,bysj,byyx,xy,
+        sqlArr = [xm,gh,xb,csny,lxdh,jysmc,fgfzr,rxsj,sfzhm,mz,zc,dzsj,rzzt,dwh,dwmc,gzdwlb,xl,zgxw,zy,bysj,byyx,xy,
             zyjszc,xklb,sfwssx,sfjygcbj,sfjyhybj,dslx,dq,kskc,csdksj,jxxg,sfsjsfzfyj,sfsjbyzfyj,sfsjxwzfyj,sfsjzczfyj,
             sfsjjszgzfyj,sfsjgzzfyj,sfsjxys,fj];
 
@@ -168,7 +168,7 @@ router.post('/_editTeacher.html', function (req, res, next) {
             }
         });
     }else{
-        sqlArr = [xm,gh,xb,csny,lxdh,jysdm,fgfzr,rxsj,sfzhm,mz,zc,dzsj,rzzt,dwh,dwmc,gzdwlb,xl,zgxw,zy,bysj,byyx,xy,
+        sqlArr = [xm,gh,xb,csny,lxdh,jysmc,fgfzr,rxsj,sfzhm,mz,zc,dzsj,rzzt,dwh,dwmc,gzdwlb,xl,zgxw,zy,bysj,byyx,xy,
             zyjszc,xklb,sfwssx,sfjygcbj,sfjyhybj,dslx,dq,kskc,csdksj,jxxg,sfsjsfzfyj,sfsjbyzfyj,sfsjxwzfyj,sfsjzczfyj,
             sfsjjszgzfyj,sfsjgzzfyj,sfsjxys,fj,id];
         //编辑调度命令
