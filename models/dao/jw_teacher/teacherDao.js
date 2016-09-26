@@ -40,6 +40,15 @@ exports.insert = function (req, res, arrayPar, fn) {
     });
 };
 
+exports.insertSome = function (req, res, arrayPar, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.insertSome, arrayPar, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+
 /*更新记录*/
 exports.update = function (req, res, arrayPar, fn) {
     pool.getConnection(function (err, connection) {
@@ -75,6 +84,17 @@ exports.deleteSome = function (req, res, idstr, fn) {
 exports.queryByJys = function (req, res, JYSMC, fn) {
     pool.getConnection(function (err, connection) {
         connection.query($sql.queryByJys, [JYSMC], function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+
+/* 获取导出的教师信息 BY Some ID*/
+exports.exportBySomeId = function (req, res, idstr, fn) {
+    pool.getConnection(function (err, connection) {
+        var sql = "SELECT * FROM jw_teacher WHERE ID IN ("+req.query.idstr+")";
+        connection.query(sql, function (err, result) {
             connection.release();
             fn(result);
         });

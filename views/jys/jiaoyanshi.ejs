@@ -327,10 +327,32 @@
             }
         });
         if(flag){
+            var d = new Date();
+            var curYear = d.getFullYear();
+            var curMonth = "" + (d.getMonth() + 1);
+            var curDate = "" + d.getDate();
+            var curHour = "" + d.getHours();
+            var curMinute = "" + d.getMinutes();
+            var curSecond = "" + d.getSeconds();
+            if (curMonth.length == 1) {
+                curMonth = "0" + curMonth;
+            }
+            if (curDate.length == 1) {
+                curDate = "0" + curDate;
+            }
+            if (curHour.length == 1) {
+                curHour = "0" + curHour;
+            }
+            if (curMinute.length == 1) {
+                curMinute = "0" + curMinute;
+            }
+            if (curSecond.length == 1) {
+                curSecond = "0" + curSecond;
+            }
             $("#datatable").table2excel({
                 exclude: ".noExl",//有class = “noExl” 的行不被导出；
                 name: "Excel Document Name",
-                filename: "教研室信息表",
+                filename: curYear+curMonth+curDate+curHour+curMinute+"-"+"教师信息表",
                 exclude_img: true,
                 exclude_links: true,
                 exclude_inputs: true
@@ -399,9 +421,13 @@
         return outStr;
     }
     function getExcelFileName() {
-        var d = new Date(); var curYear = d.getYear(); var curMonth = "" + (d.getMonth() + 1);
-        var curDate = "" + d.getDate(); var curHour = "" + d.getHours(); var curMinute = "" +
-                d.getMinutes(); var curSecond = "" + d.getSeconds();
+        var d = new Date();
+        var curYear = d.getFullYear();
+        var curMonth = "" + (d.getMonth() + 1);
+        var curDate = "" + d.getDate();
+        var curHour = "" + d.getHours();
+        var curMinute = "" + d.getMinutes();
+        var curSecond = "" + d.getSeconds();
         if (curMonth.length == 1) {
             curMonth = "0" + curMonth;
         }
@@ -417,7 +443,7 @@
         if (curSecond.length == 1) {
             curSecond = "0" + curSecond;
         }
-        var fileName = "教研室信息表.xls";
+        var fileName = curYear+curMonth+curDate+curHour+curMinute+"-"+"教师信息表.xls";
         return fileName;
     }
     function doFileExport(inName, inStr) {

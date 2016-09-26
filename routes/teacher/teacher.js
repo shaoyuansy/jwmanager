@@ -184,4 +184,13 @@ router.post('/_editTeacher.html', function (req, res, next) {
 
 });
 
+/* GET _exportTeacher page. */
+router.get('/_exportTeacher', function(req, res, next) {
+    res.render('teacher/_exportTeacher', {
+        idstr : req.query.IDstr,
+        title: '教师信息管理-教师资料导出预览'
+    });
+});
+
+
 module.exports = router;
