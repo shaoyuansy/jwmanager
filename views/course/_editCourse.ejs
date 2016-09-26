@@ -1,0 +1,103 @@
+<div class="modal-dialog" style="margin-top: 10%">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">课程信息编辑</h4>
+        </div>
+
+        <div class="modal-body">
+            <form id="myform" method="post" action="course/_editCourse.html">
+                <input id="ID" name="ID" type="hidden" class="form-control" value="<%= id %>">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>课程编号</label>
+                            <input id="KCBH" name="KCBH" type="text" class="form-control" value="<%= kcbh %>">
+                        </div>
+                        <div class="col-lg-6">
+                            <label>课程名称</label>
+                            <input id="KCMC" name="KCMC" type="text" class="form-control" value="<%= kcmc %>">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>课程英文名称</label>
+                            <input id="KCYWMC" name="KCYWMC" type="text" class="form-control" value="<%= kcywmc %>">
+                        </div>
+                        <div class="col-lg-6">
+                            <label>课程负责人</label>
+                            <input id="KCFZR" name="KCFZR" type="text" class="form-control" value="<%= kcfzr %>">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>课程类型</label>
+                            <input id="KCLX" name="KCLX" type="text" class="form-control" value="<%= kclx %>">
+                        </div>
+                        <div class="col-lg-6">
+                            <label>周学时</label>
+                            <input id="ZXS" name="ZXS" type="text" class="form-control" value="<%= zxs %>">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>上机学时</label>
+                            <input id="SJXS" name="SJXS" type="text" class="form-control" value="<%= sjxs %>">
+                        </div>
+                        <div class="col-lg-6">
+                            <label>学分</label>
+                            <input id="XF" name="XF" type="text" class="form-control" value="<%= xf %>">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>适用对象</label>
+                            <input id="SYDX" name="SYDX" type="text" class="form-control" value="<%= sydx %>">
+                        </div>
+                        <div class="col-lg-6">
+                            <label>先导课程</label>
+                            <input id="XDKC" name="XDKC" type="text" class="form-control" value="<%= xdkc %>">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>后续课程</label>
+                            <input id="HXKC" name="HXKC" type="text" class="form-control" value="<%= hxkc %>">
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" onclick="submitForm()">提交</button>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal -->
+<script>
+
+    $(document).ready(function () {
+        //document.getElementById("SSJYS").value = $("#TEMP").val();//自动选择文档类型
+    });
+
+    function submitForm(){
+        $.ajax({
+            type: "post",
+            url: '/course/_editCourse.html',
+            dataType: "json",
+            data: $('#myform').serialize(),// 你的formid 注：后台req.body由控件name获取数据
+            async: false,
+            cache: true,
+            success: function (msg) {
+                if (msg.result != 0) {
+                    $("#modal-edit-event").modal('hide');
+                }
+                location.reload();
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    }
+</script>

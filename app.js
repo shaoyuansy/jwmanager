@@ -17,13 +17,20 @@ var teacher = require('./routes/teacher/teacher');
 var jys = require('./routes/jys/jiaoyanshi');
 //信息统计
 var chart = require('./routes/chart/chart');
-
+//专业信息
+var major = require('./routes/major/major');
+//课程信息
+var course = require('./routes/course/course');
 
 //服务类Service路由
 //教师服务
 var teacherService = require('./routes/service/teacherService');
 //教研室服务
 var jysService = require('./routes/service/jysService');
+//专业服务
+var majorService = require('./routes/service/majorService');
+//课程服务
+var courseService = require('./routes/service/courseService');
 //路由配置结束
 
 var app = express();
@@ -72,10 +79,14 @@ app.use('/login', login);
 app.use('/teacher', teacher);
 app.use('/jys',jys);
 app.use('/chart',chart);
+app.use('/major',major);
+app.use('/course',course);
 
 //服务路由地址配置
 app.use('/jysService',jysService);
 app.use('/teacherService',teacherService);
+app.use('/majorService',majorService);
+app.use('/courseService',courseService);
 //路由地址配置结束
 
 // catch 404 and forward to error handler
