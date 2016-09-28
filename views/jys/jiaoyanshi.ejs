@@ -30,16 +30,16 @@
                 <div class="box-tools pull-right">
                     <button type="button" title="批量删除" class="btn btn-box-tool"
                             onclick="delSomeJys();">
-                        <i class="fa fa-fw fa-plus-circle"></i>批量删除</button>
+                        <i class="fa fa-fw fa-times"></i>批量删除</button>
                     <button type="button" title="添加" class="btn btn-box-tool"
                             onclick="editJys(0)">
-                        <i class="fa fa-fw fa-plus-circle"></i>添加</button>
+                        <i class="fa fa-fw fa-user-plus"></i>添加</button>
                     <button type="button" title="导出" class="btn btn-box-tool"
                             onclick="toExcel('datatable','');">
-                        <i class="fa fa-fw fa-plus-circle"></i>导出</button>
+                        <i class="fa fa-fw fa-cloud-download"></i>导出</button>
                     <button type="button" title="导入" class="btn btn-box-tool"
                             onclick="isIE();">
-                        <i class="fa fa-fw fa-plus-circle"></i>导入</button>
+                        <i class="fa fa-fw fa-sign-in"></i>导入</button>
                 </div>
                 <div style="margin-top: 1%">
                     <div style="float: left;margin-left: 2%">当前显示的列：&nbsp;&nbsp;&nbsp;&nbsp;
@@ -353,7 +353,7 @@
             $("#datatable").table2excel({
                 exclude: ".noExl",//有class = “noExl” 的行不被导出；
                 name: "Excel Document Name",
-                filename: curYear+curMonth+curDate+curHour+curMinute+"-"+"教师信息表",
+                filename: "教研室信息表"+"-"+curYear+curMonth+curDate+curHour+curMinute,
                 exclude_img: true,
                 exclude_links: true,
                 exclude_inputs: true
@@ -444,7 +444,7 @@
         if (curSecond.length == 1) {
             curSecond = "0" + curSecond;
         }
-        var fileName = curYear+curMonth+curDate+curHour+curMinute+"-"+"教师信息表.xls";
+        var fileName = "教研室信息表"+"-"+curYear+curMonth+curDate+curHour+curMinute+".xls";
         return fileName;
     }
     function doFileExport(inName, inStr) {

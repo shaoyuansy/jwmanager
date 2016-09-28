@@ -21,6 +21,9 @@ var chart = require('./routes/chart/chart');
 var major = require('./routes/major/major');
 //课程信息
 var course = require('./routes/course/course');
+//插件(上传)
+var uploadFile = require('./routes/tools/uploadFile');
+
 //专业-课程信息
 var major_course = require('./routes/major_course/major_course');
 //服务类Service路由
@@ -84,6 +87,8 @@ app.use('/jys',jys);
 app.use('/chart',chart);
 app.use('/major',major);
 app.use('/course',course);
+app.use('/tools/uploadFile', uploadFile);
+
 app.use('/major_course',major_course);
 //服务路由地址配置
 app.use('/jysService',jysService);

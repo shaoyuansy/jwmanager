@@ -52,5 +52,23 @@ router.get('/insertSome', function (req, res, next) {
     });
 });
 
+//教师资料下载
+var path = require('path');
+var fs = require('fs');
+router.get('/download', function (req, res, next) {
+    var filePath = req.query.filePath;
+    var files = path.join(__dirname, '../../public') + filePath;
+    fs.exists(files, function (exists) {
+        if (exists) {
+            res.download(files, function (err) {
+                console.log(err);
+            });
+        } else {
+            res.setHeader('content-type', 'text/html;charset=utf-8');
+            res.write("<script type='text/javascript'  charset='UTF-8'>alert('文件不存在');history.go(-1);</script>");
+            res.end();
+        }
+    });
+});
 /* 教师服务结束. */
 module.exports = router;

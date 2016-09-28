@@ -5,7 +5,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('index', {
     title: '教师信息管理首页',
-    username:req.session.userInfo.USERNAME
+    loginuser:req.session.userInfo.USERNAME
   });
 });
 
