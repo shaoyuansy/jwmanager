@@ -63,7 +63,7 @@ router.get('/_editMajor.html', function(req, res, next) {
     var sqlArr;    //字段数组
     if(id==0){
         sqlArr = [zybh,zymc,ssjys,ksnj,bjgs,gbdyrs];
-        //编辑调度命令
+        //编辑专业信息
         zyDao.insert(req, res, sqlArr, function (result) {
             if (result) {
                 res.send({"result":result.affectedRows});
@@ -74,7 +74,7 @@ router.get('/_editMajor.html', function(req, res, next) {
         });
     }else{
         sqlArr = [zybh,zymc,ssjys,ksnj,bjgs,gbdyrs,id];
-        //编辑调度命令
+        //编辑专业信息
         zyDao.update(req, res, sqlArr, function (result) {
             if (result) {
                 res.send({"result":result.affectedRows});
@@ -86,5 +86,22 @@ router.get('/_editMajor.html', function(req, res, next) {
     }
 
 });
-
+//获取专业所有开设年级，取消重复
+router.get('/_getKsnj.html', function(req, res, next) {
+    zyDao.queryKsnj(req, res, function (result) {
+        res.send({"result":result});
+    });
+});
+//获取专业所有专业名称，取消重复
+router.get('/_getZymc.html', function(req, res, next) {
+    zyDao.queryAll(req, res, function (result) {
+        res.send({"result":result});
+    });
+});
+//获取专业所有专业名称，取消重复
+router.get('/_getZyId.html', function(req, res, next) {
+    zyDao.queryZyId(req, res, req.query.sqlStr, function (result) {
+        res.send({"result":result});
+    });
+});
 module.exports = router;

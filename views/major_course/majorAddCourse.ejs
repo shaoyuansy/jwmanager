@@ -1,0 +1,250 @@
+<!-- datatable -->
+<script src="../javascripts/mydatatable.js"></script>
+<!-- table2excel导出 -->
+<script src="/table2excel/jquery.table2excel.js"></script>
+
+<!-- page script -->
+
+<!-- 页面内容 content -->
+<div class="content-wrapper">
+    <!-- 页面内容 Header -->
+    <section class="content-header">
+        <h1>
+            添加课程页面
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+            <li><a href="/major_course/major_course.html">专业-课程管理</a></li>
+            <li class="active">添加课程</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- /.box -->
+
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">课程列表</h3>
+                <div style="margin-top: 1%">
+                    <div class="form-group">
+                        <label>开设学期</label>
+                        <select class="form-control select2" id="ksxq" name="ksxq">
+                            <option>第一学期</option>
+                            <option>第二学期</option>
+                            <option>第三学期</option>
+                            <option>第四学期</option>
+                            <option>第五学期</option>
+                            <option>第六学期</option>
+                            <option>第七学期</option>
+                            <option>第八学期</option>
+                        </select>
+                    </div>
+                    <!--<div style="float: right">-->
+                    <!--<input type="file" id="upfile" accept=".xls,.xlsx" />-->
+                    <!--</div>-->
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" style="padding-top: 0">
+                <table id="datatable" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th><input id="checkbox1" name="checkbox1" type="checkbox"></th>
+                        <th>课程编号</th>
+                        <th>课程名称</th>
+                        <th>课程英文名称</th>
+                        <th>教研室划分</th>
+                        <th>专业负责人</th>
+                        <th>课程负责人</th>
+                        <th>课程类型</th>
+                        <th>周学时</th>
+                        <th>上机学时</th>
+                        <th>学分</th>
+                        <th>使用对象</th>
+                        <th>先导课程</th>
+                        <th>后续课程</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer" align="center">
+                <button type="submit" class="btn btn-primary"  onclick="addCourse();">添加</button>
+            </div>
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+
+
+</div>
+
+<div class="modal" id="modal-edit-event"></div>
+<script>
+    var mytable;
+    var zyid = "";//专业ID
+    $(document).ready(function () {
+
+        //全选  全反选处理
+        $("#checkbox1").click(function (){
+            var checkbox = document.getElementById('checkbox1');
+            //是否被选中
+            if(checkbox.checked){
+                $('input[type="checkbox"][name="checkbox2"]').each(function () {
+                    this.checked = true;
+                });
+            }else{
+                $('input[type="checkbox"][name="checkbox2"]').each(function () {
+                    this.checked = false;
+                });
+            }
+        });
+
+        var columns = [
+            {
+                "mData": null,
+                "sClass": "center",
+                "mData": function (obj) {
+                    return '<input id="checkbox2" name="checkbox2" type="checkbox" value='+obj.ID+'>';
+                }
+            },
+            {
+                "mData": "KCBH",
+                "sClass": "center"
+            },
+            {
+                "mData": "KCMC",
+                "sClass": "center"
+            },
+            {
+                "mData": "KCYWMC",
+                "sClass": "center"
+            },
+            {
+                "mData": "JYSHF",
+                "sClass": "center"
+            },
+            {
+                "mData": "ZYFZR",
+                "sClass": "center"
+            },
+            {
+                "mData": "KCFZR",
+                "sClass": "center"
+            },
+            {
+                "mData": "KCLX",
+                "sClass": "center"
+            },
+            {
+                "mData": "ZXS",
+                "sClass": "center"
+            },{
+                "mData": "SJXS",
+                "sClass": "center"
+            },
+            {
+                "mData": "XF",
+                "sClass": "center"
+            },{
+                "mData": "SYDX",
+                "sClass": "center"
+            },
+            {
+                "mData": "XDKC",
+                "sClass": "center"
+            },
+            {
+                "mData": "HXKC",
+                "sClass": "center"
+            }
+        ];
+        mytable = CreateDataTable('#datatable', '/courseService/getSome?idstr='+getKcId("<%= sqlStr %>"), columns);
+    });
+    //获取该年级该专业已选课程ID
+    function getKcId(data){
+        var temp = new Array();
+        var idstr = new Array();
+        getZyId(data);
+        $.ajax({
+            type: "get",
+            url: "/major_courseService/getList?sqlstr="+data,
+            dataType: "json",
+            async: false,
+            cache: true,
+            success: function (msg) {
+                temp = msg;
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+        var result = temp.aaData;
+        for(var i = 0;i<result.length;i++){
+            idstr.push(result[i].KCID);
+        }
+        //若该年级该专业目前还没有课程，返回''
+        if(idstr.join(",") == ""){
+            return "''";
+        }
+        return idstr.join(",");
+    }
+    //由年级和专业获取专业ID
+    function getZyId(data){
+        var temp2 = [];
+        $.ajax({
+            type: "get",
+            url: "/major/_getZyId.html?sqlStr="+data,
+            dataType: "json",
+            async: false,
+            cache: true,
+            success: function (msg) {
+                temp2 = msg;
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+        var result = temp2.result;
+        zyid = result[0].ID;
+    }
+    //为该年级该专业添加课程
+    function addCourse(){
+        var flag = false;
+        var arr = [];
+        $('input[type="checkbox"][name="checkbox2"]:checked').each(function () {
+            flag = true;
+            arr.push(zyid+","+this.value+","+$("#ksxq").val());
+        });
+        for(var i = 0;i<arr.length;i++){
+            var str = arr[i];
+            console.log("str:"+str);
+            $.ajax({
+                type: "get",
+                url: '/major_courseService/insertSome',
+                dataType: "json",
+                data: {str: str},
+                cache: false,
+                async:false,//同步
+                success: function (result) {
+
+                },
+                error: function (e) {
+                    alert("出错了");
+                    console.log(e);
+                }
+            });
+        }
+        if(flag){
+            var arr3 = "<%= sqlStr %>".split(",");
+            //返回上一页并刷新
+            window.location.href="/major_course/getData.html?ksnj="+arr3[0]+"&zymc="+arr3[1];
+        }else if(!flag){
+            alert("请至少选择一项");
+        }
+    }
+
+</script>

@@ -65,3 +65,12 @@ exports.deleteSome = function (req, res, idstr, fn) {
         });
     });
 };
+/* 获取数据列表信息*/
+exports.querySome = function (req, res, idstr, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query("SELECT * FROM jw_kc WHERE ID NOT IN ("+idstr+") ORDER BY ID ASC", function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};

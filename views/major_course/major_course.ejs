@@ -1,0 +1,265 @@
+<!-- datatable -->
+<script src="/javascripts/mydatatable.js"></script>
+<!-- table2excel导出 -->
+<script src="/table2excel/jquery.table2excel.js"></script>
+
+<script src="/javascripts/myMenu.js"></script>
+<!-- page script -->
+
+<!-- 页面内容 content -->
+<div class="content-wrapper">
+    <!-- 页面内容 Header -->
+    <section class="content-header">
+        <h1>
+            专业-课程管理页面
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+            <li class="active">专业-课程管理</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <!-- /.box -->
+            <div id="mymenus" class="col-md-2">
+
+            </div>
+            <div class="col-md-10">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 id="h3" class="box-title"><%= box_title %></h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" title="批量删除" class="btn btn-box-tool"
+                                    onclick="delSome();">
+                                <i class="fa fa-fw fa-plus-circle"></i>批量删除</button>
+                            <button type="button" title="添加" class="btn btn-box-tool"
+                                    onclick="insert('<%= sqlStr%>')">
+                                <i class="fa fa-fw fa-plus-circle"></i>添加课程</button>
+                        </div>
+                    </div>
+                    <table id="datatable" class="table table-bordered table-striped" style="overflow-x: scroll;">
+                        <thead>
+                        <tr>
+                            <th><input id="checkbox1" name="checkbox1" type="checkbox"></th>
+                            <th>专业编号</th>
+                            <th>专业名称</th>
+                            <th>开设年级</th>
+                            <th>开设学期</th>
+                            <th>班级个数</th>
+                            <th>各班大约人数</th>
+                            <th>教研室划分</th>
+                            <th>专业负责人</th>
+                            <th>课程负责人</th>
+                            <th>课程编号</th>
+                            <th>课程名称</th>
+                            <th>课程名称(英文)</th>
+                            <th>课程类型</th>
+                            <th>周学时</th>
+                            <th>上机学时</th>
+                            <th>学分</th>
+                            <th>适用对象</th>
+                            <th>先导课程</th>
+                            <th>后续课程</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<script>
+
+    var tempStr = "";//用来获取ul中第一个li的开设年级和专业名称
+    var mytable = "";
+    $(document).ready(function () {
+        //全选  全反选处理
+        $("#checkbox1").click(function () {
+            var checkbox = document.getElementById('checkbox1');
+            //是否被选中
+            if (checkbox.checked) {
+                $('input[type="checkbox"][name="checkbox2"]').each(function () {
+                    this.checked = true;
+                });
+            } else {
+                $('input[type="checkbox"][name="checkbox2"]').each(function () {
+                    this.checked = false;
+                });
+            }
+        });
+    });
+    function createTable(){
+
+        var columns = [
+            {
+                "mData": null,
+                "sClass": "center",
+                "mData": function (obj) {
+                    return '<input id="checkbox2" name="checkbox2" type="checkbox" value='+obj.ZKID+'>';
+                }
+            },
+            {
+                "mData": "ZYBH",
+                "sClass": "center"
+            },
+            {
+                "mData": "ZYMC",
+                "sClass": "center"
+            },
+            {
+                "mData": "KSNJ",
+                "sClass": "center"
+            },
+            {
+                "mData": "KSXQ",
+                "sClass": "center"
+            },
+            {
+                "mData": "BJGS",
+                "sClass": "center"
+            },
+            {
+                "mData": "GBDYRS",
+                "sClass": "center"
+            },
+            {
+                "mData": "JYSHF",
+                "sClass": "center"
+            },
+            {
+                "mData": "ZYFZR",
+                "sClass": "center"
+            },
+            {
+                "mData": "KCFZR",
+                "sClass": "center"
+            },{
+                "mData": "KCBH",
+                "sClass": "center"
+            },
+            {
+                "mData": "KCMC",
+                "sClass": "center"
+            },
+            {
+                "mData": "KCYWMC",
+                "sClass": "center"
+            },
+            {
+                "mData": "KCLX",
+                "sClass": "center"
+            },
+            {
+                "mData": "ZXS",
+                "sClass": "center"
+            },
+            {
+                "mData": "SJXS",
+                "sClass": "center"
+            },
+            {
+                "mData": "XF",
+                "sClass": "center"
+            },
+            {
+                "mData": "SYDX",
+                "sClass": "center"
+            },{
+                "mData": "XDKC",
+                "sClass": "center"
+            },
+            {
+                "mData": "HXKC",
+                "sClass": "center"
+            },
+            {
+                "mData": null,
+                "sClass": "center",
+                "mData": function (obj) {
+                    return '<a style="margin-left: 10px;" onclick="delMajorCourse(\'' + obj.ZKID + '\')" href="#" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';
+                }
+            }
+        ];
+        //获取需要查询的开设年级和专业名称
+        var sqlstr = "<%= sqlStr %>";
+        //判断开设年级和专业名称是否为空
+        if("<%= sqlStr %>" == ""){
+            sqlstr = tempStr;
+            var h = document.getElementById("h3");
+            h.innerHTML = sqlstr.replace(",","-")+"专业 课程信息";
+        }
+        mytable = CreateDataTable('#datatable', "/major_courseService/getList?sqlstr="+sqlstr, columns);
+    }
+    //跳转到添加课程页面
+    function insert(str){
+        var temp = str;
+        if(str == ""){
+            temp = tempStr;
+        }
+        window.location.href="/major_course/addCourse.html?data="+temp;
+    }
+
+    //删除记录
+    function delMajorCourse(ID) {
+        var result = confirm("确认要删除？");
+        if (result) {
+            $.ajax({
+                type: "get",
+                url: '/major_courseService/delOne',
+                dataType: "json",
+                data: {ID: ID},
+                cache: true,
+                success: function (msg) {
+                    if (msg.state == 1) {
+                        alert("删除成功");
+                    }
+                    location.reload();
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        }
+    }
+
+    //批量删除记录
+    function delSome() {
+        var flag = false;
+        var arr = new Array();
+        //遍历所有checkbox
+        $('input[type="checkbox"][name="checkbox2"]:checked').each(function () {
+            arr.push(this.value);
+        });
+        if(arr.length != 0){
+            var result = confirm("确认要删除这些数据？");
+            if (result) {
+                //数组转字符串 ，拼接
+                var idstr = arr.join(",");
+                $.ajax({
+                    type: "get",
+                    url: '/major_courseService/delSome',
+                    dataType: "json",
+                    data: {idstr: idstr},
+                    cache: true,
+                    success: function (msg) {
+                        if (msg.state == 1) {
+                            alert("删除成功");
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+                location.reload();
+            }
+        }else{
+            alert("请至少选择一项");
+        }
+    }
+</script>

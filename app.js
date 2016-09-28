@@ -21,7 +21,8 @@ var chart = require('./routes/chart/chart');
 var major = require('./routes/major/major');
 //课程信息
 var course = require('./routes/course/course');
-
+//专业-课程信息
+var major_course = require('./routes/major_course/major_course');
 //服务类Service路由
 //教师服务
 var teacherService = require('./routes/service/teacherService');
@@ -31,6 +32,8 @@ var jysService = require('./routes/service/jysService');
 var majorService = require('./routes/service/majorService');
 //课程服务
 var courseService = require('./routes/service/courseService');
+//专业-课程服务
+var major_courseService = require('./routes/service/major_courseService');
 //路由配置结束
 
 var app = express();
@@ -81,12 +84,13 @@ app.use('/jys',jys);
 app.use('/chart',chart);
 app.use('/major',major);
 app.use('/course',course);
-
+app.use('/major_course',major_course);
 //服务路由地址配置
 app.use('/jysService',jysService);
 app.use('/teacherService',teacherService);
 app.use('/majorService',majorService);
 app.use('/courseService',courseService);
+app.use('/major_courseService',major_courseService);
 //路由地址配置结束
 
 // catch 404 and forward to error handler

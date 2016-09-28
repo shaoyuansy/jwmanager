@@ -11,11 +11,11 @@
     <!-- 页面内容 Header -->
     <section class="content-header">
         <h1>
-            教研室信息管理首页
+            教研室管理页面
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-            <li class="active">教研室信息管理</li>
+            <li class="active">教研室管理</li>
         </ol>
     </section>
 
@@ -25,7 +25,7 @@
 
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">教研室信息列表</h3>
+                <h3 class="box-title">教研室列表</h3>
 
                 <div class="box-tools pull-right">
                     <button type="button" title="批量删除" class="btn btn-box-tool"
@@ -230,6 +230,7 @@
     function ReadExcel() {
         //得到文件路径的值
         var filePath = document.getElementById("upfile").value;
+        console.log("-----------"+filePath);
         //判断是否选择文件
         if(filePath != ""){
             var oXL = new ActiveXObject("Excel.application");

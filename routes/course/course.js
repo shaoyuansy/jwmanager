@@ -27,7 +27,9 @@ router.get('/_editCourse.html', function(req, res, next) {
             xf:"",
             sydx:"",
             xdkc:"",
-            hxkc:""
+            hxkc:"",
+            jyshf:"",
+            zyfzr:""
         });
     }else {
         kcDao.queryListById(req, res, req.query.id, function (result) {
@@ -45,7 +47,9 @@ router.get('/_editCourse.html', function(req, res, next) {
                 xf: result[0].XF,
                 sydx: result[0].SYDX,
                 xdkc: result[0].XDKC,
-                hxkc: result[0].HXKC
+                hxkc: result[0].HXKC,
+                jyshf: result[0].JYSHF,
+                zyfzr: result[0].ZYFZR
             });
         });
     }
@@ -65,9 +69,11 @@ router.post('/_editCourse.html', function (req, res, next) {
     var sydx = req.body.SYDX;           //使用对象
     var xdkc = req.body.XDKC;           //先导课程
     var hxkc = req.body.HXKC;           //后续课程
+    var jyshf = req.body.JYSHF;           //教研室划分
+    var zyfzr = req.body.ZYFZR;           //专业划分
     var sqlArr;    //字段数组
     if(id==0){
-        sqlArr = [kcbh,kcmc,kcywmc,kcfzr,kclx,zxs,sjxs,xf,sydx,xdkc,hxkc];
+        sqlArr = [kcbh,kcmc,kcywmc,kcfzr,kclx,zxs,sjxs,xf,sydx,xdkc,hxkc,jyshf,zyfzr];
         //编辑课程信息
         kcDao.insert(req, res, sqlArr, function (result) {
             if (result) {
@@ -78,7 +84,7 @@ router.post('/_editCourse.html', function (req, res, next) {
             }
         });
     }else{
-        sqlArr = [kcbh,kcmc,kcywmc,kcfzr,kclx,zxs,sjxs,xf,sydx,xdkc,hxkc,id];
+        sqlArr = [kcbh,kcmc,kcywmc,kcfzr,kclx,zxs,sjxs,xf,sydx,xdkc,hxkc,jyshf,zyfzr,id];
         //编辑调度命令
         kcDao.update(req, res, sqlArr, function (result) {
             if (result) {

@@ -1,4 +1,3 @@
-
 <!-- datatable -->
 <script src="../javascripts/mydatatable.js"></script>
 <!-- table2excel导出 -->
@@ -11,11 +10,11 @@
     <!-- 页面内容 Header -->
     <section class="content-header">
         <h1>
-            课程信息管理首页
+            课程管理页面
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-            <li class="active">课程信息管理</li>
+            <li class="active">课程管理</li>
         </ol>
     </section>
 
@@ -25,7 +24,7 @@
 
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">课程信息列表</h3>
+                <h3 class="box-title">课程列表</h3>
 
                 <div class="box-tools pull-right">
                     <button type="button" title="批量删除" class="btn btn-box-tool"
@@ -46,14 +45,16 @@
                         课程编号：<input id="checkbox3" name="checkbox3" type="checkbox" value="1">&nbsp;&nbsp;&nbsp;&nbsp;
                         课程名称：<input id="checkbox3" name="checkbox3" type="checkbox" value="2">&nbsp;&nbsp;&nbsp;&nbsp;
                         课程英文名称：<input id="checkbox3" name="checkbox3" type="checkbox" value="3">&nbsp;&nbsp;&nbsp;&nbsp;
-                        课程负责人：<input id="checkbox3" name="checkbox3" type="checkbox" value="4">&nbsp;&nbsp;&nbsp;&nbsp;
-                        课程类型：<input id="checkbox3" name="checkbox3" type="checkbox" value="5">&nbsp;&nbsp;&nbsp;&nbsp;
-                        周学时：<input id="checkbox3" name="checkbox3" type="checkbox" value="6">&nbsp;&nbsp;&nbsp;&nbsp;
-                        上机学时：<input id="checkbox3" name="checkbox3" type="checkbox" value="7">&nbsp;&nbsp;&nbsp;&nbsp;
-                        学分：<input id="checkbox3" name="checkbox3" type="checkbox" value="8">&nbsp;&nbsp;&nbsp;&nbsp;
-                        使用对象：<input id="checkbox3" name="checkbox3" type="checkbox" value="9">&nbsp;&nbsp;&nbsp;&nbsp;
-                        先导课程：<input id="checkbox3" name="checkbox3" type="checkbox" value="10">&nbsp;&nbsp;&nbsp;&nbsp;
-                        后续课程：<input id="checkbox3" name="checkbox3" type="checkbox" value="11">&nbsp;&nbsp;&nbsp;&nbsp;
+                        教研室划分：<input id="checkbox3" name="checkbox3" type="checkbox" value="4">&nbsp;&nbsp;&nbsp;&nbsp;
+                        专业负责人：<input id="checkbox3" name="checkbox3" type="checkbox" value="5">&nbsp;&nbsp;&nbsp;&nbsp;
+                        课程负责人：<input id="checkbox3" name="checkbox3" type="checkbox" value="6">&nbsp;&nbsp;&nbsp;&nbsp;
+                        课程类型：<input id="checkbox3" name="checkbox3" type="checkbox" value="7">&nbsp;&nbsp;&nbsp;&nbsp;
+                        周学时：<input id="checkbox3" name="checkbox3" type="checkbox" value="8">&nbsp;&nbsp;&nbsp;&nbsp;
+                        上机学时：<input id="checkbox3" name="checkbox3" type="checkbox" value="9">&nbsp;&nbsp;&nbsp;&nbsp;
+                        学分：<input id="checkbox3" name="checkbox3" type="checkbox" value="10">&nbsp;&nbsp;&nbsp;&nbsp;
+                        使用对象：<input id="checkbox3" name="checkbox3" type="checkbox" value="11">&nbsp;&nbsp;&nbsp;&nbsp;
+                        先导课程：<input id="checkbox3" name="checkbox3" type="checkbox" value="12">&nbsp;&nbsp;&nbsp;&nbsp;
+                        后续课程：<input id="checkbox3" name="checkbox3" type="checkbox" value="13">&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                     <!--<div style="float: right">-->
                     <!--<input type="file" id="upfile" accept=".xls,.xlsx" />-->
@@ -69,6 +70,8 @@
                         <th>课程编号</th>
                         <th>课程名称</th>
                         <th>课程英文名称</th>
+                        <th>教研室划分</th>
+                        <th>专业负责人</th>
                         <th>课程负责人</th>
                         <th>课程类型</th>
                         <th>周学时</th>
@@ -77,6 +80,7 @@
                         <th>使用对象</th>
                         <th>先导课程</th>
                         <th>后续课程</th>
+
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -132,7 +136,16 @@
             {
                 "mData": "KCYWMC",
                 "sClass": "center"
-            },{
+            },
+            {
+                "mData": "JYSHF",
+                "sClass": "center"
+            },
+            {
+                "mData": "ZYFZR",
+                "sClass": "center"
+            },
+            {
                 "mData": "KCFZR",
                 "sClass": "center"
             },
