@@ -74,10 +74,9 @@ exports.queryKsnj = function (req, res, fn) {
         });
     });
 };
-/* 由年级和专业获取专业ID*/
+/* 由年级和专业名称获取专业ID*/
 exports.queryZyId = function (req, res,sqlStr, fn) {
     var arr = sqlStr.split(",");
-    console.log("zyDao sqlStr:"+sqlStr);
     pool.getConnection(function (err, connection) {
         connection.query($sql.queryZyId,arr, function (err, result) {
             connection.release();

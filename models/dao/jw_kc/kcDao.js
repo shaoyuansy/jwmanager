@@ -74,3 +74,22 @@ exports.querySome = function (req, res, idstr, fn) {
         });
     });
 };
+/*新增记录*/
+exports.insertSome = function (req, res, arrayPar, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.insertSome, arrayPar, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+/* 由课程名称获取课程ID*/
+exports.queryKcId = function (req, res,sqlStr, fn) {
+    console.log("kcDao "+sqlStr);
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.queryKcId,[sqlStr], function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};

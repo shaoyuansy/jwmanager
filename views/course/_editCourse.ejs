@@ -9,7 +9,7 @@
             <form id="myform" method="post" action="course/_editCourse.html">
                 <input id="ID" name="ID" type="hidden" class="form-control" value="<%= id %>">
                 <div class="box-body">
-                    <div class="row">
+                    <div class="row" style="margin-bottom: 1%">
                         <div class="col-lg-6">
                             <label>课程编号</label>
                             <input id="KCBH" name="KCBH" type="text" class="form-control" value="<%= kcbh %>">
@@ -19,7 +19,7 @@
                             <input id="KCMC" name="KCMC" type="text" class="form-control" value="<%= kcmc %>">
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row"  style="margin-bottom: 1%">
                         <div class="col-lg-6">
                             <label>课程英文名称</label>
                             <input id="KCYWMC" name="KCYWMC" type="text" class="form-control" value="<%= kcywmc %>">
@@ -29,7 +29,7 @@
                             <input id="KCFZR" name="KCFZR" type="text" class="form-control" value="<%= kcfzr %>">
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="margin-bottom: 1%">
                         <div class="col-lg-6">
                             <label>课程类型</label>
                             <input id="KCLX" name="KCLX" type="text" class="form-control" value="<%= kclx %>">
@@ -39,7 +39,7 @@
                             <input id="ZXS" name="ZXS" type="text" class="form-control" value="<%= zxs %>">
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row"  style="margin-bottom: 1%">
                         <div class="col-lg-6">
                             <label>上机学时</label>
                             <input id="SJXS" name="SJXS" type="text" class="form-control" value="<%= sjxs %>">
@@ -49,7 +49,7 @@
                             <input id="XF" name="XF" type="text" class="form-control" value="<%= xf %>">
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="margin-bottom: 1%">
                         <div class="col-lg-6">
                             <label>适用对象</label>
                             <input id="SYDX" name="SYDX" type="text" class="form-control" value="<%= sydx %>">
@@ -59,17 +59,20 @@
                             <input id="XDKC" name="XDKC" type="text" class="form-control" value="<%= xdkc %>">
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="margin-bottom: 1%">
                         <div class="col-lg-6">
                             <label>后续课程</label>
                             <input id="HXKC" name="HXKC" type="text" class="form-control" value="<%= hxkc %>">
                         </div>
                         <div class="col-lg-6">
                             <label>教研室划分</label>
-                            <input id="JYSHF" name="JYSHF" type="text" class="form-control" value="<%= jyshf %>">
+                            <select id="JYSHF" name="JYSHF" class="form-control">
+                                <%- jyscode %>
+                            </select>
+                            <input id="TEMP" name="TEMP" type="hidden" class="form-control" value="<%= jyshf %>">
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="margin-bottom: 1%">
                         <div class="col-lg-6">
                             <label>专业负责人</label>
                             <input id="ZYFZR" name="ZYFZR" type="text" class="form-control" value="<%= zyfzr %>">
@@ -88,7 +91,7 @@
 <script>
 
     $(document).ready(function () {
-        //document.getElementById("SSJYS").value = $("#TEMP").val();//自动选择文档类型
+        document.getElementById("JYSHF").value = $("#TEMP").val();//自动选择教研室
     });
 
     function submitForm(){

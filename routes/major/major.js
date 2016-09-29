@@ -52,7 +52,7 @@ router.get('/_editMajor.html', function(req, res, next) {
 
 });
 //编辑信息
-    router.post('/_editMajor.html', function (req, res, next) {
+router.post('/_editMajor.html', function (req, res, next) {
     var id = req.body.ID;             //ID
     var zybh = req.body.ZYBH;           //专业编号
     var zymc = req.body.ZYMC;           //专业名称
@@ -92,13 +92,13 @@ router.get('/_getKsnj.html', function(req, res, next) {
         res.send({"result":result});
     });
 });
-//获取专业所有专业名称，取消重复
+//获取专业所有专业，取消重复
 router.get('/_getZymc.html', function(req, res, next) {
     zyDao.queryAll(req, res, function (result) {
         res.send({"result":result});
     });
 });
-//获取专业所有专业名称，取消重复
+//获取专业所有专业，取消重复
 router.get('/_getZyId.html', function(req, res, next) {
     zyDao.queryZyId(req, res, req.query.sqlStr, function (result) {
         res.send({"result":result});

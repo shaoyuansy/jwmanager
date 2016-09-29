@@ -12,55 +12,66 @@ router.get('/course.html', function(req, res, next) {
 });
 //编辑信息--若是更新信息则在编辑页面显示信息
 router.get('/_editCourse.html', function(req, res, next) {
-    if(req.query.id == 0){
-        res.render('course/_editCourse', {
-            _layoutFile: false,
-            title: '教务信息管理系统——专业管理',
-            id:0,
-            kcbh:"",
-            kcmc:"",
-            kcywmc:"",
-            kcfzr:"",
-            kclx:"",
-            zxs:"",
-            sjxs:"",
-            xf:"",
-            sydx:"",
-            xdkc:"",
-            hxkc:"",
-            jyshf:"",
-            zyfzr:""
-        });
-    }else {
-        kcDao.queryListById(req, res, req.query.id, function (result) {
+    var jysStr = "";
+    jysDao.queryAll(req, res, function(jysResult) {
+        if (jysResult.length > 0) {
+            for (var i = 0; i < jysResult.length; i++) {
+                jysStr += "<option value='" + jysResult[i].JYSMC + "'>" + jysResult[i].JYSMC + "</option>";
+            }
+        }
+        if(req.query.id == 0){
             res.render('course/_editCourse', {
                 _layoutFile: false,
-                title: '教务信息管理系统——专业管理',
-                id: result[0].ID,
-                kcbh: result[0].KCBH,
-                kcmc: result[0].KCMC,
-                kcywmc: result[0].KCYWMC,
-                kcfzr: result[0].KCFZR,
-                kclx: result[0].KCLX,
-                zxs: result[0].ZXS,
-                sjxs: result[0].SJXS,
-                xf: result[0].XF,
-                sydx: result[0].SYDX,
-                xdkc: result[0].XDKC,
-                hxkc: result[0].HXKC,
-                jyshf: result[0].JYSHF,
-                zyfzr: result[0].ZYFZR
+                title: '教务信息管理系统——课程管理',
+                id:0,
+                kcbh:"",
+                kcmc:"",
+                kcywmc:"",
+                kcfzr:"",
+                kclx:"",
+                zxs:"",
+                sjxs:"",
+                xf:"",
+                sydx:"",
+                xdkc:"",
+                hxkc:"",
+                jyshf:"",
+                zyfzr:"",
+                jyscode:jysStr
             });
-        });
-    }
+        }else {
+            kcDao.queryListById(req, res, req.query.id, function (result) {
+                res.render('course/_editCourse', {
+                    _layoutFile: false,
+                    title: '教务信息管理系统——课程管理',
+                    id: result[0].ID,
+                    kcbh: result[0].KCBH,
+                    kcmc: result[0].KCMC,
+                    kcywmc: result[0].KCYWMC,
+                    kcfzr: result[0].KCFZR,
+                    kclx: result[0].KCLX,
+                    zxs: result[0].ZXS,
+                    sjxs: result[0].SJXS,
+                    xf: result[0].XF,
+                    sydx: result[0].SYDX,
+                    xdkc: result[0].XDKC,
+                    hxkc: result[0].HXKC,
+                    jyshf: result[0].JYSHF,
+                    zyfzr: result[0].ZYFZR,
+                    jyscode:jysStr
+                });
+            });
+        }
+    });
+
 
 });
 //编辑信息
 router.post('/_editCourse.html', function (req, res, next) {
     var id = req.body.ID;             //ID
-    var kcbh = req.body.KCBH;           //专业编号
-    var kcmc = req.body.KCMC;           //专业名称
-    var kcywmc = req.body.KCYWMC;           //专业英文名称
+    var kcbh = req.body.KCBH;           //课程编号
+    var kcmc = req.body.KCMC;           //课程名称
+    var kcywmc = req.body.KCYWMC;           //课程英文名称
     var kcfzr = req.body.KCFZR;           //课程负责人
     var kclx = req.body.KCLX;           //课程类型
     var zxs = req.body.ZXS;           //周学时
@@ -69,8 +80,8 @@ router.post('/_editCourse.html', function (req, res, next) {
     var sydx = req.body.SYDX;           //使用对象
     var xdkc = req.body.XDKC;           //先导课程
     var hxkc = req.body.HXKC;           //后续课程
-    var jyshf = req.body.JYSHF;           //教研室划分
-    var zyfzr = req.body.ZYFZR;           //专业划分
+    var jyshf = req.body.JYSHF;           //所属教研室
+    var zyfzr = req.body.ZYFZR;           //专业负责人
     var sqlArr;    //字段数组
     if(id==0){
         sqlArr = [kcbh,kcmc,kcywmc,kcfzr,kclx,zxs,sjxs,xf,sydx,xdkc,hxkc,jyshf,zyfzr];
@@ -97,5 +108,11 @@ router.post('/_editCourse.html', function (req, res, next) {
     }
 
 });
-
+//由课程名称获取课程ID
+router.get('/_getKcId.html', function(req, res, next) {
+    console.log("-----"+req.query.sqlStr);
+    kcDao.queryKcId(req, res, req.query.sqlStr, function (result) {
+        res.send({"result":result});
+    });
+});
 module.exports = router;

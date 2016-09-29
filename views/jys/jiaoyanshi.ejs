@@ -243,9 +243,6 @@
             var rows =  oSheet .usedrange.rows.count;
             try {
                 //验证表格格式--即验证表单表头是否与格式匹配
-                console.log(oSheet.Cells(1, 1).value);
-                console.log(oSheet.Cells(1, 2).value);
-                console.log(oSheet.Cells(1, 3).value);
                 if(oSheet.Cells(1, 1).value == "教研室编号"&&oSheet.Cells(1, 2).value == "教研室名称"&&oSheet.Cells(1, 3).value == "教研室主任"){
                     var flag = true;
                     for (var i = 2; i <=rows; i++) {
@@ -362,7 +359,7 @@
             alert("请至少选择一项");
         }
     }
-
+    //获取table数据
     function getTblData(inTbl, inWindow) {
         var rows = 0; var tblDocument = document;
         if (!!inWindow && inWindow != "") {

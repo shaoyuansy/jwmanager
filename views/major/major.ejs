@@ -175,10 +175,26 @@
             }
         });
     }
+    //删除与要删除记录相关的专业-课程记录
+    function delMajorCourse(data){
+        $.ajax({
+            type: "get",
+            url: '/major_courseService/delSomeByZy',
+            dataType: "json",
+            data: {idstr: data},
+            cache: true,
+            success: function (msg) {
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    }
     //删除记录
     function delMajor(ID) {
         var result = confirm("确认要删除？");
         if (result) {
+            delMajorCourse(ID);
             $.ajax({
                 type: "get",
                 url: '/majorService/delOne',
@@ -211,6 +227,7 @@
             if (result) {
                 //数组转字符串 ，拼接
                 var idstr = arr.join(",");
+                delMajorCourse(idstr);
                 $.ajax({
                     type: "get",
                     url: '/majorService/delSome',

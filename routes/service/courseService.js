@@ -33,7 +33,7 @@ router.get('/delSome', function (req, res, next) {
 router.get('/insertSome', function (req, res, next) {
     var sqlArr = new Array();
     sqlArr = req.query.str.split(',');
-    kcDao.insert(req, res, sqlArr, function (result) {
+    kcDao.insertSome(req, res, sqlArr, function (result) {
         if (result) {
             res.send({"state":result});
         }

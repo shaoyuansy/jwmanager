@@ -40,5 +40,17 @@ router.get('/insertSome', function (req, res, next) {
         }
     });
 });
+//批量删除专业-课程信息记录 BY 专业ID
+router.get('/delSomeByZy', function (req, res, next) {
+    zy_kcDao.deleteSomeByZy(req, res, req.query.idstr, function (result) {
+        res.send({"state": result});
+    });
+});
+//批量删除专业-课程信息记录 BY 课程ID
+router.get('/delSomeByKc', function (req, res, next) {
+    zy_kcDao.deleteSomeByKc(req, res, req.query.idstr, function (result) {
+        res.send({"state": result});
+    });
+});
 /* 专业-课程服务结束. */
 module.exports = router;
