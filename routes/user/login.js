@@ -6,7 +6,7 @@ var router = express.Router();
 var userDao = require('../../models/dao/jw_user/userDao');
 //获取登陆页面
 router.get('/', function(req, res, next) {
-    res.render('user/login', { _layoutFile:false,title: '教师信息管理系统-登陆',errorMessage:'' });
+    res.render('user/login', { _layoutFile:false,title: '教务信息管理系统——登录',errorMessage:'' });
 });
 
 //登录验证
@@ -18,7 +18,7 @@ router.post('/', function(req, res, next) {
         if(result.length==0)
         {
             //登陆失败
-            res.render('user/login', { _layoutFile:false,title: '教师信息管理系统-登陆',errorMessage:'提示：登录名或密码错误' });
+            res.render('user/login', { _layoutFile:false,title: '教务信息管理系统-登陆',errorMessage:'提示：登录名或密码错误' });
         }
         else {
             // res.cookie('user', result[0].UserID, { expires: new Date(Date.now() + 1800000), httpOnly: true });

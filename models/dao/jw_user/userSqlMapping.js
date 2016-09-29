@@ -3,6 +3,7 @@
  */
 
 var user = {
-    queryByUser: 'SELECT * FROM jw_user WHERE USERNAME=? AND PASSWORD=?;'
+    queryByUser: 'SELECT * FROM jw_user WHERE USERNAME=? AND PASSWORD=?;',
+    queryUserData: 'SELECT * FROM jw_user WHERE USERNAME=?;'
 };
 module.exports = user;

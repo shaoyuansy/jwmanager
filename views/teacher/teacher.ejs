@@ -8,7 +8,7 @@
     <!-- 页面内容 Header -->
     <section class="content-header">
         <h1>
-            教师信息管理
+            教师信息管理页面
         </h1>
         <ol class="breadcrumb">
             <li><a href="/index"><i class="fa fa-home"></i> 首页</a></li>
@@ -326,7 +326,6 @@
                                 + oSheet.Cells(i, 31).value + ","+ oSheet.Cells(i, 32).value + ","+ oSheet.Cells(i, 33).value + ","
                                 + oSheet.Cells(i, 34).value + ","+ oSheet.Cells(i, 35).value + ","+ oSheet.Cells(i, 36).value + ","
                                 + oSheet.Cells(i, 37).value;
-                        console.log(str);
                         $.ajax({
                             type: "get",
                             url: '/teacherService/insertSome',

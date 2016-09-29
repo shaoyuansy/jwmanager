@@ -8,7 +8,7 @@ var jysDao = require('../../models/dao/jw_jys/jysDao');
 
 /* GET teacher page. */
 router.get('/', function(req, res, next) {
-    res.render('teacher/teacher', {title: '教师信息管理'});
+    res.render('teacher/teacher', {title: '教务信息管理系统——教研室管理'});
 });
 
 //编辑信息--若是更新信息则在编辑页面显示信息
@@ -191,7 +191,7 @@ router.post('/_editTeacher.html', function (req, res, next) {
 router.get('/_exportTeacher', function(req, res, next) {
     res.render('teacher/_exportTeacher', {
         idstr : req.query.IDstr,
-        title: '教师信息管理-教师资料导出预览'
+        title: '教务信息管理系统——教师资料导出预览'
     });
 });
 

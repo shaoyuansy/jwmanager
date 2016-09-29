@@ -287,16 +287,19 @@
                 "mData": null,
                 "sClass": "center",
                 "mData": function (obj) {
-                    var filep = obj.FJ;
-                    var str= "";
-                    if(filep!="")
-                    {
-                        var locArray = filep.split("/");
-                        var fileNmae=locArray[locArray.length-1];
-                        str+='<a href="/teacherService/download?filePath='+filep+'" > '+fileNmae+'</a>';
-                    }
-                    return str;
+                var filep = obj.FJ;
+                var str= "";
+                if(filep == null || filep == ""){
+                    str+='无';
                 }
+                if(filep != "" &&filep != null)
+                {
+                    var locArray = filep.split("/");
+                    var fileNmae=locArray[locArray.length-1];
+                    str+='<a href="/teacherService/download?filePath='+filep+'" > '+fileNmae+'</a>';
+                }
+                return str;
+            }
             }
 
         ];
@@ -402,7 +405,7 @@
         if (curTbl != null) {
             var flag = true;
             for (var j = 0; j < curTbl.rows.length; j++) {
-                for (var i = 1; i < curTbl.rows[j].cells.length; i++) {
+                for (var i = 0; i < curTbl.rows[j].cells.length; i++) {
                     if (i == 1 && rows > 0) {
                         outStr += " \t"; rows -= 1;
                     }

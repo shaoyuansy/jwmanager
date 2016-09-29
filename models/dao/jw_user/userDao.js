@@ -18,3 +18,12 @@ exports.queryByUser = function (req, res, userName, passWord, fn) {
         });
     });
 };
+
+exports.GetUserData = function (req, res, userName, fn){
+    pool.getConnection(function(err, connection) {
+        connection.query($sql.queryUserData,userName,function(err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};

@@ -37,6 +37,8 @@ var majorService = require('./routes/service/majorService');
 var courseService = require('./routes/service/courseService');
 //专业-课程服务
 var major_courseService = require('./routes/service/major_courseService');
+//用户服务
+var userService = require('./routes/service/userService');
 //路由配置结束
 
 var app = express();
@@ -96,6 +98,7 @@ app.use('/teacherService',teacherService);
 app.use('/majorService',majorService);
 app.use('/courseService',courseService);
 app.use('/major_courseService',major_courseService);
+app.use('/userService',userService);
 //路由地址配置结束
 
 // catch 404 and forward to error handler
