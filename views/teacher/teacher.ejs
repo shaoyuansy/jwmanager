@@ -152,7 +152,10 @@
                 "mData": function (obj) {
                     var filep = obj.FJ;
                     var str= "";
-                    if(filep!="")
+                    if(filep == null || filep == ""){
+                        str+='无';
+                    }
+                    if(filep != "" &&filep != null)
                     {
                         var locArray = filep.split("/");
                         var fileNmae=locArray[locArray.length-1];
@@ -300,7 +303,7 @@
                         &&oSheet.Cells(1, 16).value == "学历"&&oSheet.Cells(1, 17).value == "最高学位"&&oSheet.Cells(1, 18).value == "毕业时间"
                         &&oSheet.Cells(1, 19).value == "毕业院校"&&oSheet.Cells(1, 20).value == "学缘"&&oSheet.Cells(1, 21).value == "专业技术职称"
                         &&oSheet.Cells(1, 22).value == "学科类别"&&oSheet.Cells(1, 23).value == "导师类型"&&oSheet.Cells(1, 24).value == "地区"
-                        &&oSheet.Cells(1, 25).value == "可授课程"&&oSheet.Cells(1, 26).value == "初始代课时间"&&oSheet.Cells(1, 27).value == "教学效果"
+                        &&oSheet.Cells(1, 25).value == "可授课程"&&oSheet.Cells(1, 26).value == "在我院初始代课时间"&&oSheet.Cells(1, 27).value == "教学效果"
                         &&oSheet.Cells(1, 28).value == "是否为双师型"&&oSheet.Cells(1, 29).value == "是否具有工程背景"&&oSheet.Cells(1, 30).value == "是否具有行业背景"
                         &&oSheet.Cells(1, 31).value == "身份证复印件"&&oSheet.Cells(1, 32).value == "工作证复印件"&&oSheet.Cells(1, 33).value == "教师资格证复印件"
                         &&oSheet.Cells(1, 34).value == "学位证复印件"&&oSheet.Cells(1, 35).value == "毕业证复印件"&&oSheet.Cells(1, 36).value == "职称证复印件"
@@ -322,7 +325,8 @@
                                 + oSheet.Cells(i, 28).value + ","+ oSheet.Cells(i, 29).value + ","+ oSheet.Cells(i, 30).value + ","
                                 + oSheet.Cells(i, 31).value + ","+ oSheet.Cells(i, 32).value + ","+ oSheet.Cells(i, 33).value + ","
                                 + oSheet.Cells(i, 34).value + ","+ oSheet.Cells(i, 35).value + ","+ oSheet.Cells(i, 36).value + ","
-                                + oSheet.Cells(i, 37).value + ",";
+                                + oSheet.Cells(i, 37).value;
+                        console.log(str);
                         $.ajax({
                             type: "get",
                             url: '/teacherService/insertSome',

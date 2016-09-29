@@ -555,10 +555,13 @@
                 break;
             }
         }
-        var input = document.getElementById("FJ");
-        console.log(input.type+"+++++++");
-        if(input.value != ""){
-
+        //判断是否有附件
+        var filePath = document.getElementById("FJ").value;
+        if(filePath != ""){
+            var locArray = filePath.split("/");
+            var fileNmae=locArray[locArray.length-1];
+            $updatefilea = $('<a id="updatefilea" href="javascript:void(0)" onclick="aclick(\'/teacherService/download?filePath='+filePath+'\')"  ondblclick="adblclick(this)" > '+fileNmae+'</a>');
+            $('#fileList').append($updatefilea);
         }
         //上传事件
             $('#file_upload_1').uploadify({
@@ -580,8 +583,13 @@
                     if (response == true) {
                         var fileNmae = fileObj.name;
                         var filePath = '/zipfiles/'+fileNmae;
+                        //将上传的附件链接显示在附件栏中
                         $('#fileList').append('<a href="javascript:void(0)" onclick="aclick(\'/teacherService/download?filePath='+filePath+'\')"  ondblclick="adblclick(this)" > '+fileNmae+'</a>');
                         $('#fileList').append('<input id="hidfj" name="hidfj" type="hidden" value="'+filePath+'"/>&nbsp;&nbsp;&nbsp;')
+                        //替换新的附件时，将老附件的链接删除
+                        if(document.getElementById("updatefilea")){
+                            $updatefilea.remove();
+                        }
                     }
                     else {
                         alert('文件上传出错!');
@@ -605,14 +613,21 @@
         if (result) {
             $(_this).next().remove();
             $(_this).remove();
+            document.getElementById("FJ").value = "";
         }
     }
 
 
     function submitForm(){
-        var filep=$('#hidfj').val();
-        $('#FJ').val(filep);
-        console.log("++++++"+$('#FJ').val(filep));
+        //获取服务器上的附件的值
+        var filePath = document.getElementById("FJ").value;
+        //如果本次修改未重新上传附件，则附件值还为原来的值
+        if(typeof($('#hidfj').val()) == "undefined"){
+            document.getElementById("FJ").value=filePath;
+            //如果重新上传附件，则附件值为新的上传的值
+        }else{
+            document.getElementById("FJ").value= $('#hidfj').val();
+        }
         $.ajax({
             type: "post",
             url: '/teacher/_editTeacher.html',

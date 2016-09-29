@@ -35,7 +35,6 @@ router.get('/_editTeacher.html', function(req, res, next) {
             rxsj:"",
             sfzhm:"",
             mz:"",
-            zc:"",
             dzsj:"",
             rzzt:"",
             dwh:"",
@@ -81,7 +80,6 @@ router.get('/_editTeacher.html', function(req, res, next) {
                     rxsj:result[0].RXSJ,
                     sfzhm:result[0].SFZHM,
                     mz:result[0].MZ,
-                    zc:result[0].ZC,
                     dzsj:result[0].DZSJ,
                     rzzt:result[0].RZZT,
                     dwh:result[0].DWH,
@@ -129,7 +127,6 @@ router.post('/_editTeacher.html', function (req, res, next) {
     var rxsj = req.body.RXSJ;
     var sfzhm = req.body.SFZHM;
     var mz = req.body.MZ;
-    var zc = req.body.ZC;
     var dzsj = req.body.DZSJ;
     var rzzt = req.body.RZZT;
     var dwh = req.body.DWH;
@@ -161,7 +158,7 @@ router.post('/_editTeacher.html', function (req, res, next) {
 
     var sqlArr;    //字段数组
     if(id==0){
-        sqlArr = [xm,gh,xb,csny,lxdh,jysmc,fgfzr,rxsj,sfzhm,mz,zc,dzsj,rzzt,dwh,dwmc,gzdwlb,xl,zgxw,bysj,byyx,xy,
+        sqlArr = [xm,gh,xb,csny,lxdh,jysmc,fgfzr,rxsj,sfzhm,mz,dzsj,rzzt,dwh,dwmc,gzdwlb,xl,zgxw,bysj,byyx,xy,
             zyjszc,xklb,sfwssx,sfjygcbj,sfjyhybj,dslx,dq,kskc,csdksj,jxxg,sfsjsfzfyj,sfsjbyzfyj,sfsjxwzfyj,sfsjzczfyj,
             sfsjjszgzfyj,sfsjgzzfyj,sfsjxys,fj];
 
@@ -174,7 +171,7 @@ router.post('/_editTeacher.html', function (req, res, next) {
             }
         });
     }else{
-        sqlArr = [xm,gh,xb,csny,lxdh,jysmc,fgfzr,rxsj,sfzhm,mz,zc,dzsj,rzzt,dwh,dwmc,gzdwlb,xl,zgxw,bysj,byyx,xy,
+        sqlArr = [xm,gh,xb,csny,lxdh,jysmc,fgfzr,rxsj,sfzhm,mz,dzsj,rzzt,dwh,dwmc,gzdwlb,xl,zgxw,bysj,byyx,xy,
             zyjszc,xklb,sfwssx,sfjygcbj,sfjyhybj,dslx,dq,kskc,csdksj,jxxg,sfsjsfzfyj,sfsjbyzfyj,sfsjxwzfyj,sfsjzczfyj,
             sfsjjszgzfyj,sfsjgzzfyj,sfsjxys,fj,id];
         //编辑调度命令
