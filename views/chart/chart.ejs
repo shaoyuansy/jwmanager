@@ -1,6 +1,6 @@
 <script type="text/javascript" src="/chart/highcharts.js"></script>
 <script type="text/javascript" src="/chart/exporting.js"></script>
-
+<script type="text/javascript" src="/javascripts/myChart.js"></script>
 <!-- 页面内容 content -->
 <div class="content-wrapper">
     <!-- 页面内容 Header -->
@@ -17,19 +17,162 @@
     <!-- Main content -->
     <section class="content">
         <!-- /.box -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
 
-        <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">信息统计</h3>
+                        <h3 class="box-title">各专业职称教师统计表</h3>
 
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="container" style="height: 300px;"></div>
+                    </div>
+                    <!-- /.box-body-->
+                </div>
             </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <div id="container" style="min-width:700px;height:400px"></div>
-
-            </div>
-            <!-- /.box-body -->
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+
+                        <h3 class="box-title">教师性别统计表</h3>
+
+                        <div class="box-tools pull-right">
+                            <select id="JYS" name="JYS" class="btn btn-box-tool">
+                                <option value="%">全部</option>
+                                <%- jyscode %>
+                            </select>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="genderChart" style="height: 300px;"></div>
+                    </div>
+                    <!-- /.box-body-->
+                </div>
+
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+
+                        <h3 class="box-title">教师最高学位统计表</h3>
+
+                        <div class="box-tools pull-right">
+                            <select id="JYS_XW" name="JYS_XW" class="btn btn-box-tool">
+                                <option value="%">全部</option>
+                                <%- jyscode %>
+                            </select>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="xwChart" style="height: 300px;"></div>
+                    </div>
+                    <!-- /.box-body-->
+                </div>
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+
+                        <h3 class="box-title">教师地区统计表</h3>
+
+                        <div class="box-tools pull-right">
+                            <select id="JYS_DQ" name="JYS_DQ" class="btn btn-box-tool">
+                                <option value="%">全部</option>
+                                <%- jyscode %>
+                            </select>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="dqChart" style="height: 300px;"></div>
+                    </div>
+                    <!-- /.box-body-->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+
+                        <h3 class="box-title">教师年龄统计表</h3>
+
+                        <div class="box-tools pull-right">
+                            <select id="JYS_AGE" name="JYS_AGE" class="btn btn-box-tool">
+                                <option value="%">全部</option>
+                                <%- jyscode %>
+                            </select>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="ageChart" style="height: 300px;"></div>
+                    </div>
+                    <!-- /.box-body-->
+                </div>
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+
+                        <h3 class="box-title">教师导师类型统计表</h3>
+
+                        <div class="box-tools pull-right">
+                            <select id="JYS_DSLX" name="JYS_DSLX" class="btn btn-box-tool">
+                                <option value="%">全部</option>
+                                <%- jyscode %>
+                            </select>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="dslxChart" style="height: 300px;"></div>
+                    </div>
+                    <!-- /.box-body-->
+                </div>
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
+
+                        <h3 class="box-title">教师教学效果统计表</h3>
+
+                        <div class="box-tools pull-right">
+                            <select id="JYS_JXXG" name="JYS_JXXG" class="btn btn-box-tool">
+                                <option value="%">全部</option>
+                                <%- jyscode %>
+                            </select>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="jxxgChart" style="height: 300px;"></div>
+                    </div>
+                    <!-- /.box-body-->
+                </div>
+            </div>
+        </div>
+
+        <!-- /.box-body -->
         <!-- /.box -->
     </section>
     <!-- /.content -->
@@ -39,138 +182,30 @@
 
 
 <script>
-    var jiaoshouArr = new Array();//教授
-    var fujiaoshouArr = new Array();//副教授
-    var jiangshiArr = new Array();//讲师
-    var zhujiaoArr = new Array();//助教
-    var wpjArr = new Array();//未评级
-    var mycategories = new Array();//图表分组
     $(document).ready(function () {
-        mycategories = [
-            '软件工程',
-            '物联网工程',
-            '数字媒体'
-        ];
-        getDataByJys("软件工程");
-        getDataByJys("物联网工程");
-        getDataByJys("数字媒体");
+        //监听下拉框，如果信息改变，则调用getGender方法
+        $("#JYS").change(function (){
+            getGender(this.value);
+        });
+
+        $("#JYS_AGE").change(function (){
+            getCsny(this.value);
+        });
+
+        $("#JYS_XW").change(function (){
+            getZgxw(this.value);
+        });
+
+        $("#JYS_DSLX").change(function (){
+            getDslx(this.value);
+        });
+
+        $("#JYS_DQ").change(function (){
+            getDq(this.value);
+        });
+
+        $("#JYS_JXXG").change(function (){
+            getJxxg(this.value);
+        });
     });
-    //由教研室名称进行绘图
-    function getDataByJys(jysmc){
-        $.ajax({
-            type: "get",
-            url: '/chart/getListByJys',
-            data:{JYSMC:jysmc},
-            cache: true,
-            success: function (msg) {
-                var jiaoshou = 0, fujiaoshou = 0, jiangshi = 0, zhujiao = 0, wpj = 0;
-                for (var i = 0; i < msg.data.length; i++) {
-                    var zyjszc = msg.data[i].专业技术职称;
-                    switch (zyjszc){
-                        case '教授':
-                            jiaoshou = msg.data[i].人数;
-                            break;
-                        case '副教授':
-                            fujiaoshou = msg.data[i].人数;
-                            break;
-                        case '讲师':
-                            jiangshi = msg.data[i].人数;
-                            break;
-                        case '助教':
-                            zhujiao = msg.data[i].人数;
-                            break;
-                        case '其他正高级':
-                            jiaoshou = msg.data[i].人数;
-                            break;
-                        case '其他副高级':
-                            fujiaoshou = msg.data[i].人数;
-                            break;
-                        case '其他中级':
-                            jiangshi = msg.data[i].人数;
-                            break;
-                        case '其他初级':
-                            zhujiao = msg.data[i].人数;
-                            break;
-                        case '未评级':
-                            wpj = msg.data[i].人数;
-                            break;
-                    }
-                }
-                //将各类的人数放到各类数组中
-                jiaoshouArr.push(jiaoshou);
-                fujiaoshouArr.push(fujiaoshou);
-                jiangshiArr.push(jiangshi);
-                zhujiaoArr.push(zhujiao);
-                wpjArr.push(wpj);
-                if(jysmc == "数字媒体"){
-                    painting();
-                }
-            },
-            error: function (e) {
-                console.log(e);
-            }
-        });
-    }
-    //绘图
-    function painting(){
-        $('#container').highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: ''
-            },
-            subtitle: {
-                text: '教研室各职称教师个数'
-            },
-            xAxis: {
-                categories: mycategories
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: '数目 (个)'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y} 个</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: [{
-                name: '教授（包括其他正高级）',
-                data: jiaoshouArr
-                //data: jiaoshouArr.concat(qtzgjArr)
-
-            }, {
-                name: '副教授（包括其他副高级）',
-                data: fujiaoshouArr
-                //data: fujiaoshouArr.concat(qtfgjArr)
-
-            }, {
-                name: '讲师（包括其他中级）',
-                data: jiangshiArr
-                //data: jiangshiArr.concat(qtzjArr)
-
-            }, {
-                name: '助教（包括其他初级）',
-                data: zhujiaoArr
-                //data: zhujiaoArr.concat(qtcjArr)
-
-            }, {
-                name: '未评级',
-                data: wpjArr
-
-            }]
-        });
-    }
 </script>

@@ -80,10 +80,70 @@ exports.deleteSome = function (req, res, idstr, fn) {
     });
 };
 
-/* 获取数据列表信息 BY 教研室名称*/
+/* 获取专业技术职称数据列表信息 BY 教研室名称*/
 exports.queryByJys = function (req, res, JYSMC, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.queryByJys, [JYSMC], function (err, result) {
+        connection.query('SELECT DISTINCT t.ZYJSZC AS \'专业技术职称\',COUNT(t.ZYJSZC) AS \'人数\' FROM jw_teacher AS t LEFT JOIN jw_jys AS j ON j.JYSMC=t.JYSMC WHERE j.JYSMC like \''+JYSMC+'\' group by t.ZYJSZC', function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+
+/* 获取教师性别数据列表信息 BY 教研室名称*/
+exports.queryByJysForGender = function (req, res, JYSMC, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query('SELECT DISTINCT t.XB AS \'性别\',COUNT(t.XB) AS \'人数\' FROM jw_teacher AS t LEFT JOIN jw_jys AS j ON j.JYSMC=t.JYSMC WHERE j.JYSMC like \''+JYSMC+'\' group by t.XB', function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+
+/* 获取教师出生年月数据列表信息 BY 教研室名称*/
+exports.queryByJysForCsny = function (req, res, JYSMC, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query('SELECT DISTINCT t.CSNY AS \'出生年月\',COUNT(t.CSNY) AS \'人数\' FROM jw_teacher AS t LEFT JOIN jw_jys AS j ON j.JYSMC=t.JYSMC WHERE j.JYSMC like \''+JYSMC+'\' group by t.CSNY', function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+
+/* 获取教师最高学位数据列表信息 BY 教研室名称*/
+exports.queryByJysForZgxw = function (req, res, JYSMC, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query('SELECT DISTINCT t.ZGXW AS \'学位\',COUNT(t.ZGXW) AS \'人数\' FROM jw_teacher AS t LEFT JOIN jw_jys AS j ON j.JYSMC=t.JYSMC WHERE j.JYSMC like \''+JYSMC+'\' group by t.ZGXW', function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+
+/* 获取教师导师类型数据列表信息 BY 教研室名称*/
+exports.queryByJysForDslx = function (req, res, JYSMC, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query('SELECT DISTINCT t.DSLX AS \'导师类型\',COUNT(t.DSLX) AS \'人数\' FROM jw_teacher AS t LEFT JOIN jw_jys AS j ON j.JYSMC=t.JYSMC WHERE j.JYSMC like \''+JYSMC+'\' group by t.DSLX', function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+
+/* 获取教师地区数据列表信息 BY 教研室名称*/
+exports.queryByJysForDq = function (req, res, JYSMC, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query('SELECT DISTINCT t.DQ AS \'地区\',COUNT(t.DQ) AS \'人数\' FROM jw_teacher AS t LEFT JOIN jw_jys AS j ON j.JYSMC=t.JYSMC WHERE j.JYSMC like \''+JYSMC+'\' group by t.DQ', function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+
+/* 获取教师教学效果数据列表信息 BY 教研室名称*/
+exports.queryByJysForJxxg = function (req, res, JYSMC, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query('SELECT DISTINCT t.JXXG AS \'教学效果\',COUNT(t.JXXG) AS \'人数\' FROM jw_teacher AS t LEFT JOIN jw_jys AS j ON j.JYSMC=t.JYSMC WHERE j.JYSMC like \''+JYSMC+'\' group by t.JXXG', function (err, result) {
             connection.release();
             fn(result);
         });

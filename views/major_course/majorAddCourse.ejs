@@ -163,7 +163,7 @@
                 "sClass": "center"
             }
         ];
-        mytable = CreateDataTable('#datatable', '/courseService/getSome?idstr='+getKcId("<%= sqlStr %>"), columns);
+        mytable = CreateDataTable('#datatable', '/courseService/getList', columns);
     });
     //获取该年级该专业已选课程ID
     function getKcId(data){
