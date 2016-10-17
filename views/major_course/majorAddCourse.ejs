@@ -165,34 +165,34 @@
         ];
         mytable = CreateDataTable('#datatable', '/courseService/getList', columns);
     });
-    //获取该年级该专业已选课程ID
-    function getKcId(data){
-        var temp = new Array();
-        var idstr = new Array();
-        getZyId(data);
-        $.ajax({
-            type: "get",
-            url: "/major_courseService/getList?sqlstr="+data,
-            dataType: "json",
-            async: false,
-            cache: true,
-            success: function (msg) {
-                temp = msg;
-            },
-            error: function (e) {
-                console.log(e);
-            }
-        });
-        var result = temp.aaData;
-        for(var i = 0;i<result.length;i++){
-            idstr.push(result[i].KCID);
-        }
-        //若该年级该专业目前还没有课程，返回''
-        if(idstr.join(",") == ""){
-            return "''";
-        }
-        return idstr.join(",");
-    }
+//    //获取该年级该专业已选课程ID
+//    function getKcId(data){
+//        var temp = new Array();
+//        var idstr = new Array();
+//        getZyId(data);
+//        $.ajax({
+//            type: "get",
+//            url: "/major_courseService/getList?sqlstr="+data,
+//            dataType: "json",
+//            async: false,
+//            cache: true,
+//            success: function (msg) {
+//                temp = msg;
+//            },
+//            error: function (e) {
+//                console.log(e);
+//            }
+//        });
+//        var result = temp.aaData;
+//        for(var i = 0;i<result.length;i++){
+//            idstr.push(result[i].KCID);
+//        }
+//        //若该年级该专业目前还没有课程，返回''
+//        if(idstr.join(",") == ""){
+//            return "''";
+//        }
+//        return idstr.join(",");
+//    }
     //由年级和专业获取专业ID
     function getZyId(data){
         var temp2 = [];
@@ -214,6 +214,7 @@
     }
     //为该年级该专业添加课程
     function addCourse(){
+        getZyId("<%= sqlStr %>");
         var flag = false;
         var arr = [];
         $('input[type="checkbox"][name="checkbox2"]:checked').each(function () {
