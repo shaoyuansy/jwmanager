@@ -17,6 +17,12 @@ router.get('/getList', function (req, res, next) {
         res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
     });
 });
+//只获取专业-课程表
+router.get('/getMC', function (req, res, next) {
+    zy_kcDao.queryMC(req, res,function (result) {
+        res.send({"aaData": result});
+    });
+});
 //删除一条专业-课程信息记录
 router.get('/delOne', function (req, res, next) {
     zy_kcDao.delete(req, res, req.query.ID, function (result) {

@@ -557,7 +557,7 @@
         }
         //判断是否有附件
         var filePath = document.getElementById("FJ").value;
-        if(filePath != ""){
+        if(filePath != ""&& filePath != "null"){
             var locArray = filePath.split("/");
             var fileNmae=locArray[locArray.length-1];
             $updatefilea = $('<a id="updatefilea" href="javascript:void(0)" onclick="aclick(\'/teacherService/download?filePath='+filePath+'\')"  ondblclick="adblclick(this)" > '+fileNmae+'</a>');

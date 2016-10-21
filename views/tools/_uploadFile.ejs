@@ -7,9 +7,7 @@
     确认上传
 </a>
 <script>
-
     //上传事件
-    function createUploadify(fn){
         $('#file_upload_1').uploadify({
             'auto':false,//自动上传
             'uploader': '/tools/uploadFile/uploadFile.html',
@@ -23,7 +21,7 @@
             //文件上传时同时以POST方法向服务端提交一些数据
             //'method'   : 'post',
             //'formData' : { 'someKey' : 'someValue' },
-            'multi': true,//多文件上传
+            'multi': false,//多文件上传
             'onUploadSuccess':fn//上传完成后事件
         });
     }

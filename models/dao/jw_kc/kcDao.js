@@ -10,10 +10,28 @@ var $sql = require('./kcSqlMapping');
 // 使用连接池，提升性能
 var pool = mysql.createPool($util.extend({}, $conf.mysql));
 
-/* 获取数据列表信息*/
+//获取课程信息列表
 exports.queryAll = function (req, res, fn) {
     pool.getConnection(function (err, connection) {
         connection.query($sql.queryAll, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+/* 选课页面获取课程信息列表*/
+exports.selectCourse = function (req, res,arrC, fn) {
+    pool.getConnection(function (err, connection) {
+        arrC =  req.query.arrC.split(",");
+        var sql ="SELECT DISTINCT ID,KCBH,KCMC,KCYWMC,KCFZR,KCLX,ZXS,SJXS,XF,SYDX,XDKC,HXKC,JYSHF,ZYFZR " +
+            "FROM " +
+            "(SELECT kc.ID,kc.KCBH,kc.KCMC,kc.KCYWMC,kc.KCFZR,kc.KCLX,kc.ZXS,kc.SJXS,kc.XF,kc.SYDX,kc.XDKC,kc.HXKC,kc.JYSHF,kc.ZYFZR,zy.ZYMC,zy.KSNJ,zk.KSXQ " +
+            "FROM jw_zy_kc AS zk,jw_zy AS zy,jw_kc AS kc " +
+            "WHERE zk.ZYID=zy.ID AND zk.KCID=kc.ID)t " +
+            "WHERE KSNJ LIKE '" + arrC[0] + "' AND KSXQ LIKE '"+arrC[1]+"' OR KSNJ LIKE '"+arrC[2]+"' AND KSXQ LIKE '"+arrC[3]+"' " +
+            "OR KSNJ LIKE '"+arrC[4]+"' AND KSXQ LIKE '"+arrC[5]+"' OR KSNJ LIKE '"+arrC[6]+"' AND KSXQ LIKE '"+arrC[7]+"' " +
+            "ORDER BY ID;";
+        connection.query(sql, function (err,result) {
             connection.release();
             fn(result);
         });

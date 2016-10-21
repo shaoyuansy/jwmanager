@@ -152,10 +152,10 @@
                 "mData": function (obj) {
                     var filep = obj.FJ;
                     var str= "";
-                    if(filep == null || filep == ""){
+                    if(filep == "null" || filep == null || filep == ""){
                         str+='无';
                     }
-                    if(filep != "" &&filep != null)
+                    if(filep != "" && filep != null && filep != "null")
                     {
                         var locArray = filep.split("/");
                         var fileNmae=locArray[locArray.length-1];

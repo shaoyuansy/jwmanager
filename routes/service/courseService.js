@@ -17,6 +17,12 @@ router.get('/getList', function (req, res, next) {
         res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
     });
 });
+//选课页面获取课程信息列表
+router.get('/selectCourse', function (req, res, next) {
+    kcDao.selectCourse(req, res,req.query.arrC, function (result) {
+        res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
+    });
+});
 //删除一条课程信息记录
 router.get('/delOne', function (req, res, next) {
     kcDao.delete(req, res, req.query.ID, function (result) {

@@ -21,6 +21,8 @@ var chart = require('./routes/chart/chart');
 var major = require('./routes/major/major');
 //课程信息
 var course = require('./routes/course/course');
+//教师选课信息管理
+var selectcourse = require('./routes/selectcourse/selectcourse');
 //插件(上传)
 var uploadFile = require('./routes/tools/uploadFile');
 
@@ -89,6 +91,7 @@ app.use('/jys',jys);
 app.use('/chart',chart);
 app.use('/major',major);
 app.use('/course',course);
+app.use('/selectcourse',selectcourse);
 app.use('/tools/uploadFile', uploadFile);
 
 app.use('/major_course',major_course);

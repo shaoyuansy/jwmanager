@@ -20,6 +20,15 @@ exports.queryAll = function (req, res,sqlStr, fn) {
         });
     });
 };
+/* 只获取专业课程关联表*/
+exports.queryMC = function (req, res, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.queryMC, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
 /* 获取数据列表信息 BY ID*/
 exports.queryListById = function (req, res, id, fn) {
     pool.getConnection(function (err, connection) {

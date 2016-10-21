@@ -1,0 +1,259 @@
+<!-- page script -->
+
+<!-- 页面内容 content -->
+<div class="content-wrapper">
+    <!-- 页面内容 Header -->
+    <section class="content-header">
+        <h1>
+            教师选课信息管理页面
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/index"><i class="fa fa-home"></i> 首页</a></li>
+            <li class="active">教师选课管理</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">教师选课</h3>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="selectcourseTL" class="table table-bordered table-striped">
+
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+
+    </section>
+    <!-- /.content -->
+</div>
+
+<script>
+
+    $(document).ready(function(){
+        //判断当前时间，用来查询当前时间所属课程
+        var xueqi = "";
+        var nowDate = new Date('2016/10/21,00:00:00');
+        //系统判断学期与时间
+        var nowYear = nowDate.getFullYear();//当前年份
+        var nowMonth  = nowDate.getMonth()+1;//当前月份
+        if(nowMonth >= 8 && nowMonth <= 12){
+            //比如 2016 9月 - 12月 有2016.2015.2014.2013四年
+            //四个学年判断
+            var xuenian1 = nowYear+"级";//2016级
+            var xuenian2 = nowYear-1+"级";//2015级
+            var xuenian3 = nowYear-2+"级";//2014级
+            var xuenian4 = nowYear-3+"级";//2013级
+            //当前四个学期判断
+            var xueqi1 = "第"+replaceNo((nowYear-nowYear)*2+1)+"学期";//1
+            var xueqi2 = "第"+replaceNo((nowYear-(nowYear-1))*2+1)+"学期";//2
+            var xueqi3 = "第"+replaceNo((nowYear-(nowYear-2))*2+1)+"学期";//3
+            var xueqi4 = "第"+replaceNo((nowYear-(nowYear-3))*2+1)+"学期";//4
+            console.log("现在四个学年"+xuenian1+xuenian2+xuenian3+xuenian4);
+            console.log("现在四个学期"+xueqi1+xueqi2+xueqi3+xueqi4);
+        }else if(nowMonth >= 1 && nowMonth < 2 || nowMonth >= 2 && nowMonth <= 7){
+                //比如：2017 1 月 依然还是2016.2015.2014.2013四年 2017
+            var xuenian1 = nowYear-1+"级";
+            var xuenian2 = nowYear-2+"级";
+            var xuenian3 = nowYear-3+"级";
+            var xuenian4 = nowYear-4+"级";
+            //当前四个学期判断
+            if(nowMonth >= 1 && nowMonth < 2){
+                var xueqi1 = "第"+replaceNo((nowYear-nowYear)*2+1)+"学期";//1
+                var xueqi2 = "第"+replaceNo((nowYear-(nowYear-1))*2+1)+"学期";//2
+                var xueqi3 = "第"+replaceNo((nowYear-(nowYear-2))*2+1)+"学期";//3
+                var xueqi4 = "第"+replaceNo((nowYear-(nowYear-3))*2+1)+"学期";//4
+                console.log("现在四个学年"+xuenian1+xuenian2+xuenian3+xuenian4);
+                console.log("现在四个学期"+xueqi1+xueqi2+xueqi3+xueqi4);
+            }
+            else if(nowMonth >= 2 && nowMonth <= 7){//学期为二四六八
+                //当前四个学期判断
+                var xueqi1 = "第"+replaceNo((nowYear-nowYear)*2+2)+"学期";//1
+                var xueqi2 = "第"+replaceNo((nowYear-(nowYear-1))*2+2)+"学期";//2
+                var xueqi3 = "第"+replaceNo((nowYear-(nowYear-2))*2+2)+"学期";//3
+                var xueqi4 = "第"+replaceNo((nowYear-(nowYear-3))*2+2)+"学期";//4
+                console.log("现在四个学年"+xuenian1+xuenian2+xuenian3+xuenian4);
+                console.log("现在四个学期"+xueqi1+xueqi2+xueqi3+xueqi4);
+            }
+        }
+        //组成字符串查询条件
+        var arrC = new Array(xuenian1,xueqi1,xuenian2,xueqi2,xuenian3,xueqi3,xuenian4,xueqi4);
+        arrC = arrC.join(",");
+        console.log(arrC);
+        $.ajax({
+            type:"get",
+            url:"/courseService/selectCourse",
+            dataType: "json",
+            data:{arrC:arrC},
+            cache:true,
+            async:false,
+            success:function(coursemsg){
+                console.log(coursemsg);
+                if(coursemsg.aaData.length > 0){
+                    if(nowDate){
+                        if(nowMonth < 8 && nowMonth > 0){
+                            xueqi = nowYear + "-" + (nowYear+1) + "第二学期课程";
+                        }
+                        else if (nowMonth >= 8 && nowMonth <= 12 || nowMonth >0 && nowMonth <=1 ){
+                            xueqi = nowYear + "-" + (nowYear+1) + "第一学期课程";
+                        }
+                    }
+                    //生成thead
+                    $("#selectcourseTL").append('<thead><tr id="TLtheadtr"><th>教研室划分</th><th>专业负责人</th><th>课程负责人</th><th>课程编号</th><th>' + xueqi + '</th><th>周学时</th><th>上机</th><th>学分</th></tr></thead>');
+                    //生成tbody
+                    var tbody= document.createElement("tbody");//添加tbody标签
+                    tbody.setAttribute("id","TLtbody");//添加tbody标签的id
+                    document.getElementById("selectcourseTL").appendChild(tbody);
+                    //遍历结果
+                    for(var i = 0;i<coursemsg.aaData.length;i++){
+                        var temp = coursemsg.aaData[i];
+                        //在tbody下创建tr标签生成一行
+                        var childtr= document.createElement("tr");
+                        //给tr标签（每一行）设置id，为课程的编号
+                        childtr.setAttribute("id","c"+temp['ID']);
+                        //添加单元格
+                        var childtd1 = document.createElement("td");
+                        var childtd2 = document.createElement("td");
+                        var childtd3 = document.createElement("td");
+                        var childtd4 = document.createElement("td");
+                        var childtd5 = document.createElement("td");
+                        var childtd6 = document.createElement("td");
+                        var childtd7 = document.createElement("td");
+                        var childtd8 = document.createElement("td");
+                        //添加单元格内容
+                        childtd1.innerHTML = temp['JYSHF'] === undefined || null ? "暂为无人" :temp['JYSHF'];
+                        childtd2.innerHTML = temp['ZYFZR'] === undefined || null ? "暂为无人" :temp['ZYFZR'];
+                        childtd3.innerHTML = temp['KCFZR'] === undefined || null ? "暂为无人" :temp['KCFZR'];
+                        childtd4.innerHTML = temp['KCBH']=== undefined || null ? "课程编号不见了" :temp['KCBH'];
+                        childtd5.innerHTML = temp['KCMC'] === undefined || null ? "课程名不见了" :temp['KCMC'];
+                        childtd6.innerHTML = temp['ZXS'] === undefined || null ? 0 :temp['ZXS'];
+                        childtd7.innerHTML = temp['SJXF'] === undefined || null ? 0 :temp['SJXF'];
+                        childtd8.innerHTML = temp['XF'] === undefined || null ? 0 :temp['XF'];
+                        //将单元格添加为tr的子节点
+                        childtr.appendChild(childtd1);
+                        childtr.appendChild(childtd2);
+                        childtr.appendChild(childtd3);
+                        childtr.appendChild(childtd4);
+                        childtr.appendChild(childtd5);
+                        childtr.appendChild(childtd6);
+                        childtr.appendChild(childtd7);
+                        childtr.appendChild(childtd8);
+                        //将tr添加为tbody的一个子节点
+                        document.getElementById("TLtbody").appendChild(childtr);
+                    }
+                    //开始生成专业信息
+                    readMajor(coursemsg);
+                }
+            },
+            error:function(e){
+                alert("课程信息请求失败~");
+            }
+        });
+    });
+
+    //读取专业信息
+    function readMajor(coursemsg) {
+        $.ajax({
+            type:"get",
+            url:"/majorService/getList",
+            dataType: "json",
+            cache:true,
+            async:false,
+            success:function(majormsg){
+                console.log("专业信息长度="+majormsg.aaData.length + "课程信息长度" + coursemsg.aaData.length);
+                if(majormsg.aaData.length > 0){
+                    for(var m = 0;m<majormsg.aaData.length;m++){
+                        var tempm = majormsg.aaData[m];
+                        //在thead后继续添加专业信息
+                        var thmajor= document.createElement("th");
+                        thmajor.setAttribute("id","m"+tempm['ID']);//设置单元格id
+                        thmajor.innerHTML = tempm['ZYMC']+tempm['KSNJ'].substring(2,5)+"<br>"+"("+tempm['BJGS']+")";//显示专业名称内容
+                        document.getElementById("TLtheadtr").appendChild(thmajor);
+                        //在专业下面每一行分配一个单元格，单元格id为(列id,行id）=（专业id,课程id）
+                        for(var i = 0;i<coursemsg.aaData.length;i++){
+                            var tempc = coursemsg.aaData[i];
+                            //创建一个tr
+                            var tdmc = document.createElement("td");
+                            tdmc.setAttribute("id",tempm['ID']+","+tempc['ID']);//单元格id为（专业id,课程id）
+                            document.getElementById("c"+tempc['ID']).appendChild(tdmc);
+                        }
+                    }
+                    //读取专业选课信息
+                    readMajorCourse(majormsg);
+                }
+            },
+            error:function(e){
+                alert("专业信息请求失败~");
+            }
+        });
+    }
+
+    //读取专业选课信息
+    function readMajorCourse(majormsg) {
+        $.ajax({
+            type: "get",
+            url: "/major_courseService/getMC",
+            dataType: "json",
+            cache:true,
+            async:false,
+            success: function (majorcoursemsg) {
+                console.log("专业选修课程信息记录数："+majorcoursemsg.aaData.length);
+                if(majorcoursemsg.aaData.length > 0){
+                    for(var a = 0;a<majorcoursemsg.aaData.length;a++){
+                        var tempmc = majorcoursemsg.aaData[a];
+                        //获取记录中专业id与课程id
+                        var zyid = tempmc['ZYID'];
+                        var kcid = tempmc['KCID'];
+                        //获取其构成id坐标的单元格
+                        var mctd = document.getElementById(zyid+","+kcid);
+                        //获取每个专业头数并显示
+                        var toushu = document.getElementById("m"+zyid).innerHTML;
+                        mctd.innerHTML = toushu.substring(toushu.length-2,toushu.length-1);
+
+                    }
+                }
+            },
+            error:function (e){
+                alert("专业-课程信息请求失败~");
+            }
+        });
+    }
+    //日期转换大写
+    function replaceNo(no){
+        switch (no){
+            case 1:
+                return "一";
+                break;
+            case 2:
+                return "二";
+                break;
+            case 3:
+                return "三";
+                break;
+            case 4:
+                return "四";
+                break;
+            case 5:
+                return "五";
+                break;
+            case 6:
+                return "六";
+                break;
+            case 7:
+                return "七";
+                break;
+            case 8:
+                return "八";
+                break;
+            default:
+                return "";
+                break;
+        }
+    }
+</script>
