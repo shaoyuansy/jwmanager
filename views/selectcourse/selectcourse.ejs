@@ -23,7 +23,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding" style="width: 100%">
-                <table id="selectcourseTL" class="table table-condensed" style="">
+                <table id="selectcourseTL" class="table table-condensed table-hover" style="">
 
                 </table>
             </div>
@@ -221,6 +221,8 @@
                 sklswp(coursemsg);
                 //计算总头数
                 sumToushu(coursemsg,majormsg);
+                //添加操作列
+                choose(coursemsg);
 
 
 
@@ -307,30 +309,46 @@
                 tdv += document.getElementById(tempm['ID'] + "," + tempc['ID']).innerHTML * 1;//每行每个单元格头数相加
             }
             //校内授课老师已选头数
-            var arryn = document.getElementById("yn"+tempc['ID']).innerHTML.split(';');
-            if(arryn == ""){
-                 yns = 0;
-            }else{
-                var yns = 0;
-                for(var m=0;m<arryn.length;m++){
-                    yns += arryn[m][0]*1;
-                }
+            var arryn = document.getElementById("yn"+tempc['ID']).innerHTML.split('-');
+            var ynv = 0;
+            for(var n = 0 ;n < arryn.length-1; n++){
+                ynv += arryn[n][arryn[n].length-1]*1;
             }
             //外聘授课老师已选头数
-            var arrwp = document.getElementById("wp"+tempc['ID']).innerHTML.split(';');
-            if(arrwp == ""){
-                 wps = 0;
-            }else{
-                var wps = 0;
-                for(var n=0;n<arrwp.length;n++){
-                    wps += arrwp[n][0]*1;
-                }
+            var arrwp = document.getElementById("wp"+tempc['ID']).innerHTML.split('-');
+            var wpv = 0;
+            for(var m = 0 ;m < arrwp.length-1; m++){
+                wpv += arrwp[m][arrwp[m].length-1]*1;
             }
             //将总头数单元格附上每行计算的总头数
-            document.getElementById("sum" + tempc['ID']).innerHTML = tdv-yns-wps;
+            document.getElementById("sum" + tempc['ID']).innerHTML = tdv;
+            //剩余头数
+            document.getElementById("sur" + tempc['ID']).innerHTML = tdv-ynv-wpv;
+            if(document.getElementById("sur" + tempc['ID']).innerHTML == 0){
+                document.getElementById("c" + tempc['ID']).setAttribute("class","danger");
+            }
         }
     }
+    //操作列
+    function choose(coursemsg){
+        //添加“操作”列
+        var caozuo= document.createElement("th");//授课老师（院内）th
+        caozuo.setAttribute("id","caozuo");//设置th单元格id
+        caozuo.innerHTML = "操作";
+        document.getElementById("TLtheadtr").appendChild(caozuo);
+        //添加下面单元格
+        //创建授课老师（院内）列下的单元格
+        for(var i = 0;i<coursemsg.aaData.length;i++){//课程记录数
+            var temp = coursemsg.aaData[i];
+            //创建一个td
+            var td = document.createElement("td");
+            td.setAttribute("id","cz"+temp['ID']);//单元格id为（czid）
+            td.innerHTML ="<button type='button' class='btn btn-block btn-primary btn-xs'><i class='fa fa-fw fa-hand-o-up'></i>选课</button>";
+            document.getElementById("c"+temp['ID']).appendChild(td);
+        }
 
+
+    }
     //日期转换大写
     function replaceNo(no){
         switch (no){
