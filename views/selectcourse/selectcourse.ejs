@@ -1,4 +1,4 @@
-<!-- page script -->
+
 
 <!-- 页面内容 content -->
 <div class="content-wrapper">
@@ -22,8 +22,8 @@
 
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
-                <table id="selectcourseTL" class="table table-bordered table-striped">
+            <div class="box-body no-padding" style="width: 100%">
+                <table id="selectcourseTL" class="table table-condensed" style="">
 
                 </table>
             </div>
@@ -37,6 +37,7 @@
 <script>
 
     $(document).ready(function(){
+    //1.生成左半部分课程信息
         //判断当前时间，用来查询当前时间所属课程
         var xueqi = "";
         var nowDate = new Date('2016/10/21,00:00:00');
@@ -82,10 +83,9 @@
                 console.log("现在四个学期"+xueqi1+xueqi2+xueqi3+xueqi4);
             }
         }
-        //组成字符串查询条件
+        //组成字符串查询条件，查询本学期课程
         var arrC = new Array(xuenian1,xueqi1,xuenian2,xueqi2,xuenian3,xueqi3,xuenian4,xueqi4);
         arrC = arrC.join(",");
-        console.log(arrC);
         $.ajax({
             type:"get",
             url:"/courseService/selectCourse",
@@ -94,7 +94,6 @@
             cache:true,
             async:false,
             success:function(coursemsg){
-                console.log(coursemsg);
                 if(coursemsg.aaData.length > 0){
                     if(nowDate){
                         if(nowMonth < 8 && nowMonth > 0){
@@ -147,12 +146,13 @@
                         //将tr添加为tbody的一个子节点
                         document.getElementById("TLtbody").appendChild(childtr);
                     }
+    //2.生成中间部分专业信息
                     //开始生成专业信息
                     readMajor(coursemsg);
                 }
             },
             error:function(e){
-                alert("课程信息请求失败~");
+                alert("课程信息请求失败~本页面结束");
             }
         });
     });
@@ -171,22 +171,59 @@
                     for(var m = 0;m<majormsg.aaData.length;m++){
                         var tempm = majormsg.aaData[m];
                         //在thead后继续添加专业信息
-                        var thmajor= document.createElement("th");
-                        thmajor.setAttribute("id","m"+tempm['ID']);//设置单元格id
+                        var thmajor= document.createElement("th");//专业信息th
+                        thmajor.setAttribute("id","m"+tempm['ID']);//设置专业信息单元格id
                         thmajor.innerHTML = tempm['ZYMC']+tempm['KSNJ'].substring(2,5)+"<br>"+"("+tempm['BJGS']+")";//显示专业名称内容
                         document.getElementById("TLtheadtr").appendChild(thmajor);
                         //在专业下面每一行分配一个单元格，单元格id为(列id,行id）=（专业id,课程id）
                         for(var i = 0;i<coursemsg.aaData.length;i++){
                             var tempc = coursemsg.aaData[i];
-                            //创建一个tr
+                            //创建一个td
                             var tdmc = document.createElement("td");
                             tdmc.setAttribute("id",tempm['ID']+","+tempc['ID']);//单元格id为（专业id,课程id）
                             document.getElementById("c"+tempc['ID']).appendChild(tdmc);
                         }
                     }
+    //3.生成中间部分专业-选课信息
                     //读取专业选课信息
                     readMajorCourse(majormsg);
+    //4.生成中间部分总头数和剩余头数
+                    //添加总头数一列
+                    var sumtoushu = document.createElement("th");//总头数th
+                    var surtoushu = document.createElement("th");//剩余头数th
+                    sumtoushu.setAttribute("id","zongtoushu");//设置总头数th单元格id
+                    surtoushu.setAttribute("id","shengyutoushu");//设置总头数th单元格id
+                    sumtoushu.innerHTML = "总头数";
+                    surtoushu.innerHTML = "剩余头数";
+                    document.getElementById("TLtheadtr").appendChild(sumtoushu);
+                    document.getElementById("TLtheadtr").appendChild(surtoushu);
+                    //总头数单元格
+                    for(var s = 0;s<coursemsg.aaData.length;s++){//课程记录数
+                        var tempsc = coursemsg.aaData[s];
+                        //创建一个td
+                        var tds = document.createElement("td");
+                        tds.setAttribute("id","sum"+tempsc['ID']);//单元格id为（sumid）
+                        document.getElementById("c"+tempsc['ID']).appendChild(tds);
+                        }
+                    //剩余头数单元格
+                    for(var r = 0;r<coursemsg.aaData.length;r++){//课程记录数
+                        var tempsr = coursemsg.aaData[r];
+                        //创建一个td
+                        var tdr = document.createElement("td");
+                        tdr.setAttribute("id","sur"+tempsr['ID']);//单元格id为（surid）
+                        document.getElementById("c"+tempsr['ID']).appendChild(tdr);
+                        }
                 }
+    //5.生成右侧部分选课操作
+                // 院内授课老师列
+                sklsyn(coursemsg);
+                // 外聘授课老师列
+                sklswp(coursemsg);
+                //计算总头数
+                sumToushu(coursemsg,majormsg);
+
+
+
             },
             error:function(e){
                 alert("专业信息请求失败~");
@@ -224,6 +261,76 @@
             }
         });
     }
+    //获取院内授课老师
+    function sklsyn(coursemsg){
+        //添加授课老师（院内）列
+        var sklsyn= document.createElement("th");//授课老师（院内）th
+        sklsyn.setAttribute("id","sklsyn");//设置th单元格id
+        sklsyn.innerHTML = "授课老师（院内）";
+        document.getElementById("TLtheadtr").appendChild(sklsyn);
+        //创建授课老师（院内）列下的单元格
+        for(var i = 0;i<coursemsg.aaData.length;i++){//课程记录数
+            var temp = coursemsg.aaData[i];
+            //创建一个td
+            var tdn = document.createElement("td");
+            tdn.setAttribute("id","yn"+temp['ID']);//单元格id为（ynid）
+            tdn.innerHTML = temp['YNSKLS'];
+            document.getElementById("c"+temp['ID']).appendChild(tdn);//取得每行（每个课程）的总头数单元格
+        }
+
+    }
+    //获取外聘授课老师
+    function sklswp(coursemsg){
+        //添加授课老师（外聘）列
+        var sklswp= document.createElement("th");//授课老师（外聘）th
+        sklswp.setAttribute("id","sklswp");//设置th单元格id
+        sklswp.innerHTML = "授课老师（外聘）";
+        document.getElementById("TLtheadtr").appendChild(sklswp);
+        //创建授课老师（外聘）列下的单元格
+        for(var i = 0;i<coursemsg.aaData.length;i++){//课程记录数
+            var temp = coursemsg.aaData[i];
+            //创建一个td
+            var tdw = document.createElement("td");
+            tdw.setAttribute("id","wp"+temp['ID']);//单元格id为（wpid）
+            tdw.innerHTML = temp['WPSKLS'];
+            document.getElementById("c"+temp['ID']).appendChild(tdw);//取得每行（每个课程）的总头数单元格
+        }
+    }
+    //计算总头数
+    function sumToushu(coursemsg,majormsg){
+        for(var i = 0;i<coursemsg.aaData.length;i++) {//课程记录数
+            var tempc = coursemsg.aaData[i];
+            //每行总头数计算
+            var tdv = 0;
+            for (var a = 0; a < majormsg.aaData.length; a++) {//按照每行依次读取有值的单元格相加
+                var tempm = majormsg.aaData[a];
+                tdv += document.getElementById(tempm['ID'] + "," + tempc['ID']).innerHTML * 1;//每行每个单元格头数相加
+            }
+            //校内授课老师已选头数
+            var arryn = document.getElementById("yn"+tempc['ID']).innerHTML.split(';');
+            if(arryn == ""){
+                 yns = 0;
+            }else{
+                var yns = 0;
+                for(var m=0;m<arryn.length;m++){
+                    yns += arryn[m][0]*1;
+                }
+            }
+            //外聘授课老师已选头数
+            var arrwp = document.getElementById("wp"+tempc['ID']).innerHTML.split(';');
+            if(arrwp == ""){
+                 wps = 0;
+            }else{
+                var wps = 0;
+                for(var n=0;n<arrwp.length;n++){
+                    wps += arrwp[n][0]*1;
+                }
+            }
+            //将总头数单元格附上每行计算的总头数
+            document.getElementById("sum" + tempc['ID']).innerHTML = tdv-yns-wps;
+        }
+    }
+
     //日期转换大写
     function replaceNo(no){
         switch (no){
@@ -257,3 +364,8 @@
         }
     }
 </script>
+<style>
+    #selectcourseTL th{
+        width: 60px;
+    }
+</style>
