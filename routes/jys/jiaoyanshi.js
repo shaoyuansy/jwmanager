@@ -36,9 +36,9 @@ router.get('/_editJys.html', function(req, res, next) {
 //编辑信息
 router.post('/_editJys.html', function (req, res, next) {
     var id = req.body.ID;             //ID
-    var jysbh = req.body.JYSBH;           //救援列车编号
-    var jysmc = req.body.JYSMC;           //发令日期
-    var jyszr = req.body.JYSZR;           //发令时间
+    var jysbh = req.body.JYSBH;
+    var jysmc = req.body.JYSMC;
+    var jyszr = req.body.JYSZR;
     var sqlArr;    //字段数组
     if(id==0){
         sqlArr = [jysbh,jysmc,jyszr];

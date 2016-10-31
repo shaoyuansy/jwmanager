@@ -34,6 +34,8 @@
     <!-- /.content -->
 </div>
 
+<div class="modal fade" id="modal-edit-event"></div>
+
 <script>
 
     $(document).ready(function(){
@@ -343,11 +345,25 @@
             //创建一个td
             var td = document.createElement("td");
             td.setAttribute("id","cz"+temp['ID']);//单元格id为（czid）
-            td.innerHTML ="<button type='button' class='btn btn-block btn-primary btn-xs'><i class='fa fa-fw fa-hand-o-up'></i>选课</button>";
+            td.innerHTML ='<button onclick="editXk(\'' + temp['ID'] + '\')" class="btn btn-block btn-primary btn-xs" role="button" href="#" data-toggle="modal"><i class="fa fa-fw fa-hand-o-up"></i>选课</button>';
             document.getElementById("c"+temp['ID']).appendChild(td);
         }
-
-
+    }
+    function editXk(cid){
+        var yn = document.getElementById("yn"+cid).innerHTML;
+        var sur = document.getElementById("sur"+cid).innerHTML;
+        $.ajax({
+            url: "/selectcourse/_editXk.html",
+            type: "get",
+            data:{cid:cid,yn:yn,sur:sur},
+            dataType: 'html',
+            async: false,
+            success: function (htmlContent) {
+                //模态框
+                $('#modal-edit-event').html(htmlContent);
+                $('#modal-edit-event').modal('show');
+            }
+        });
     }
     //日期转换大写
     function replaceNo(no){
@@ -382,8 +398,3 @@
         }
     }
 </script>
-<style>
-    #selectcourseTL th{
-        width: 60px;
-    }
-</style>

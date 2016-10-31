@@ -111,3 +111,21 @@ exports.queryKcId = function (req, res,sqlStr, fn) {
         });
     });
 };
+/*获取头数*/
+exports.huoquts = function (req, res, id, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.selectts, id, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+/*教师选择头数*/
+exports.xuanzets = function (req, res, arrayPar, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.updatets, arrayPar, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
