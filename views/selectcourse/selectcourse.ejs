@@ -278,8 +278,27 @@
             //创建一个td
             var tdn = document.createElement("td");
             tdn.setAttribute("id","yn"+temp['ID']);//单元格id为（ynid）
-            tdn.innerHTML = temp['YNSKLS'];
             document.getElementById("c"+temp['ID']).appendChild(tdn);//取得每行（每个课程）的总头数单元格
+            $.ajax({
+                type: "get",
+                url: "/teacher_courseService/getYN",
+                dataType: "json",
+                data:{kcid:temp['ID']},
+                cache:true,
+                async:false,
+                success: function (msg) {
+                    var skstr = "";
+                    for(var y = 0;y < msg.result.length;y++){
+                        var tempy = msg.result[y];
+                        skstr += tempy['TS']+"-"+tempy['JSXM']+(tempy['BZ'] === null ||tempy['BZ'] === undefined || tempy['BZ'] == ""? ";" : "("+tempy['BZ']+");");
+                    }
+                    tdn.innerHTML = skstr;
+                },
+                error:function (e){
+                    alert("院内教师请求失败~");
+                }
+            });
+
         }
 
     }
@@ -296,8 +315,26 @@
             //创建一个td
             var tdw = document.createElement("td");
             tdw.setAttribute("id","wp"+temp['ID']);//单元格id为（wpid）
-            tdw.innerHTML = temp['WPSKLS'];
             document.getElementById("c"+temp['ID']).appendChild(tdw);//取得每行（每个课程）的总头数单元格
+            $.ajax({
+                type: "get",
+                url: "/teacher_courseService/getWP",
+                dataType: "json",
+                data:{kcid:temp['ID']},
+                cache:true,
+                async:false,
+                success: function (msg) {
+                    var skstr = "";
+                    for(var y = 0;y < msg.result.length;y++){
+                        var tempy = msg.result[y];
+                        skstr += tempy['TS']+"-"+tempy['JSXM']+(tempy['BZ'] === null ||tempy['BZ'] === undefined || tempy['BZ'] == ""? ";" : "("+tempy['BZ']+");");
+                    }
+                    tdw.innerHTML = skstr;
+                },
+                error:function (e){
+                    alert("外聘教师请求失败~");
+                }
+            });
         }
     }
     //计算总头数
@@ -351,11 +388,12 @@
     }
     function editXk(cid){
         var yn = document.getElementById("yn"+cid).innerHTML;
+        var wp = document.getElementById("wp"+cid).innerHTML;
         var sur = document.getElementById("sur"+cid).innerHTML;
         $.ajax({
             url: "/selectcourse/_editXk.html",
             type: "get",
-            data:{cid:cid,yn:yn,sur:sur},
+            data:{cid:cid,yn:yn,wp:wp,sur:sur},
             dataType: 'html',
             async: false,
             success: function (htmlContent) {
