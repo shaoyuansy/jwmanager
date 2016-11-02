@@ -30,6 +30,16 @@ exports.queryById = function (req, res, id, fn) {
     });
 };
 
+/* 获取数据列表信息 BY 教师姓名*/
+exports.queryByMc = function (req, res, xm, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.queryByMc, xm, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+
 /*新增记录*/
 exports.insert = function (req, res, arrayPar, fn) {
     pool.getConnection(function (err, connection) {
@@ -40,6 +50,7 @@ exports.insert = function (req, res, arrayPar, fn) {
     });
 };
 
+//导入时批量插入教师
 exports.insertSome = function (req, res, arrayPar, fn) {
     pool.getConnection(function (err, connection) {
         connection.query($sql.insertSome, arrayPar, function (err, result) {

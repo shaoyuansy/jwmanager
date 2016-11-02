@@ -300,14 +300,15 @@
                         &&oSheet.Cells(1, 7).value == "联系电话"&&oSheet.Cells(1, 8).value == "所属教研室"&&oSheet.Cells(1, 9).value == "入校时间"
                         &&oSheet.Cells(1, 10).value == "分管负责人"&&oSheet.Cells(1, 11).value == "定职时间"&&oSheet.Cells(1, 12).value == "任职状态"
                         &&oSheet.Cells(1, 13).value == "单位号"&&oSheet.Cells(1, 14).value == "单位名称"&&oSheet.Cells(1, 15).value == "工作单位类别"
-                        &&oSheet.Cells(1, 16).value == "学历"&&oSheet.Cells(1, 17).value == "最高学位"&&oSheet.Cells(1, 18).value == "毕业时间"
-                        &&oSheet.Cells(1, 19).value == "毕业院校"&&oSheet.Cells(1, 20).value == "学缘"&&oSheet.Cells(1, 21).value == "专业技术职称"
-                        &&oSheet.Cells(1, 22).value == "学科类别"&&oSheet.Cells(1, 23).value == "导师类型"&&oSheet.Cells(1, 24).value == "地区"
-                        &&oSheet.Cells(1, 25).value == "可授课程"&&oSheet.Cells(1, 26).value == "在我院初始代课时间"&&oSheet.Cells(1, 27).value == "教学效果"
-                        &&oSheet.Cells(1, 28).value == "是否为双师型"&&oSheet.Cells(1, 29).value == "是否具有工程背景"&&oSheet.Cells(1, 30).value == "是否具有行业背景"
-                        &&oSheet.Cells(1, 31).value == "身份证复印件"&&oSheet.Cells(1, 32).value == "工作证复印件"&&oSheet.Cells(1, 33).value == "教师资格证复印件"
-                        &&oSheet.Cells(1, 34).value == "学位证复印件"&&oSheet.Cells(1, 35).value == "毕业证复印件"&&oSheet.Cells(1, 36).value == "职称证复印件"
-                        &&oSheet.Cells(1, 37).value == "协议书"
+                        &&oSheet.Cells(1, 16).value == "学历"&&oSheet.Cells(1, 17).value == "最高学位"&&oSheet.Cells(1, 18).value == "是否专任"
+                        &&oSheet.Cells(1, 19).value == "毕业时间"&&oSheet.Cells(1, 20).value == "毕业院校"&&oSheet.Cells(1, 21).value == "学缘"
+                        &&oSheet.Cells(1, 22).value == "专业技术职称"
+                        &&oSheet.Cells(1, 23).value == "学科类别"&&oSheet.Cells(1, 24).value == "导师类型"&&oSheet.Cells(1, 25).value == "地区"
+                        &&oSheet.Cells(1, 26).value == "可授课程"&&oSheet.Cells(1, 27).value == "在我院初始代课时间"&&oSheet.Cells(1, 28).value == "教学效果"
+                        &&oSheet.Cells(1, 29).value == "是否为双师型"&&oSheet.Cells(1, 30).value == "是否具有工程背景"&&oSheet.Cells(1, 31).value == "是否具有行业背景"
+                        &&oSheet.Cells(1, 32).value == "身份证复印件"&&oSheet.Cells(1, 33).value == "工作证复印件"&&oSheet.Cells(1, 34).value == "教师资格证复印件"
+                        &&oSheet.Cells(1, 35).value == "学位证复印件"&&oSheet.Cells(1, 36).value == "毕业证复印件"&&oSheet.Cells(1, 37).value == "职称证复印件"
+                        &&oSheet.Cells(1, 38).value == "协议书"
                 ){
                     var flag = true;
                     for (var i = 2; i <=rows; i++) {
@@ -325,7 +326,7 @@
                                 + oSheet.Cells(i, 28).value + ","+ oSheet.Cells(i, 29).value + ","+ oSheet.Cells(i, 30).value + ","
                                 + oSheet.Cells(i, 31).value + ","+ oSheet.Cells(i, 32).value + ","+ oSheet.Cells(i, 33).value + ","
                                 + oSheet.Cells(i, 34).value + ","+ oSheet.Cells(i, 35).value + ","+ oSheet.Cells(i, 36).value + ","
-                                + oSheet.Cells(i, 37).value;
+                                + oSheet.Cells(i, 37).value + ","+ oSheet.Cells(i, 38).value;
                         $.ajax({
                             type: "get",
                             url: '/teacherService/insertSome',

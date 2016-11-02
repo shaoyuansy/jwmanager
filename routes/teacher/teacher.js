@@ -42,6 +42,7 @@ router.get('/_editTeacher.html', function(req, res, next) {
             gzdwlb:"",
             xl:"",
             zgxw:"",
+            sfzr:"",
             bysj:"",
             byyx:"",
             xy:"",
@@ -87,6 +88,7 @@ router.get('/_editTeacher.html', function(req, res, next) {
                     gzdwlb:result[0].GZDWLB,
                     xl:result[0].XL,
                     zgxw:result[0].ZGXW,
+                    sfzr:result[0].SFZR,
                     bysj:result[0].BYSJ,
                     byyx:result[0].BYYX,
                     xy:result[0].XY,
@@ -134,6 +136,7 @@ router.post('/_editTeacher.html', function (req, res, next) {
     var gzdwlb = req.body.GZDWLB;
     var xl = req.body.XL;
     var zgxw = req.body.ZGXW;
+    var sfzr = req.body.SFZR;
     var bysj = req.body.BYSJ;
     var byyx = req.body.BYYX;
     var xy = req.body.XY;
@@ -158,10 +161,9 @@ router.post('/_editTeacher.html', function (req, res, next) {
 
     var sqlArr;    //字段数组
     if(id==0){
-        sqlArr = [xm,gh,xb,csny,lxdh,jysmc,fgfzr,rxsj,sfzhm,mz,dzsj,rzzt,dwh,dwmc,gzdwlb,xl,zgxw,bysj,byyx,xy,
+        sqlArr = [xm,gh,xb,csny,lxdh,jysmc,fgfzr,rxsj,sfzhm,mz,dzsj,rzzt,dwh,dwmc,gzdwlb,xl,zgxw,sfzr,bysj,byyx,xy,
             zyjszc,xklb,sfwssx,sfjygcbj,sfjyhybj,dslx,dq,kskc,csdksj,jxxg,sfsjsfzfyj,sfsjbyzfyj,sfsjxwzfyj,sfsjzczfyj,
             sfsjjszgzfyj,sfsjgzzfyj,sfsjxys,fj];
-
         teacherDao.insert(req, res, sqlArr, function (result) {
             if (result) {
                 res.send({"result":result.affectedRows});
@@ -171,7 +173,7 @@ router.post('/_editTeacher.html', function (req, res, next) {
             }
         });
     }else{
-        sqlArr = [xm,gh,xb,csny,lxdh,jysmc,fgfzr,rxsj,sfzhm,mz,dzsj,rzzt,dwh,dwmc,gzdwlb,xl,zgxw,bysj,byyx,xy,
+        sqlArr = [xm,gh,xb,csny,lxdh,jysmc,fgfzr,rxsj,sfzhm,mz,dzsj,rzzt,dwh,dwmc,gzdwlb,xl,zgxw,sfzr,bysj,byyx,xy,
             zyjszc,xklb,sfwssx,sfjygcbj,sfjyhybj,dslx,dq,kskc,csdksj,jxxg,sfsjsfzfyj,sfsjbyzfyj,sfsjxwzfyj,sfsjzczfyj,
             sfsjjszgzfyj,sfsjgzzfyj,sfsjxys,fj,id];
         //编辑调度命令

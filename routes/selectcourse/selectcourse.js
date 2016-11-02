@@ -3,7 +3,8 @@
  */
 var express = require('express');
 var router = express.Router();
-var kcDao = require('../../models/dao/jw_kc/kcDao');
+var kc_jsDao = require('../../models/dao/jw_kc_js/kc_jsDao');
+var teacherDao = require('../../models/dao/jw_teacher/teacherDao');
 
 /* . */
 router.get('/', function(req, res, next) {
@@ -15,57 +16,55 @@ router.get('/_editXk.html', function(req, res, next) {
     res.render('selectcourse/_editXk', {
         _layoutFile: false,
         title: '教务信息管理系统——教师选课',
-        cid:req.query.cid,
-        yn:req.query.yn,
-        wp:req.query.wp,
+        kcid:req.query.cid,
         sur:req.query.sur,
+        jsid:'',
         xzts:'',
-        jsmc:'',
-        bz:'',
-        skjs:''
+        jsmc:req.session.userInfo.USERNAME,
+        bz:''
     });
 
 });
 //添加教师选择头数信息
 router.post('/_editXk.html', function (req, res, next) {
-    var ID = req.body.ID;             //ID
+    var kcid = req.body.KCID;             //课程ID
+    var jsid = req.body.JSID;             //教师ID
     var xzts = req.body.XZTS;           //头数
-    var jsmc = req.body.JSMC==''?req.session.userInfo.USERNAME:req.body.JSMC;//教师名称为空则为当前登录名
     var bz = req.body.BZ;           //备注
-    var yn = req.body.YN;
-    var wp = req.body.WP;
-    var skjs = req.body.SKJS;
-    var sqlArr;    //字段数组
-    //获取原数据库有的头数记录
-
-    if(ID==0){
+    var jsmc = req.body.JSMC;       //教师名称
+    console.log("++++++++++++++++++++++++++++++++=="+kcid+";"+jsid+";"+xzts+";"+bz+";");
+    //教师名称为空则为当前登录名，备注为选课班级
+    //输入的名字与登录名不一致则为带选，备注为登录老师姓名 代选
+    if(kcid==0){
         console.log("获取课程id失败");
     }else{
-        if(skjs=='YNSKLS'){
-            if(bz == ''){
-                var str = yn + xzts + "-" + jsmc + ";";//无备注
-            }else{
-                var str = yn + xzts + "-" + jsmc + "(" + bz + ")" + ";";
-            }
-        }
-        else if(skjs=='WPSKLS'){
-            if(bz == ''){
-                var str = wp + xzts + "-" + jsmc + ";";//无备注
-            }else{
-                var str = wp + xzts + "-" + jsmc + "(" + bz + ")" + ";";
-            }
+        if(jsmc==req.session.userInfo.USERNAME){
+            kc_jsDao.xuanzets(req, res,kcid,jsid,xzts,bz,function (result) {
+                if (result) {
+                    //成功则返回数据库修改行数
+                    res.send({"result":result.affectedRows});
+                } else {
+                    //编辑失败返回0
+                    res.send({"result":0});
+                }
+            });
+        }else{
+            bz += req.session.userInfo.USERNAME;
+            kc_jsDao.xuanzets(req, res,kcid,jsid,xzts,bz,function (result) {
+                if (result) {
+                    //成功则返回数据库修改行数
+                    res.send({"result":result.affectedRows});
+                } else {
+                    //编辑失败返回0
+                    res.send({"result":0});
+                }
+            });
+
         }
 
-        //选择头数
-        kcDao.xuanzets(req, res,skjs,str,ID, function (result) {
-            if (result) {
-                //成功则返回数据库修改行数
-                res.send({"result":result.affectedRows});
-            } else {
-                //编辑失败返回0
-                res.send({"result":0});
-            }
-        });
+
+
+
     }
 
 });

@@ -290,7 +290,7 @@
                     var skstr = "";
                     for(var y = 0;y < msg.result.length;y++){
                         var tempy = msg.result[y];
-                        skstr += tempy['TS']+"-"+tempy['JSXM']+(tempy['BZ'] === null ||tempy['BZ'] === undefined || tempy['BZ'] == ""? ";" : "("+tempy['BZ']+");");
+                        skstr += tempy['TS']+"-"+tempy['XM']+(tempy['BZ'] === null ||tempy['BZ'] === undefined || tempy['BZ'] == ""? ";" : "("+tempy['BZ']+");");
                     }
                     tdn.innerHTML = skstr;
                 },
@@ -327,7 +327,7 @@
                     var skstr = "";
                     for(var y = 0;y < msg.result.length;y++){
                         var tempy = msg.result[y];
-                        skstr += tempy['TS']+"-"+tempy['JSXM']+(tempy['BZ'] === null ||tempy['BZ'] === undefined || tempy['BZ'] == ""? ";" : "("+tempy['BZ']+");");
+                        skstr += tempy['TS']+"-"+tempy['XM']+(tempy['BZ'] === null ||tempy['BZ'] === undefined || tempy['BZ'] == ""? ";" : "("+tempy['BZ']+"代选);");
                     }
                     tdw.innerHTML = skstr;
                 },
@@ -393,7 +393,7 @@
         $.ajax({
             url: "/selectcourse/_editXk.html",
             type: "get",
-            data:{cid:cid,yn:yn,wp:wp,sur:sur},
+            data:{cid:cid,sur:sur},
             dataType: 'html',
             async: false,
             success: function (htmlContent) {

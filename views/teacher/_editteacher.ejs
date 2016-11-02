@@ -128,6 +128,15 @@
                                         </select>
                                         <input id="ZGXWTEMP" name="ZGXWTEMP" type="hidden" value="<%= zgxw %>">
                                     </td>
+                                    <td>是否专任</td>
+                                    <td style="text-align: left;">
+                                        <select class="form-control select2" id="SFZR" name="SFZR" style="width: 100%">
+                                            <option value="">请选择</option>
+                                            <option>是</option>
+                                            <option>否</option>
+                                        </select>
+                                        <input id="SFZRTEMP" name="SFZRTEMP" type="hidden" value="<%= sfzr %>">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>毕业时间</td>
@@ -412,6 +421,16 @@
         for(var i=0;i<zgxws.length;i++) {
             if (zgxws.options[i].value == $("#ZGXWTEMP").val()) {
                 $zgxws.val(zgxws.options[i].value).trigger("change");
+                break;
+            }
+        }
+    //是否专任下拉选择
+        var $sfzrs = $("#SFZR").select2();
+        var sfzrs = document.getElementById("SFZR");
+        sfzrs.value = $("#SFZRTEMP").val();
+        for(var i=0;i<sfzrs.length;i++) {
+            if (sfzrs.options[i].value == $("#SFZRTEMP").val()) {
+                $sfzrs.val(sfzrs.options[i].value).trigger("change");
                 break;
             }
         }

@@ -23,9 +23,9 @@ exports.queryAll = function (req, res, fn) {
 exports.selectCourse = function (req, res,arrC, fn) {
     pool.getConnection(function (err, connection) {
         arrC =  req.query.arrC.split(",");
-        var sql ="SELECT DISTINCT ID,KCBH,KCMC,KCYWMC,KCFZR,KCLX,ZXS,SJXS,XF,SYDX,XDKC,HXKC,JYSHF,ZYFZR,YNSKLS,WPSKLS " +
+        var sql ="SELECT DISTINCT ID,KCBH,KCMC,KCYWMC,KCFZR,KCLX,ZXS,SJXS,XF,SYDX,XDKC,HXKC,JYSHF,ZYFZR " +
             "FROM " +
-            "(SELECT kc.ID,kc.KCBH,kc.KCMC,kc.KCYWMC,kc.KCFZR,kc.KCLX,kc.ZXS,kc.SJXS,kc.XF,kc.SYDX,kc.XDKC,kc.HXKC,kc.JYSHF,kc.ZYFZR,kc.YNSKLS,kc.WPSKLS,zy.ZYMC,zy.KSNJ,zk.KSXQ " +
+            "(SELECT kc.ID,kc.KCBH,kc.KCMC,kc.KCYWMC,kc.KCFZR,kc.KCLX,kc.ZXS,kc.SJXS,kc.XF,kc.SYDX,kc.XDKC,kc.HXKC,kc.JYSHF,kc.ZYFZR,zy.ZYMC,zy.KSNJ,zk.KSXQ " +
             "FROM jw_zy_kc AS zk,jw_zy AS zy,jw_kc AS kc " +
             "WHERE zk.ZYID=zy.ID AND zk.KCID=kc.ID)t " +
             "WHERE KSNJ LIKE '" + arrC[0] + "' AND KSXQ LIKE '"+arrC[1]+"' OR KSNJ LIKE '"+arrC[2]+"' AND KSXQ LIKE '"+arrC[3]+"' " +
@@ -106,15 +106,6 @@ exports.queryKcId = function (req, res,sqlStr, fn) {
     console.log("kcDao "+sqlStr);
     pool.getConnection(function (err, connection) {
         connection.query($sql.queryKcId,[sqlStr], function (err, result) {
-            connection.release();
-            fn(result);
-        });
-    });
-};
-/*教师选择头数*/
-exports.xuanzets = function (req, res, skjs,str,ID, fn) {
-    pool.getConnection(function (err, connection) {
-        connection.query("UPDATE jw_kc SET "+skjs+"=" + "'" + str+ "'" + " WHERE ID="+ID+";", function (err, result) {
             connection.release();
             fn(result);
         });

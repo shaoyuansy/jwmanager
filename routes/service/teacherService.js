@@ -15,6 +15,12 @@ router.get('/getList', function (req, res, next) {
     });
 });
 
+router.get('/getTidByMc', function (req, res, next) {
+    teacherDao.queryByMc(req, res,req.query.xm, function (result) {
+        res.send({"aaData": result});
+    });
+});
+
 //删除一条教师信息记录
 router.get('/delOne', function (req, res, next) {
     teacherDao.delete(req, res, req.query.ID, function (result) {
