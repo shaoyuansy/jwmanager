@@ -32,14 +32,14 @@ router.post('/_editXk.html', function (req, res, next) {
     var xzts = req.body.XZTS;           //头数
     var bz = req.body.BZ;           //备注
     var jsmc = req.body.JSMC;       //教师名称
-    console.log("++++++++++++++++++++++++++++++++=="+kcid+";"+jsid+";"+xzts+";"+bz+";");
+    var czr = req.session.userInfo.USERNAME;//操作人姓名
     //教师名称为空则为当前登录名，备注为选课班级
     //输入的名字与登录名不一致则为带选，备注为登录老师姓名 代选
     if(kcid==0){
         console.log("获取课程id失败");
     }else{
         if(jsmc==req.session.userInfo.USERNAME){
-            kc_jsDao.xuanzets(req, res,kcid,jsid,xzts,bz,function (result) {
+            kc_jsDao.xuanzets(req, res,kcid,jsid,xzts,bz,czr,function (result) {
                 if (result) {
                     //成功则返回数据库修改行数
                     res.send({"result":result.affectedRows});
@@ -49,8 +49,12 @@ router.post('/_editXk.html', function (req, res, next) {
                 }
             });
         }else{
-            bz += req.session.userInfo.USERNAME;
-            kc_jsDao.xuanzets(req, res,kcid,jsid,xzts,bz,function (result) {
+            if(bz==""){
+                bz = req.session.userInfo.USERNAME;
+            }else{
+                bz = bz + "," + req.session.userInfo.USERNAME;
+            }
+            kc_jsDao.xuanzets(req, res,kcid,jsid,xzts,bz,czr,function (result) {
                 if (result) {
                     //成功则返回数据库修改行数
                     res.send({"result":result.affectedRows});

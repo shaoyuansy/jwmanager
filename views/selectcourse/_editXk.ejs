@@ -1,4 +1,9 @@
+<style type="text/css">
+    #xgtable td{
+        padding: 8px;
 
+    }
+</style>
 <div class="modal-dialog" style="margin-top: 10%">
     <div class="modal-content">
         <div class="modal-header" style="padding-bottom: 0">
@@ -8,25 +13,27 @@
         <div class="modal-body">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">选课</h3>
+                    <h3 class="box-title" id="Ttitle">选课</h3>
                     <div class="box-tools">
                         <ul class="pagination pagination-centered no-margin pull-right" >
-                            <li><a href="#">选课</a></li>
-                            <li><a href="#">修改</a></li>
+                            <li><a id="hidenxg" href="#" onclick="hidenxg()">选课</a></li>
+                            <li><a id="hidenxk" href="#" onclick="hidenxk(),getXk()">修改</a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="box-body no-padding">
-                    <form id="myform">
+                <!-- 选课table -->
+                <div id="xkdiv" class="box-body no-padding">
+                    <form id="xkform">
                         <input id="KCID" name="KCID" type="hidden" value="<%= kcid %>">
                         <input id="JSID" name="JSID" type="hidden" value="<%= jsid %>">
                         <input id="SUR" name="SUR" type="hidden" value="<%= sur %>">
                         <table class="table">
                             <tr>
                                 <th style="width: 20%">头数</th>
-                                <th style="width: 30%">教师名</th>
+                                <th style="width: 25%">教师姓名</th>
                                 <th style="width: 35%">备注</th>
-                                <th style="width: 5%"></th>
+                                <th style="width: 10%"></th>
+                                <th style='width: 10%'></th>
                             </tr>
                             <tr>
                                 <td><input id="XZTS" name="XZTS" type="number" min="1" max="<%= sur %>"
@@ -35,8 +42,17 @@
                                 <td><input id="JSMC" name="JSMC" type="text"
                                            class="form-control" value="<%= jsmc %>" ></td>
                                 <td><input id="BZ" name="BZ" type="text" class="form-control" value="<%= bz %>" placeholder="代选老师请备注"></td>
-                                <td><button id="btn" clicked="0" type="button" class="btn btn-primary" onclick="submitForm();submit()">选课</button></td>
+                                <td><button id="btn1" clicked="0" type="button" class="btn btn-primary" onclick="submitxkForm();">选课</button></td>
+                                <td></td>
                             </tr>
+                        </table>
+                    </form>
+                </div>
+                <!-- 修改table -->
+                <div id="xgdiv" class="box-body no-padding">
+                    <form id="xgform">
+                        <table id="xgtable" class="table">
+                        <!-- 动态生成表格 -->
                         </table>
                     </form>
                 </div>
@@ -55,8 +71,31 @@
 <script src="/AdminLTE/plugins/iCheck/icheck.min.js"></script>
 
 <script>
+    $(function(){
+        $("#xgdiv").hide();
+        document.getElementById("hidenxg").setAttribute("style","background-color: #eee");
+    });
+    function hidenxk(){
+        if($("#xkdiv").is(":visible")){
+            $("#xkdiv").hide();
+            $("#xgdiv").show();
+            $("#Ttitle").text("修改");
+            document.getElementById("hidenxk").setAttribute("style","background-color: #eee");
+            document.getElementById("hidenxg").setAttribute("style","");
+        }
+    }
+    function hidenxg(){
+        if($("#xgdiv").is(":visible")){
+            $("#xgdiv").hide();
+            $("#xkdiv").show();
+            $("#Ttitle").text("选课");
+            document.getElementById("hidenxg").setAttribute("style","background-color: #eee");
+            document.getElementById("hidenxk").setAttribute("style","");
 
-    function submitForm(){
+        }
+    }
+    //A1提交选课表单
+    function submitxkForm(){
         if(document.getElementById("XZTS").value == ''||document.getElementById("XZTS").value == 0){
             alert("头数不能为空");
         }
@@ -64,7 +103,7 @@
             alert("超出剩余头数");
         }
         else{
-            var btn = $("#btn");//按钮提交控制
+            var btn = $("#btn1");//按钮提交控制
             if(btn.attr("clicked") == "0"){
                 //执行点击
                 //提交操作先请求教师的id
@@ -79,8 +118,7 @@
                     success: function (jsmsg) {
                         var temp = jsmsg.aaData[0];
                         document.getElementById("JSID").value = temp['ID'];
-                        submit();//再提交表单
-
+                        submitxk();//2再提交表单
                     },
                     error: function (e) {
                         console.log('教师id请求失败');
@@ -92,12 +130,13 @@
             }
         }
     }
-    function submit(){
+    //A2提交选课表单
+    function submitxk(){
         $.ajax({
             type: "post",
             url: '/selectcourse/_editXk.html',
             dataType: "json",
-            data: $('#myform').serialize(),// 你的formid 注：后台req.body由控件name获取数据
+            data: $('#xkform').serialize(),// 你的formid 注：后台req.body由控件name获取数据
             async: false,
             cache: true,
             success: function (msg) {
@@ -111,4 +150,83 @@
             }
         });
     }
+    //查询此教师选课列表
+    function getXk(){
+        var XM = document.getElementById("JSMC").value;//首先获取此教师姓名为操作人
+        var KCID = document.getElementById("KCID").value;//kcid
+        $.ajax({
+            type: "get",
+            url: '/teacher_courseService/getXk',
+            dataType: "json",
+            data:{czr:XM,kcid:KCID},
+            async: false,
+            cache: true,
+            success: function (msg) {
+                if(msg.result.length>0){
+                    $("#xgtable").html("<tr><th style='width: 20%'>头数</th>" +
+                            "<th style='width: 25%'>教师姓名</th>" +
+                            "<th style='width: 35%'>备注</th>" +
+                            "<th style='width: 10%'></th>" +
+                            "<th style='width: 10%'></th></tr>");
+                    for(var i = 0 ; i < msg.result.length ; i++){
+                        var temp = msg.result[i];
+                        var ctr = document.createElement("tr");
+                        ctr.setAttribute("id",i);
+                        var ctd1 = document.createElement("td");
+                        var ctd2 = document.createElement("td");
+                        var ctd3 = document.createElement("td");
+                        var ctd4 = document.createElement("td");
+                        var ctd5 = document.createElement("td");
+
+                        ctd1.innerHTML='<input id="XZTSXG" name="XZTSXG" type="number" min="1" max="<%= sur %>" class="form-control" value=\'' + temp['TS'] + '\'>';
+                        ctd2.innerHTML='<input id="JSMCXG" name="JSMCXG" type="text" class="form-control" value=\'' + temp['XM'] + '\'>';
+                        ctd3.innerHTML='<input id="BZXG" name="BZXG" type="text" class="form-control" value=\'' + temp['BZ'] + '\'>';
+                        ctd4.innerHTML='<button id="btn2" clicked="0" type="button" class="btn btn-primary" onclick="">修改</button>';
+                        ctd5.innerHTML='<button id="btn3" clicked="0" type="button" class="btn btn-primary" onclick="delectXk(\'' + temp['KCID'] + '\',\'' + temp['JSID'] + '\')">删除</button>';
+
+                        document.getElementById("xgtable").appendChild(ctr);
+                        document.getElementById(i).appendChild(ctd1);
+                        document.getElementById(i).appendChild(ctd2);
+                        document.getElementById(i).appendChild(ctd3);
+                        document.getElementById(i).appendChild(ctd4);
+                        document.getElementById(i).appendChild(ctd5);
+                    }
+                }else{
+                    $("#xgtable").html("<tr><th>现在还没有选课哦</th></tr><tr></tr>");
+
+                }
+            },
+            error: function (e) {
+                console.log('此教师选课请求失败');
+            }
+        });
+    }
+    function delectXk(kcid,jsid){
+        var btn = $("#btn3");//按钮提交控制
+        if(btn.attr("clicked") == "0"){
+            //执行点击
+            $.ajax({
+                type: "get",
+                url: '/teacher_courseService/deleteXk',
+                dataType: "json",
+                data:{kcid:kcid,jsid:jsid},
+                async: false,
+                cache: true,
+                success: function (msg) {
+                    if(msg.state==1){
+                        console.log('删除成功');
+                    }
+                    //TODO删除掉了没有提示，删除掉之后刷新表格
+                },
+                error: function (e) {
+                    console.log('教师id请求失败');
+                }
+            });
+
+            btn.attr("clicked","1");
+        }else{
+
+        }
+    }
+
 </script>

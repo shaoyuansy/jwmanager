@@ -1,4 +1,17 @@
+<style type="text/css">
+     #selectcourseTL td{
+         vertical-align: middle;text-align:center;
 
+    }
+     #selectcourseTL thead th{
+         vertical-align: bottom;text-align:center;
+
+    }
+     #selectcourseTL thead{
+         background-color: rgba(100, 183, 136, 0.21);
+
+    }
+</style>
 
 <!-- 页面内容 content -->
 <div class="content-wrapper">
@@ -15,16 +28,13 @@
 
     <!-- Main content -->
     <section class="content">
-
-        <div class="box">
+        <div id="box" class="box" style="width: 100%;overFlow-x: scroll;overFlow-y: scroll;">
             <div class="box-header">
                 <h3 class="box-title">教师选课</h3>
-
             </div>
             <!-- /.box-header -->
-            <div class="box-body no-padding" style="width: 100%">
-                <table id="selectcourseTL" class="table table-condensed table-hover" style="">
-
+            <div class="box-body no-padding" style="width: 180%;">
+                <table id="selectcourseTL" class="table table-condensed table-hover table-bordered" style="">
                 </table>
             </div>
             <!-- /.box-body -->
@@ -39,6 +49,7 @@
 <script>
 
     $(document).ready(function(){
+        $("#box").css('height',$(window).height() *0.85+'px');//调整表格显示高度
     //1.生成左半部分课程信息
         //判断当前时间，用来查询当前时间所属课程
         var xueqi = "";
@@ -106,7 +117,9 @@
                         }
                     }
                     //生成thead
-                    $("#selectcourseTL").append('<thead><tr id="TLtheadtr"><th>教研室划分</th><th>专业负责人</th><th>课程负责人</th><th>课程编号</th><th>' + xueqi + '</th><th>周学时</th><th>上机</th><th>学分</th></tr></thead>');
+                    $("#selectcourseTL").append('<thead><tr id="TLtheadtr"><th style="width: 7%;">教研室划分</th><th style="width: 5%">专业负责人</th>' +
+                            '<th style="width: 5%">课程负责人</th><th style="width: 4%">课程编号</th>' +
+                            '<th style="width: 15%">' + xueqi + '</th><th style="width: 1%" >周学时</th><th style="width: 1%">上机</th><th style="width: 1%">学分</th></tr></thead>');
                     //生成tbody
                     var tbody= document.createElement("tbody");//添加tbody标签
                     tbody.setAttribute("id","TLtbody");//添加tbody标签的id
@@ -133,9 +146,13 @@
                         childtd3.innerHTML = temp['KCFZR'] === undefined || null ? "暂为无人" :temp['KCFZR'];
                         childtd4.innerHTML = temp['KCBH']=== undefined || null ? "课程编号不见了" :temp['KCBH'];
                         childtd5.innerHTML = temp['KCMC'] === undefined || null ? "课程名不见了" :temp['KCMC'];
+                        childtd5.setAttribute("style","text-align:left");
                         childtd6.innerHTML = temp['ZXS'] === undefined || null ? 0 :temp['ZXS'];
+                        childtd6.setAttribute("style","background-color: rgba(152, 193, 41, 0.59);");
                         childtd7.innerHTML = temp['SJXF'] === undefined || null ? 0 :temp['SJXF'];
+                        childtd7.setAttribute("style"," background-color: rgba(152, 193, 41, 0.39);");
                         childtd8.innerHTML = temp['XF'] === undefined || null ? 0 :temp['XF'];
+                        childtd8.setAttribute("style"," background-color: rgba(152, 193, 41, 0.39);");
                         //将单元格添加为tr的子节点
                         childtr.appendChild(childtd1);
                         childtr.appendChild(childtd2);
@@ -175,7 +192,7 @@
                         //在thead后继续添加专业信息
                         var thmajor= document.createElement("th");//专业信息th
                         thmajor.setAttribute("id","m"+tempm['ID']);//设置专业信息单元格id
-                        thmajor.innerHTML = tempm['ZYMC']+tempm['KSNJ'].substring(2,5)+"<br>"+"("+tempm['BJGS']+")";//显示专业名称内容
+                        thmajor.innerHTML = tempm['ZYMC']+"<br>"+tempm['KSNJ'].substring(2,5)+"<br>"+"("+tempm['BJGS']+")";//显示专业名称内容
                         document.getElementById("TLtheadtr").appendChild(thmajor);
                         //在专业下面每一行分配一个单元格，单元格id为(列id,行id）=（专业id,课程id）
                         for(var i = 0;i<coursemsg.aaData.length;i++){
@@ -183,6 +200,7 @@
                             //创建一个td
                             var tdmc = document.createElement("td");
                             tdmc.setAttribute("id",tempm['ID']+","+tempc['ID']);//单元格id为（专业id,课程id）
+                            tdmc.setAttribute("style","width: 1%");//单元格id为（专业id,课程id）
                             document.getElementById("c"+tempc['ID']).appendChild(tdmc);
                         }
                     }
@@ -194,7 +212,9 @@
                     var sumtoushu = document.createElement("th");//总头数th
                     var surtoushu = document.createElement("th");//剩余头数th
                     sumtoushu.setAttribute("id","zongtoushu");//设置总头数th单元格id
+                    sumtoushu.setAttribute("style","width: 1%");//设置总头数th单元格id
                     surtoushu.setAttribute("id","shengyutoushu");//设置总头数th单元格id
+                    surtoushu.setAttribute("style","width: 1%");//设置总头数th单元格id
                     sumtoushu.innerHTML = "总头数";
                     surtoushu.innerHTML = "剩余头数";
                     document.getElementById("TLtheadtr").appendChild(sumtoushu);
@@ -270,6 +290,7 @@
         //添加授课老师（院内）列
         var sklsyn= document.createElement("th");//授课老师（院内）th
         sklsyn.setAttribute("id","sklsyn");//设置th单元格id
+        sklsyn.setAttribute("style","width: 13%");
         sklsyn.innerHTML = "授课老师（院内）";
         document.getElementById("TLtheadtr").appendChild(sklsyn);
         //创建授课老师（院内）列下的单元格
@@ -278,6 +299,7 @@
             //创建一个td
             var tdn = document.createElement("td");
             tdn.setAttribute("id","yn"+temp['ID']);//单元格id为（ynid）
+            tdn.setAttribute("style","text-align:left");
             document.getElementById("c"+temp['ID']).appendChild(tdn);//取得每行（每个课程）的总头数单元格
             $.ajax({
                 type: "get",
@@ -290,9 +312,9 @@
                     var skstr = "";
                     for(var y = 0;y < msg.result.length;y++){
                         var tempy = msg.result[y];
-                        skstr += tempy['TS']+"-"+tempy['XM']+(tempy['BZ'] === null ||tempy['BZ'] === undefined || tempy['BZ'] == ""? ";" : "("+tempy['BZ']+");");
+                        skstr += tempy['TS']+"-"+tempy['XM']+(tempy['BZ'] === null ||tempy['BZ'] === undefined || tempy['BZ'] == ""? ";<br>" : "("+tempy['BZ']+");<br>");
                     }
-                    tdn.innerHTML = skstr;
+                    tdn.innerHTML = "<code>"+skstr+"<code>";
                 },
                 error:function (e){
                     alert("院内教师请求失败~");
@@ -307,6 +329,7 @@
         //添加授课老师（外聘）列
         var sklswp= document.createElement("th");//授课老师（外聘）th
         sklswp.setAttribute("id","sklswp");//设置th单元格id
+        sklswp.setAttribute("style","width: 13%");
         sklswp.innerHTML = "授课老师（外聘）";
         document.getElementById("TLtheadtr").appendChild(sklswp);
         //创建授课老师（外聘）列下的单元格
@@ -315,6 +338,7 @@
             //创建一个td
             var tdw = document.createElement("td");
             tdw.setAttribute("id","wp"+temp['ID']);//单元格id为（wpid）
+            tdw.setAttribute("style","text-align:left");
             document.getElementById("c"+temp['ID']).appendChild(tdw);//取得每行（每个课程）的总头数单元格
             $.ajax({
                 type: "get",
@@ -327,9 +351,9 @@
                     var skstr = "";
                     for(var y = 0;y < msg.result.length;y++){
                         var tempy = msg.result[y];
-                        skstr += tempy['TS']+"-"+tempy['XM']+(tempy['BZ'] === null ||tempy['BZ'] === undefined || tempy['BZ'] == ""? ";" : "("+tempy['BZ']+"代选);");
+                        skstr += tempy['TS']+"-"+tempy['XM']+(tempy['BZ'] === null ||tempy['BZ'] === undefined || tempy['BZ'] == ""? ";<br>" : "("+tempy['BZ']+"代选 );<br>");
                     }
-                    tdw.innerHTML = skstr;
+                    tdw.innerHTML = "<code>"+skstr+"<code>";
                 },
                 error:function (e){
                     alert("外聘教师请求失败~");
@@ -360,9 +384,9 @@
                 wpv += arrwp[m][arrwp[m].length-1]*1;
             }
             //将总头数单元格附上每行计算的总头数
-            document.getElementById("sum" + tempc['ID']).innerHTML = tdv;
+            document.getElementById("sum" + tempc['ID']).innerHTML = "<span class='label label-primary'>"+tdv+"</span>";
             //剩余头数
-            document.getElementById("sur" + tempc['ID']).innerHTML = tdv-ynv-wpv;
+            document.getElementById("sur" + tempc['ID']).innerHTML ="<span class='label bg-green'>" + (tdv-ynv-wpv) + "</span>";
             if(document.getElementById("sur" + tempc['ID']).innerHTML == 0){
                 document.getElementById("c" + tempc['ID']).setAttribute("class","danger");
             }
@@ -373,7 +397,7 @@
         //添加“操作”列
         var caozuo= document.createElement("th");//授课老师（院内）th
         caozuo.setAttribute("id","caozuo");//设置th单元格id
-        caozuo.innerHTML = "操作";
+        caozuo.innerHTML = "";
         document.getElementById("TLtheadtr").appendChild(caozuo);
         //添加下面单元格
         //创建授课老师（院内）列下的单元格
@@ -382,13 +406,12 @@
             //创建一个td
             var td = document.createElement("td");
             td.setAttribute("id","cz"+temp['ID']);//单元格id为（czid）
-            td.innerHTML ='<button onclick="editXk(\'' + temp['ID'] + '\')" class="btn btn-block btn-primary btn-xs" role="button" href="#" data-toggle="modal"><i class="fa fa-fw fa-hand-o-up"></i>选课</button>';
+            td.setAttribute("style","width: 3%");
+            td.innerHTML ='<button onclick="editXk(\'' + temp['ID'] + '\')" class="btn btn-block btn-primary btn-xs" role="button" href="#" data-toggle="modal"><i class="fa fa-fw fa-hand-o-up"></i>操作</button>';
             document.getElementById("c"+temp['ID']).appendChild(td);
         }
     }
     function editXk(cid){
-        var yn = document.getElementById("yn"+cid).innerHTML;
-        var wp = document.getElementById("wp"+cid).innerHTML;
         var sur = document.getElementById("sur"+cid).innerHTML;
         $.ajax({
             url: "/selectcourse/_editXk.html",
