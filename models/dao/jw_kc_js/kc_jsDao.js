@@ -59,3 +59,12 @@ exports.xuanzets = function (req, res, kcid,jsid,xzts,bz,czr, fn) {
         });
     });
 };
+/*教师选修改头数*/
+exports.xiugaits = function (req, res, xztsxg,bzxg,kcidxg,jsidxg,czr, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.update,[xztsxg,bzxg,kcidxg,jsidxg,czr], function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};

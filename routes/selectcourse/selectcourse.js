@@ -17,8 +17,10 @@ router.get('/_editXk.html', function(req, res, next) {
         _layoutFile: false,
         title: '教务信息管理系统——教师选课',
         kcid:req.query.cid,
+        kcidxg:req.query.cid,
         sur:req.query.sur,
         jsid:'',
+        jsidxg:'',
         xzts:'',
         jsmc:req.session.userInfo.USERNAME,
         bz:''
@@ -38,38 +40,38 @@ router.post('/_editXk.html', function (req, res, next) {
     if(kcid==0){
         console.log("获取课程id失败");
     }else{
-        if(jsmc==req.session.userInfo.USERNAME){
-            kc_jsDao.xuanzets(req, res,kcid,jsid,xzts,bz,czr,function (result) {
-                if (result) {
-                    //成功则返回数据库修改行数
-                    res.send({"result":result.affectedRows});
-                } else {
-                    //编辑失败返回0
-                    res.send({"result":0});
-                }
-            });
-        }else{
-            if(bz==""){
-                bz = req.session.userInfo.USERNAME;
-            }else{
-                bz = bz + "," + req.session.userInfo.USERNAME;
+        kc_jsDao.xuanzets(req, res,kcid,jsid,xzts,bz,czr,function (result) {
+            if (result) {
+                //成功则返回数据库修改行数
+                res.send({"result":result.affectedRows});
+            } else {
+                //编辑失败返回0
+                res.send({"result":0});
             }
-            kc_jsDao.xuanzets(req, res,kcid,jsid,xzts,bz,czr,function (result) {
-                if (result) {
-                    //成功则返回数据库修改行数
-                    res.send({"result":result.affectedRows});
-                } else {
-                    //编辑失败返回0
-                    res.send({"result":0});
-                }
-            });
-
-        }
-
-
-
-
+        });
     }
-
 });
+
+//修改头数信息
+router.post('/_editXg.html', function (req, res, next) {
+    var kcidxg = req.body.KCIDXG;             //课程ID
+    var jsidxg = req.body.JSIDXG;             //教师ID
+    var xztsxg = req.body.XZTSXG;           //头数
+    var bzxg = req.body.BZXG;           //备注
+    var czr = req.session.userInfo.USERNAME;//操作人姓名
+    if(kcidxg==0){
+        console.log("获取课程id失败");
+    }else{
+        kc_jsDao.xiugaits(req, res,xztsxg,bzxg,kcidxg,jsidxg,czr,function (result) {
+            if (result) {
+                //成功则返回数据库修改行数
+                res.send({"result":result.affectedRows});
+            } else {
+                //编辑失败返回0
+                res.send({"result":0});
+            }
+        });
+    }
+});
+
 module.exports = router;

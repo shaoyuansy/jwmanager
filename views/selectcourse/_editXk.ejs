@@ -26,8 +26,9 @@
                     <form id="xkform">
                         <input id="KCID" name="KCID" type="hidden" value="<%= kcid %>">
                         <input id="JSID" name="JSID" type="hidden" value="<%= jsid %>">
+                        <input id="JSMCX" name="JSMCX" type="hidden" value="<%= jsmc %>">
                         <input id="SUR" name="SUR" type="hidden" value="<%= sur %>">
-                        <table class="table">
+                        <table id="xktable" class="table">
                             <tr>
                                 <th style="width: 20%">头数</th>
                                 <th style="width: 25%">教师姓名</th>
@@ -51,6 +52,8 @@
                 <!-- 修改table -->
                 <div id="xgdiv" class="box-body no-padding">
                     <form id="xgform">
+                        <input id="JSIDXG" name="JSIDXG" type="hidden" value="<%= jsidxg %>">
+                        <input id="KCIDXG" name="KCIDXG" type="hidden" value="<%= kcidxg %>">
                         <table id="xgtable" class="table">
                         <!-- 动态生成表格 -->
                         </table>
@@ -60,7 +63,7 @@
             </div>
         </div>
         <div class="modal-footer" >
-            <button type="button" class="btn btn-default"  data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-default"  data-dismiss="modal" onclick="location.reload()">关闭</button>
         </div>
     </div><!-- /.modal-content -->
 </div><!-- /.modal -->
@@ -74,6 +77,9 @@
     $(function(){
         $("#xgdiv").hide();
         document.getElementById("hidenxg").setAttribute("style","background-color: #eee");
+        if(document.getElementById("SUR").value == 0){
+            $("#xktable").html("<tr><th>已经不能选课咯</th></tr><tr></tr>");
+        }
     });
     function hidenxk(){
         if($("#xkdiv").is(":visible")){
@@ -116,15 +122,20 @@
                     async: false,
                     cache: true,
                     success: function (jsmsg) {
-                        var temp = jsmsg.aaData[0];
-                        document.getElementById("JSID").value = temp['ID'];
-                        submitxk();//2再提交表单
+                        if(jsmsg.aaData.length==""){
+                            alert("没有这名教师的信息~请核对姓名资料");
+                        }else{
+                            var temp = jsmsg.aaData[0];
+                            document.getElementById("JSID").value = temp['ID'];
+                            submitxk();//2再提交表单
+                            btn.attr("clicked","1");
+                        }
                     },
                     error: function (e) {
                         console.log('教师id请求失败');
                     }
                 });
-                btn.attr("clicked","1");
+
             }else{
                 //不再执行点击操作
             }
@@ -152,7 +163,7 @@
     }
     //查询此教师选课列表
     function getXk(){
-        var XM = document.getElementById("JSMC").value;//首先获取此教师姓名为操作人
+        var XM = document.getElementById("JSMCX").value;//首先获取此教师姓名为操作人
         var KCID = document.getElementById("KCID").value;//kcid
         $.ajax({
             type: "get",
@@ -179,9 +190,9 @@
                         var ctd5 = document.createElement("td");
 
                         ctd1.innerHTML='<input id="XZTSXG" name="XZTSXG" type="number" min="1" max="<%= sur %>" class="form-control" value=\'' + temp['TS'] + '\'>';
-                        ctd2.innerHTML='<input id="JSMCXG" name="JSMCXG" type="text" class="form-control" value=\'' + temp['XM'] + '\'>';
+                        ctd2.innerHTML='<input id="JSMCXG" name="JSMCXG" type="text" class="form-control" disabled value=\'' + temp['XM'] + '\'>';
                         ctd3.innerHTML='<input id="BZXG" name="BZXG" type="text" class="form-control" value=\'' + temp['BZ'] + '\'>';
-                        ctd4.innerHTML='<button id="btn2" clicked="0" type="button" class="btn btn-primary" onclick="">修改</button>';
+                        ctd4.innerHTML='<button id="btn2" clicked="0" type="button" class="btn btn-primary" onclick="reviseXg()">修改</button>';
                         ctd5.innerHTML='<button id="btn3" clicked="0" type="button" class="btn btn-primary" onclick="delectXk(\'' + temp['KCID'] + '\',\'' + temp['JSID'] + '\')">删除</button>';
 
                         document.getElementById("xgtable").appendChild(ctr);
@@ -201,6 +212,69 @@
             }
         });
     }
+
+    //修改选课
+    function reviseXg(){
+        if(document.getElementById("XZTSXG").value == ''||document.getElementById("XZTSXG").value == 0){
+            alert("头数不能为空");
+        }
+        else if(parseInt(document.getElementById("XZTSXG").value) > parseInt(document.getElementById("SUR").value)){
+            alert("超出剩余头数");
+        }
+        else{
+            var btn = $("#btn3");//按钮提交控制
+            if(btn.attr("clicked") == "0"){
+                //执行点击
+                //提交操作先请求教师的id
+                var XM = document.getElementById("JSMCXG").value;
+                $.ajax({
+                    type: "get",
+                    url: '/teacherService/getTidByMc',
+                    dataType: "json",
+                    data:{xm:XM},
+                    async: false,
+                    cache: true,
+                    success: function (jsmsg) {
+                        var temp = jsmsg.aaData[0];
+                        //return temp['ID'];
+                        document.getElementById("JSIDXG").value = temp['ID'];
+                        submitxg();//2再提交表单
+                        btn.attr("clicked","1");
+                    },
+                    error: function (e) {
+                        console.log('教师id请求失败');
+                    }
+                });
+
+            }else{
+                //不再执行点击操作
+            }
+        }
+    }
+
+    //修改功能提交表单2
+    function submitxg(){
+        $.ajax({
+            type: "post",
+            url: '/selectcourse/_editXg.html',
+            dataType: "json",
+            data: $('#xgform').serialize(),// 你的formid 注：后台req.body由控件name获取数据
+            async: false,
+            cache: true,
+            success: function (msg) {
+                if (msg.result != 0) {
+                    $("#modal-edit-event").modal('hide');
+                }
+                alert("修改成功");
+                location.reload();
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    }
+
+    //删除教师选课
     function delectXk(kcid,jsid){
         var btn = $("#btn3");//按钮提交控制
         if(btn.attr("clicked") == "0"){
@@ -214,16 +288,16 @@
                 cache: true,
                 success: function (msg) {
                     if(msg.state==1){
-                        console.log('删除成功');
+                        btn.attr("clicked","1");
+                        getXk();//局部刷新
+                    }else{
+                        console.log('删除失败');
                     }
-                    //TODO删除掉了没有提示，删除掉之后刷新表格
                 },
                 error: function (e) {
-                    console.log('教师id请求失败');
+                    console.log('教师课程删除请求失败');
                 }
             });
-
-            btn.attr("clicked","1");
         }else{
 
         }

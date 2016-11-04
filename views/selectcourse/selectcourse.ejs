@@ -212,9 +212,9 @@
                     var sumtoushu = document.createElement("th");//总头数th
                     var surtoushu = document.createElement("th");//剩余头数th
                     sumtoushu.setAttribute("id","zongtoushu");//设置总头数th单元格id
-                    sumtoushu.setAttribute("style","width: 1%");//设置总头数th单元格id
-                    surtoushu.setAttribute("id","shengyutoushu");//设置总头数th单元格id
-                    surtoushu.setAttribute("style","width: 1%");//设置总头数th单元格id
+                    sumtoushu.setAttribute("style","width: 1%");
+                    surtoushu.setAttribute("id","shengyutoushu");//设置剩余头数th单元格id
+                    surtoushu.setAttribute("style","width: 1%");
                     sumtoushu.innerHTML = "总头数";
                     surtoushu.innerHTML = "剩余头数";
                     document.getElementById("TLtheadtr").appendChild(sumtoushu);
@@ -245,8 +245,6 @@
                 sumToushu(coursemsg,majormsg);
                 //添加操作列
                 choose(coursemsg);
-
-
 
             },
             error:function(e){
@@ -351,7 +349,7 @@
                     var skstr = "";
                     for(var y = 0;y < msg.result.length;y++){
                         var tempy = msg.result[y];
-                        skstr += tempy['TS']+"-"+tempy['XM']+(tempy['BZ'] === null ||tempy['BZ'] === undefined || tempy['BZ'] == ""? ";<br>" : "("+tempy['BZ']+"代选 );<br>");
+                        skstr += tempy['TS']+"-"+tempy['XM']+(tempy['BZ'] === null ||tempy['BZ'] === undefined || tempy['BZ'] == "" ? "("+ tempy['CZR'] +"代选);<br>" : "(" + tempy['BZ'] + "," + tempy['CZR'] + "代选);<br> ");
                     }
                     tdw.innerHTML = "<code>"+skstr+"<code>";
                 },
@@ -384,9 +382,9 @@
                 wpv += arrwp[m][arrwp[m].length-1]*1;
             }
             //将总头数单元格附上每行计算的总头数
-            document.getElementById("sum" + tempc['ID']).innerHTML = "<span class='label label-primary'>"+tdv+"</span>";
+            document.getElementById("sum" + tempc['ID']).innerHTML = tdv;
             //剩余头数
-            document.getElementById("sur" + tempc['ID']).innerHTML ="<span class='label bg-green'>" + (tdv-ynv-wpv) + "</span>";
+            document.getElementById("sur" + tempc['ID']).innerHTML =  tdv-ynv-wpv;
             if(document.getElementById("sur" + tempc['ID']).innerHTML == 0){
                 document.getElementById("c" + tempc['ID']).setAttribute("class","danger");
             }

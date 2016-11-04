@@ -26,7 +26,7 @@ router.get('/getXk', function (req, res, next) {
 //删除一条外聘教师-课程选课信息
 router.get('/deleteXk', function (req, res, next) {
     kc_jsDao.deleteXk(req, res, req.query.kcid,req.query.jsid,function (result) {
-        res.send({"result": result});
+        res.send({"state": result});
     });
 });
 
