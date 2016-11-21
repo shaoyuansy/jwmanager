@@ -50,9 +50,6 @@ var app = express();
 //监听端口
 app.listen(3000);
 
-
-
-
 // 母版页类型设置
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
