@@ -1,0 +1,204 @@
+<!-- datatable -->
+<script src="../javascripts/mydatatable.js"></script>
+<!-- 页面内容 content -->
+<div class="content-wrapper">
+    <!-- 页面内容 Header -->
+    <section class="content-header">
+        <h1>
+            授课管理页面
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/index"><i class="fa fa-home"></i> 首页</a></li>
+            <li class="active">授课管理</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- /.box -->
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">授课管理列表</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="datatable" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th><input id="checkbox1" name="checkbox1" type="checkbox"></th>
+                        <th>教师姓名</th>
+                        <th>所授课程</th>
+                        <th>课程负责人</th>
+                        <th>所授专业</th>
+                        <th>所授年级</th>
+                        <th>所授班级</th>
+                        <th>班级人数</th>
+                        <th>上课时间</th>
+                        <th>上课地点</th>
+                        <th>是否上机</th>
+                        <th>是否单双周</th>
+                        <th>外聘教师评价</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+</div>
+
+<script>
+    var mytable;
+    var i = 0;
+
+    $(document).ready(function () {
+        //全选  全反选处理
+        $("#checkbox1").click(function (){
+            var checkbox = document.getElementById('checkbox1');
+            //是否被选中
+            if(checkbox.checked){
+                $('input[type="checkbox"][name="checkbox2"]').each(function () {
+                    this.checked = true;
+                });
+            }else{
+                $('input[type="checkbox"][name="checkbox2"]').each(function () {
+                    this.checked = false;
+                });
+            }
+        });
+
+        var columns = [
+            {
+                "sClass": "center",
+                "mData": function (obj) {
+                    return '<input id="checkbox2" name="checkbox2" type="checkbox" value='+obj.XM+'>';
+                }
+            },
+            {
+                "mData": "XM",
+                "mData": function (obj) {
+                    return '<input id="XM" name="XM" type="hidden" value='+obj.XM+'>' + obj.XM;
+                },
+                "sClass": "center"
+            },
+            {
+                "mData": "KCMC",
+                "mData": function (obj) {
+                    return '<input id="KCMC" name="KCMC" type="hidden" value='+obj.KCMC+'>' + obj.KCMC;
+                },
+                "sClass": "center"
+            },
+            {
+                "mData": "KCFZR",
+                "sClass": "center"
+            },
+            {
+                "mData": function (obj) {
+                    if(obj.SSZY=="null" || obj.SSZY==null || obj.SSZY=="" ||obj.SSZY==undefined){
+                        return "<select class='form-control select2' style='display:none' id='SSZY' name='SSZY' style='width: 100%'><%-zyStr%></select><input id='SSZYTEMP' name='SSZYTEMP' type='hidden' value=''>";
+                    }else{
+                        return "you";
+                    }
+                },
+                "sClass": "center"
+            },
+            {
+                "mData": function (obj) {
+                    return "<select class='form-control select2' style='display:none' id='SSNJ' name='SSNJ' style='width: 100%'><%-njStr%></select><input id='SSNJTEMP' name='SSNJTEMP' type='hidden' value=''>";
+                },
+                "sClass": "center"
+            },
+            {
+                "mData": function (obj) {
+                    return "<select class='form-control select2' style='display:none' id='SSBJ' name='SSBJ' style='width: 100%'></select><input id='SSBJTEMP' name='SSBJTEMP' type='hidden' value=''>";
+                },
+                "sClass": "center"
+            },
+            {
+                "mData": function (obj) {
+                    return "<input id='BJRS' name='BJRS' style='display:none' type='text' class='form-control' value=''>";
+                },
+                "sClass": "center"
+            },
+            {
+                "mData": function (obj) {
+                    return "<input id='SKSJ' name='SKSJ' style='display:none' type='text' class='form-control' value=''>";
+                },
+                "sClass": "center"
+            },
+            {
+                "mData": function (obj) {
+                    return "<input id='SKDD' name='SKDD' style='display:none' type='text' class='form-control' value=''>";
+                },
+                "sClass": "center"
+            },
+            {
+                "mData": function (obj) {
+                    return "<select class='form-control select2' id='SFWSJK' name='SFWSJK' style='width: 100%;display:none'>" +
+                        "<option value=''>请选择</option>" +
+                        "<option>是</option>" +
+                        "<option>否</option>" +
+                        "</select><input id='SFWSJKTEMP' name='SFWSJKTEMP' type='hidden' value=''>";
+                },
+                "sClass": "center"
+            },
+            {
+                "mData": function (obj) {
+                    return "<select class='form-control select2' hidden id='SFDSZ' name='SFDSZ' style='width: 100%;display:none'>" +
+                        "<option value=''>请选择</option>" +
+                        "<option>是</option>" +
+                        "<option>否</option>" +
+                        "</select><input id='SFDSZTEMP' name='SFDSZTEMP' type='hidden' value=''>";
+                },
+                "sClass": "center"
+            },
+            {
+                "mData": function (obj) {
+                    return "<input id='WPJSPJ' name='WPJSPJ' style='display:none' type='text' class='form-control' value=''>";
+                },
+                "sClass": "center"
+            },
+            {
+                "sClass": "center",
+                "mData": function (obj) {
+                    return '<a style="margin-left: 10px;" onclick="editassign(\'' + obj.KCID + '\')" id="'+obj.KCID+'" href="#" role="button" data-toggle="modal" title="编辑"><i class="fa fa-fw fa-pencil"></i></a>'
+                        +'<a style="margin-left: 10px;" onclick="delMajor(\'' + obj.ID + '\')" href="#" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';
+                }
+            }
+        ];
+        mytable = CreateDataTable('#datatable', '/assignService/assignList', columns);
+
+        //初始化当前显示列的checkbox判断是否选中
+        $('input[type="checkbox"][name="checkbox3"]').each(function () {
+            // Get the column API object
+            var column = $("#datatable").DataTable().column( $(this).val() );
+            // Toggle the visibility
+            this.checked = column.visible();
+        });
+
+        $('input[type="checkbox"][name="checkbox3"]').change( function () {
+            // Get the column API object
+            var column = $("#datatable").DataTable().column( $(this).val() );
+            // Toggle the visibility
+            column.visible( ! column.visible() );
+        });
+    });
+
+    function editassign(ID) {
+        $("#"+ID).parent().parent().find("#XM").val();
+          //  console.log($("#"+ID).parent().parent().find("#XM").val());
+       $("#"+ID).parent().parent().find("select,input").each(function(){
+           $(this).css("display","inline-block");
+       });
+        var XM = $("#"+ID).parent().parent().find("#XM").val();
+        var KCMC = $("#"+ID).parent().parent().find("#KCMC").val();
+    }
+
+
+</script>
+

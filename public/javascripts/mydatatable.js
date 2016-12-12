@@ -11,7 +11,7 @@
         "bInfo": true, //显示表格信息
         "bAutoWidth": false, //自适应宽度
         "sAjaxSource": url, //mvc后台ajax调用接口。
-        "aoColumns": columns,
+        "aoColumns":columns,
         "bStateSave": true, //保存状态到cookie
         "bDestroy": false,
         "bRetrieve": false,

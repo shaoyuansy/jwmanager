@@ -23,11 +23,14 @@ var major = require('./routes/major/major');
 var course = require('./routes/course/course');
 //教师选课信息管理
 var selectcourse = require('./routes/selectcourse/selectcourse');
+//课程分配
+var assigncourse = require('./routes/assign_course/assigncourse');
 //插件(上传)
 var uploadFile = require('./routes/tools/uploadFile');
 
 //专业-课程信息
 var major_course = require('./routes/major_course/major_course');
+
 //服务类Service路由
 //教师服务
 var teacherService = require('./routes/service/teacherService');
@@ -43,6 +46,8 @@ var major_courseService = require('./routes/service/major_courseService');
 var teacher_courseService = require('./routes/service/teacher_courseService');
 //用户服务
 var userService = require('./routes/service/userService');
+//授课管理服务
+var assignService = require('./routes/service/assignService');
 //路由配置结束
 
 var app = express();
@@ -92,8 +97,9 @@ app.use('/major',major);
 app.use('/course',course);
 app.use('/selectcourse',selectcourse);
 app.use('/tools/uploadFile', uploadFile);
-
 app.use('/major_course',major_course);
+app.use('/assigncourse',assigncourse);
+
 //服务路由地址配置
 app.use('/jysService',jysService);
 app.use('/teacherService',teacherService);
@@ -102,6 +108,7 @@ app.use('/courseService',courseService);
 app.use('/major_courseService',major_courseService);
 app.use('/teacher_courseService',teacher_courseService);
 app.use('/userService',userService);
+app.use('/assignService',assignService);
 //路由地址配置结束
 
 // catch 404 and forward to error handler

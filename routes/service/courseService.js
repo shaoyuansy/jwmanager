@@ -4,11 +4,6 @@
 var express = require('express');
 var router = express.Router();
 
-/* . */
-router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Express' });
-});
-
 /* 课程服务开始. */
 var kcDao = require('../../models/dao/jw_kc/kcDao');
 //获取课程信息列表
