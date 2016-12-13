@@ -20,6 +20,12 @@ router.get('/getStr', function (req, res, next) {
         res.send({"state": result});
     });
 });
+//获取此门课此教师可以交哪些年级->递进查询到此专业年级与班级个数
+router.get('/getStrnjbj', function (req, res, next) {
+    assignDao.queryStrnjbj(req, res, req.query.KCMC,req.query.XM,req.query.SSZY,function (result) {
+        res.send({"state": result});
+    });
+});
 
 /* 授课管理服务结束. */
 module.exports = router;

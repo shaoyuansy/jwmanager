@@ -100,7 +100,7 @@
             {
                 "mData": function (obj) {
                     if(obj.SSZY=="null" || obj.SSZY==null || obj.SSZY=="" ||obj.SSZY==undefined){
-                        return "<select class='form-control select2' style='display:none' id='SSZY' name='SSZY' style='width: 100%'><%-zyStr%></select><input id='SSZYTEMP' name='SSZYTEMP' type='hidden' value=''>";
+                        return "<select class='form-control select2' style='display:none' id='SSZY' name='SSZY'><option value=''>请选择专业</option></select><input id='SSZYTEMP' name='SSZYTEMP' type='hidden' value=''>";
                     }else{
                         return "you";
                     }
@@ -109,13 +109,13 @@
             },
             {
                 "mData": function (obj) {
-                    return "<select class='form-control select2' style='display:none' id='SSNJ' name='SSNJ' style='width: 100%'><%-njStr%></select><input id='SSNJTEMP' name='SSNJTEMP' type='hidden' value=''>";
+                    return "<select class='form-control select2' style='display:none' id='SSNJ' name='SSNJ'><option value=''>请先选择专业</option></select><input id='SSNJTEMP' name='SSNJTEMP' type='hidden' value=''>";
                 },
                 "sClass": "center"
             },
             {
                 "mData": function (obj) {
-                    return "<select class='form-control select2' style='display:none' id='SSBJ' name='SSBJ' style='width: 100%'></select><input id='SSBJTEMP' name='SSBJTEMP' type='hidden' value=''>";
+                    return "<select class='form-control select2' style='display:none' id='SSBJ' name='SSBJ'><option value=''>请先选择专业</option></select><input id='SSBJTEMP' name='SSBJTEMP' type='hidden' value=''>";
                 },
                 "sClass": "center"
             },
@@ -166,7 +166,7 @@
             {
                 "sClass": "center",
                 "mData": function (obj) {
-                    return '<a style="margin-left: 10px;" onclick="editassign(\'' + obj.KCID + '\')" id="'+obj.KCID+'" href="#" role="button" data-toggle="modal" title="编辑"><i class="fa fa-fw fa-pencil"></i></a>'
+                    return '<a id='+ ++i +' style="margin-left: 10px;" onclick="editassign(\'' + i + '\')" id="'+obj.KCID+'" href="#" role="button" data-toggle="modal" title="编辑"><i class="fa fa-fw fa-pencil"></i></a>'
                         +'<a style="margin-left: 10px;" onclick="delMajor(\'' + obj.ID + '\')" href="#" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';
                 }
             }
@@ -188,15 +188,64 @@
             column.visible( ! column.visible() );
         });
     });
-
+    var isFirst = true;
     function editassign(ID) {
-        $("#"+ID).parent().parent().find("#XM").val();
-          //  console.log($("#"+ID).parent().parent().find("#XM").val());
-       $("#"+ID).parent().parent().find("select,input").each(function(){
-           $(this).css("display","inline-block");
-       });
-        var XM = $("#"+ID).parent().parent().find("#XM").val();
-        var KCMC = $("#"+ID).parent().parent().find("#KCMC").val();
+        if (isFirst) {
+            var XM = $("#" + ID).parent().parent().find("#XM").val();
+            var KCMC = $("#" + ID).parent().parent().find("#KCMC").val();
+            var SSZY = $("#" + ID).parent().parent().find("#SSZY").select2();
+            var SSNJ = $("#" + ID).parent().parent().find("#SSNJ").select2();
+            var SSBJ = $("#" + ID).parent().parent().find("#SSBJ").select2();
+            var zyStr = "";
+            var njStr = "";
+            var bjStr = "";
+            SSZY.children().remove();
+            $("#" + ID).parent().parent().find("select,input").each(function () {
+                $(this).css("display", "inline-block");
+            });
+            $.ajax({
+                type: "get",
+                url: '/assignService/getStr',
+                dataType: "json",
+                data: {KCMC: KCMC, XM: XM},
+                async: true,
+                success: function (data) {
+                    if (data) {
+                        for (var i = 0; i < data.state.length; i++) {
+                            zyStr += "<option value='" + data.state[i].ZYMC + "'>" + data.state[i].ZYMC + "</option>";
+                        }
+                    }
+                    SSZY.append(zyStr);
+                }
+            });
+            SSZY.change(function () {
+                SSNJ.children().remove();
+                SSBJ.children().remove();
+                njStr = "";
+                bjStr = "";
+                $.ajax({
+                    type: "get",
+                    url: '/assignService/getStrnjbj',
+                    dataType: "json",
+                    data: {KCMC: KCMC, XM: XM, SSZY: SSZY.val()},
+                    async: true,
+                    success: function (data) {
+                        if (data) {
+                            for (var i = 0; i < data.state.length; i++) {
+                                njStr += "<option value='" + data.state[i].KSNJ + "'>" + data.state[i].KSNJ + "</option>";
+                                if (data.state[i].BJGS > 0) {
+                                    for (var b = 1; b <= data.state[i].BJGS; b++)
+                                        bjStr += "<option value='" + b + "大班'>" + b + "大班</option>";
+                                }
+                            }
+                        }
+                        SSNJ.append(njStr);
+                        SSBJ.append(bjStr);
+                    }
+                });
+            });
+        }
+        isFirst = false;
     }
 
 
