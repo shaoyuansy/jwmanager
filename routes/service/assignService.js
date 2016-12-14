@@ -26,6 +26,12 @@ router.get('/getStrnjbj', function (req, res, next) {
         res.send({"state": result});
     });
 });
+//保存信息
+router.post('/saveassign', function (req, res, next) {
+    assignDao.querySave(req, res, req.body.JSID,req.body.KCID,req.body.SSZY,req.body.SSNJ,req.body.SSBJ,req.body.BJRS,req.body.SKSJ,req.body.SKDD,req.body.SFWSJK,req.body.SFDSZ,req.body.WPJSPJ,function (result) {
+        res.send({"state": result});
+    });
+});
 
 /* 授课管理服务结束. */
 module.exports = router;

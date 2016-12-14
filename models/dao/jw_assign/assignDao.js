@@ -37,3 +37,12 @@ exports.queryStrnjbj = function (req, res, KCMC,XM,SSZY, fn) {
         });
     });
 };
+/* 保存数据*/
+exports.querySave = function (req, res, JSID,KCID,SSZY,SSNJ,SSBJ,BJRS,SKSJ,SKDD,SFWSJK,SFDSZ,WPJSPJ, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.querySave, [JSID,KCID,SSZY,SSNJ,SSBJ,BJRS,SKSJ,SKDD,SFWSJK,SFDSZ,WPJSPJ], function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
