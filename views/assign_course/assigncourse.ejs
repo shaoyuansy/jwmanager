@@ -208,6 +208,7 @@
         //SSZY.children().remove();
         $("#" + ID).parent().parent().find("select,input").each(function () {
             $(this).css("display", "inline-block");
+            $(this).attr("disabled",false);
         });
         $.ajax({
             type: "get",
@@ -253,18 +254,19 @@
     }
 
     function saveassign(ID) {
-        var JSID = $("#" + ID).parent().parent().find("#JSID").val();
-        var KCID = $("#" + ID).parent().parent().find("#KCID").val();
-        var SSZY = $("#" + ID).parent().parent().find("#SSZY").val();
-        var SSNJ = $("#" + ID).parent().parent().find("#SSNJ").val();
-        var SSBJ = $("#" + ID).parent().parent().find("#SSBJ").val();
-        var BJRS = $("#" + ID).parent().parent().find("#BJRS").val();
-        var SKSJ = $("#" + ID).parent().parent().find("#SKSJ").val();
-        var SKDD = $("#" + ID).parent().parent().find("#SKDD").val();
-        var SFWSJK = $("#" + ID).parent().parent().find("#SFWSJK").val();
-        var SFDSZ = $("#" + ID).parent().parent().find("#SFDSZ").val();
-        var WPJSPJ = $("#" + ID).parent().parent().find("#WPJSPJ").val();
-        if(JSID==""||KCID==""||SSZY==""||SSNJ==""||SSBJ==""||SKSJ==""||SKDD==""||SFWSJK==""||SFDSZ==""||WPJSPJ==""){
+        var JSID = $("#" + ID).parent().parent().find("#JSID");
+        var KCID = $("#" + ID).parent().parent().find("#KCID");
+        var SSZY = $("#" + ID).parent().parent().find("#SSZY");
+        var SSNJ = $("#" + ID).parent().parent().find("#SSNJ");
+        var SSBJ = $("#" + ID).parent().parent().find("#SSBJ");
+        var BJRS = $("#" + ID).parent().parent().find("#BJRS");
+        var SKSJ = $("#" + ID).parent().parent().find("#SKSJ");
+        var SKDD = $("#" + ID).parent().parent().find("#SKDD");
+        var SFWSJK = $("#" + ID).parent().parent().find("#SFWSJK");
+        var SFDSZ = $("#" + ID).parent().parent().find("#SFDSZ");
+        var WPJSPJ = $("#" + ID).parent().parent().find("#WPJSPJ");
+
+        if(JSID.val()==""||KCID.val()==""||SSZY.val()==""||SSNJ.val()==""||SSBJ.val()==""||SKSJ.val()==""||SKDD.val()==""||SFWSJK.val()==""||SFDSZ.val()==""||WPJSPJ.val()==""){
             $("#" + ID).parent().parent().find("td").attr("class","danger");
             alert("选课信息不完整");
         }else{
@@ -272,11 +274,21 @@
                 type: "post",
                 url: '/assignService/saveassign',
                 dataType: "text",
-                data: {JSID:JSID,KCID:KCID,SSZY:SSZY,SSNJ:SSNJ,SSBJ:SSBJ,BJRS:BJRS,SKSJ:SKSJ,SKDD:SKDD,SFWSJK:SFWSJK,SFDSZ:SFDSZ,WPJSPJ:WPJSPJ},
+                data: {JSID:JSID.val(),KCID:KCID.val(),SSZY:SSZY.val(),SSNJ:SSNJ.val(),SSBJ:SSBJ.val(),BJRS:BJRS.val(),SKSJ:SKSJ.val(),SKDD:SKDD.val(),SFWSJK:SFWSJK.val(),SFDSZ:SFDSZ.val(),WPJSPJ:WPJSPJ.val()},
                 async: true,
                 success: function (data) {
                     $("#" + ID).parent().parent().find("td").attr("class","success");
-
+                    JSID.attr("disabled",true);
+                    KCID.attr("disabled",true);
+                    SSZY.attr("disabled",true);
+                    SSNJ.attr("disabled",true);
+                    SSBJ.attr("disabled",true);
+                    BJRS.attr("disabled",true);
+                    SKSJ.attr("disabled",true);
+                    SKDD.attr("disabled",true);
+                    SFWSJK.attr("disabled",true);
+                    SFDSZ.attr("disabled",true);
+                    WPJSPJ.attr("disabled",true);
                     $("#" + ID).show();
                     $("#" + ID +"savebtn").hide();
                 }
