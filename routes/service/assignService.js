@@ -14,24 +14,54 @@ router.get('/assignList', function (req, res, next) {
     });
 });
 
-//获取此门课此教师可以交哪些年级
-router.get('/getStr', function (req, res, next) {
-    assignDao.queryStr(req, res, req.query.KCMC,req.query.XM,function (result) {
+//获取此门课此教师可以交哪些课程
+router.get('/getkcStr', function (req, res, next) {
+    assignDao.querykcStr(req, res, req.query.JSXM,function (result) {
+        res.send({"state": result});
+    });
+});
+//获取此门课此负责人
+router.get('/getfzrStr', function (req, res, next) {
+    assignDao.queryfzrStr(req, res, req.query.KCMC,function (result) {
+        res.send({"state": result});
+    });
+});
+//获取此门课此教师可以交哪些专业
+router.get('/getzyStr', function (req, res, next) {
+    assignDao.queryzyStr(req, res, req.query.JSXM,req.query.KCMC,function (result) {
         res.send({"state": result});
     });
 });
 //获取此门课此教师可以交哪些年级->递进查询到此专业年级与班级个数
-router.get('/getStrnjbj', function (req, res, next) {
-    assignDao.queryStrnjbj(req, res, req.query.KCMC,req.query.XM,req.query.SSZY,function (result) {
+router.get('/getnjbjStr', function (req, res, next) {
+    assignDao.querynjbjStr(req, res, req.query.JSXM,req.query.KCMC,req.query.ZYMC,function (result) {
         res.send({"state": result});
     });
 });
-//保存信息
-router.post('/saveassign', function (req, res, next) {
-    assignDao.querySave(req, res, req.body.JSID,req.body.KCID,req.body.SSZY,req.body.SSNJ,req.body.SSBJ,req.body.BJRS,req.body.SKSJ,req.body.SKDD,req.body.SFWSJK,req.body.SFDSZ,req.body.WPJSPJ,function (result) {
+////保存信息
+//router.post('/saveassign', function (req, res, next) {
+//    assignDao.querySave(req, res, req.body.JSID,req.body.KCID,req.body.SSZY,req.body.SSNJ,req.body.SSBJ,req.body.BJRS,req.body.SKSJ,req.body.SKDD,req.body.SFWSJK,req.body.SFDSZ,req.body.WPJSPJ,function (result) {
+//        res.send({"state": result});
+//    });
+//});
+//删除一条教师信息记录
+router.get('/delOne', function (req, res, next) {
+    assignDao.delete(req, res, req.query.ID, function (result) {
         res.send({"state": result});
     });
 });
+//批量删除教师信息记录
+router.get('/delSome', function (req, res, next) {
+    assignDao.deleteSome(req, res, req.query.idstr, function (result) {
+        if (result) {
+            res.send({"result":result.affectedRows});
+        } else {
+            //编辑失败
+            res.send({"result":0});
+        }
+    });
+});
+
 
 /* 授课管理服务结束. */
 module.exports = router;

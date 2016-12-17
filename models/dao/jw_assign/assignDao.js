@@ -19,28 +19,102 @@ exports.queryAll = function (req, res, fn) {
         });
     });
 };
+/*根据id获取此条选课信息*/
+exports.queryById = function (req, res, id, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.querybyid, [id], function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+/* 获取教师授课姓名*/
+exports.queryJS = function (req, res, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.queryJS, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+/* 获取此门课此教师可以交哪些科目*/
+exports.querykcStr = function (req, res, JSXM, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.querykcStr, [JSXM], function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+/* 获取此门课负责人*/
+exports.queryfzrStr = function (req, res, KCMC, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.queryfzrStr, [KCMC], function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+/* 获取此门课此教师可以交哪些专业*/
+exports.queryzyStr = function (req, res, JSXM,KCMC, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.queryzyStr, [JSXM,KCMC], function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
 /* 获取此门课此教师可以交哪些年级*/
-exports.queryStr = function (req, res, KCMC,XM, fn) {
+exports.querynjbjStr = function (req, res, JSXM,KCMC,ZYMC, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.queryStr, [KCMC,XM], function (err, result) {
+        connection.query($sql.querynjbjStr, [JSXM,KCMC,ZYMC], function (err, result) {
             connection.release();
             fn(result);
         });
     });
 };
-/* 获取此门课此教师可以交哪些年级->递进查询*/
-exports.queryStrnjbj = function (req, res, KCMC,XM,SSZY, fn) {
+///* 保存数据*/
+//exports.querySave = function (req, res, JSID,KCID,SSZY,SSNJ,SSBJ,BJRS,SKSJ,SKDD,SFWSJK,SFDSZ,WPJSPJ, fn) {
+//    pool.getConnection(function (err, connection) {
+//        connection.query($sql.querySave, [JSID,KCID,SSZY,SSNJ,SSBJ,BJRS,SKSJ,SKDD,SFWSJK,SFDSZ,WPJSPJ], function (err, result) {
+//            connection.release();
+//            fn(result);
+//        });
+//    });
+//};
+/*新增记录*/
+exports.insert = function (req, res, arrayPar, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.queryStrnjbj, [KCMC,XM,SSZY], function (err, result) {
+        connection.query($sql.insert, arrayPar, function (err, result) {
             connection.release();
             fn(result);
         });
     });
 };
-/* 保存数据*/
-exports.querySave = function (req, res, JSID,KCID,SSZY,SSNJ,SSBJ,BJRS,SKSJ,SKDD,SFWSJK,SFDSZ,WPJSPJ, fn) {
+/*更新记录*/
+exports.update = function (req, res, arrayPar, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.querySave, [JSID,KCID,SSZY,SSNJ,SSBJ,BJRS,SKSJ,SKDD,SFWSJK,SFDSZ,WPJSPJ], function (err, result) {
+        connection.query($sql.update, arrayPar, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+//删除记录
+exports.delete = function (req, res, ID, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.delete, [ID], function () {
+            connection.release();
+            fn(1);
+        });
+    });
+};
+
+//批量删除记录
+exports.deleteSome = function (req, res, idstr, fn) {
+    pool.getConnection(function (err, connection) {
+        var sql = "DELETE FROM jw_assign WHERE ID IN ("+req.query.idstr+");";
+        connection.query(sql, function (err, result) {
             connection.release();
             fn(result);
         });

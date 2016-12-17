@@ -1,0 +1,428 @@
+<style type="text/css">
+    .select{
+        width: 200%;
+    }
+    .modal-dialog{
+        margin-top: 5%;
+        width: 70%;
+    }
+</style>
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">教师信息编辑</h4>
+        </div>
+
+        <div class="modal-body">
+            <div class="box">
+                <!-- box-body -->
+                <div class="box-body">
+                    <form id="assignform" method="post" action="assign_course/_editAssign.html">
+                        <input id="ID" name="ID" type="hidden" class="form-control" value="<%= id %>">
+                            <table id="edittable" class="table table-bordered">
+                                <tr></tr>
+                                <tr>
+                                    <td>
+                                        教师姓名
+                                    </td>
+                                    <td>
+                                        <select id="JSXM" name="JSXM" class="select">
+                                            <option value="">请选择教师</option>
+                                            <%- jsStr %>
+                                        </select>
+                                        <input id="JSXMTEMP" name="JSXMTEMP" type="hidden" value="<%= jsxm %>">
+                                    </td>
+                                    <td>
+                                        所授课程
+                                    </td>
+                                    <td>
+                                        <select id="SSKC" name="SSKC" class="select" data-placeholder="先选择教师">
+                                        </select>
+                                        <input id="SSKCTEMP" name="SSKCTEMP" type="hidden" value="<%= sskc %>">
+                                    </td>
+                                    <td>
+                                        课程负责人
+                                    </td>
+                                    <td>
+                                        <select id="KCFZR" name="KCFZR" class="select" data-placeholder="先选择教师">
+                                        </select>
+                                        <input id="KCFZRTEMP" name="KCFZRTEMP" type="hidden" value="<%= kcfzr %>">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>所授专业</td>
+                                    <td>
+                                        <select id="SSZY" name="SSZY" class="select" >
+                                        </select>
+                                        <input id="SSZYTEMP" name="SSZYTEMP" type="hidden" value="<%= sszy %>">
+                                    </td>
+                                    <td>
+                                        所授年级
+                                    </td>
+                                    <td>
+                                        <select id="SSNJ" name="SSNJ" class="select" >
+                                        </select>
+                                        <input id="SSNJTEMP" name="SSNJTEMP" type="hidden" value="<%= ssnj %>">
+                                    </td>
+                                    <td>所授班级</td>
+                                    <td>
+                                        <select id="SSBJ" name="SSBJ" class="select" >
+                                        </select>
+                                        <input id="SSBJTEMP" name="SSBJTEMP" type="hidden" value="<%= ssbj %>">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>班级人数</td>
+                                    <td>
+                                        <input id="BJRS" name="BJRS" type="text" class="form-control" value="<%= bjrs %>">
+                                    </td>
+                                    <td>上课时间</td>
+                                    <td>
+                                        <input id="SKSJ" name="SKSJ" type="text" class="form-control" value="<%= sksj %>">
+                                    </td>
+                                    <td>上课地点</td>
+                                    <td>
+                                        <input id="SKDD" name="SKDD" type="text" class="form-control" value="<%= skdd %>">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>是否上机</td>
+                                    <td>
+                                        <select id="SFWSJK" name="SFWSJK" class="select" >
+                                            <option value="">请选择</option>
+                                            <option value="是">是</option>
+                                            <option value="否">否</option>
+                                        </select>
+                                        <input id="SFWSJKTEMP" name="SFWSJKTEMP" type="hidden" value="<%= sfwsjk %>">
+                                    </td>
+                                    <td>是否单双周</td>
+                                    <td>
+                                        <select id="SFDSZ" name="SFDSZ" class="select" >
+                                            <option value="">请选择</option>
+                                            <option value="是">是</option>
+                                            <option value="否">否</option>
+                                        </select>
+                                        <input id="SFDSZTEMP" name="SFDSZTEMP" type="hidden" value="<%= sfdsz %>">
+                                    </td>
+                                    <td>外聘教师评价</td>
+                                    <td>
+                                        <input id="WPJSPJ" name="WPJSPJ" type="text" class="form-control" value="<%= wpjspj %>">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><div>选课时备注：<%= bz %></div></td>
+                                </tr>
+                            </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" style="text-align:center;margin: auto">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" onclick="submitForm()">提交</button>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal -->
+
+<script>
+    $(document).ready(function () {
+        //教师姓名下拉选择
+        var $jsxm = $("#JSXM").select2();
+        var jsxm = document.getElementById("JSXM");
+        jsxm.value = $("#JSXMTEMP").val();
+        for(var i=0;i<jsxm.length;i++) {
+            if (jsxm.options[i].value == $("#JSXMTEMP").val()) {
+                $jsxm.val(jsxm.options[i].value).trigger("change");
+                break;
+            }
+        }
+        //所授课程下拉选择
+        var $sskc = $("#SSKC").select2();
+        var sskc = document.getElementById("SSKC");
+        sskc.value = $("#SSKCTEMP").val();
+        for(var i=0;i<sskc.length;i++) {
+            if (sskc.options[i].value == $("#SSKCTEMP").val()) {
+                $sskc.val(sskc.options[i].value).trigger("change");
+                break;
+            }
+        }
+        //课程负责人下拉选择
+        var $kcfzr = $("#KCFZR").select2();
+        var kcfzr = document.getElementById("KCFZR");
+        kcfzr.value = $("#KCFZRTEMP").val();
+        for(var i=0;i<kcfzr.length;i++) {
+            if (kcfzr.options[i].value == $("#KCFZRTEMP").val()) {
+                $kcfzr.val(kcfzr.options[i].value).trigger("change");
+                break;
+            }
+        }
+        //所授专业下拉选择
+        var $sszy = $("#SSZY").select2();
+        var sszy = document.getElementById("SSZY");
+        sszy.value = $("#SSZYTEMP").val();
+        for(var i=0;i<sszy.length;i++) {
+            if (sszy.options[i].value == $("#SSZYTEMP").val()) {
+                $sszy.val(sszy.options[i].value).trigger("change");
+                break;
+            }
+        }
+        //所授年级下拉选择
+        var $ssnj = $("#SSNJ").select2();
+        var ssnj = document.getElementById("SSNJ");
+        ssnj.value = $("#SSNJTEMP").val();
+        for(var i=0;i<ssnj.length;i++) {
+            if (ssnj.options[i].value == $("#SSNJTEMP").val()) {
+                $ssnj.val(ssnj.options[i].value).trigger("change");
+                break;
+            }
+        }
+        //所授班级下拉选择
+        var $ssbj = $("#SSBJ").select2();
+        var ssbj = document.getElementById("SSBJ");
+        ssbj.value = $("#SSBJTEMP").val();
+        for(var i=0;i<ssbj.length;i++) {
+            if (ssbj.options[i].value == $("#SSBJTEMP").val()) {
+                $ssbj.val(ssbj.options[i].value).trigger("change");
+                break;
+            }
+        }
+        //是否上机下拉选择
+        var $sfwsjk = $("#SFWSJK").select2();
+        var sfwsjk = document.getElementById("SFWSJK");
+        sfwsjk.value = $("#SFWSJKTEMP").val();
+        for(var i=0;i<sfwsjk.length;i++) {
+            if (sfwsjk.options[i].value == $("#SFWSJKTEMP").val()) {
+                $sfwsjk.val(sfwsjk.options[i].value).trigger("change");
+                break;
+            }
+        }
+        //是否单双周下拉选择
+        var $sfdsz = $("#SFDSZ").select2();
+        var sfdsz = document.getElementById("SFDSZ");
+        sfdsz.value = $("#SFDSZTEMP").val();
+        for(var i=0;i<sfdsz.length;i++) {
+            if (sfdsz.options[i].value == $("#SFDSZTEMP").val()) {
+                $sfdsz.val(sfdsz.options[i].value).trigger("change");
+                break;
+            }
+        }
+
+        var JSXM = $('#JSXM');
+        var SSKC = $('#SSKC');
+        var KCFZR = $('#KCFZR');
+        var SSZY = $('#SSZY');
+        var SSNJ = $('#SSNJ');
+        var SSBJ = $('#SSBJ');
+        kcStr = "";
+        fzrStr = "";
+        $.ajax({
+            type: "get",
+            url: '/assignService/getkcStr',
+            dataType: "json",
+            data: {JSXM:JSXM.val()},
+            async: true,
+            success: function (data) {
+                if (data) {
+                    for (var i = 0; i < data.state.length; i++) {
+                        kcStr += "<option value='" + data.state[i].KCMC + "'>" + data.state[i].KCMC + "</option>";
+                        //  fzrStr += "<option value='" + data.state[i].KCFZR + "'>" + data.state[i].KCFZR + "</option>";
+                    }
+                }
+                SSKC.html(kcStr);
+                $.ajax({
+                    type: "get",
+                    url: '/assignService/getfzrStr',
+                    dataType: "json",
+                    data: {KCMC:$('#SSKC').val()},
+                    async: true,
+                    success: function (fzrdata) {
+                        if (fzrdata) {
+                            fzrStr = "<option value='" + fzrdata.state[0].KCFZR + "'>" + fzrdata.state[0].KCFZR + "</option>";
+                        }
+                        KCFZR.html(fzrStr);
+                    }
+                });
+                var zyStr = "";
+                $.ajax({
+                    type: "get",
+                    url: '/assignService/getzyStr',
+                    dataType: "json",
+                    data: {JSXM:JSXM.val(),KCMC:SSKC.val()},
+                    async: true,
+                    success: function (data) {
+                        if (data) {
+                            for (var i = 0; i < data.state.length; i++) {
+                                zyStr += "<option value='" + data.state[i].ZYMC + "'>" + data.state[i].ZYMC + "</option>";
+                            }
+                        }
+                        SSZY.html(zyStr);
+                        var njStr = "";
+                        var bjStr = "";
+                        $.ajax({
+                            type: "get",
+                            url: '/assignService/getnjbjStr',
+                            dataType: "json",
+                            data: {JSXM:JSXM.val(),KCMC:SSKC.val(),ZYMC:SSZY.val()},
+                            async: true,
+                            success: function (data) {
+                                if (data) {
+                                    for (var i = 0; i < data.state.length; i++) {
+                                        njStr += "<option value='" + data.state[i].KSNJ + "'>" + data.state[i].KSNJ + "</option>";
+                                        if (data.state[i].BJGS > 0) {
+                                            for (var b = 1; b <= data.state[i].BJGS; b++)
+                                                bjStr += "<option value='" + b + "大班'>" + b + "大班</option>";
+                                        }
+                                    }
+                                }
+                                SSNJ.html(njStr);
+                                SSBJ.html(bjStr);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+    });
+    var JSXM = $('#JSXM');
+    var SSKC = $('#SSKC');
+    var KCFZR = $('#KCFZR');
+    var SSZY = $('#SSZY');
+    var SSNJ = $('#SSNJ');
+    var SSBJ = $('#SSBJ');
+    JSXM.change(function () {
+        kcStr = "";
+        fzrStr = "";
+        $.ajax({
+            type: "get",
+            url: '/assignService/getkcStr',
+            dataType: "json",
+            data: {JSXM:JSXM.val()},
+            async: true,
+            success: function (data) {
+                if (data) {
+                    for (var i = 0; i < data.state.length; i++) {
+                        kcStr += "<option value='" + data.state[i].KCMC + "'>" + data.state[i].KCMC + "</option>";
+                        //  fzrStr += "<option value='" + data.state[i].KCFZR + "'>" + data.state[i].KCFZR + "</option>";
+                    }
+                }
+                SSKC.html(kcStr);
+                $.ajax({
+                    type: "get",
+                    url: '/assignService/getfzrStr',
+                    dataType: "json",
+                    data: {KCMC:$('#SSKC').val()},
+                    async: true,
+                    success: function (fzrdata) {
+                        if (fzrdata) {
+                            fzrStr = "<option value='" + fzrdata.state[0].KCFZR + "'>" + fzrdata.state[0].KCFZR + "</option>";
+                        }
+                        KCFZR.html(fzrStr);
+                    }
+                });
+                var zyStr = "";
+                $.ajax({
+                    type: "get",
+                    url: '/assignService/getzyStr',
+                    dataType: "json",
+                    data: {JSXM:JSXM.val(),KCMC:SSKC.val()},
+                    async: true,
+                    success: function (data) {
+                        if (data) {
+                            for (var i = 0; i < data.state.length; i++) {
+                                zyStr += "<option value='" + data.state[i].ZYMC + "'>" + data.state[i].ZYMC + "</option>";
+                            }
+                        }
+                        SSZY.html(zyStr);
+                        var njStr = "";
+                        var bjStr = "";
+                        $.ajax({
+                            type: "get",
+                            url: '/assignService/getnjbjStr',
+                            dataType: "json",
+                            data: {JSXM:JSXM.val(),KCMC:SSKC.val(),ZYMC:SSZY.val()},
+                            async: true,
+                            success: function (data) {
+                                if (data) {
+                                    for (var i = 0; i < data.state.length; i++) {
+                                        njStr += "<option value='" + data.state[i].KSNJ + "'>" + data.state[i].KSNJ + "</option>";
+                                        if (data.state[i].BJGS > 0) {
+                                            for (var b = 1; b <= data.state[i].BJGS; b++)
+                                                bjStr += "<option value='" + b + "大班'>" + b + "大班</option>";
+                                        }
+                                    }
+                                }
+                                SSNJ.html(njStr);
+                                SSBJ.html(bjStr);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    });
+
+    SSKC.change(function () {
+        $.ajax({
+            type: "get",
+            url: '/assignService/getfzrStr',
+            dataType: "json",
+            data: {KCMC:$('#SSKC').val()},
+            async: true,
+            success: function (fzrdata) {
+                if (fzrdata) {
+                    fzrStr = "<option value='" + fzrdata.state[0].KCFZR + "'>" + fzrdata.state[0].KCFZR + "</option>";
+                }
+                KCFZR.html(fzrStr);
+            }
+        });
+    });
+
+    SSZY.change(function () {
+        var njStr = "";
+        var bjStr = "";
+        $.ajax({
+            type: "get",
+            url: '/assignService/getnjbjStr',
+            dataType: "json",
+            data: {JSXM:$('#JSXM').val(),KCMC:$('#SSKC').val(),ZYMC:$('#SSZY').val()},
+            async: true,
+            success: function (data) {
+                if (data) {
+                    for (var i = 0; i < data.state.length; i++) {
+                        njStr += "<option value='" + data.state[i].KSNJ + "'>" + data.state[i].KSNJ + "</option>";
+                        if (data.state[i].BJGS > 0) {
+                            for (var b = 1; b <= data.state[i].BJGS; b++)
+                                bjStr += "<option value='" + b + "大班'>" + b + "大班</option>";
+                        }
+                    }
+                }
+                SSNJ.html(njStr);
+                SSBJ.html(bjStr);
+            }
+        });
+    });
+
+    function submitForm(){
+        $.ajax({
+            type: "post",
+            url: '/assigncourse/_editAssign.html',
+            dataType: "json",
+            data: $('#assignform').serialize(),// 你的formid 注：后台req.body由控件name获取数据
+            async: false,
+            cache: true,
+            success: function (msg) {
+                if (msg.result != 0) {
+                    $("#modal-edit-event").modal('hide');
+                }
+                location.reload();
+            },
+            error: function (e) {
+                alert("提交失败！");
+                console.log(e);
+            }
+        });
+    }
+</script>

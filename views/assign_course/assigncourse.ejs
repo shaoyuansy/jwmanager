@@ -19,6 +19,20 @@
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">授课管理列表</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" title="批量删除" class="btn btn-box-tool"
+                            onclick="delSomeAssign()">
+                        <i class="fa fa-fw fa-times"></i>批量删除</button>
+                    <button type="button" title="添加" class="btn btn-box-tool"
+                            onclick="editAssign(0)">
+                        <i class="fa fa-fw fa-user-plus"></i>添加</button>
+                    <button type="button" title="导出" class="btn btn-box-tool"
+                            onclick="exportData()">
+                        <i class="fa fa-fw fa-cloud-download"></i>导出</button>
+                    <button type="button" title="导入" class="btn btn-box-tool"
+                            onclick="isIE();">
+                        <i class="fa fa-fw fa-sign-in"></i>导入</button>
+                </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -48,83 +62,10 @@
             <!-- /.box-body -->
         </div>
         <!-- /.box -->
-        <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">编辑</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body no-padding">
-                <table class="table table-condensed">
-                    <tr>
-                        <th>教师姓名</th>
-                        <th>所授课程</th>
-                        <th>课程负责人</th>
-                        <th>所授专业</th>
-                        <th>所授年级</th>
-                        <th>所授班级</th>
-                        <th>班级人数</th>
-                        <th>上课时间</th>
-                        <th>上课地点</th>
-                        <th>是否上机</th>
-                        <th>是否单双周</th>
-                        <th>外聘教师评价</th>
-                        <th>操作</th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <select class="selectpick" data-live-search="true">
-                                <option data-tokens=""></option>
-                            </select>
-                        </th>
-                        <th>
-                            <select class="selectpick" data-live-search="true">
-                                <option data-tokens=""></option>
-                            </select>
-                        </th>
-                        <th>
-                            <select class="selectpick" data-live-search="true">
-                                <option data-tokens=""></option>
-                            </select>
-                        </th>
-                        <th>
-                            <select class="selectpick" data-live-search="true">
-                                <option data-tokens=""></option>
-                            </select>
-                        </th>
-                        <th>
-                            <select class="selectpick" data-live-search="true">
-                                <option data-tokens=""></option>
-                            </select>
-                        </th>
-                        <th>
-                            <select class="selectpick" data-live-search="true">
-                                <option data-tokens=""></option>
-                            </select>
-                        </th>
-                        <th><input type="text" class="form-control" id="" placeholder="请输入名称"></th>
-                        <th><input type="text" class="form-control" id="" placeholder="请输入名称"></th>
-                        <th><input type="text" class="form-control" id="" placeholder="请输入名称"></th>
-                        <th>
-                            <select class="selectpick" data-live-search="true">
-                                <option data-tokens=""></option>
-                            </select>
-                        </th>
-                        <th>
-                            <select class="selectpick" data-live-search="true">
-                                <option data-tokens=""></option>
-                            </select>
-                        </th>
-                        <th><input type="text" class="form-control" id="name" placeholder="请输入名称"></th>
-                        <th>操作</th>
-                    </tr>
-                </table>
-            </div>
-            <!-- /.box-body -->
-        </div>
         </section>
     <!-- /.content -->
-
 </div>
+<div class="modal" id="modal-edit-event"></div>
 <script src="/AdminLTE/plugins/bootstrap-select/js/bootstrap-select.min.js"></script>
 <script>
 
@@ -161,7 +102,7 @@
                 }
             },
             {
-                "mData": "XM",
+                "mData": "JSXM",
                 "sClass": "center"
             },
             {
@@ -211,9 +152,8 @@
             {
                 "sClass": "center",
                 "mData": function (obj) {
-                    return '<a id='+ ++i +' style="margin-left: 10px;" onclick="editassign(\'' + i + '\')" id="'+obj.KCID+'" href="#" role="button" data-toggle="modal" title="编辑"><i class="fa fa-fw fa-pencil"></i></a>'
-                        +'<a id='+ i +'savebtn class="savebtn" style="display:none;margin-left: 10px" onclick="saveassign(\'' + i + '\')" href="#" role="button" data-toggle="modal" title="保存"><i class="fa fa-fw fa-save"></i></a>'
-                        +'<a style="margin-left: 10px;" onclick="delMajor(\'' + obj.ID + '\')" href="#" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';
+                    return '<a style="margin-left: 10px;" onclick="editAssign(\'' + obj.ID + '\')" href="#" role="button" data-toggle="modal" title="编辑"><i class="fa fa-fw fa-pencil"></i></a>'
+                        +'<a style="margin-left: 10px;" onclick="delAssign(\'' + obj.ID + '\')" href="#" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';
                 }
             }
         ];
@@ -236,112 +176,82 @@
 
     });
 
-//    function editassign(ID) {
-//        $("#" + ID).hide();
-//        $("#" + ID +"savebtn").show();
-//
-//        var XM = $("#" + ID).parent().parent().find("#XM").val();
-//        var KCMC = $("#" + ID).parent().parent().find("#KCMC").val();
-//        var SSZY = $("#" + ID).parent().parent().find("#SSZY").select2();
-//        var SSNJ = $("#" + ID).parent().parent().find("#SSNJ").select2();
-//        var SSBJ = $("#" + ID).parent().parent().find("#SSBJ").select2();
-//        var zyStr = "";
-//        var njStr = "";
-//        var bjStr = "";
-//        $("#" + ID).parent().parent().find("#SFWSJK").select2();
-//        $("#" + ID).parent().parent().find("#SFDSZ").select2();
-//        //SSZY.children().remove();
-//        $("#" + ID).parent().parent().find("select,input").each(function () {
-//            $(this).css("display", "inline-block");
-//            $(this).attr("disabled",false);
-//        });
-//        $.ajax({
-//            type: "get",
-//            url: '/assignService/getStr',
-//            dataType: "json",
-//            data: {KCMC: KCMC, XM: XM},
-//            async: true,
-//            success: function (data) {
-//                if (data) {
-//                    for (var i = 0; i < data.state.length; i++) {
-//                        zyStr += "<option value='" + data.state[i].ZYMC + "'>" + data.state[i].ZYMC + "</option>";
-//                    }
-//                }
-//                SSZY.append(zyStr);
-//                SSZY.change(function () {
-//                    SSNJ.children().remove();
-//                    SSBJ.children().remove();
-//                    njStr = "";
-//                    bjStr = "";
-//                    $.ajax({
-//                        type: "get",
-//                        url: '/assignService/getStrnjbj',
-//                        dataType: "json",
-//                        data: {KCMC: KCMC, XM: XM, SSZY: SSZY.val()},
-//                        async: true,
-//                        success: function (data) {
-//                            if (data) {
-//                                for (var i = 0; i < data.state.length; i++) {
-//                                    njStr += "<option value='" + data.state[i].KSNJ + "'>" + data.state[i].KSNJ + "</option>";
-//                                    if (data.state[i].BJGS > 0) {
-//                                        for (var b = 1; b <= data.state[i].BJGS; b++)
-//                                            bjStr += "<option value='" + b + "大班'>" + b + "大班</option>";
-//                                    }
-//                                }
-//                            }
-//                            SSNJ.append(njStr);
-//                            SSBJ.append(bjStr);
-//                        }
-//                    });
-//                });
-//            }
-//        });
-//    }
-//
-//    function saveassign(ID) {
-//        var JSID = $("#" + ID).parent().parent().find("#JSID");
-//        var KCID = $("#" + ID).parent().parent().find("#KCID");
-//        var SSZY = $("#" + ID).parent().parent().find("#SSZY");
-//        var SSNJ = $("#" + ID).parent().parent().find("#SSNJ");
-//        var SSBJ = $("#" + ID).parent().parent().find("#SSBJ");
-//        var BJRS = $("#" + ID).parent().parent().find("#BJRS");
-//        var SKSJ = $("#" + ID).parent().parent().find("#SKSJ");
-//        var SKDD = $("#" + ID).parent().parent().find("#SKDD");
-//        var SFWSJK = $("#" + ID).parent().parent().find("#SFWSJK");
-//        var SFDSZ = $("#" + ID).parent().parent().find("#SFDSZ");
-//        var WPJSPJ = $("#" + ID).parent().parent().find("#WPJSPJ");
-//
-//        if(JSID.val()==""||KCID.val()==""||SSZY.val()==""||SSNJ.val()==""||SSBJ.val()==""||SKSJ.val()==""||SKDD.val()==""||SFWSJK.val()==""||SFDSZ.val()==""||WPJSPJ.val()==""){
-//            $("#" + ID).parent().parent().find("td").attr("class","danger");
-//            alert("选课信息不完整");
-//        }else{
-//            $.ajax({
-//                type: "post",
-//                url: '/assignService/saveassign',
-//                dataType: "text",
-//                data: {JSID:JSID.val(),KCID:KCID.val(),SSZY:SSZY.val(),SSNJ:SSNJ.val(),SSBJ:SSBJ.val(),BJRS:BJRS.val(),SKSJ:SKSJ.val(),SKDD:SKDD.val(),SFWSJK:SFWSJK.val(),SFDSZ:SFDSZ.val(),WPJSPJ:WPJSPJ.val()},
-//                async: true,
-//                success: function (data) {
-//                    $("#" + ID).parent().parent().find("td").attr("class","success");
-//                    JSID.attr("disabled",true);
-//                    KCID.attr("disabled",true);
-//                    SSZY.attr("disabled",true);
-//                    SSNJ.attr("disabled",true);
-//                    SSBJ.attr("disabled",true);
-//                    BJRS.attr("disabled",true);
-//                    SKSJ.attr("disabled",true);
-//                    SKDD.attr("disabled",true);
-//                    SFWSJK.attr("disabled",true);
-//                    SFDSZ.attr("disabled",true);
-//                    WPJSPJ.attr("disabled",true);
-//                    $("#" + ID).show();
-//                    $("#" + ID +"savebtn").hide();
-//                }
-//            });
-//        }
-//
-//    }
-//
+    //编辑
+    function editAssign(id) {
+        $.ajax({
+            url: "/assigncourse/_editAssign.html?id=" + id,
+            type: "get",
+            dataType: 'html',
+            async: false,
+            success: function (htmlContent) {
+                //模态框
+                $('#modal-edit-event').html(htmlContent);
+                $("#modal-edit-event").modal('show');
+            }
+        });
+    }
+
+    //删除记录
+    function delAssign(ID) {
+        var result = confirm("确认要删除？");
+        if (result) {
+            $.ajax({
+                type: "get",
+                url: '/assignService/delOne',
+                dataType: "json",
+                data: {ID: ID},
+                cache: true,
+                success: function (msg) {
+                    if (msg.state == 1) {
+                        alert("删除成功");
+                    }else{
+                        alert("删除失败");
+                    }
+                    location.reload();
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        }
+    }
+    //批量删除记录
+    function delSomeAssign() {
+        var flag = false;
+        var arr = new Array();
+        //遍历所有checkbox
+        $('input[type="checkbox"][name="checkbox2"]:checked').each(function () {
+            arr.push(this.value);
+        });
+        if(arr.length != 0){
+            var result = confirm("确认要删除这些数据？");
+            if (result) {
+                //数组转字符串 ，拼接
+                var idstr = arr.join(",");
+                $.ajax({
+                    type: "get",
+                    url: '/assignService/delSome',
+                    dataType: "json",
+                    data: {idstr: idstr},
+                    cache: true,
+                    success: function (msg){
+                        if(msg.result != 0){
+                            alert("删除成功！");
+
+                        }else {
+                            alert("删除失败！");
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+                location.reload();
+            }
+        }else{
+            alert("请至少选择一项");
+        }
+    }
 
 </script>
 
