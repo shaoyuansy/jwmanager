@@ -38,12 +38,16 @@ router.get('/getnjbjStr', function (req, res, next) {
         res.send({"state": result});
     });
 });
-////保存信息
-//router.post('/saveassign', function (req, res, next) {
-//    assignDao.querySave(req, res, req.body.JSID,req.body.KCID,req.body.SSZY,req.body.SSNJ,req.body.SSBJ,req.body.BJRS,req.body.SKSJ,req.body.SKDD,req.body.SFWSJK,req.body.SFDSZ,req.body.WPJSPJ,function (result) {
-//        res.send({"state": result});
-//    });
-//});
+//批量增加授课信息记录
+router.get('/insertSome', function (req, res, next) {
+    var sqlArr = new Array();
+    sqlArr = req.query.str.split(',');
+    assignDao.insertSome(req, res, sqlArr, function (result) {
+        if (result) {
+            res.send({"state":result});
+        }
+    });
+});
 //删除一条教师信息记录
 router.get('/delOne', function (req, res, next) {
     assignDao.delete(req, res, req.query.ID, function (result) {

@@ -73,15 +73,15 @@ exports.querynjbjStr = function (req, res, JSXM,KCMC,ZYMC, fn) {
         });
     });
 };
-///* 保存数据*/
-//exports.querySave = function (req, res, JSID,KCID,SSZY,SSNJ,SSBJ,BJRS,SKSJ,SKDD,SFWSJK,SFDSZ,WPJSPJ, fn) {
-//    pool.getConnection(function (err, connection) {
-//        connection.query($sql.querySave, [JSID,KCID,SSZY,SSNJ,SSBJ,BJRS,SKSJ,SKDD,SFWSJK,SFDSZ,WPJSPJ], function (err, result) {
-//            connection.release();
-//            fn(result);
-//        });
-//    });
-//};
+//导入时批量插入授课信息
+exports.insertSome = function (req, res, arrayPar, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.insertSome, arrayPar, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
 /*新增记录*/
 exports.insert = function (req, res, arrayPar, fn) {
     pool.getConnection(function (err, connection) {

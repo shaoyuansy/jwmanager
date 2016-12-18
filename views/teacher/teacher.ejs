@@ -283,8 +283,10 @@
     function ReadExcel() {
         //得到文件路径的值
         var filePath = document.getElementById("upfile").value;
-        //判断是否选择文件
-        if(filePath != ""){
+        var houzhui =/\.[^\.]+/.exec(filePath);
+        if(houzhui==".xlsx"){
+            alert("文件"+filePath+"文件格式或文件扩展名无效。请确定文件未损坏，并且文件扩展名为“.xls”");
+        }else if(filePath != ""){
             var oXL = new ActiveXObject("Excel.application");
             //打开指定路径的excel文件
             var oWB = oXL.Workbooks.open(filePath);
@@ -349,7 +351,7 @@
                     }
                     location.reload();
                 }else{
-                    alert("表格格式错误");
+                    alert("表格格式错误，请检查文件首行与表头是否一致、“操作”列是否删除，请不要有空行。");
                 }
             } catch(e) {
                 console.log(e);

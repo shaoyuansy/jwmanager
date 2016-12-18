@@ -230,9 +230,10 @@
     function ReadExcel() {
         //得到文件路径的值
         var filePath = document.getElementById("upfile").value;
-        console.log("-----------"+filePath);
-        //判断是否选择文件
-        if(filePath != ""){
+        var houzhui =/\.[^\.]+/.exec(filePath);
+        if(houzhui==".xlsx"){
+            alert("文件"+filePath+"文件格式或文件扩展名无效。请确定文件未损坏，并且文件扩展名为“.xls”");
+        }else if(filePath != ""){
             var oXL = new ActiveXObject("Excel.application");
             //打开指定路径的excel文件
             var oWB = oXL.Workbooks.open(filePath);
@@ -271,7 +272,7 @@
                     }
                     location.reload();
                 }else{
-                    alert("表格格式错误");
+                    alert("表格格式错误，请检查文件首行与表头是否一致、“操作”列是否删除，请不要有空行。");
                 }
             } catch(e) {
                 console.log(e);
@@ -284,29 +285,69 @@
             alert("请选择一个文件");
         }
     }
-
+    //IE浏览器导出
     function toExcel(inTblId, inWindow) {
-        if ("ActiveXObject" in window) { //如果是IE浏览器
-            try {
-                var allStr = ""; var curStr = "";
-                if (inTblId != null && inTblId != "" && inTblId != "null") {
-                    curStr = getTblData(inTblId, inWindow);
-                }
-                if (curStr != null) {
-                    allStr += curStr;
-                }
-                else {
-                    alert("你要导出的表不存在！");
-                    return;
-                }
-                var fileName = getExcelFileName();
-                doFileExport(fileName, allStr);
+        //定义一个flag判断存在单选框被选中
+        var flag = false;
+        //遍历所有checkbox,未选中选项所在行设置class为noExl
+        $('input[type="checkbox"][name="checkbox2"]').each(function () {
+            if(this.checked == false){
+                //设置该checkbox所在行的class属性为noExl
+                this.parentNode.parentNode.classList = "noExl";
+            }else if(this.checked == true){
+                this.parentNode.parentNode.classList = "";
+                flag = true;
             }
-            catch (e) {
-                alert("导出发生异常:" + e.name + "->" + e.description + "!");
+        });
+        if(flag){
+            if ("ActiveXObject" in window) {
+                try {
+                    var allStr = "";
+                    var curStr = "";
+                    if (inTblId != null && inTblId != "" && inTblId != "null") {
+                        curStr = getTblData(inTblId, inWindow);
+                    }
+                    if (curStr != null) {
+                        allStr += curStr;
+                    }
+                    else {
+                        alert("你要导出的表不存在！");
+                        return;
+                    }
+                    var fileName = getExcelFileName();
+                    doFileExport(fileName, allStr);
+                }
+                catch (e) {
+                    alert("导出发生异常:" + e.name + "->" + e.description + "!");
+                }
+            } else {
+                exportData();//批量导出(非IE浏览器)
             }
-        } else {
-            exportData();//批量导出(非IE浏览器)
+        }else{
+            alert("未选择项目，导出为模板");
+            if ("ActiveXObject" in window) {
+                try {
+                    var allStr = "";
+                    var curStr = "";
+                    if (inTblId != null && inTblId != "" && inTblId != "null") {
+                        curStr = getTblData(inTblId, inWindow);
+                    }
+                    if (curStr != null) {
+                        allStr += curStr;
+                    }
+                    else {
+                        alert("你要导出的表不存在！");
+                        return;
+                    }
+                    var fileName = getExcelFileName();
+                    doFileExport(fileName, allStr);
+                }
+                catch (e) {
+                    alert("导出发生异常:" + e.name + "->" + e.description + "!");
+                }
+            } else {
+                exportData();//批量导出(非IE浏览器)
+            }
         }
     }
 

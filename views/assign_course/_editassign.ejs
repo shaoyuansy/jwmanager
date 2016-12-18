@@ -227,7 +227,13 @@
                 if (data) {
                     for (var i = 0; i < data.state.length; i++) {
                         kcStr += "<option value='" + data.state[i].KCMC + "'>" + data.state[i].KCMC + "</option>";
-                        //  fzrStr += "<option value='" + data.state[i].KCFZR + "'>" + data.state[i].KCFZR + "</option>";
+                        if(data.state[i].SFZR=='是'){
+                            $('#WPJSPJ').val("（非外聘教师）");
+                            $('#WPJSPJ').attr("disabled",true);
+                        }else if(data.state[i].SFZR=='否'){
+                            $('#WPJSPJ').val("");
+                            $('#WPJSPJ').attr("disabled",false);
+                        }
                     }
                 }
                 SSKC.html(kcStr);
@@ -238,8 +244,8 @@
                     data: {KCMC:$('#SSKC').val()},
                     async: true,
                     success: function (fzrdata) {
-                        if (fzrdata) {
-                            fzrStr = "<option value='" + fzrdata.state[0].KCFZR + "'>" + fzrdata.state[0].KCFZR + "</option>";
+                        if (fzrdata.state[0]) {
+                            fzrStr = "<option value='" + fzrdata.state[0]['KCFZR'] + "'>" + fzrdata.state[0].KCFZR + "</option>";
                         }
                         KCFZR.html(fzrStr);
                     }
@@ -305,7 +311,13 @@
                 if (data) {
                     for (var i = 0; i < data.state.length; i++) {
                         kcStr += "<option value='" + data.state[i].KCMC + "'>" + data.state[i].KCMC + "</option>";
-                        //  fzrStr += "<option value='" + data.state[i].KCFZR + "'>" + data.state[i].KCFZR + "</option>";
+                        if(data.state[i].SFZR=='是'){
+                            $('#WPJSPJ').val("（非外聘教师）");
+                            $('#WPJSPJ').attr("disabled",true);
+                        }else if(data.state[i].SFZR=='否'){
+                            $('#WPJSPJ').val("");
+                            $('#WPJSPJ').attr("disabled",false);
+                        }
                     }
                 }
                 SSKC.html(kcStr);
@@ -316,8 +328,8 @@
                     data: {KCMC:$('#SSKC').val()},
                     async: true,
                     success: function (fzrdata) {
-                        if (fzrdata) {
-                            fzrStr = "<option value='" + fzrdata.state[0].KCFZR + "'>" + fzrdata.state[0].KCFZR + "</option>";
+                        if (fzrdata.state[0]) {
+                            fzrStr = "<option value='" + fzrdata.state[0]['KCFZR'] + "'>" + fzrdata.state[0].KCFZR + "</option>";
                         }
                         KCFZR.html(fzrStr);
                     }
