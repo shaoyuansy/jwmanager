@@ -39,6 +39,15 @@ exports.queryByMc = function (req, res, xm, fn) {
         });
     });
 };
+/* 查询此教师是不是专任教师*/
+exports.queryZRtescher = function (req, res, tname, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.queryZRtescher, tname, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
 
 /*新增记录*/
 exports.insert = function (req, res, arrayPar, fn) {

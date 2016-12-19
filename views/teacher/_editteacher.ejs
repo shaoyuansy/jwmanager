@@ -30,7 +30,7 @@
                                     <td><input id="GH" name="GH" type="text" class="form-control" value="<%= gh %>"></td>
                                     <td>性别</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="XB" name="XB" style="width: 100%">
+                                        <select class="select2" id="XB" name="XB" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option>男</option>
                                             <option>女</option>
@@ -40,7 +40,7 @@
                                 </tr>
                                 <tr>
                                     <td>出生年月</td>
-                                    <td><input id="CSNY" name="CSNY" type="text" class="form-control" value="<%= csny %>"></td>
+                                    <td><input id="CSNY" name="CSNY" type="text" class="form-control" placeholder="格式如：1980.10" value="<%= csny %>"></td>
                                     <td><span style="color: red;font-size: 20px">*</span>&nbsp;  民族</td>
                                     <td style="text-align: left;">
                                         <select class="form-control select2" id="MZ" name="MZ" style="width: 100%">
@@ -57,7 +57,7 @@
                                     <td><input id="SFZHM" name="SFZHM" type="text" class="form-control" value="<%= sfzhm %>"></td>
                                 </tr>
                                 <tr>
-                                    <td>联系电话</td>
+                                    <td><span style="color: red;font-size: 20px">*</span>&nbsp;  联系电话</td>
                                     <td><input id="LXDH" name="LXDH" type="text" class="form-control" value="<%= lxdh %>"></td>
                                     <td>所属教研室</td>
                                     <td style="text-align: left;">
@@ -68,13 +68,13 @@
                                         <input id="JYSMCTEMP" name="JYSMCTEMP" type="hidden" value="<%= jysmc %>">
                                     </td>
                                     <td>入校时间</td>
-                                    <td><input id="RXSJ" name="RXSJ" type="text" class="form-control" value="<%= rxsj %>"></td>
+                                    <td><input id="RXSJ" name="RXSJ" type="text" class="form-control" placeholder="格式如：2005.9.10" value="<%= rxsj %>"></td>
                                 </tr>
                                 <tr>
-                                    <td>分管负责人</td>
+                                    <td><span style="color: red;font-size: 20px">*</span>&nbsp;  分管负责人</td>
                                     <td><input id="FGFZR" name="FGFZR" type="text" class="form-control" value="<%= fgfzr %>"></td>
                                     <td>定职时间</td>
-                                    <td><input id="DZSJ" name="DZSJ" type="text" class="form-control" value="<%= dzsj %>"></td>
+                                    <td><input id="DZSJ" name="DZSJ" type="text" class="form-control" placeholder="格式如：2001.09" value="<%= dzsj %>"></td>
                                     <td>任职状态</td>
                                     <td style="text-align: left;">
                                         <select class="form-control select2" id="RZZT" name="RZZT" style="width: 100%">
@@ -92,7 +92,7 @@
                                     <td><input id="DWMC" name="DWMC" type="text" class="form-control" value="<%= dwmc %>"></td>
                                     <td>工作单位类别</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="GZDWLB" name="GZDWLB" style="width: 100%">
+                                        <select class="select2" id="GZDWLB" name="GZDWLB" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option>行政单位</option>
                                             <option>科研单位</option>
@@ -108,7 +108,7 @@
                                 <tr>
                                     <td>学历</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="XL" name="XL" style="width: 100%">
+                                        <select class="select2" id="XL" name="XL" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option>博士研究生</option>
                                             <option>硕士研究生</option>
@@ -140,7 +140,7 @@
                                 </tr>
                                 <tr>
                                     <td>毕业时间</td>
-                                    <td><input id="BYSJ" name="BYSJ" type="text" class="form-control" value="<%= bysj %>"></td>
+                                    <td><input id="BYSJ" name="BYSJ" type="text" class="form-control" placeholder="格式如：1990.7.2" value="<%= bysj %>"></td>
                                     <td>毕业院校</td>
                                     <td><input id="BYYX" name="BYYX" type="text" class="form-control" value="<%= byyx %>"></td>
                                     <td>学缘</td>
@@ -207,7 +207,7 @@
                                         <input id="JXXGTEMP" name="JXXGTEMP" type="hidden" value="<%= jxxg %>">
                                     </td>
                                     <td>初始代课时间</td>
-                                    <td><input id="CSDKSJ" name="CSDKSJ" type="text" class="form-control" value="<%= csdksj %>"></td>
+                                    <td><input id="CSDKSJ" name="CSDKSJ" type="text" class="form-control" placeholder="格式如：2005.9.10" value="<%= csdksj %>"></td>
                                 </tr>
                                 <tr>
                                     <td>可授课程</td>
@@ -638,30 +638,101 @@
 
 
     function submitForm(){
-        //获取服务器上的附件的值
-        var filePath = document.getElementById("FJ").value;
-        //如果本次修改未重新上传附件，则附件值还为原来的值
-        if(typeof($('#hidfj').val()) == "undefined"){
-            document.getElementById("FJ").value=filePath;
-            //如果重新上传附件，则附件值为新的上传的值
-        }else{
-            document.getElementById("FJ").value= $('#hidfj').val();
+        var verge = true;
+        var regCSNY = /[12]\d{3}.?(?:0[1-9]|1[0-2])$/;
+        var regSFZHM = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
+        var regSJH = /^[1][358][0-9]{9}$/;
+        var regGH = /([0-9]{3,4}-)?[0-9]{7,8}/;
+        var regRXSJ = /^((?:19|20)\d\d).(0[1-9]|1[012]).(0[1-9]|[12][0-9]|3[01])$/;
+
+        if($('#XM').val()==""){
+            alert("姓名不能为空");
+            var verge = false;
+        }else if($('#GH').val()=="") {
+            alert("工号不能为空");
+            var verge = false;
+        }else if($('#MZ').val()==""){
+            alert("民族不能为空");
+            var verge = false;
+        }else if($('#SFZHM').val()==""){
+            alert("身份证号码不能为空");
+            var verge = false;
+        }else if($('#LXDH').val()==""){
+            alert("联系电话不能为空");
+            var verge = false;
+        }else if($('#FGFZR').val()==""){
+            alert("分管负责人不能为空");
+            var verge = false;
+        }else if(getFZR($('#FGFZR').val()=="否")){
+            alert("此教师不存在 或 非专任教师，请重新填写");
+            var verge = false;
+        }else if(!regCSNY.test($('#CSNY').val())){
+            alert("出生年月格式不正确，如：1980.12");
+            var verge = false;
+        }else if(!regSFZHM.test($('#SFZHM').val())){
+            alert("身份证格式不正确，请仔细检查");
+            var verge = false;
+        }else if(!(regSJH.test($('#LXDH').val()) || regGH.test($('#LXDH').val()))){
+            alert("联系电话格式或位数不正确，若固话：xxxx-xxxxxxx 或 （无区号）xxxxxxx");
+            var verge = false;
+        }else if(!(regRXSJ.test($('#RXSJ').val()))){
+            alert("入校时间格式不正确，如：2005.9.9");
+            var verge = false;
+        }else if(!regCSNY.test($('#DZSJ').val())){
+            alert("定职时间格式不正确，如：1980.12");
+            var verge = false;
+        }else if(!(regRXSJ.test($('#RXSJ').val()))){
+            alert("毕业时间格式不正确，如：1990.7.2");
+            var verge = false;
+        }else if(!(regRXSJ.test($('#CSDKSJ').val()))){
+            alert("初始代课时间格式不正确，如：2005.9.9");
+            var verge = false;
         }
+        if(verge){
+            //获取服务器上的附件的值
+            var filePath = document.getElementById("FJ").value;
+            //如果本次修改未重新上传附件，则附件值还为原来的值
+            if(typeof($('#hidfj').val()) == "undefined"){
+                document.getElementById("FJ").value=filePath;
+                //如果重新上传附件，则附件值为新的上传的值
+            }else{
+                document.getElementById("FJ").value= $('#hidfj').val();
+            }
+            $.ajax({
+                type: "post",
+                url: '/teacher/_editTeacher.html',
+                dataType: "json",
+                data: $('#teacherform').serialize(),// 你的formid 注：后台req.body由控件name获取数据
+                async: false,
+                cache: true,
+                success: function (msg) {
+                    if (msg.result != 0) {
+                        $("#modal-edit-event").modal('hide');
+                    }
+                    location.reload();
+                },
+                error: function (e) {
+                    alert("提交失败！");
+                    console.log(e);
+                }
+            });
+        }
+    }
+    function getFZR(tname){
         $.ajax({
             type: "post",
-            url: '/teacher/_editTeacher.html',
+            url: '/teacherService/getFZR',
             dataType: "json",
-            data: $('#teacherform').serialize(),// 你的formid 注：后台req.body由控件name获取数据
+            data: {TNAME:tname},
             async: false,
-            cache: true,
             success: function (msg) {
-                if (msg.result != 0) {
-                    $("#modal-edit-event").modal('hide');
+                if(msg.aaData[0]){
+                    return msg.aaData[0]['SFZR'];
+                }else{
+                    return false;
                 }
-                location.reload();
             },
             error: function (e) {
-                alert("提交失败！");
                 console.log(e);
             }
         });

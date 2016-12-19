@@ -179,7 +179,7 @@ function getGender(jysmc) {
         cache: true,
         success: function (data) {
             chart.series[0].setData(eval(forData(data.data)));
-            //alert(data.data[0].人数);
+           // console.log(data);
         },
         error: function (e) {
             console.log(e);

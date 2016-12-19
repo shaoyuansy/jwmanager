@@ -21,6 +21,13 @@ router.get('/getTidByMc', function (req, res, next) {
     });
 });
 
+//负责人是否专任
+router.post('/getFZR', function (req, res, next) {
+    teacherDao.queryZRtescher(req, res,req.body.TNAME, function (result) {
+        res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
+    });
+});
+
 //删除一条教师信息记录
 router.get('/delOne', function (req, res, next) {
     teacherDao.delete(req, res, req.query.ID, function (result) {
