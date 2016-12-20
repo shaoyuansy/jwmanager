@@ -15,11 +15,11 @@
                         <select id="KCID" name="KCID" class="form-control">
                             <%- kccode %>
                         </select>
-                        <input id="TEMP" name="TEMP" type="hidden" class="form-control" value="<%= kcid %>">
+                        <input id="KCIDTEMP" name="KCIDTEMP" type="hidden" class="form-control" value="<%= kcid %>">
                     </div>
                     <div class="form-group">
                         <label>开设学期</label>
-                        <select class="form-control select2" id="KSXQ" name="KSXQ">
+                        <select class="form-control" id="KSXQ" name="KSXQ">
                             <option>第一学期</option>
                             <option>第二学期</option>
                             <option>第三学期</option>
@@ -29,7 +29,7 @@
                             <option>第七学期</option>
                             <option>第八学期</option>
                         </select>
-                        <input id="TEMP2" name="TEMP2" type="hidden" class="form-control" value="<%= ksxq %>">
+                        <input id="KSXQTEMP" name="KSXQTEMP" type="hidden" class="form-control" value="<%= ksxq %>">
                     </div>
                 </div>
                 <!-- /.box-body -->
@@ -43,8 +43,8 @@
 </div><!-- /.modal -->
 <script>
     $(document).ready(function () {
-        document.getElementById("KCID").value = $("#TEMP").val();//自动选择课程
-        document.getElementById("KSXQ").value = $("#TEMP2").val();//自动选择开设学期
+        $("#KCID").val($("#KCIDTEMP").val());//自动选择课程
+        $("#KSXQ").val($("#KSXQTEMP").val());//自动选择开设学期
     });
     function submitForm(){
         $.ajax({
