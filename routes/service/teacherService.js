@@ -21,9 +21,16 @@ router.get('/getTidByMc', function (req, res, next) {
     });
 });
 
+//教师是否重复
+router.post('/getNAME', function (req, res, next) {
+    teacherDao.queryTeacher(req, res,req.body.TNAME, function (result) {
+        res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
+    });
+});
+
 //负责人是否专任
 router.post('/getFZR', function (req, res, next) {
-    teacherDao.queryZRtescher(req, res,req.body.TNAME, function (result) {
+    teacherDao.queryZRteacher(req, res,req.body.TNAME, function (result) {
         res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
     });
 });

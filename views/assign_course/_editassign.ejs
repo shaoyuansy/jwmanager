@@ -28,8 +28,7 @@
                                         教师姓名
                                     </td>
                                     <td>
-                                        <select id="JSXM" name="JSXM" class="select">
-                                            <option value="">请选择教师</option>
+                                        <select id="JSXM" name="JSXM" class="form-control">
                                             <%- jsStr %>
                                         </select>
                                         <input id="JSXMTEMP" name="JSXMTEMP" type="hidden" value="<%= jsxm %>">
@@ -38,7 +37,7 @@
                                         所授课程
                                     </td>
                                     <td>
-                                        <select id="SSKC" name="SSKC" class="select" data-placeholder="先选择教师">
+                                        <select id="SSKC" name="SSKC" class="form-control">
                                         </select>
                                         <input id="SSKCTEMP" name="SSKCTEMP" type="hidden" value="<%= sskc %>">
                                     </td>
@@ -46,7 +45,7 @@
                                         课程负责人
                                     </td>
                                     <td>
-                                        <select id="KCFZR" name="KCFZR" class="select" data-placeholder="先选择教师">
+                                        <select id="KCFZR" name="KCFZR" class="form-control" data-placeholder="先选择教师">
                                         </select>
                                         <input id="KCFZRTEMP" name="KCFZRTEMP" type="hidden" value="<%= kcfzr %>">
                                     </td>
@@ -54,7 +53,7 @@
                                 <tr>
                                     <td>所授专业</td>
                                     <td>
-                                        <select id="SSZY" name="SSZY" class="select" >
+                                        <select id="SSZY" name="SSZY" class="form-control" >
                                         </select>
                                         <input id="SSZYTEMP" name="SSZYTEMP" type="hidden" value="<%= sszy %>">
                                     </td>
@@ -62,13 +61,13 @@
                                         所授年级
                                     </td>
                                     <td>
-                                        <select id="SSNJ" name="SSNJ" class="select" >
+                                        <select id="SSNJ" name="SSNJ" class="form-control" >
                                         </select>
                                         <input id="SSNJTEMP" name="SSNJTEMP" type="hidden" value="<%= ssnj %>">
                                     </td>
                                     <td>所授班级</td>
                                     <td>
-                                        <select id="SSBJ" name="SSBJ" class="select" >
+                                        <select id="SSBJ" name="SSBJ" class="form-control" >
                                         </select>
                                         <input id="SSBJTEMP" name="SSBJTEMP" type="hidden" value="<%= ssbj %>">
                                     </td>
@@ -90,7 +89,7 @@
                                 <tr>
                                     <td>是否上机</td>
                                     <td>
-                                        <select id="SFWSJK" name="SFWSJK" class="select" >
+                                        <select id="SFWSJK" name="SFWSJK" class="form-control" >
                                             <option value="">请选择</option>
                                             <option value="是">是</option>
                                             <option value="否">否</option>
@@ -99,7 +98,7 @@
                                     </td>
                                     <td>是否单双周</td>
                                     <td>
-                                        <select id="SFDSZ" name="SFDSZ" class="select" >
+                                        <select id="SFDSZ" name="SFDSZ" class="form-control" >
                                             <option value="">请选择</option>
                                             <option value="是">是</option>
                                             <option value="否">否</option>
@@ -128,88 +127,14 @@
 
 <script>
     $(document).ready(function () {
-        $(".select").select2();
-        //教师姓名下拉选择
-        var $jsxm = $("#JSXM");
-        var jsxm = document.getElementById("JSXM");
-        jsxm.value = $("#JSXMTEMP").val();
-        for(var i=0;i<jsxm.length;i++) {
-            if (jsxm.options[i].value == $("#JSXMTEMP").val()) {
-                $jsxm.val(jsxm.options[i].value).trigger("change");
-                break;
-            }
-        }
-        //所授课程下拉选择
-        var $sskc = $("#SSKC").select2();
-        var sskc = document.getElementById("SSKC");
-        sskc.value = $("#SSKCTEMP").val();
-        for(var i=0;i<sskc.length;i++) {
-            if (sskc.options[i].value == $("#SSKCTEMP").val()) {
-                $sskc.val(sskc.options[i].value).trigger("change");
-                break;
-            }
-        }
-        //课程负责人下拉选择
-        var $kcfzr = $("#KCFZR").select2();
-        var kcfzr = document.getElementById("KCFZR");
-        kcfzr.value = $("#KCFZRTEMP").val();
-        for(var i=0;i<kcfzr.length;i++) {
-            if (kcfzr.options[i].value == $("#KCFZRTEMP").val()) {
-                $kcfzr.val(kcfzr.options[i].value).trigger("change");
-                break;
-            }
-        }
-        //所授专业下拉选择
-        var $sszy = $("#SSZY").select2();
-        var sszy = document.getElementById("SSZY");
-        sszy.value = $("#SSZYTEMP").val();
-        for(var i=0;i<sszy.length;i++) {
-            if (sszy.options[i].value == $("#SSZYTEMP").val()) {
-                $sszy.val(sszy.options[i].value).trigger("change");
-                break;
-            }
-        }
-        //所授年级下拉选择
-        var $ssnj = $("#SSNJ").select2();
-        var ssnj = document.getElementById("SSNJ");
-        ssnj.value = $("#SSNJTEMP").val();
-        for(var i=0;i<ssnj.length;i++) {
-            if (ssnj.options[i].value == $("#SSNJTEMP").val()) {
-                $ssnj.val(ssnj.options[i].value).trigger("change");
-                break;
-            }
-        }
-        //所授班级下拉选择
-        var $ssbj = $("#SSBJ").select2();
-        var ssbj = document.getElementById("SSBJ");
-        ssbj.value = $("#SSBJTEMP").val();
-        for(var i=0;i<ssbj.length;i++) {
-            if (ssbj.options[i].value == $("#SSBJTEMP").val()) {
-                $ssbj.val(ssbj.options[i].value).trigger("change");
-                break;
-            }
-        }
-        //是否上机下拉选择
-        var $sfwsjk = $("#SFWSJK").select2();
-        var sfwsjk = document.getElementById("SFWSJK");
-        sfwsjk.value = $("#SFWSJKTEMP").val();
-        for(var i=0;i<sfwsjk.length;i++) {
-            if (sfwsjk.options[i].value == $("#SFWSJKTEMP").val()) {
-                $sfwsjk.val(sfwsjk.options[i].value).trigger("change");
-                break;
-            }
-        }
-        //是否单双周下拉选择
-        var $sfdsz = $("#SFDSZ").select2();
-        var sfdsz = document.getElementById("SFDSZ");
-        sfdsz.value = $("#SFDSZTEMP").val();
-        for(var i=0;i<sfdsz.length;i++) {
-            if (sfdsz.options[i].value == $("#SFDSZTEMP").val()) {
-                $sfdsz.val(sfdsz.options[i].value).trigger("change");
-                break;
-            }
-        }
-
+        $("#JSXM").val($("#JSXMTEMP").val());
+        $("#SSKC").val($("#SSKCTEMP").val());
+        $("#KCFZR").val($("#KCFZRTEMP").val());
+        $("#SSZY").val($("#SSZYTEMP").val());
+        $("#SSNJ").val($("#SSNJTEMP").val());
+        $("#SSBJ").val($("#SSBJTEMP").val());
+        $("#SFWSJK").val($("#SFWSJKTEMP").val());
+        $("#SFDSZ").val($("#SFDSZTEMP").val());
         var JSXM = $('#JSXM');
         var SSKC = $('#SSKC');
         var KCFZR = $('#KCFZR');

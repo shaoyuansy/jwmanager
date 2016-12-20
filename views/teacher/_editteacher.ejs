@@ -25,12 +25,14 @@
                                 <tr></tr>
                                 <tr>
                                     <td><span style="color: red;font-size: 20px">*</span>&nbsp;  姓名</td>
-                                    <td><input id="XM" name="XM" type="text" class="form-control" value="<%= xm %>"></td>
+                                    <td><input id="XM" name="XM" type="text" class="form-control" value="<%= xm %>">
+                                        <input id="TXM" type="hidden" class="form-control" value="">
+                                    </td>
                                     <td><span style="color: red;font-size: 20px">*</span>&nbsp;  工号</td>
                                     <td><input id="GH" name="GH" type="text" class="form-control" value="<%= gh %>"></td>
                                     <td>性别</td>
                                     <td style="text-align: left;">
-                                        <select class="select2" id="XB" name="XB" style="width: 100%;border: 1px solid seagreen">
+                                        <select class="form-control" id="XB" name="XB" style="width: 100%;">
                                             <option value="">请选择</option>
                                             <option>男</option>
                                             <option>女</option>
@@ -43,7 +45,7 @@
                                     <td><input id="CSNY" name="CSNY" type="text" class="form-control" placeholder="格式如：1980.10" value="<%= csny %>"></td>
                                     <td><span style="color: red;font-size: 20px">*</span>&nbsp;  民族</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="MZ" name="MZ" style="width: 100%">
+                                        <select class="form-control" id="MZ" name="MZ" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option value="汉族">汉族</option>
                                             <option value="壮族">壮族</option>
@@ -61,14 +63,14 @@
                                     <td><input id="LXDH" name="LXDH" type="text" class="form-control" value="<%= lxdh %>"></td>
                                     <td>所属教研室</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="JYSMC" name="JYSMC" style="width: 100%">
+                                        <select class="form-control" id="JYSMC" name="JYSMC" style="width: 100%">
                                             <option value="">请选择</option>
                                             <%- jysStr %>
                                         </select>
                                         <input id="JYSMCTEMP" name="JYSMCTEMP" type="hidden" value="<%= jysmc %>">
                                     </td>
                                     <td>入校时间</td>
-                                    <td><input id="RXSJ" name="RXSJ" type="text" class="form-control" placeholder="格式如：2005.9.10" value="<%= rxsj %>"></td>
+                                    <td><input id="RXSJ" name="RXSJ" type="text" class="form-control" placeholder="格式如：2005.09.09" value="<%= rxsj %>"></td>
                                 </tr>
                                 <tr>
                                     <td><span style="color: red;font-size: 20px">*</span>&nbsp;  分管负责人</td>
@@ -76,10 +78,10 @@
                                         <input id="FZRSF" name="FZRSF" type="hidden" class="form-control" value="">
                                     </td>
                                     <td>定职时间</td>
-                                    <td><input id="DZSJ" name="DZSJ" type="text" class="form-control" placeholder="格式如：2001.09" value="<%= dzsj %>"></td>
+                                    <td><input id="DZSJ" name="DZSJ" type="text" class="form-control" placeholder="格式如：2005.09.09" value="<%= dzsj %>"></td>
                                     <td>任职状态</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="RZZT" name="RZZT" style="width: 100%">
+                                        <select class="form-control" id="RZZT" name="RZZT" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option>在职</option>
                                             <option>离职</option>
@@ -94,7 +96,7 @@
                                     <td><input id="DWMC" name="DWMC" type="text" class="form-control" value="<%= dwmc %>"></td>
                                     <td>工作单位类别</td>
                                     <td style="text-align: left;">
-                                        <select class="select2" id="GZDWLB" name="GZDWLB" style="width: 100%">
+                                        <select class="form-control" id="GZDWLB" name="GZDWLB" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option>行政单位</option>
                                             <option>科研单位</option>
@@ -110,7 +112,7 @@
                                 <tr>
                                     <td>学历</td>
                                     <td style="text-align: left;">
-                                        <select class="select2" id="XL" name="XL" style="width: 100%">
+                                        <select class="form-control" id="XL" name="XL" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option>博士研究生</option>
                                             <option>硕士研究生</option>
@@ -121,7 +123,7 @@
                                     </td>
                                     <td>最高学位</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="ZGXW" name="ZGXW" style="width: 100%">
+                                        <select class="form-control" id="ZGXW" name="ZGXW" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option>博士</option>
                                             <option>硕士</option>
@@ -130,9 +132,9 @@
                                         </select>
                                         <input id="ZGXWTEMP" name="ZGXWTEMP" type="hidden" value="<%= zgxw %>">
                                     </td>
-                                    <td>是否专任</td>
+                                    <td><span style="color: red;font-size: 20px">*</span>&nbsp;  是否专任</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="SFZR" name="SFZR" style="width: 100%">
+                                        <select class="form-control" id="SFZR" name="SFZR" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option>是</option>
                                             <option>否</option>
@@ -142,12 +144,12 @@
                                 </tr>
                                 <tr>
                                     <td>毕业时间</td>
-                                    <td><input id="BYSJ" name="BYSJ" type="text" class="form-control" placeholder="格式如：1990.7.2" value="<%= bysj %>"></td>
+                                    <td><input id="BYSJ" name="BYSJ" type="text" class="form-control" placeholder="格式如：1990.07.02" value="<%= bysj %>"></td>
                                     <td>毕业院校</td>
                                     <td><input id="BYYX" name="BYYX" type="text" class="form-control" value="<%= byyx %>"></td>
                                     <td>学缘</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="XY" name="XY" style="width: 100%">
+                                        <select class="form-control " id="XY" name="XY" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option>本校</option>
                                             <option>外校（境内）</option>
@@ -159,7 +161,7 @@
                                 <tr>
                                     <td>专业技术职称</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="ZYJSZC" name="ZYJSZC" style="width: 100%">
+                                        <select class="form-control " id="ZYJSZC" name="ZYJSZC" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option value="教授">教授</option>
                                             <option value="副教授">副教授</option>
@@ -177,7 +179,7 @@
                                     <td><input id="XKLB" name="XKLB" type="text" class="form-control" value="<%= xklb %>"></td>
                                     <td>导师类型</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="DSLX" name="DSLX" style="width: 100%">
+                                        <select class="form-control " id="DSLX" name="DSLX" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option>博士、硕士导师</option>
                                             <option>博士导师</option>
@@ -190,7 +192,7 @@
                                 <tr>
                                     <td>地区<br>（受聘前工作所在地）</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="DQ" name="DQ" style="width: 100%">
+                                        <select class="form-control " id="DQ" name="DQ" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option>境内</option>
                                             <option>境外（国外及港澳台）</option>
@@ -199,7 +201,7 @@
                                     </td>
                                     <td>教学效果</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="JXXG" name="JXXG" style="width: 100%">
+                                        <select class="form-control " id="JXXG" name="JXXG" style="width: 100%">
                                             <option value="一般">请选择</option>
                                             <option value="优秀">优秀</option>
                                             <option value="良好">良好</option>
@@ -209,7 +211,7 @@
                                         <input id="JXXGTEMP" name="JXXGTEMP" type="hidden" value="<%= jxxg %>">
                                     </td>
                                     <td>初始代课时间</td>
-                                    <td><input id="CSDKSJ" name="CSDKSJ" type="text" class="form-control" placeholder="格式如：2005.9.10" value="<%= csdksj %>"></td>
+                                    <td><input id="CSDKSJ" name="CSDKSJ" type="text" class="form-control" placeholder="格式如：2005.09.09" value="<%= csdksj %>"></td>
                                 </tr>
                                 <tr>
                                     <td>可授课程</td>
@@ -219,7 +221,7 @@
                                 <tr>
                                     <td>是否为双师型</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="SFWSSX" name="SFWSSX" style="width: 100%">
+                                        <select class="form-control " id="SFWSSX" name="SFWSSX" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option value="是">是</option>
                                             <option value="否">否</option>
@@ -228,7 +230,7 @@
                                     </td>
                                     <td>是否具有工程背景</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="SFJYGCBJ" name="SFJYGCBJ" style="width: 100%">
+                                        <select class="form-control " id="SFJYGCBJ" name="SFJYGCBJ" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option value="是">是</option>
                                             <option value="否">否</option>
@@ -237,7 +239,7 @@
                                     </td>
                                     <td>是否具有行业背景</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="SFJYHYBJ" name="SFJYHYBJ" style="width: 100%">
+                                        <select class="form-control " id="SFJYHYBJ" name="SFJYHYBJ" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option value="是">是</option>
                                             <option value="否">否</option>
@@ -248,7 +250,7 @@
                                 <tr>
                                     <td>是否上交身份证复印件</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="SFSJSFZFYJ" name="SFSJSFZFYJ" style="width: 100%">
+                                        <select class="form-control " id="SFSJSFZFYJ" name="SFSJSFZFYJ" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option value="有">是</option>
                                             <option value="无">否</option>
@@ -257,7 +259,7 @@
                                     </td>
                                     <td>是否上交工作证复印件</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="SFSJGZZFYJ" name="SFSJGZZFYJ" style="width: 100%">
+                                        <select class="form-control " id="SFSJGZZFYJ" name="SFSJGZZFYJ" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option value="有">是</option>
                                             <option value="无">否</option>
@@ -266,7 +268,7 @@
                                     </td>
                                     <td>是否上交教师资格证复印件</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="SFSJJSZGZFYJ" name="SFSJJSZGZFYJ" style="width: 100%">
+                                        <select class="form-control " id="SFSJJSZGZFYJ" name="SFSJJSZGZFYJ" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option value="有">是</option>
                                             <option value="无">否</option>
@@ -277,7 +279,7 @@
                                 <tr>
                                     <td>是否上交学位证复印件</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="SFSJXWZFYJ" name="SFSJXWZFYJ" style="width: 100%">
+                                        <select class="form-control " id="SFSJXWZFYJ" name="SFSJXWZFYJ" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option value="有">是</option>
                                             <option value="无">否</option>
@@ -286,7 +288,7 @@
                                     </td>
                                     <td>是否上交毕业证复印件</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="SFSJBYZFYJ" name="SFSJBYZFYJ" style="width: 100%">
+                                        <select class="form-control " id="SFSJBYZFYJ" name="SFSJBYZFYJ" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option value="有">是</option>
                                             <option value="无">否</option>
@@ -295,7 +297,7 @@
                                     </td>
                                     <td>是否上交职称证复印件</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="SFSJZCZFYJ" name="SFSJZCZFYJ" style="width: 100%">
+                                        <select class="form-control " id="SFSJZCZFYJ" name="SFSJZCZFYJ" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option value="有">是</option>
                                             <option value="无">否</option>
@@ -306,7 +308,7 @@
                                 <tr>
                                     <td>是否上交协议书</td>
                                     <td style="text-align: left;">
-                                        <select class="form-control select2" id="SFSJXYS" name="SFSJXYS" style="width: 100%">
+                                        <select class="form-control " id="SFSJXYS" name="SFSJXYS" style="width: 100%">
                                             <option value="">请选择</option>
                                             <option value="有">是</option>
                                             <option value="无">否</option>
@@ -341,241 +343,33 @@
 
 <script>
     $(document).ready(function () {
+    if($("#ID").val()>0){
+        $('#XM').attr("disabled",true);
+    }
+    $("#XB").val($("#XBTEMP").val());
+    $("#MZ").val($("#MZTEMP").val());
+    $("#JYSMC").val($("#JYSMCTEMP").val());
+    $("#ZYJSZC").val($("#ZYJSZCTEMP").val());
+    $("#RZZT").val($("#RZZTTEMP").val());
+    $("#GZDWLB").val($("#GZDWLBTEMP").val());
+    $("#XL").val($("#XLTEMP").val());
+    $("#ZGXW").val($("#ZGXWTEMP").val());
+    $("#SFZR").val($("#SFZRTEMP").val());
+    $("#DSLX").val($("#DSLXTEMP").val());
+    $("#XY").val($("#XYTEMP").val());
+    $("#DQ").val($("#DQTEMP").val());
+    $("#JXXG").val($("#JXXGTEMP").val());
+    $("#SFWSSX").val($("#SFWSSXTEMP").val());
+    $("#SFJYHYBJ").val($("#SFJYHYBJTEMP").val());
+    $("#SFJYGCBJ").val($("#SFJYGCBJTEMP").val());
+    $("#SFSJSFZFYJ").val($("#SFSJSFZFYJTEMP").val());
+    $("#SFSJGZZFYJ").val($("#SFSJGZZFYJTEMP").val());
+    $("#SFSJJSZGZFYJ").val($("#SFSJJSZGZFYJTEMP").val());
+    $("#SFSJXWZFYJ").val($("#SFSJXWZFYJTEMP").val());
+    $("#SFSJBYZFYJ").val($("#SFSJBYZFYJTEMP").val());
+    $("#SFSJZCZFYJ").val($("#SFSJZCZFYJTEMP").val());
+    $("#SFSJXYS").val($("#SFSJXYSTEMP").val());
 
-    //性别下拉选择
-        //注册Select2控件节点
-        var $xbs = $("#XB").select2();
-        //获取select控件
-        var xbs = document.getElementById("XB");
-        //给select赋值为option
-        xbs.value = $("#XBTEMP").val();
-        //设置select2动态显示
-        for(var i=0;i<xbs.length;i++) {
-            if (xbs.options[i].value == $("#XBTEMP").val()) {
-                $xbs.val(xbs.options[i].value).trigger("change");
-                break;
-            }
-        }
-    //民族下拉选择
-        var $mzs = $("#MZ").select2();
-        var mzs = document.getElementById("MZ");
-        mzs.value = $("#MZTEMP").val();
-        for(var i=0;i<mzs.length;i++) {
-            if (mzs.options[i].value == $("#MZTEMP").val()) {
-                $mzs.val(mzs.options[i].value).trigger("change");
-                break;
-            }
-        }
-        //所属教研室下拉选择
-        var $jysmcs = $("#JYSMC").select2();
-        var jysmcs = document.getElementById("JYSMC");
-        jysmcs.value = $("#JYSMCTEMP").val();
-        for(var i=0;i<jysmcs.length;i++) {
-            if (jysmcs.options[i].value == $("#JYSMCTEMP").val()) {
-                $jysmcs.val(jysmcs.options[i].value).trigger("change");
-                break;
-            }
-        }
-    //专业技术职称下拉选择
-        var $zyjszcs = $("#ZYJSZC").select2();
-        var zyjszcs = document.getElementById("ZYJSZC");
-        zyjszcs.value = $("#ZYJSZCTEMP").val();
-        for(var i=0;i<zyjszcs.length;i++) {
-            if (zyjszcs.options[i].value == $("#ZYJSZCTEMP").val()) {
-                $zyjszcs.val(zyjszcs.options[i].value).trigger("change");
-                break;
-            }
-        }
-    //任职状态下拉选择
-        var $rzzts = $("#RZZT").select2();
-        var rzzts = document.getElementById("RZZT");
-        rzzts.value = $("#RZZTTEMP").val();
-        for(var i=0;i<rzzts.length;i++) {
-            if (rzzts.options[i].value == $("#RZZTTEMP").val()) {
-                $rzzts.val(rzzts.options[i].value).trigger("change");
-                break;
-            }
-        }
-    //工作单位类别下拉选择
-        var $gzdwlbs = $("#GZDWLB").select2();
-        var gzdwlbs = document.getElementById("GZDWLB");
-        gzdwlbs.value = $("#GZDWLBTEMP").val();
-        for(var i=0;i<gzdwlbs.length;i++) {
-            if (gzdwlbs.options[i].value == $("#GZDWLBTEMP").val()) {
-                $gzdwlbs.val(gzdwlbs.options[i].value).trigger("change");
-                break;
-            }
-        }
-    //学历下拉选择
-        var $xls = $("#XL").select2();
-        var xls = document.getElementById("XL");
-        xls.value = $("#XLTEMP").val();
-        for(var i=0;i<xls.length;i++) {
-            if (xls.options[i].value == $("#XLTEMP").val()) {
-                $xls.val(xls.options[i].value).trigger("change");
-                break;
-            }
-        }
-    //最高学位下拉选择
-        var $zgxws = $("#ZGXW").select2();
-        var zgxws = document.getElementById("ZGXW");
-        zgxws.value = $("#ZGXWTEMP").val();
-        for(var i=0;i<zgxws.length;i++) {
-            if (zgxws.options[i].value == $("#ZGXWTEMP").val()) {
-                $zgxws.val(zgxws.options[i].value).trigger("change");
-                break;
-            }
-        }
-    //是否专任下拉选择
-        var $sfzrs = $("#SFZR").select2();
-        var sfzrs = document.getElementById("SFZR");
-        sfzrs.value = $("#SFZRTEMP").val();
-        for(var i=0;i<sfzrs.length;i++) {
-            if (sfzrs.options[i].value == $("#SFZRTEMP").val()) {
-                $sfzrs.val(sfzrs.options[i].value).trigger("change");
-                break;
-            }
-        }
-    //导师类型下拉选择
-        var $dslxs = $("#DSLX").select2();
-        var dslxs = document.getElementById("DSLX");
-        dslxs.value = $("#DSLXTEMP").val();
-        for(var i=0;i<dslxs.length;i++) {
-            if (dslxs.options[i].value == $("#DSLXTEMP").val()) {
-                $dslxs.val(dslxs.options[i].value).trigger("change");
-                break;
-            }
-        }
-    //学缘下拉选择
-        var $xys = $("#XY").select2();
-        var xys = document.getElementById("XY");
-        xys.value = $("#XYTEMP").val();
-        for(var i=0;i<xys.length;i++) {
-            if (xys.options[i].value == $("#XYTEMP").val()) {
-                $xys.val(xys.options[i].value).trigger("change");
-                break;
-            }
-        }
-    //地区下拉选择
-        var $dqs = $("#DQ").select2();
-        var dqs = document.getElementById("DQ");
-        dqs.value = $("#DQTEMP").val();
-        for(var i=0;i<dqs.length;i++) {
-            if (dqs.options[i].value == $("#DQTEMP").val()) {
-                $dqs.val(dqs.options[i].value).trigger("change");
-                break;
-            }
-        }
-    //教学效果下拉选择
-        var $jxxgs = $("#JXXG").select2();
-        var jxxgs = document.getElementById("JXXG");
-        jxxgs.value = $("#JXXGTEMP").val();
-        for(var i=0;i<jxxgs.length;i++) {
-            if (jxxgs.options[i].value == $("#JXXGTEMP").val()) {
-                $jxxgs.val(jxxgs.options[i].value).trigger("change");
-                break;
-            }
-        }
-    //是否双师型下拉选择
-        var $sfsssxs = $("#SFWSSX").select2();
-        var sfsssx = document.getElementById("SFWSSX");
-        sfsssx.value = $("#SFWSSXTEMP").val();
-        for(var i=0;i<sfsssx.length;i++) {
-            if (sfsssx.options[i].value == $("#SFWSSXTEMP").val()) {
-                $sfsssxs.val(sfsssx.options[i].value).trigger("change");
-                break;
-            }
-        }
-    //是否具有行业背景下拉选择
-        var $sfjyhybjs = $("#SFJYHYBJ").select2();
-        var sfjyhybjs = document.getElementById("SFJYHYBJ");
-        sfjyhybjs.value = $("#SFJYHYBJTEMP").val();
-        for(var i=0;i<sfjyhybjs.length;i++) {
-            if (sfjyhybjs.options[i].value == $("#SFJYHYBJTEMP").val()) {
-                $sfjyhybjs.val(sfjyhybjs.options[i].value).trigger("change");
-                break;
-            }
-        }
-    //是否具有工程背景下拉选择
-        var $sfjygcbjs = $("#SFJYGCBJ").select2();
-        var sfjygcbjs = document.getElementById("SFJYGCBJ");
-        sfjygcbjs.value = $("#SFJYGCBJTEMP").val();
-        for(var i=0;i<sfjygcbjs.length;i++) {
-            if (sfjygcbjs.options[i].value == $("#SFJYGCBJTEMP").val()) {
-                $sfjygcbjs.val(sfjygcbjs.options[i].value).trigger("change");
-                break;
-            }
-        }
-    //是否上交身份证复印件下拉选择
-        var $sfsjsfzfyjs = $("#SFSJSFZFYJ").select2();
-        var sfsjsfzfyjs = document.getElementById("SFSJSFZFYJ");
-        sfsjsfzfyjs.value = $("#SFSJSFZFYJTEMP").val();
-        for(var i=0;i<sfsjsfzfyjs.length;i++) {
-            if (sfsjsfzfyjs.options[i].value == $("#SFSJSFZFYJTEMP").val()) {
-                $sfsjsfzfyjs.val(sfsjsfzfyjs.options[i].value).trigger("change");
-                break;
-            }
-        }
-    //是否上交工作证复印件下拉选择
-        var $sfsjgzzfyjs = $("#SFSJGZZFYJ").select2();
-        var sfsjgzzfyjs = document.getElementById("SFSJGZZFYJ");
-        sfsjgzzfyjs.value = $("#SFSJGZZFYJTEMP").val();
-        for(var i=0;i<sfsjgzzfyjs.length;i++) {
-            if (sfsjgzzfyjs.options[i].value == $("#SFSJGZZFYJTEMP").val()) {
-                $sfsjgzzfyjs.val(sfsjgzzfyjs.options[i].value).trigger("change");
-                break;
-            }
-        }
-    //是否上交教师资格证复印件下拉选择
-        var $sfsjjszgzfyjs = $("#SFSJJSZGZFYJ").select2();
-        var sfsjjszgzfyjs = document.getElementById("SFSJJSZGZFYJ");
-        sfsjjszgzfyjs.value = $("#SFSJJSZGZFYJTEMP").val();
-        for(var i=0;i<sfsjjszgzfyjs.length;i++) {
-            if (sfsjjszgzfyjs.options[i].value == $("#SFSJJSZGZFYJTEMP").val()) {
-                $sfsjjszgzfyjs.val(sfsjjszgzfyjs.options[i].value).trigger("change");
-                break;
-            }
-        }
-    //是否上学位证复印件下拉选择
-        var $sfsjxwzfyjs = $("#SFSJXWZFYJ").select2();
-        var sfsjxwzfyjs = document.getElementById("SFSJXWZFYJ");
-        sfsjxwzfyjs.value = $("#SFSJXWZFYJTEMP").val();
-        for(var i=0;i<sfsjxwzfyjs.length;i++) {
-            if (sfsjxwzfyjs.options[i].value == $("#SFSJXWZFYJTEMP").val()) {
-                $sfsjxwzfyjs.val(sfsjxwzfyjs.options[i].value).trigger("change");
-                break;
-            }
-        }
-    //是否上毕业证复印件下拉选择
-        var $sfsjbyzfyjs = $("#SFSJBYZFYJ").select2();
-        var sfsjbyzfyjs = document.getElementById("SFSJBYZFYJ");
-        sfsjbyzfyjs.value = $("#SFSJBYZFYJTEMP").val();
-        for(var i=0;i<sfsjbyzfyjs.length;i++) {
-            if (sfsjbyzfyjs.options[i].value == $("#SFSJBYZFYJTEMP").val()) {
-                $sfsjbyzfyjs.val(sfsjbyzfyjs.options[i].value).trigger("change");
-                break;
-            }
-        }
-    //是否上职称证复印件下拉选择
-        var $sfsjzczfyjs = $("#SFSJZCZFYJ").select2();
-        var sfsjzczfyjs = document.getElementById("SFSJZCZFYJ");
-        sfsjzczfyjs.value = $("#SFSJZCZFYJTEMP").val();
-        for(var i=0;i<sfsjzczfyjs.length;i++) {
-            if (sfsjzczfyjs.options[i].value == $("#SFSJZCZFYJTEMP").val()) {
-                $sfsjzczfyjs.val(sfsjzczfyjs.options[i].value).trigger("change");
-                break;
-            }
-        }
-    //是否上协议书下拉选择
-        var $sfsjxys = $("#SFSJXYS").select2();
-        var sfsjxys = document.getElementById("SFSJXYS");
-        sfsjxys.value = $("#SFSJXYSTEMP").val();
-        for(var i=0;i<sfsjxys.length;i++) {
-            if (sfsjxys.options[i].value == $("#SFSJXYSTEMP").val()) {
-                $sfsjxys.val(sfsjxys.options[i].value).trigger("change");
-                break;
-            }
-        }
         //判断是否有附件
         var filePath = document.getElementById("FJ").value;
         if(filePath != ""&& filePath != "null"){
@@ -585,21 +379,21 @@
             $('#fileList').append($updatefilea);
         }
         //上传事件
-            $('#file_upload_1').uploadify({
-                'auto':false,//自动上传
-                'uploader': '/tools/uploadFile/uploadFile.html',
-                'swf': '/javascripts/uploadify3.2.1/uploadify.swf',
-                'buttonText':'浏览文件',//显示在浏览按钮上的文本
-                'removeTimeout':"1",//清除延迟
-                'fileTypeExts' : '*.zip; *.rar; *.7z',//格式
-                'folder': '/zipfiles',//上传到的文件路径
-                'fileSizeLimit':'10MB',//文件大小上限
-                'progressData':'percentage',//上传进度更新队列项目中显示数据的类型
-                //文件上传时同时以POST方法向服务端提交一些数据
-                //'method'   : 'post',
-                //'formData' : { 'someKey' : 'someValue' },
-                'multi': false,//多文件上传
-                'onUploadSuccess'://上传完成后事件
+        $('#file_upload_1').uploadify({
+            'auto':false,//自动上传
+            'uploader': '/tools/uploadFile/uploadFile.html',
+            'swf': '/javascripts/uploadify3.2.1/uploadify.swf',
+            'buttonText':'浏览文件',//显示在浏览按钮上的文本
+            'removeTimeout':"1",//清除延迟
+            'fileTypeExts' : '*.zip; *.rar; *.7z',//格式
+            'folder': '/zipfiles',//上传到的文件路径
+            'fileSizeLimit':'10MB',//文件大小上限
+            'progressData':'percentage',//上传进度更新队列项目中显示数据的类型
+            //文件上传时同时以POST方法向服务端提交一些数据
+            //'method'   : 'post',
+            //'formData' : { 'someKey' : 'someValue' },
+            'multi': false,//多文件上传
+            'onUploadSuccess'://上传完成后事件
                 function (fileObj, dataObj, response) {
                     if (response == true) {
                         var fileNmae = fileObj.name;
@@ -616,7 +410,7 @@
                         alert('文件上传出错!');
                     }
                 }//上传完成后事件
-            });
+        });
     });
 
     var TimeFn = null;
@@ -646,7 +440,7 @@
         var regSJH = /^[1][358][0-9]{9}$/;
         var regGH = /([0-9]{3,4}-)?[0-9]{7,8}/;
         var regRXSJ = /^((?:19|20)\d\d).(0[1-9]|1[012]).(0[1-9]|[12][0-9]|3[01])$/;
-
+        var valID = $("#ID").val();
         if($('#XM').val()==""){
             alert("姓名不能为空");
             var verge = false;
@@ -665,7 +459,10 @@
         }else if($('#FGFZR').val()==""){
             alert("分管负责人不能为空");
             var verge = false;
-        }else if(!regCSNY.test($('#CSNY').val())){
+        }else if($('#SFZR').val()==""){
+            alert("是否专任不能为空");
+            var verge = false;
+        }else if($('#CSNY').val()!="" && !regCSNY.test($('#CSNY').val())){
             alert("出生年月格式不正确，如：1980.12");
             var verge = false;
         }else if(!regSFZHM.test($('#SFZHM').val())){
@@ -674,18 +471,32 @@
         }else if(!(regSJH.test($('#LXDH').val()) || regGH.test($('#LXDH').val()))){
             alert("联系电话格式或位数不正确，若固话：xxxx-xxxxxxx 或 （无区号）xxxxxxx");
             var verge = false;
-        }else if(!(regRXSJ.test($('#RXSJ').val()))){
-            alert("入校时间格式不正确，如：2005.9.9");
+        }else if($('#RXSJ').val()!="" && !(regRXSJ.test($('#RXSJ').val()))){
+            alert("入校时间格式不正确，如：2005.09.09");
             var verge = false;
-        }else if(!regRXSJ.test($('#DZSJ').val())){
-            alert("定职时间格式不正确，如：2005.9.9");
+        }else if($('#DZSJ').val()!="" && !regRXSJ.test($('#DZSJ').val())){
+            alert("定职时间格式不正确，如：2005.09.09");
             var verge = false;
-        }else if(!(regRXSJ.test($('#RXSJ').val()))){
-            alert("毕业时间格式不正确，如：1990.7.2");
+        }else if($('#RXSJ').val()!="" && !(regRXSJ.test($('#RXSJ').val()))){
+            alert("毕业时间格式不正确，如：2001.07.02");
             var verge = false;
-        }else if(!(regRXSJ.test($('#CSDKSJ').val()))){
-            alert("初始代课时间格式不正确，如：2005.9.9");
+        }else if($('#CSDKSJ').val()!="" && !(regRXSJ.test($('#CSDKSJ').val()))){
+            alert("初始代课时间格式不正确，如：2005.09.09");
             var verge = false;
+        }
+        if(verge && valID == 0){
+            getNAME($('#XM').val());
+            if($('#TXM').val()=="exi"){
+                alert("此教师已存在，请仔细检查重新填写");
+                var verge = false;
+            }
+        }
+        if(verge && valID == 0){
+            getNAME($('#XM').val());
+            if($('#TXM').val()=="exi"){
+                alert("此教师已存在，请仔细检查重新填写");
+                var verge = false;
+            }
         }
         if(verge){
             getFZR($('#FGFZR').val());
@@ -723,6 +534,30 @@
                 }
             });
         }
+    }
+
+    function getNAME(tname){//判断姓名和是否重复
+        $.ajax({
+            type: "post",
+            url: '/teacherService/getNAME',
+            dataType: "json",
+            data: {TNAME:tname},
+            async: false,
+            cache: true,
+            success: function (msg) {
+                console.log(msg);
+                if(msg.aaData[0]){
+                    if(msg.aaData[0]['ID'] > 0){
+                        $('#TXM').val("exi");
+                    }
+                }else{
+                    $('#TXM').val("unexi");
+                }
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
     }
 
     function getFZR(tname){//判断分管负责人

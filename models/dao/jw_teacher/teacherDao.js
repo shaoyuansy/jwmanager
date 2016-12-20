@@ -39,10 +39,21 @@ exports.queryByMc = function (req, res, xm, fn) {
         });
     });
 };
-/* 查询此教师是不是专任教师*/
-exports.queryZRtescher = function (req, res, tname, fn) {
+
+/* 查询此教师姓名是否重复*/
+exports.queryTeacher = function (req, res, tname, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.queryZRtescher, tname, function (err, result) {
+        connection.query($sql.queryTeacher, tname, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+
+/* 查询此教师是不是专任教师*/
+exports.queryZRteacher = function (req, res, tname, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.queryZRteacher, tname, function (err, result) {
             connection.release();
             fn(result);
         });
