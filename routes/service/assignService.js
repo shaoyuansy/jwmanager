@@ -10,7 +10,7 @@ var assignDao = require('../../models/dao/jw_assign/assignDao');
 //获取教师选课信息列表
 router.get('/assignList', function (req, res, next) {
     assignDao.queryAll(req, res, function (result) {
-        res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
+        res.send({"aaData": result});
     });
 });
 

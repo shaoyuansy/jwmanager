@@ -128,8 +128,9 @@
 
 <script>
     $(document).ready(function () {
+        $(".select").select2();
         //教师姓名下拉选择
-        var $jsxm = $("#JSXM").select2();
+        var $jsxm = $("#JSXM");
         var jsxm = document.getElementById("JSXM");
         jsxm.value = $("#JSXMTEMP").val();
         for(var i=0;i<jsxm.length;i++) {
@@ -228,10 +229,10 @@
                     for (var i = 0; i < data.state.length; i++) {
                         kcStr += "<option value='" + data.state[i].KCMC + "'>" + data.state[i].KCMC + "</option>";
                         if(data.state[i].SFZR=='是'){
-                            $('#WPJSPJ').val("（非外聘教师）");
+                            $('#WPJSPJ').val("");
+                            $('#WPJSPJ').attr("placeholder","（非外聘教师）");
                             $('#WPJSPJ').attr("disabled",true);
                         }else if(data.state[i].SFZR=='否'){
-                            $('#WPJSPJ').val("");
                             $('#WPJSPJ').attr("disabled",false);
                         }
                     }
@@ -312,10 +313,11 @@
                     for (var i = 0; i < data.state.length; i++) {
                         kcStr += "<option value='" + data.state[i].KCMC + "'>" + data.state[i].KCMC + "</option>";
                         if(data.state[i].SFZR=='是'){
-                            $('#WPJSPJ').val("（非外聘教师）");
+                            $('#WPJSPJ').val("");
+                            $('#WPJSPJ').attr("placeholder","（非外聘教师）");
                             $('#WPJSPJ').attr("disabled",true);
                         }else if(data.state[i].SFZR=='否'){
-                            $('#WPJSPJ').val("");
+                            $('#WPJSPJ').attr("placeholder","请输入评价");
                             $('#WPJSPJ').attr("disabled",false);
                         }
                     }

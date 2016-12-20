@@ -30,7 +30,7 @@
                                     <td><input id="GH" name="GH" type="text" class="form-control" value="<%= gh %>"></td>
                                     <td>性别</td>
                                     <td style="text-align: left;">
-                                        <select class="select2" id="XB" name="XB" style="width: 100%">
+                                        <select class="select2" id="XB" name="XB" style="width: 100%;border: 1px solid seagreen">
                                             <option value="">请选择</option>
                                             <option>男</option>
                                             <option>女</option>
@@ -72,7 +72,9 @@
                                 </tr>
                                 <tr>
                                     <td><span style="color: red;font-size: 20px">*</span>&nbsp;  分管负责人</td>
-                                    <td><input id="FGFZR" name="FGFZR" type="text" class="form-control" value="<%= fgfzr %>"></td>
+                                    <td><input id="FGFZR" name="FGFZR" type="text" class="form-control" value="<%= fgfzr %>">
+                                        <input id="FZRSF" name="FZRSF" type="hidden" class="form-control" value="">
+                                    </td>
                                     <td>定职时间</td>
                                     <td><input id="DZSJ" name="DZSJ" type="text" class="form-control" placeholder="格式如：2001.09" value="<%= dzsj %>"></td>
                                     <td>任职状态</td>
@@ -663,9 +665,6 @@
         }else if($('#FGFZR').val()==""){
             alert("分管负责人不能为空");
             var verge = false;
-        }else if(getFZR($('#FGFZR').val()=="否")){
-            alert("此教师不存在 或 非专任教师，请重新填写");
-            var verge = false;
         }else if(!regCSNY.test($('#CSNY').val())){
             alert("出生年月格式不正确，如：1980.12");
             var verge = false;
@@ -678,8 +677,8 @@
         }else if(!(regRXSJ.test($('#RXSJ').val()))){
             alert("入校时间格式不正确，如：2005.9.9");
             var verge = false;
-        }else if(!regCSNY.test($('#DZSJ').val())){
-            alert("定职时间格式不正确，如：1980.12");
+        }else if(!regRXSJ.test($('#DZSJ').val())){
+            alert("定职时间格式不正确，如：2005.9.9");
             var verge = false;
         }else if(!(regRXSJ.test($('#RXSJ').val()))){
             alert("毕业时间格式不正确，如：1990.7.2");
@@ -687,6 +686,13 @@
         }else if(!(regRXSJ.test($('#CSDKSJ').val()))){
             alert("初始代课时间格式不正确，如：2005.9.9");
             var verge = false;
+        }
+        if(verge){
+            getFZR($('#FGFZR').val());
+            if($('#FZRSF').val()=="否"||$('#FZRSF').val()=="无"){
+                alert("此教师不存在 或 非专任教师，请重新填写");
+                var verge = false;
+            }
         }
         if(verge){
             //获取服务器上的附件的值
@@ -718,18 +724,24 @@
             });
         }
     }
-    function getFZR(tname){
+
+    function getFZR(tname){//判断分管负责人
         $.ajax({
             type: "post",
             url: '/teacherService/getFZR',
             dataType: "json",
             data: {TNAME:tname},
             async: false,
+            cache: true,
             success: function (msg) {
                 if(msg.aaData[0]){
-                    return msg.aaData[0]['SFZR'];
+                    if(msg.aaData[0]['SFZR']=="是"){
+                        $('#FZRSF').val("是");
+                    }else if(msg.aaData[0]['SFZR']=="否"){
+                        $('#FZRSF').val("否");
+                    }
                 }else{
-                    return false;
+                    $('#FZRSF').val("无");
                 }
             },
             error: function (e) {
@@ -737,4 +749,5 @@
             }
         });
     }
+
 </script>
