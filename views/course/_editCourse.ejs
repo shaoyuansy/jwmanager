@@ -91,26 +91,58 @@
 <script>
 
     $(document).ready(function () {
-        document.getElementById("JYSHF").value = $("#TEMP").val();//自动选择教研室
+        $("#JYSHF").val($("#TEMP").val());
     });
 
-    function submitForm(){
-        $.ajax({
-            type: "post",
-            url: '/course/_editCourse.html',
-            dataType: "json",
-            data: $('#myform').serialize(),// 你的formid 注：后台req.body由控件name获取数据
-            async: false,
-            cache: true,
-            success: function (msg) {
-                if (msg.result != 0) {
-                    $("#modal-edit-event").modal('hide');
+
+    function submitForm() {
+        var verge = true;
+        if ($('#KCBH').val() == "") {
+            alert("课程编号不能为空");
+            var verge = false;
+        } else if ($('#KCMC').val() == "") {
+            alert("课程名称不能为空");
+            var verge = false;
+        } else if ($('#KCFZR').val() == "") {
+            alert("课程负责人不能为空");
+            var verge = false;
+        } else if ($('#KCLX').val() == "") {
+            alert("课程类型不能为空");
+            var verge = false;
+        } else if ($('#ZXS').val() == "") {
+            alert("周学时不能为空");
+            var verge = false;
+        } else if ($('#SJXS').val() == "") {
+            alert("上机学时不能为空");
+            var verge = false;
+        } else if ($('#XF').val() == "") {
+            alert("学分不能为空");
+            var verge = false;
+        } else if ($('#SYDX').val() == "") {
+            alert("适用对象不能为空");
+            var verge = false;
+        } else if ($('#JYSHF').val() == null) {
+            alert("教研室划分不能为空");
+            var verge = false;
+        }
+        if (verge) {
+            $.ajax({
+                type: "post",
+                url: '/course/_editCourse.html',
+                dataType: "json",
+                data: $('#myform').serialize(),// 你的formid 注：后台req.body由控件name获取数据
+                async: false,
+                cache: true,
+                success: function (msg) {
+                    if (msg.result != 0) {
+                        $("#modal-edit-event").modal('hide');
+                    }
+                    location.reload();
+                },
+                error: function (e) {
+                    console.log(e);
                 }
-                location.reload();
-            },
-            error: function (e) {
-                console.log(e);
-            }
-        });
+            });
+        }
     }
 </script>

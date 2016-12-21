@@ -32,23 +32,36 @@
     </div><!-- /.modal-content -->
 </div><!-- /.modal -->
 <script>
-    function submitForm(){
-        $.ajax({
-            type: "post",
-            url: '/jys/_editJys.html',
-            dataType: "json",
-            data: $('#myform').serialize(),// 你的formid 注：后台req.body由控件name获取数据
-            async: false,
-            cache: true,
-            success: function (msg) {
-                if (msg.result != 0) {
-                    $("#modal-edit-event").modal('hide');
+    function submitForm() {
+        var verge = true;
+        if ($('#JYSBH').val() == "") {
+            alert("教研室编号不能为空");
+            var verge = false;
+        } else if ($('#JYSMC').val() == "") {
+            alert("教研室名称不能为空");
+            var verge = false;
+        } else if ($('#JYSZR').val() == "") {
+            alert("教研室主任不能为空");
+            var verge = false;
+        }
+        if (verge) {
+            $.ajax({
+                type: "post",
+                url: '/jys/_editJys.html',
+                dataType: "json",
+                data: $('#myform').serialize(),// 你的formid 注：后台req.body由控件name获取数据
+                async: false,
+                cache: true,
+                success: function (msg) {
+                    if (msg.result != 0) {
+                        $("#modal-edit-event").modal('hide');
+                    }
+                    location.reload();
+                },
+                error: function (e) {
+                    console.log(e);
                 }
-                location.reload();
-            },
-            error: function (e) {
-                console.log(e);
-            }
-        });
+            });
+        }
     }
 </script>

@@ -6,7 +6,7 @@
         </div>
 
         <div class="modal-body">
-            <form id="myform" method="post" action="jys/_editJys.html">
+            <form id="myform">
                 <input id="ID" name="ID" type="hidden" class="form-control" value="<%= id %>">
                 <div class="box-body">
                     <div class="form-group">
@@ -49,26 +49,42 @@
 <script>
 
     $(document).ready(function () {
-        document.getElementById("SSJYS").value = $("#TEMP").val();//自动选择文档类型
+        $("#SSJYS").val($("#TEMP").val());//自动选择文档类型
     });
 
-    function submitForm(){
-        $.ajax({
-            type: "post",
-            url: '/major/_editMajor.html',
-            dataType: "json",
-            data: $('#myform').serialize(),// 你的formid 注：后台req.body由控件name获取数据
-            async: false,
-            cache: true,
-            success: function (msg) {
-                if (msg.result != 0) {
-                    $("#modal-edit-event").modal('hide');
+    function submitForm() {
+        var verge = true;
+        if ($('#ZYBH').val() == "") {
+            alert("专业编号不能为空");
+            var verge = false;
+        } else if ($('#ZYMC').val() == "") {
+            alert("专业名称不能为空");
+            var verge = false;
+        } else if ($('#SSJYS').val() ==null) {
+            alert("所属教研室不能为空");
+            var verge = false;
+        } else if ($('#KSNJ').val() == "") {
+            alert("开设年级不能为空");
+            var verge = false;
+        }
+        if (verge) {
+            $.ajax({
+                type: "post",
+                url: '/major/_editMajor.html',
+                dataType: "json",
+                data: $('#myform').serialize(),// 你的formid 注：后台req.body由控件name获取数据
+                async: false,
+                cache: true,
+                success: function (msg) {
+                    if (msg.result != 0) {
+                        $("#modal-edit-event").modal('hide');
+                    }
+                    location.reload();
+                },
+                error: function (e) {
+                    console.log(e);
                 }
-                location.reload();
-            },
-            error: function (e) {
-                console.log(e);
-            }
-        });
+            });
+        }
     }
 </script>
