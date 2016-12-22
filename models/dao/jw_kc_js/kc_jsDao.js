@@ -39,6 +39,15 @@ exports.getXk = function (req, res,kcid,czr,fn) {
         });
     });
 };
+/* 判断是否存在此选课信息*/
+exports.exztXk = function (req, res,jsid,kcid,fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.exztXk,[jsid,kcid],function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
 
 /* 删除一条教师选课信息*/
 exports.deleteXk = function (req, res,kcid,jsid,fn) {
@@ -54,6 +63,15 @@ exports.deleteXk = function (req, res,kcid,jsid,fn) {
 exports.xuanzets = function (req, res, kcid,jsid,xzts,bz,czr, fn) {
     pool.getConnection(function (err, connection) {
         connection.query($sql.insert,[kcid,jsid,xzts,bz,czr], function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+/*教师覆盖选择头数*/
+exports.xuanzetschg = function (req, res, kcid,jsid,xzts,bz,czr,jskcid, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.insertChg,[kcid,jsid,xzts,bz,czr,jskcid], function (err, result) {
             connection.release();
             fn(result);
         });

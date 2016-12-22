@@ -28,6 +28,7 @@
                         <input id="JSID" name="JSID" type="hidden" value="<%= jsid %>">
                         <input id="JSMCX" name="JSMCX" type="hidden" value="<%= jsmc %>">
                         <input id="SUR" name="SUR" type="hidden" value="<%= sur %>">
+                        <input id="JSKCID" name="JSKCID" type="hidden" value="">
                         <table id="xktable" class="table">
                             <tr>
                                 <th style="width: 20%">头数</th>
@@ -123,7 +124,29 @@
                         }else{
                             var temp = jsmsg.aaData[0];
                             $("#JSID").val(temp['ID']);
-                            submitxk();//2再提交表单
+                            $.ajax({
+                                type: "get",
+                                url: '/teacher_courseService/exztXk',
+                                dataType: "json",
+                                data:{jsid:$("#JSID").val(),kcid:$("#KCID").val()},
+                                async: true,
+                                cache: true,
+                                success: function (exdata) {
+                                    if(exdata.result[0]){
+                                        var result = confirm("您已有此课程的选课记录，是否覆盖您的选课信息？");
+                                        if(result){
+                                            $('#JSKCID').val(exdata.result[0]['ID']);
+                                            submitxk();
+                                        }
+                                    }else{
+                                        submitxk();//2再提交表单
+                                    }
+                                },
+                                error: function (e) {
+                                    console.log('e');
+                                }
+                            });
+
                             btn.attr("clicked","1");
                         }
                     },
