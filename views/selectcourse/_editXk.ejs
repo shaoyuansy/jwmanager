@@ -37,12 +37,9 @@
                                 <th style='width: 10%'></th>
                             </tr>
                             <tr>
-                                <td><input id="XZTS" name="XZTS" type="number" min="1" max="<%= sur %>"
-                                           class="form-control" value="<%= xzts %>">
-                                </td>
-                                <td><input id="JSMC" name="JSMC" type="text"
-                                           class="form-control" value="<%= jsmc %>" ></td>
-                                <td><input id="BZ" name="BZ" type="text" class="form-control" value="<%= bz %>" placeholder="代选老师请备注"></td>
+                                <td><input id="XZTS" name="XZTS" type="number" min="1" max="<%= sur %>" class="form-control" value="<%= xzts %>"></td>
+                                <td><input id="JSMC" name="JSMC" type="text" class="form-control" value="<%= jsmc %>" ></td>
+                                <td><input id="BZ" name="BZ" type="text" class="form-control" value="<%= bz %>" placeholder="（代选老师请备注）"></td>
                                 <td><button id="btn1" clicked="0" type="button" class="btn btn-primary" onclick="submitxkForm();">选课</button></td>
                                 <td></td>
                             </tr>
@@ -76,8 +73,8 @@
 <script>
     $(function(){
         $("#xgdiv").hide();
-        document.getElementById("hidenxg").setAttribute("style","background-color: #eee");
-        if(document.getElementById("SUR").value == 0){
+        $("#hidenxg").attr("style","background-color: #eee");
+        if($("#SUR").val() == 0){
             $("#xktable").html("<tr><th>已经不能选课咯</th></tr><tr></tr>");
         }
     });
@@ -86,8 +83,8 @@
             $("#xkdiv").hide();
             $("#xgdiv").show();
             $("#Ttitle").text("修改");
-            document.getElementById("hidenxk").setAttribute("style","background-color: #eee");
-            document.getElementById("hidenxg").setAttribute("style","");
+            $("#hidenxk").attr("style","background-color: #eee");
+            $("#hidenxg").attr("style","");
         }
     }
     function hidenxg(){
@@ -95,25 +92,24 @@
             $("#xgdiv").hide();
             $("#xkdiv").show();
             $("#Ttitle").text("选课");
-            document.getElementById("hidenxg").setAttribute("style","background-color: #eee");
-            document.getElementById("hidenxk").setAttribute("style","");
+            $("#hidenxg").attr("style","background-color: #eee");
+            $("#hidenxk").attr("style","");
 
         }
     }
     //A1提交选课表单
     function submitxkForm(){
-        if(document.getElementById("XZTS").value == ''||document.getElementById("XZTS").value == 0){
+        if($("#XZTS").val() == ''|| $("#XZTS").val() == 0){
             alert("头数不能为空");
         }
-        else if(parseInt(document.getElementById("XZTS").value) > parseInt(document.getElementById("SUR").value)){
+        else if(parseInt($("#XZTS").val()) > parseInt($("#SUR").val())){
             alert("超出剩余头数");
         }
         else{
             var btn = $("#btn1");//按钮提交控制
-            if(btn.attr("clicked") == "0"){
-                //执行点击
+            if(btn.attr("clicked") == "0"){//执行点击
                 //提交操作先请求教师的id
-                var XM = document.getElementById("JSMC").value;
+                var XM = $("#JSMC").val();
                 $.ajax({
                     type: "get",
                     url: '/teacherService/getTidByMc',
@@ -126,7 +122,7 @@
                             alert("没有这名教师的信息~请核对姓名资料");
                         }else{
                             var temp = jsmsg.aaData[0];
-                            document.getElementById("JSID").value = temp['ID'];
+                            $("#JSID").val(temp['ID']);
                             submitxk();//2再提交表单
                             btn.attr("clicked","1");
                         }
@@ -163,8 +159,8 @@
     }
     //查询此教师选课列表
     function getXk(){
-        var XM = document.getElementById("JSMCX").value;//首先获取此教师姓名为操作人
-        var KCID = document.getElementById("KCID").value;//kcid
+        var XM = $("#JSMCX").val();//首先获取此教师姓名为操作人
+        var KCID = $("#KCID").val();//kcid
         $.ajax({
             type: "get",
             url: '/teacher_courseService/getXk',
@@ -203,7 +199,7 @@
                         document.getElementById(i).appendChild(ctd5);
                     }
                 }else{
-                    $("#xgtable").html("<tr><th>现在还没有选课哦</th></tr><tr></tr>");
+                    $("#xgtable").html("<tr><th>您尚未选择这门课，不能修改</th></tr><tr></tr>");
 
                 }
             },
@@ -215,10 +211,10 @@
 
     //修改选课
     function reviseXg(){
-        if(document.getElementById("XZTSXG").value == ''||document.getElementById("XZTSXG").value == 0){
+        if($("#XZTSXG").val() == ''|| $("#XZTSXG").val() == 0){
             alert("头数不能为空");
         }
-        else if(parseInt(document.getElementById("XZTSXG").value) > parseInt(document.getElementById("SUR").value)){
+        else if(parseInt($("#XZTSXG").val()) > parseInt($("#SUR").val())){
             alert("超出剩余头数");
         }
         else{
@@ -226,7 +222,7 @@
             if(btn.attr("clicked") == "0"){
                 //执行点击
                 //提交操作先请求教师的id
-                var XM = document.getElementById("JSMCXG").value;
+                var XM = $("#JSMCXG").val();
                 $.ajax({
                     type: "get",
                     url: '/teacherService/getTidByMc',
@@ -237,7 +233,7 @@
                     success: function (jsmsg) {
                         var temp = jsmsg.aaData[0];
                         //return temp['ID'];
-                        document.getElementById("JSIDXG").value = temp['ID'];
+                        $("#JSIDXG").val(temp['ID']);
                         submitxg();//2再提交表单
                         btn.attr("clicked","1");
                     },
