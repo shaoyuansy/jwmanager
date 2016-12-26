@@ -191,6 +191,7 @@ function getGender(jysmc) {
 function forData(data) {
     var sum1 = 0;               //性别为男的教师人数
     var sum2 = 0;               //性别为女的教师人数
+    var sumx = 0;               //性别为未知的教师人数
     var sum3 = 0;               //教师总人数
     var dataStr = "";           //数据字符串
     for(var i = 0;i<data.length;i++){
@@ -201,13 +202,25 @@ function forData(data) {
             case '女':
                 sum2 += data[i].人数;
                 break;
+            case '':
+                sumx += data[i].人数;
+                break;
         }
         sum3 += data[i].人数;
     }
-    var temp1 = (sum1 / sum3) * 100;                //性别为男的教师在总教师中占的比例
-    var temp2 = (sum2 / sum3) * 100;                //性别为男的教师在总教师中占的比例
-    dataStr = "[{name:'男 "+sum1+"人 ',y:"+temp1+",sliced: true,selected: true},['女 "+sum2+"人 ',"+temp2+"]]";
-    return dataStr;
+    if(sumx>0) {
+        var temp1 = (sum1 / sum3) * 100;                //性别为男的教师在总教师中占的比例
+        var temp2 = (sum2 / sum3) * 100;                //性别为男的教师在总教师中占的比例
+        var tempx = (sumx / sum3) * 100;                //性别为未知的教师在总教师中占的比例
+        dataStr = "[{name:'男 "+sum1+"人 ',y:"+temp1+",sliced: true,selected: true},['女 "+sum2+"人 ',"+temp2+"],['未知"+sumx+"人 ',"+tempx+"]]";
+        return dataStr;
+    }else{
+        var temp1 = (sum1 / sum3) * 100;                //性别为男的教师在总教师中占的比例
+        var temp2 = (sum2 / sum3) * 100;                //性别为男的教师在总教师中占的比例
+        dataStr = "[{name:'男 "+sum1+"人 ',y:"+temp1+",sliced: true,selected: true},['女 "+sum2+"人 ',"+temp2+"]]";
+        return dataStr;
+    }
+
 }
 //定义图表配置
 var options = {

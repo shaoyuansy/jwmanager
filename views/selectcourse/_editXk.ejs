@@ -125,7 +125,10 @@
                     cache: true,
                     success: function (jsmsg) {
                         if(jsmsg.aaData.length==""){
-                            alert("没有这名教师的信息~请核对姓名资料");
+                            var result = confirm("没有这名教师的信息，是否去添加此教师信息？");
+                            if(result){
+                                window.location = "/teacher";
+                            }
                         }else{
                             var temp = jsmsg.aaData[0];
                             $("#JSID").val(temp['ID']);
