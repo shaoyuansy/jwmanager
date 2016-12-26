@@ -27,6 +27,7 @@
                         <input id="KCID" name="KCID" type="hidden" value="<%= kcid %>">
                         <input id="JSID" name="JSID" type="hidden" value="<%= jsid %>">
                         <input id="JSMCX" name="JSMCX" type="hidden" value="<%= jsmc %>">
+                        <input id="CZR" name="CZR" type="hidden" value="<%= jsmc %>">
                         <input id="SUR" name="SUR" type="hidden" value="<%= sur %>">
                         <input id="JSKCID" name="JSKCID" type="hidden" value="">
                         <table id="xktable" class="table">
@@ -78,6 +79,9 @@
         if($("#SUR").val() == 0){
             $("#xktable").html("<tr><th>已经不能选课咯</th></tr><tr></tr>");
         }
+        $(".close").click(function(){
+            location.reload();
+        });
     });
     function hidenxk(){
         if($("#xkdiv").is(":visible")){
@@ -111,6 +115,7 @@
             if(btn.attr("clicked") == "0"){//执行点击
                 //提交操作先请求教师的id
                 var XM = $("#JSMC").val();
+                var CZR = $("#CZR").val();
                 $.ajax({
                     type: "get",
                     url: '/teacherService/getTidByMc',
@@ -124,30 +129,34 @@
                         }else{
                             var temp = jsmsg.aaData[0];
                             $("#JSID").val(temp['ID']);
-                            $.ajax({
-                                type: "get",
-                                url: '/teacher_courseService/exztXk',
-                                dataType: "json",
-                                data:{jsid:$("#JSID").val(),kcid:$("#KCID").val()},
-                                async: true,
-                                cache: true,
-                                success: function (exdata) {
-                                    if(exdata.result[0]){
-                                        var result = confirm("您已有此课程的选课记录，是否覆盖您的选课信息？");
-                                        if(result){
-                                            $('#JSKCID').val(exdata.result[0]['ID']);
-                                            submitxk();
-                                        }
-                                    }else{
-                                        submitxk();//2再提交表单
-                                    }
-                                },
-                                error: function (e) {
-                                    console.log('e');
-                                }
-                            });
-
-                            btn.attr("clicked","1");
+                            console.log(temp['SFZR'],temp['XM'],CZR);
+                           if(temp['SFZR']=="是" && temp['XM']!=CZR){
+                               alert("此教师是专任教师，您不能为其选课！");
+                           }else{
+                               $.ajax({
+                                   type: "get",
+                                   url: '/teacher_courseService/exztXk',
+                                   dataType: "json",
+                                   data:{jsid:$("#JSID").val(),kcid:$("#KCID").val()},
+                                   async: true,
+                                   cache: true,
+                                   success: function (exdata) {
+                                       if(exdata.result[0]){
+                                           var result = confirm("您已有此课程的选课记录，是否覆盖您的选课信息？");
+                                           if(result){
+                                               $('#JSKCID').val(exdata.result[0]['ID']);
+                                               submitxk();
+                                           }
+                                       }else{
+                                           submitxk();//2再提交表单
+                                       }
+                                   },
+                                   error: function (e) {
+                                       console.log('e');
+                                   }
+                               });
+                               btn.attr("clicked","1");
+                           }
                         }
                     },
                     error: function (e) {

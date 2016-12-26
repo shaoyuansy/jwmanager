@@ -6,7 +6,7 @@ var teacher = {
     queryAll: 'SELECT ID,XM,GH,SFZR,LXDH,FGFZR,ZYJSZC,XL,ZGXW,XKLB,DSLX,DWMC,JXXG,FJ' +
     ' FROM jw_teacher ORDER BY ID DESC;',
     queryById: 'SELECT * FROM jw_teacher WHERE ID=?;',
-    queryByMc: "SELECT ID FROM jw_teacher WHERE XM=?;",
+    queryByMc: "SELECT ID,XM,SFZR FROM jw_teacher WHERE XM=?;",
     queryZRteacher:"SELECT jw_teacher.SFZR FROM jw_teacher WHERE XM=?;",
     queryTeacher:"SELECT ID FROM jw_teacher WHERE XM=?;",
     insert: 'INSERT INTO jw_teacher SET XM=?,GH=?,XB=?,CSNY=?,LXDH=?,JYSMC=?,FGFZR=?,RXSJ=?,SFZHM=?,MZ=?,' +
