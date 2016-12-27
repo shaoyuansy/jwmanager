@@ -124,11 +124,8 @@
                     async: false,
                     cache: true,
                     success: function (jsmsg) {
-                        if(jsmsg.aaData.length==""){
-                            var result = confirm("没有这名教师的信息，是否去添加此教师信息？");
-                            if(result){
-                                window.location = "/teacher";
-                            }
+                        if(jsmsg.aaData.length==""){//没有这名教师的信息
+
                         }else{
                             var temp = jsmsg.aaData[0];
                             $("#JSID").val(temp['ID']);
@@ -234,7 +231,7 @@
                         document.getElementById(i).appendChild(ctd5);
                     }
                 }else{
-                    $("#xgtable").html("<tr><th>您尚未选择这门课，不能修改</th></tr><tr></tr>");
+                    $("#xgtable").html("<tr><th>该门课程尚未有教师选择</th></tr><tr></tr>");
 
                 }
             },

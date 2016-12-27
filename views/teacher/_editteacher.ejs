@@ -59,7 +59,7 @@
                                     <td><input id="SFZHM" name="SFZHM" type="text" class="form-control" value="<%= sfzhm %>"></td>
                                 </tr>
                                 <tr>
-                                    <td><span style="color: red;font-size: 20px">*</span>&nbsp;  联系电话</td>
+                                    <td>联系电话</td>
                                     <td><input id="LXDH" name="LXDH" type="text" class="form-control" value="<%= lxdh %>"></td>
                                     <td>所属教研室</td>
                                     <td style="text-align: left;">
@@ -73,7 +73,7 @@
                                     <td><input id="RXSJ" name="RXSJ" type="text" class="form-control" placeholder="格式如：2005.09.09" value="<%= rxsj %>"></td>
                                 </tr>
                                 <tr>
-                                    <td><span style="color: red;font-size: 20px">*</span>&nbsp;  分管负责人</td>
+                                    <td>分管负责人</td>
                                     <td><input id="FGFZR" name="FGFZR" type="text" class="form-control" value="<%= fgfzr %>">
                                         <input id="FZRSF" name="FZRSF" type="hidden" class="form-control" value="">
                                     </td>
@@ -443,12 +443,6 @@
         var valID = $("#ID").val();
         if($('#XM').val()==""){
             alert("姓名不能为空");
-            var verge = false;
-        }else if($('#LXDH').val()==""){
-            alert("联系电话不能为空");
-            var verge = false;
-        }else if($('#FGFZR').val()==""){
-            alert("分管负责人不能为空");
             var verge = false;
         }else if($('#SFZR').val()==""){
             alert("是否专任不能为空");
