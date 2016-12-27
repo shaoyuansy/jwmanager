@@ -11,6 +11,15 @@
          background-color: rgba(100, 183, 136, 0.21);
 
     }
+    .selectleft{
+        position: absolute;
+        right:  0px;
+        left:120px;
+    }
+    .selecttop{
+        margin-top: 3px;
+
+    }
 </style>
 
 <!-- 页面内容 content -->
@@ -31,6 +40,13 @@
         <div id="box" class="box" style="width: 100%;overFlow-x: scroll;overFlow-y: scroll;">
             <div class="box-header">
                 <h3 class="box-title">教师选课</h3>
+                <div class="box-tools selectleft" >
+                    <select class="selecttop">
+                        <option value="">请选择学期</option>
+                        <option value="">2016-2017第一学期</option>
+                        <option value="">2016-2017第二学期</option>
+                    </select>
+                </div>
                 <div class="box-tools pull-right">
                     <button type="button" title="导出" class="btn btn-box-tool"
                             onclick="exportData()">

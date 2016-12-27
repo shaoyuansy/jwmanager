@@ -16,7 +16,7 @@ router.get('/getList', function (req, res, next) {
 });
 
 router.get('/getTidByMc', function (req, res, next) {
-    teacherDao.queryByMc(req, res,req.query.xm, function (result) {
+    teacherDao.queryByMc(req, res,req.query.XM, function (result) {
         res.send({"aaData": result});
     });
 });
@@ -32,6 +32,13 @@ router.post('/getNAME', function (req, res, next) {
 router.post('/getFZR', function (req, res, next) {
     teacherDao.queryZRteacher(req, res,req.body.TNAME, function (result) {
         res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
+    });
+});
+
+//插入一个外聘教师，只有姓名与外聘
+router.post('/addWP', function (req, res, next) {
+    teacherDao.insertWP(req, res, req.body.XM,function (result) {
+        res.send({"state": result});
     });
 });
 

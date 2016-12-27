@@ -1,3 +1,14 @@
+<style type="text/css">
+    .selectleft{
+        position: absolute;
+        right:  0px;
+        left:150px;
+    }
+    .selecttop{
+        margin-top: 3px;
+
+    }
+</style>
 <!-- datatable -->
 <script src="../javascripts/mydatatable.js"></script>
 <!-- table2excel导出 -->
@@ -21,6 +32,13 @@
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">授课管理列表</h3>
+                <div class="box-tools selectleft" >
+                    <select class="selecttop">
+                        <option value="">请选择学期</option>
+                        <option value="">2016-2017第一学期</option>
+                        <option value="">2016-2017第二学期</option>
+                    </select>
+                </div>
                 <div class="box-tools pull-right">
                     <button type="button" title="批量删除" class="btn btn-box-tool"
                             onclick="delSomeAssign()">

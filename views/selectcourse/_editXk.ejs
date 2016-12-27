@@ -120,16 +120,15 @@
                     type: "get",
                     url: '/teacherService/getTidByMc',
                     dataType: "json",
-                    data:{xm:XM},
+                    data:{XM:XM},
                     async: false,
                     cache: true,
                     success: function (jsmsg) {
-                        if(jsmsg.aaData.length==""){//没有这名教师的信息
-
+                        if(jsmsg.aaData.length==""){//没有这名教师的信息添加一个
+                            addWP(XM);
                         }else{
                             var temp = jsmsg.aaData[0];
                             $("#JSID").val(temp['ID']);
-                            console.log(temp['SFZR'],temp['XM'],CZR);
                            if(temp['SFZR']=="是" && temp['XM']!=CZR){
                                alert("此教师是专任教师，您不能为其选课！");
                            }else{
@@ -259,7 +258,7 @@
                     type: "get",
                     url: '/teacherService/getTidByMc',
                     dataType: "json",
-                    data:{xm:XM},
+                    data:{XM:XM},
                     async: false,
                     cache: true,
                     success: function (jsmsg) {
@@ -273,7 +272,6 @@
                         console.log('教师id请求失败');
                     }
                 });
-
             }else{
                 //不再执行点击操作
             }
@@ -329,6 +327,45 @@
         }else{
 
         }
+    }
+    //添加一个外聘教师只有姓名是否专任
+    function addWP(tname){
+        $.ajax({
+            type: "post",
+            url: '/teacherService/addWP',
+            dataType: "json",
+            data:{XM:tname},
+            async: true,
+            cache: true,
+            success: function (msg) {
+                if(msg.state.affectedRows>0){
+                    $.ajax({
+                        type: "get",
+                        url: '/teacherService/getTidByMc',
+                        dataType: "json",
+                        data:{XM:tname},
+                        async: false,
+                        cache: true,
+                        success: function (jsmsg) {
+                            var temp = jsmsg.aaData[0];
+                            console.log( temp['ID']);
+                            $("#JSID").val(temp['ID']);
+                            submitxk();//2再提交表单
+                        },
+                        error: function (e) {
+                            console.log('教师id请求失败');
+                        }
+                    });
+
+                }
+            },
+            error: function (e) {
+                console.log('e');
+            }
+        });
+
+
+
     }
 
 </script>

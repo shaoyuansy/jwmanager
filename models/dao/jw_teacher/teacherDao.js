@@ -80,6 +80,16 @@ exports.insertSome = function (req, res, arrayPar, fn) {
     });
 };
 
+//插入一个外聘教师，只有姓名与外聘
+exports.insertWP = function (req, res, XM, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.insertWP, XM, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+
 /*更新记录*/
 exports.update = function (req, res, arrayPar, fn) {
     pool.getConnection(function (err, connection) {
