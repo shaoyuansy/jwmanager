@@ -15,69 +15,72 @@
     <link rel="stylesheet" href="/AdminLTE/dist/css/AdminLTE.min.css">
     <!-- iCheck -->
     <link rel="stylesheet" href="/AdminLTE/plugins/iCheck/square/blue.css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" href="/css/login.css">
 </head>
 <body class="hold-transition login-page">
-<div class="login-box">
-    <div class="login-logo">
-        <a href="#">教务信息管理系统</a>
-    </div>
-    <!-- /.login-logo -->
-    <div class="login-box-body">
-        <p class="login-box-msg">欢迎您，请输入登录信息</p>
+<div class="htmleaf-container">
+	<div class="login-box">
+		<div class="login-logo">
+			<a href="#">教务信息管理系统</a>
+		</div>
+		<!-- /.login-logo -->
+		<div class="login-box-body">
+			<p class="login-box-msg">欢迎您，请输入登录信息</p>
+			<form id="loginForm" action="/login" method="post">
+				<div class="form-group has-feedback">
+					<input id="username" name="username" type="text" class="form-control" placeholder="Access">
+					<span class="glyphicon glyphicon-user form-control-feedback"></span>
+				</div>
+				<div class="form-group has-feedback">
+					<input id="password" name="password" type="password" class="form-control" placeholder="Password">
+					<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+				</div>
+				<span style="color:red;"> <%= errorMessage%></span>
+				<div class="row">
 
-        <form id="loginForm" action="/login" method="post">
-            <div class="form-group has-feedback">
-                <input id="username" name="username" type="text" class="form-control" placeholder="Access">
-                <span class="glyphicon glyphicon-user form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-                <input id="password" name="password" type="password" class="form-control" placeholder="Password">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            <span style="color:red;"> <%= errorMessage%></span>
-            <div class="row">
-
-                <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
-                            <input type="checkbox"> 记住信息
-                            <input id="icheck" name="icheck" type="hidden" value="">
-                        </label>
-                    </div>
-                </div>
-                <!-- /.col -->
-                <div class="col-xs-4" >
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
-                </div>
-                <!-- /.col -->
-            </div>
-        </form>
-
-        <div class="social-auth-links text-center">
-            <p>- OR -</p>
-        </div>
-        <!-- /.social-auth-links -->
-
-        <a href="#">忘记密码？</a>
-
-    </div>
-    <!-- /.login-box-body -->
+					<div class="col-xs-8">
+						<div class="checkbox icheck">
+							<label>
+								<input type="checkbox"> 记住信息
+								<input id="icheck" name="icheck" type="hidden" value="">
+							</label>
+						</div>
+					</div>
+					<!-- /.col -->
+					<div class="col-xs-4" >
+						<button type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
+					</div>
+					<!-- /.col -->
+				</div>
+			</form>
+			<div class="social-auth-links text-center">
+				<p>- 郑州大学软件与应用科技学院 -</p>
+			</div>
+			<!-- /.social-auth-links -->
+			<a href="#">忘记密码？</a>
+		</div>
+		<!-- /.login-box-body -->
+	</div>
+	<!-- /.login-box -->
 </div>
-<!-- /.login-box -->
-
+<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <!-- jQuery 2.2.3 -->
 <script src="/AdminLTE/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="/AdminLTE/bootstrap/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="/AdminLTE/plugins/iCheck/icheck.min.js"></script>
+<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+<!-- 粒子 -->
+<script src="/javascripts/jparticle.jquery.min.js"></script>
+<!--[if  IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+<! [endif]-->
+
 <script>
     $(function () {
         $('input').iCheck({
@@ -93,6 +96,10 @@
         $('input').on('ifUnchecked', function(event){
             document.getElementById("icheck").setAttribute("value","0");
         });
+		$(".htmleaf-container").jParticle({
+			background: "#d2d6de",
+			color: "#ffffff"
+		});
     });
 
 </script>
