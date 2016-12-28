@@ -125,7 +125,10 @@
                     cache: true,
                     success: function (jsmsg) {
                         if(jsmsg.aaData.length==""){//没有这名教师的信息添加一个
-                            addWP(XM);
+                            var result = confirm("没有此教师信息，是否将此记录加入库中，并添加其姓名信息且为非专任教师？");
+                            if(result){
+                                addWP(XM);
+                            }
                         }else{
                             var temp = jsmsg.aaData[0];
                             $("#JSID").val(temp['ID']);
