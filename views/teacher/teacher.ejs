@@ -48,6 +48,7 @@
                     <thead>
                     <tr>
                         <th><input id="checkbox1" name="checkbox1" type="checkbox"></th>
+						<th>#</th>
                         <th>姓名</th>
                         <th>工号</th>
                         <th>是否专任</th>
@@ -102,6 +103,10 @@
                 "mData": function (obj) {
                     return '<input id="checkbox2" name="checkbox2" type="checkbox" value='+obj.ID+'>';
                 }
+            },
+			{
+                "mData": "ID",
+                "sClass": "center"
             },
             {
                 "mData": "XM",

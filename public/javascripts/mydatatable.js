@@ -6,10 +6,10 @@
         "bScrollCollapse": true, //当显示的数据不足以支撑表格的默认的高度时，依然显示纵向的滚动条。(默认是false)
         "bPaginate": true, //是否显示分页
         "bLengthChange": true, //每页显示的记录数
-        "bFilter": true, //搜索栏
+        "bFilter": true, //搜索栏 空格可筛选多个条件
         "bSort": true, //是否支持排序功能
         "bInfo": true, //显示表格信息
-        "bAutoWidth": false, //自适应宽度
+        "bAutoWidth": false, //自动计算列宽
         "sAjaxSource": url, //mvc后台ajax调用接口。
         "aoColumns":columns,
         "bStateSave": true, //保存状态到cookie
