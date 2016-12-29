@@ -56,18 +56,18 @@ exports.queryfzrStr = function (req, res, KCMC, fn) {
     });
 };
 /* 获取此门课此教师可以交哪些专业*/
-exports.queryzyStr = function (req, res, JSXM,KCMC, fn) {
+exports.queryzyStr = function (req, res, JSXM, KCMC, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.queryzyStr, [JSXM,KCMC], function (err, result) {
+        connection.query($sql.queryzyStr, [JSXM, KCMC], function (err, result) {
             connection.release();
             fn(result);
         });
     });
 };
 /* 获取此门课此教师可以交哪些年级*/
-exports.querynjbjStr = function (req, res, JSXM,KCMC,ZYMC, fn) {
+exports.querynjbjStr = function (req, res, JSXM, KCMC, ZYMC, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.querynjbjStr, [JSXM,KCMC,ZYMC], function (err, result) {
+        connection.query($sql.querynjbjStr, [JSXM, KCMC, ZYMC], function (err, result) {
             connection.release();
             fn(result);
         });
@@ -113,7 +113,7 @@ exports.delete = function (req, res, ID, fn) {
 //批量删除记录
 exports.deleteSome = function (req, res, idstr, fn) {
     pool.getConnection(function (err, connection) {
-        var sql = "DELETE FROM jw_assign WHERE ID IN ("+req.query.idstr+");";
+        var sql = "DELETE FROM jw_assign WHERE ID IN (" + req.query.idstr + ");";
         connection.query(sql, function (err, result) {
             connection.release();
             fn(result);

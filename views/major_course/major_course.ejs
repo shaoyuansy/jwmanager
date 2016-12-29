@@ -33,20 +33,24 @@
                         <div class="box-tools pull-right">
                             <button type="button" title="批量删除" class="btn btn-box-tool"
                                     onclick="delSome();">
-                                <i class="fa fa-fw fa-plus-circle"></i>批量删除</button>
+                                <i class="fa fa-fw fa-plus-circle"></i>批量删除
+                            </button>
                             <button type="button" title="添加" class="btn btn-box-tool"
-                                    onclick="insert('<%= sqlStr%>')">
-                                <i class="fa fa-fw fa-plus-circle"></i>添加课程</button>
+                                    onclick="insert('<%= sqlStr %>')">
+                                <i class="fa fa-fw fa-plus-circle"></i>添加课程
+                            </button>
                             <button type="button" title="导出" class="btn btn-box-tool"
                                     onclick="toExcel('datatable','');">
-                                <i class="fa fa-fw fa-plus-circle"></i>导出</button>
+                                <i class="fa fa-fw fa-plus-circle"></i>导出
+                            </button>
                             <button type="button" title="导入" class="btn btn-box-tool"
                                     onclick="isIE();">
-                                <i class="fa fa-fw fa-plus-circle"></i>导入</button>
+                                <i class="fa fa-fw fa-plus-circle"></i>导入
+                            </button>
                         </div>
                         <div style="margin-top: 1%">
                             <div style="float: right">
-                                <input type="file" id="upfile" accept=".xls,.xlsx" />
+                                <input type="file" id="upfile" accept=".xls,.xlsx"/>
                             </div>
                         </div>
                     </div>
@@ -106,14 +110,14 @@
             }
         });
     });
-    function createTable(){
+    function createTable() {
 
         var columns = [
             {
                 "mData": null,
                 "sClass": "center",
                 "mData": function (obj) {
-                    return '<input id="checkbox2" name="checkbox2" type="checkbox" value='+obj.ZKID+'>';
+                    return '<input id="checkbox2" name="checkbox2" type="checkbox" value=' + obj.ZKID + '>';
                 }
             },
             {
@@ -151,7 +155,7 @@
             {
                 "mData": "KCFZR",
                 "sClass": "center"
-            },{
+            }, {
                 "mData": "KCBH",
                 "sClass": "center"
             },
@@ -182,7 +186,7 @@
             {
                 "mData": "SYDX",
                 "sClass": "center"
-            },{
+            }, {
                 "mData": "XDKC",
                 "sClass": "center"
             },
@@ -195,27 +199,27 @@
                 "sClass": "center",
                 "mData": function (obj) {
                     return '<a style="margin-left: 10px;" onclick="editMajorCourse(\'' + obj.ZKID + '\')" href="#" role="button" data-toggle="modal" title="编辑"><i class="fa fa-fw fa-pencil"></i></a>'
-                            +'<a style="margin-left: 10px;" onclick="delMajorCourse(\'' + obj.ZKID + '\')" href="#" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';
+                        + '<a style="margin-left: 10px;" onclick="delMajorCourse(\'' + obj.ZKID + '\')" href="#" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';
                 }
             }
         ];
         //获取需要查询的开设年级和专业名称
         var sqlstr = "<%= sqlStr %>";
         //判断开设年级和专业名称是否为空
-        if("<%= sqlStr %>" == ""){
+        if ("<%= sqlStr %>" == "") {
             sqlstr = tempStr;
             var h = document.getElementById("h3");
-            h.innerHTML = sqlstr.replace(",","-")+"专业 课程信息";
+            h.innerHTML = sqlstr.replace(",", "-") + "专业 课程信息";
         }
-        mytable = CreateDataTable('#datatable', "/major_courseService/getList?sqlstr="+sqlstr, columns);
+        mytable = CreateDataTable('#datatable', "/major_courseService/getList?sqlstr=" + sqlstr, columns);
     }
     //跳转到添加课程页面
-    function insert(str){
+    function insert(str) {
         var temp = str;
-        if(str == ""){
+        if (str == "") {
             temp = tempStr;
         }
-        window.location.href="/major_course/addCourse.html?data="+temp;
+        window.location.href = "/major_course/addCourse.html?data=" + temp;
     }
     //编辑
     function editMajorCourse(id) {
@@ -262,7 +266,7 @@
         $('input[type="checkbox"][name="checkbox2"]:checked').each(function () {
             arr.push(this.value);
         });
-        if(arr.length != 0){
+        if (arr.length != 0) {
             var result = confirm("确认要删除这些数据？");
             if (result) {
                 //数组转字符串 ，拼接
@@ -284,16 +288,16 @@
                 });
                 location.reload();
             }
-        }else{
+        } else {
             alert("请至少选择一项");
         }
     }
     //判断当前浏览器是否为IE（支持IE11）
-    function isIE(){
+    function isIE() {
         var flag = "ActiveXObject" in window;
-        if (flag){
+        if (flag) {
             ReadExcel();
-        }else{
+        } else {
             alert("导入功能暂不支持IE外的浏览器");
         }
     }
@@ -302,9 +306,9 @@
     function ReadExcel() {
         //得到文件路径的值
         var filePath = document.getElementById("upfile").value;
-        console.log("-----------"+filePath);
+        console.log("-----------" + filePath);
         //判断是否选择文件
-        if(filePath != ""){
+        if (filePath != "") {
             var oXL = new ActiveXObject("Excel.application");
             //打开指定路径的excel文件
             var oWB = oXL.Workbooks.open(filePath);
@@ -312,27 +316,27 @@
             oWB.worksheets(1).select();
             var oSheet = oWB.ActiveSheet;
             //使用的行数
-            var rows =  oSheet .usedrange.rows.count;
+            var rows = oSheet.usedrange.rows.count;
             try {
                 //验证表格格式--即验证表单表头是否与格式匹配
-                if(oSheet.Cells(1, 1).value == "专业名称"&&oSheet.Cells(1, 2).value == "开设年级"&&oSheet.Cells(1, 3).value == "开设学期"
-                        &&oSheet.Cells(1, 4).value == "课程名称"){
+                if (oSheet.Cells(1, 1).value == "专业名称" && oSheet.Cells(1, 2).value == "开设年级" && oSheet.Cells(1, 3).value == "开设学期"
+                    && oSheet.Cells(1, 4).value == "课程名称") {
                     var flag = true;
-                    for (var i = 2; i <=rows; i++) {
+                    for (var i = 2; i <= rows; i++) {
                         if (!flag) break;
                         //将表格第i行数据拼接成字符串
-                        var zyid = getZyId(oSheet.Cells(i, 2).value +"," + oSheet.Cells(i, 1).value);
+                        var zyid = getZyId(oSheet.Cells(i, 2).value + "," + oSheet.Cells(i, 1).value);
                         var kcid = getKcId(oSheet.Cells(i, 4).value);
-                        if(zyid==""){
+                        if (zyid == "") {
                             alert("该专业不存在该年级或该年级不存在");
                             break;
                         }
-                        if(kcid==""){
+                        if (kcid == "") {
                             alert("该课程不存在");
                             break;
                         }
 
-                        var str = zyid + "," +kcid + "," + oSheet.Cells(i, 3).value;
+                        var str = zyid + "," + kcid + "," + oSheet.Cells(i, 3).value;
                         //添加到专业-课程表
                         $.ajax({
                             type: "get",
@@ -340,7 +344,7 @@
                             dataType: "json",
                             data: {str: str},
                             cache: false,
-                            async:false,//同步
+                            async: false,//同步
                             success: function (result) {
 
                             },
@@ -351,21 +355,21 @@
                             }
                         });
                     }
-                    if(flag){
+                    if (flag) {
                         alert("导入成功");
                     }
                     location.reload();
-                }else{
+                } else {
                     alert("表格格式错误");
                 }
-            } catch(e) {
+            } catch (e) {
                 console.log(e);
             }
             //退出操作excel的实例对象
             oXL.Application.Quit();
             //手动调用垃圾收集器
             CollectGarbage();
-        }else{
+        } else {
             alert("请选择一个文件");
         }
     }
@@ -373,7 +377,8 @@
     function toExcel(inTblId, inWindow) {
         if ("ActiveXObject" in window) { //如果是IE浏览器
             try {
-                var allStr = ""; var curStr = "";
+                var allStr = "";
+                var curStr = "";
                 if (inTblId != null && inTblId != "" && inTblId != "null") {
                     curStr = getTblData(inTblId, inWindow);
                 }
@@ -401,15 +406,15 @@
         var flag = false;
         //遍历所有checkbox,未选中选项所在行设置class为noExl
         $('input[type="checkbox"][name="checkbox2"]').each(function () {
-            if(this.checked == false){
+            if (this.checked == false) {
                 //设置该checkbox所在行的class属性为noExl
                 this.parentNode.parentNode.classList = "noExl";
-            }else if(this.checked == true){
+            } else if (this.checked == true) {
                 this.parentNode.parentNode.classList = "";
                 flag = true;
             }
         });
-        if(flag){
+        if (flag) {
             var d = new Date();
             var curYear = d.getFullYear();
             var curMonth = "" + (d.getMonth() + 1);
@@ -435,24 +440,25 @@
             //获取需要查询的开设年级和专业名称
             var sqlstr = "<%= sqlStr %>";
             //判断开设年级和专业名称是否为空
-            if("<%= sqlStr %>" == ""){
+            if ("<%= sqlStr %>" == "") {
                 sqlstr = tempStr;
             }
             $("#datatable").table2excel({
                 exclude: ".noExl",//有class = “noExl” 的行不被导出；
                 name: "Excel Document Name",
-                filename: sqlstr.replace(",","-")+"专业 课程信息表"+"-"+curYear+curMonth+curDate+curHour+curMinute,
+                filename: sqlstr.replace(",", "-") + "专业 课程信息表" + "-" + curYear + curMonth + curDate + curHour + curMinute,
                 exclude_img: true,
                 exclude_links: true,
                 exclude_inputs: true
             });
-        }else{
+        } else {
             alert("请至少选择一项");
         }
     }
     //获取table数据
     function getTblData(inTbl, inWindow) {
-        var rows = 0; var tblDocument = document;
+        var rows = 0;
+        var tblDocument = document;
         if (!!inWindow && inWindow != "") {
             if (!document.all(inWindow)) {
                 return null;
@@ -474,9 +480,10 @@
         if (curTbl != null) {
             var flag = true;
             for (var j = 0; j < curTbl.rows.length; j++) {
-                for (var i = 1; i < curTbl.rows[j].cells.length-1; i++) {
+                for (var i = 1; i < curTbl.rows[j].cells.length - 1; i++) {
                     if (i == 1 && rows > 0) {
-                        outStr += " \t"; rows -= 1;
+                        outStr += " \t";
+                        rows -= 1;
                     }
 //                    var tc = curTbl.rows[j].cells[i];
                     if (curTbl.rows[j].cells[0].firstChild.type.toLowerCase() == "checkbox") {
@@ -486,7 +493,7 @@
                             flag = false;
                         }
                     }
-                    if(flag||j==0){
+                    if (flag || j == 0) {
                         outStr += "" + curTbl.rows[j].cells[i].innerText + "\t";
                         if (curTbl.rows[j].cells[i].colSpan > 1) {
                             for (var k = 0; k < curTbl.rows[j].cells[i].colSpan - 1; k++) {
@@ -500,12 +507,13 @@
                         }
                     }
                 }
-                if(flag||j==0){
+                if (flag || j == 0) {
                     outStr += "\r\n";
                 }
             }
         } else {
-            outStr = null; alert(inTbl + "不存在!");
+            outStr = null;
+            alert(inTbl + "不存在!");
         }
         return outStr;
     }
@@ -536,10 +544,10 @@
         //获取需要查询的开设年级和专业名称
         var sqlstr = "<%= sqlStr %>";
         //判断开设年级和专业名称是否为空
-        if("<%= sqlStr %>" == ""){
+        if ("<%= sqlStr %>" == "") {
             sqlstr = tempStr;
         }
-        var fileName = sqlstr.replace(",","-")+"专业 课程信息表"+"-"+curYear+curMonth+curDate+curHour+curMinute+".xls";
+        var fileName = sqlstr.replace(",", "-") + "专业 课程信息表" + "-" + curYear + curMonth + curDate + curHour + curMinute + ".xls";
         return fileName;
     }
     function doFileExport(inName, inStr) {
@@ -547,9 +555,10 @@
         if (!!document.all("glbHideFrm")) {
             xlsWin = glbHideFrm;
         } else {
-            var width = 1; var height = 1;
+            var width = 1;
+            var height = 1;
             var openPara = "left=" + (window.screen.width / 2 + width / 2) + ",top=" + (window.screen.height + height / 2) +
-                    ",scrollbars=no,width=" + width + ",height=" + height;
+                ",scrollbars=no,width=" + width + ",height=" + height;
             xlsWin = window.open("", "_blank", openPara);
         }
         xlsWin.document.write(inStr);
@@ -558,7 +567,7 @@
         xlsWin.close();
     }
     //由专业名称和开设年级获取专业ID
-    function getZyId(str){
+    function getZyId(str) {
         var zyid = "";
         $.ajax({
             type: "get",
@@ -566,9 +575,9 @@
             dataType: "json",
             data: {sqlStr: str},
             cache: false,
-            async:false,//同步
+            async: false,//同步
             success: function (result) {
-                zyid=result.result[0].ID;
+                zyid = result.result[0].ID;
             },
             error: function (e) {
                 console.log(e);
@@ -577,7 +586,7 @@
         return zyid;
     }
     //由课程名称获取课程ID
-    function getKcId(str){
+    function getKcId(str) {
         var kcid = "";
         $.ajax({
             type: "get",
@@ -585,9 +594,9 @@
             dataType: "json",
             data: {sqlStr: str},
             cache: false,
-            async:false,//同步
+            async: false,//同步
             success: function (result) {
-                kcid=result.result[0].ID;
+                kcid = result.result[0].ID;
             },
             error: function (e) {
                 console.log(e);

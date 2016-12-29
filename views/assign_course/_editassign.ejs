@@ -1,8 +1,9 @@
 <style type="text/css">
-    .select{
+    .select {
         width: 200%;
     }
-    .modal-dialog{
+
+    .modal-dialog {
         margin-top: 5%;
         width: 70%;
     }
@@ -21,99 +22,102 @@
                 <div class="box-body">
                     <form id="assignform" method="post" action="assign_course/_editAssign.html">
                         <input id="ID" name="ID" type="hidden" class="form-control" value="<%= id %>">
-                            <table id="edittable" class="table table-bordered">
-                                <tr></tr>
-                                <tr>
-                                    <td>
-                                        教师姓名
-                                    </td>
-                                    <td>
-                                        <select id="JSXM" name="JSXM" class="form-control">
-                                            <%- jsStr %>
-                                        </select>
-                                        <input id="JSXMTEMP" name="JSXMTEMP" type="hidden" value="<%= jsxm %>">
-                                    </td>
-                                    <td>
-                                        所授课程
-                                    </td>
-                                    <td>
-                                        <select id="SSKC" name="SSKC" class="form-control">
-                                        </select>
-                                        <input id="SSKCTEMP" name="SSKCTEMP" type="hidden" value="<%= sskc %>">
-                                    </td>
-                                    <td>
-                                        课程负责人
-                                    </td>
-                                    <td>
-                                        <select id="KCFZR" name="KCFZR" class="form-control" data-placeholder="先选择教师">
-                                        </select>
-                                        <input id="KCFZRTEMP" name="KCFZRTEMP" type="hidden" value="<%= kcfzr %>">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>所授专业</td>
-                                    <td>
-                                        <select id="SSZY" name="SSZY" class="form-control" >
-                                        </select>
-                                        <input id="SSZYTEMP" name="SSZYTEMP" type="hidden" value="<%= sszy %>">
-                                    </td>
-                                    <td>
-                                        所授年级
-                                    </td>
-                                    <td>
-                                        <select id="SSNJ" name="SSNJ" class="form-control" >
-                                        </select>
-                                        <input id="SSNJTEMP" name="SSNJTEMP" type="hidden" value="<%= ssnj %>">
-                                    </td>
-                                    <td>所授班级</td>
-                                    <td>
-                                        <select id="SSBJ" name="SSBJ" class="form-control" >
-                                        </select>
-                                        <input id="SSBJTEMP" name="SSBJTEMP" type="hidden" value="<%= ssbj %>">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>班级人数</td>
-                                    <td>
-                                        <input id="BJRS" name="BJRS" type="text" class="form-control" value="<%= bjrs %>">
-                                    </td>
-                                    <td>上课时间</td>
-                                    <td>
-                                        <input id="SKSJ" name="SKSJ" type="text" class="form-control" value="<%= sksj %>">
-                                    </td>
-                                    <td>上课地点</td>
-                                    <td>
-                                        <input id="SKDD" name="SKDD" type="text" class="form-control" value="<%= skdd %>">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>是否上机</td>
-                                    <td>
-                                        <select id="SFWSJK" name="SFWSJK" class="form-control" >
-                                            <option value="">请选择</option>
-                                            <option value="是">是</option>
-                                            <option value="否">否</option>
-                                        </select>
-                                        <input id="SFWSJKTEMP" name="SFWSJKTEMP" type="hidden" value="<%= sfwsjk %>">
-                                    </td>
-                                    <td>是否单双周</td>
-                                    <td>
-                                        <select id="SFDSZ" name="SFDSZ" class="form-control" >
-                                            <option value="">请选择</option>
-                                            <option value="是">是</option>
-                                            <option value="否">否</option>
-                                        </select>
-                                        <input id="SFDSZTEMP" name="SFDSZTEMP" type="hidden" value="<%= sfdsz %>">
-                                    </td>
-                                    <td>外聘教师评价</td>
-                                    <td>
-                                        <input id="WPJSPJ" name="WPJSPJ" type="text" class="form-control" value="<%= wpjspj %>">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"><div>选课时备注：<%= bz %></div></td>
-                                </tr>
-                            </table>
+                        <table id="edittable" class="table table-bordered">
+                            <tr></tr>
+                            <tr>
+                                <td>
+                                    教师姓名
+                                </td>
+                                <td>
+                                    <select id="JSXM" name="JSXM" class="form-control">
+                                        <%- jsStr %>
+                                    </select>
+                                    <input id="JSXMTEMP" name="JSXMTEMP" type="hidden" value="<%= jsxm %>">
+                                </td>
+                                <td>
+                                    所授课程
+                                </td>
+                                <td>
+                                    <select id="SSKC" name="SSKC" class="form-control">
+                                    </select>
+                                    <input id="SSKCTEMP" name="SSKCTEMP" type="hidden" value="<%= sskc %>">
+                                </td>
+                                <td>
+                                    课程负责人
+                                </td>
+                                <td>
+                                    <select id="KCFZR" name="KCFZR" class="form-control" data-placeholder="先选择教师">
+                                    </select>
+                                    <input id="KCFZRTEMP" name="KCFZRTEMP" type="hidden" value="<%= kcfzr %>">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>所授专业</td>
+                                <td>
+                                    <select id="SSZY" name="SSZY" class="form-control">
+                                    </select>
+                                    <input id="SSZYTEMP" name="SSZYTEMP" type="hidden" value="<%= sszy %>">
+                                </td>
+                                <td>
+                                    所授年级
+                                </td>
+                                <td>
+                                    <select id="SSNJ" name="SSNJ" class="form-control">
+                                    </select>
+                                    <input id="SSNJTEMP" name="SSNJTEMP" type="hidden" value="<%= ssnj %>">
+                                </td>
+                                <td>所授班级</td>
+                                <td>
+                                    <select id="SSBJ" name="SSBJ" class="form-control">
+                                    </select>
+                                    <input id="SSBJTEMP" name="SSBJTEMP" type="hidden" value="<%= ssbj %>">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>班级人数</td>
+                                <td>
+                                    <input id="BJRS" name="BJRS" type="text" class="form-control" value="<%= bjrs %>">
+                                </td>
+                                <td>上课时间</td>
+                                <td>
+                                    <input id="SKSJ" name="SKSJ" type="text" class="form-control" value="<%= sksj %>">
+                                </td>
+                                <td>上课地点</td>
+                                <td>
+                                    <input id="SKDD" name="SKDD" type="text" class="form-control" value="<%= skdd %>">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>是否上机</td>
+                                <td>
+                                    <select id="SFWSJK" name="SFWSJK" class="form-control">
+                                        <option value="">请选择</option>
+                                        <option value="是">是</option>
+                                        <option value="否">否</option>
+                                    </select>
+                                    <input id="SFWSJKTEMP" name="SFWSJKTEMP" type="hidden" value="<%= sfwsjk %>">
+                                </td>
+                                <td>是否单双周</td>
+                                <td>
+                                    <select id="SFDSZ" name="SFDSZ" class="form-control">
+                                        <option value="">请选择</option>
+                                        <option value="是">是</option>
+                                        <option value="否">否</option>
+                                    </select>
+                                    <input id="SFDSZTEMP" name="SFDSZTEMP" type="hidden" value="<%= sfdsz %>">
+                                </td>
+                                <td>外聘教师评价</td>
+                                <td>
+                                    <input id="WPJSPJ" name="WPJSPJ" type="text" class="form-control"
+                                           value="<%= wpjspj %>">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div>选课时备注：<%= bz %></div>
+                                </td>
+                            </tr>
+                        </table>
                     </form>
                 </div>
             </div>
@@ -147,18 +151,18 @@
             type: "get",
             url: '/assignService/getkcStr',
             dataType: "json",
-            data: {JSXM:JSXM.val()},
+            data: {JSXM: JSXM.val()},
             async: true,
             success: function (data) {
                 if (data) {
                     for (var i = 0; i < data.state.length; i++) {
                         kcStr += "<option value='" + data.state[i].KCMC + "'>" + data.state[i].KCMC + "</option>";
-                        if(data.state[i].SFZR=='是'){
+                        if (data.state[i].SFZR == '是') {
                             $('#WPJSPJ').val("");
-                            $('#WPJSPJ').attr("placeholder","（非外聘教师）");
-                            $('#WPJSPJ').attr("disabled",true);
-                        }else if(data.state[i].SFZR=='否'){
-                            $('#WPJSPJ').attr("disabled",false);
+                            $('#WPJSPJ').attr("placeholder", "（非外聘教师）");
+                            $('#WPJSPJ').attr("disabled", true);
+                        } else if (data.state[i].SFZR == '否') {
+                            $('#WPJSPJ').attr("disabled", false);
                         }
                     }
                 }
@@ -167,7 +171,7 @@
                     type: "get",
                     url: '/assignService/getfzrStr',
                     dataType: "json",
-                    data: {KCMC:$('#SSKC').val()},
+                    data: {KCMC: $('#SSKC').val()},
                     async: true,
                     success: function (fzrdata) {
                         if (fzrdata.state[0]) {
@@ -181,7 +185,7 @@
                     type: "get",
                     url: '/assignService/getzyStr',
                     dataType: "json",
-                    data: {JSXM:JSXM.val(),KCMC:SSKC.val()},
+                    data: {JSXM: JSXM.val(), KCMC: SSKC.val()},
                     async: true,
                     success: function (data) {
                         if (data) {
@@ -196,7 +200,7 @@
                             type: "get",
                             url: '/assignService/getnjbjStr',
                             dataType: "json",
-                            data: {JSXM:JSXM.val(),KCMC:SSKC.val(),ZYMC:SSZY.val()},
+                            data: {JSXM: JSXM.val(), KCMC: SSKC.val(), ZYMC: SSZY.val()},
                             async: true,
                             success: function (data) {
                                 if (data) {
@@ -231,19 +235,19 @@
             type: "get",
             url: '/assignService/getkcStr',
             dataType: "json",
-            data: {JSXM:JSXM.val()},
+            data: {JSXM: JSXM.val()},
             async: true,
             success: function (data) {
                 if (data) {
                     for (var i = 0; i < data.state.length; i++) {
                         kcStr += "<option value='" + data.state[i].KCMC + "'>" + data.state[i].KCMC + "</option>";
-                        if(data.state[i].SFZR=='是'){
+                        if (data.state[i].SFZR == '是') {
                             $('#WPJSPJ').val("");
-                            $('#WPJSPJ').attr("placeholder","（非外聘教师）");
-                            $('#WPJSPJ').attr("disabled",true);
-                        }else if(data.state[i].SFZR=='否'){
-                            $('#WPJSPJ').attr("placeholder","请输入评价");
-                            $('#WPJSPJ').attr("disabled",false);
+                            $('#WPJSPJ').attr("placeholder", "（非外聘教师）");
+                            $('#WPJSPJ').attr("disabled", true);
+                        } else if (data.state[i].SFZR == '否') {
+                            $('#WPJSPJ').attr("placeholder", "请输入评价");
+                            $('#WPJSPJ').attr("disabled", false);
                         }
                     }
                 }
@@ -252,7 +256,7 @@
                     type: "get",
                     url: '/assignService/getfzrStr',
                     dataType: "json",
-                    data: {KCMC:$('#SSKC').val()},
+                    data: {KCMC: $('#SSKC').val()},
                     async: true,
                     success: function (fzrdata) {
                         if (fzrdata.state[0]) {
@@ -266,7 +270,7 @@
                     type: "get",
                     url: '/assignService/getzyStr',
                     dataType: "json",
-                    data: {JSXM:JSXM.val(),KCMC:SSKC.val()},
+                    data: {JSXM: JSXM.val(), KCMC: SSKC.val()},
                     async: true,
                     success: function (data) {
                         if (data) {
@@ -281,7 +285,7 @@
                             type: "get",
                             url: '/assignService/getnjbjStr',
                             dataType: "json",
-                            data: {JSXM:JSXM.val(),KCMC:SSKC.val(),ZYMC:SSZY.val()},
+                            data: {JSXM: JSXM.val(), KCMC: SSKC.val(), ZYMC: SSZY.val()},
                             async: true,
                             success: function (data) {
                                 if (data) {
@@ -308,7 +312,7 @@
             type: "get",
             url: '/assignService/getfzrStr',
             dataType: "json",
-            data: {KCMC:$('#SSKC').val()},
+            data: {KCMC: $('#SSKC').val()},
             async: true,
             success: function (fzrdata) {
                 if (fzrdata) {
@@ -326,7 +330,7 @@
             type: "get",
             url: '/assignService/getnjbjStr',
             dataType: "json",
-            data: {JSXM:$('#JSXM').val(),KCMC:$('#SSKC').val(),ZYMC:$('#SSZY').val()},
+            data: {JSXM: $('#JSXM').val(), KCMC: $('#SSKC').val(), ZYMC: $('#SSZY').val()},
             async: true,
             success: function (data) {
                 if (data) {
@@ -344,7 +348,7 @@
         });
     });
 
-    function submitForm(){
+    function submitForm() {
         $.ajax({
             type: "post",
             url: '/assigncourse/_editAssign.html',

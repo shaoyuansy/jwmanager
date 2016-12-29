@@ -25,20 +25,24 @@
                 <div class="box-tools pull-right">
                     <button type="button" title="批量删除" class="btn btn-box-tool"
                             onclick="delSomeTeacher()">
-                        <i class="fa fa-fw fa-times"></i>批量删除</button>
+                        <i class="fa fa-fw fa-times"></i>批量删除
+                    </button>
                     <button type="button" title="添加" class="btn btn-box-tool"
                             onclick="editTeacher(0)">
-                        <i class="fa fa-fw fa-user-plus"></i>添加</button>
+                        <i class="fa fa-fw fa-user-plus"></i>添加
+                    </button>
                     <button type="button" title="导出" class="btn btn-box-tool"
                             onclick="exportData()">
-                        <i class="fa fa-fw fa-cloud-download"></i>导出</button>
+                        <i class="fa fa-fw fa-cloud-download"></i>导出
+                    </button>
                     <button type="button" title="导入" class="btn btn-box-tool"
                             onclick="isIE();">
-                        <i class="fa fa-fw fa-sign-in"></i>导入</button>
+                        <i class="fa fa-fw fa-sign-in"></i>导入
+                    </button>
                 </div>
                 <div style="margin-top: 1%">
                     <div style="float: right">
-                        <input type="file" id="upfile" accept=".xls,.xlsx" />
+                        <input type="file" id="upfile" accept=".xls,.xlsx"/>
                     </div>
                 </div>
             </div>
@@ -48,7 +52,7 @@
                     <thead>
                     <tr>
                         <th><input id="checkbox1" name="checkbox1" type="checkbox"></th>
-						<th>#</th>
+                        <th>#</th>
                         <th>姓名</th>
                         <th>工号</th>
                         <th>是否专任</th>
@@ -81,14 +85,14 @@
     var mytable;
 
     //全选  全反选处理
-    $("#checkbox1").click(function (){
+    $("#checkbox1").click(function () {
         var checkbox = document.getElementById('checkbox1');
         //是否被选中
-        if(checkbox.checked){
+        if (checkbox.checked) {
             $('input[type="checkbox"][name="checkbox2"]').each(function () {
                 this.checked = true;
             });
-        }else{
+        } else {
             $('input[type="checkbox"][name="checkbox2"]').each(function () {
                 this.checked = false;
             });
@@ -101,10 +105,10 @@
                 "mData": null,
                 "sClass": "center",
                 "mData": function (obj) {
-                    return '<input id="checkbox2" name="checkbox2" type="checkbox" value='+obj.ID+'>';
+                    return '<input id="checkbox2" name="checkbox2" type="checkbox" value=' + obj.ID + '>';
                 }
             },
-			{
+            {
                 "mData": "ID",
                 "sClass": "center"
             },
@@ -161,15 +165,14 @@
                 "sClass": "center",
                 "mData": function (obj) {
                     var filep = obj.FJ;
-                    var str= "";
-                    if(filep == "null" || filep == null || filep == ""){
-                        str+='无';
+                    var str = "";
+                    if (filep == "null" || filep == null || filep == "") {
+                        str += '无';
                     }
-                    if(filep != "" && filep != null && filep != "null")
-                    {
+                    if (filep != "" && filep != null && filep != "null") {
                         var locArray = filep.split("/");
-                        var fileNmae=locArray[locArray.length-1];
-                        str+='<a href="/teacherService/download?filePath='+filep+'" > '+fileNmae+'</a>';
+                        var fileNmae = locArray[locArray.length - 1];
+                        str += '<a href="/teacherService/download?filePath=' + filep + '" > ' + fileNmae + '</a>';
                     }
                     return str;
                 }
@@ -179,7 +182,7 @@
                 "sClass": "center",
                 "mData": function (obj) {
                     return '<a style="margin-left: 10px;" onclick="editTeacher(\'' + obj.ID + '\')" href="#" role="button" data-toggle="modal" title="编辑"><i class="fa fa-fw fa-pencil"></i></a>'
-                            +'<a style="margin-left: 10px;" onclick="delTeacher(\'' + obj.ID + '\')" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';
+                        + '<a style="margin-left: 10px;" onclick="delTeacher(\'' + obj.ID + '\')" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';
                 }
             }
         ];
@@ -229,7 +232,7 @@
         $('input[type="checkbox"][name="checkbox2"]:checked').each(function () {
             arr.push(this.value);
         });
-        if(arr.length != 0){
+        if (arr.length != 0) {
             var result = confirm("确认要删除这些数据？");
             if (result) {
                 //数组转字符串 ，拼接
@@ -240,11 +243,11 @@
                     dataType: "json",
                     data: {idstr: idstr},
                     cache: true,
-                    success: function (msg){
-                        if(msg.result != 0){
+                    success: function (msg) {
+                        if (msg.result != 0) {
                             alert("删除成功！");
 
-                        }else {
+                        } else {
                             alert("删除失败！");
                         }
                     },
@@ -254,7 +257,7 @@
                 });
                 location.reload();
             }
-        }else{
+        } else {
             alert("请至少选择一项");
         }
     }
@@ -267,25 +270,25 @@
         $('input[type="checkbox"][name="checkbox2"]:checked').each(function () {
             arr.push(this.value);
         });
-        if(arr.length != 0){
+        if (arr.length != 0) {
             var result = confirm("确认导出这些数据？");
             if (result) {
                 //数组转字符串 ，拼接
                 var idstr = arr.join(",");
                 //不可以写成:window.location.href（""）;
-                window.location.href="/teacher/_exportTeacher?IDstr=" + idstr ;
+                window.location.href = "/teacher/_exportTeacher?IDstr=" + idstr;
             }
-        }else{
+        } else {
             alert("请至少选择一项");
         }
     }
 
     //导入前判断当前浏览器是否为IE（支持IE11）
-    function isIE(){
+    function isIE() {
         var flag = "ActiveXObject" in window;
-        if (flag){
+        if (flag) {
             ReadExcel();
-        }else{
+        } else {
             alert("导入功能暂不支持IE外的浏览器");
         }
     }
@@ -293,10 +296,10 @@
     function ReadExcel() {
         //得到文件路径的值
         var filePath = document.getElementById("upfile").value;
-        var houzhui =/\.[^\.]+/.exec(filePath);
-        if(houzhui==".xlsx"){
-            alert("文件"+filePath+"文件格式或文件扩展名无效。请确定文件未损坏，并且文件扩展名为“.xls”");
-        }else if(filePath != ""){
+        var houzhui = /\.[^\.]+/.exec(filePath);
+        if (houzhui == ".xlsx") {
+            alert("文件" + filePath + "文件格式或文件扩展名无效。请确定文件未损坏，并且文件扩展名为“.xls”");
+        } else if (filePath != "") {
             var oXL = new ActiveXObject("Excel.application");
             //打开指定路径的excel文件
             var oWB = oXL.Workbooks.open(filePath);
@@ -304,48 +307,48 @@
             oWB.worksheets(1).select();
             var oSheet = oWB.ActiveSheet;
             //使用的行数
-            var rows =  oSheet .usedrange.rows.count;
+            var rows = oSheet.usedrange.rows.count;
             try {
                 //验证表格格式--即验证表单表头是否与格式匹配
-                if(oSheet.Cells(1, 1).value == "工号"&&oSheet.Cells(1, 2).value == "姓名"&&oSheet.Cells(1, 3).value == "性别"
-                        &&oSheet.Cells(1, 4).value == "出生年月"&&oSheet.Cells(1, 5).value == "民族"&&oSheet.Cells(1, 6).value == "身份证号码"
-                        &&oSheet.Cells(1, 7).value == "联系电话"&&oSheet.Cells(1, 8).value == "所属教研室"&&oSheet.Cells(1, 9).value == "入校时间"
-                        &&oSheet.Cells(1, 10).value == "分管负责人"&&oSheet.Cells(1, 11).value == "定职时间"&&oSheet.Cells(1, 12).value == "任职状态"
-                        &&oSheet.Cells(1, 13).value == "单位号"&&oSheet.Cells(1, 14).value == "单位名称"&&oSheet.Cells(1, 15).value == "工作单位类别"
-                        &&oSheet.Cells(1, 16).value == "学历"&&oSheet.Cells(1, 17).value == "最高学位"&&oSheet.Cells(1, 18).value == "是否专任"
-                        &&oSheet.Cells(1, 19).value == "毕业时间"&&oSheet.Cells(1, 20).value == "毕业院校"&&oSheet.Cells(1, 21).value == "学缘"
-                        &&oSheet.Cells(1, 22).value == "专业技术职称"
-                        &&oSheet.Cells(1, 23).value == "学科类别"&&oSheet.Cells(1, 24).value == "导师类型"&&oSheet.Cells(1, 25).value == "地区"
-                        &&oSheet.Cells(1, 26).value == "可授课程"&&oSheet.Cells(1, 27).value == "在我院初始代课时间"&&oSheet.Cells(1, 28).value == "教学效果"
-                        &&oSheet.Cells(1, 29).value == "是否为双师型"&&oSheet.Cells(1, 30).value == "是否具有工程背景"&&oSheet.Cells(1, 31).value == "是否具有行业背景"
-                        &&oSheet.Cells(1, 32).value == "身份证复印件"&&oSheet.Cells(1, 33).value == "工作证复印件"&&oSheet.Cells(1, 34).value == "教师资格证复印件"
-                        &&oSheet.Cells(1, 35).value == "学位证复印件"&&oSheet.Cells(1, 36).value == "毕业证复印件"&&oSheet.Cells(1, 37).value == "职称证复印件"
-                        &&oSheet.Cells(1, 38).value == "协议书"
-                ){
+                if (oSheet.Cells(1, 1).value == "工号" && oSheet.Cells(1, 2).value == "姓名" && oSheet.Cells(1, 3).value == "性别"
+                    && oSheet.Cells(1, 4).value == "出生年月" && oSheet.Cells(1, 5).value == "民族" && oSheet.Cells(1, 6).value == "身份证号码"
+                    && oSheet.Cells(1, 7).value == "联系电话" && oSheet.Cells(1, 8).value == "所属教研室" && oSheet.Cells(1, 9).value == "入校时间"
+                    && oSheet.Cells(1, 10).value == "分管负责人" && oSheet.Cells(1, 11).value == "定职时间" && oSheet.Cells(1, 12).value == "任职状态"
+                    && oSheet.Cells(1, 13).value == "单位号" && oSheet.Cells(1, 14).value == "单位名称" && oSheet.Cells(1, 15).value == "工作单位类别"
+                    && oSheet.Cells(1, 16).value == "学历" && oSheet.Cells(1, 17).value == "最高学位" && oSheet.Cells(1, 18).value == "是否专任"
+                    && oSheet.Cells(1, 19).value == "毕业时间" && oSheet.Cells(1, 20).value == "毕业院校" && oSheet.Cells(1, 21).value == "学缘"
+                    && oSheet.Cells(1, 22).value == "专业技术职称"
+                    && oSheet.Cells(1, 23).value == "学科类别" && oSheet.Cells(1, 24).value == "导师类型" && oSheet.Cells(1, 25).value == "地区"
+                    && oSheet.Cells(1, 26).value == "可授课程" && oSheet.Cells(1, 27).value == "在我院初始代课时间" && oSheet.Cells(1, 28).value == "教学效果"
+                    && oSheet.Cells(1, 29).value == "是否为双师型" && oSheet.Cells(1, 30).value == "是否具有工程背景" && oSheet.Cells(1, 31).value == "是否具有行业背景"
+                    && oSheet.Cells(1, 32).value == "身份证复印件" && oSheet.Cells(1, 33).value == "工作证复印件" && oSheet.Cells(1, 34).value == "教师资格证复印件"
+                    && oSheet.Cells(1, 35).value == "学位证复印件" && oSheet.Cells(1, 36).value == "毕业证复印件" && oSheet.Cells(1, 37).value == "职称证复印件"
+                    && oSheet.Cells(1, 38).value == "协议书"
+                ) {
                     var flag = true;
-                    for (var i = 2; i <=rows; i++) {
+                    for (var i = 2; i <= rows; i++) {
                         if (!flag) break;
                         //将表格第i行数据拼接成字符串
-                        var str = oSheet.Cells(i, 1).value +"," + oSheet.Cells(i, 2).value + "," + oSheet.Cells(i, 3).value+ ","
-                                + oSheet.Cells(i, 4).value + ","+ oSheet.Cells(i, 5).value + ","+ oSheet.Cells(i, 6).value + ","
-                                + oSheet.Cells(i, 7).value + ","+ oSheet.Cells(i, 8).value + ","+ oSheet.Cells(i, 9).value + ","
-                                + oSheet.Cells(i, 10).value + ","+ oSheet.Cells(i, 11).value + ","+ oSheet.Cells(i, 12).value + ","
-                                + oSheet.Cells(i, 13).value + ","+ oSheet.Cells(i, 14).value + ","+ oSheet.Cells(i, 15).value + ","
-                                + oSheet.Cells(i, 16).value + ","+ oSheet.Cells(i, 17).value + ","+ oSheet.Cells(i, 18).value + ","
-                                + oSheet.Cells(i, 19).value + ","+ oSheet.Cells(i, 20).value + ","+ oSheet.Cells(i, 21).value + ","
-                                + oSheet.Cells(i, 22).value + ","+ oSheet.Cells(i, 23).value + ","+ oSheet.Cells(i, 24).value + ","
-                                + oSheet.Cells(i, 25).value + ","+ oSheet.Cells(i, 26).value + ","+ oSheet.Cells(i, 27).value + ","
-                                + oSheet.Cells(i, 28).value + ","+ oSheet.Cells(i, 29).value + ","+ oSheet.Cells(i, 30).value + ","
-                                + oSheet.Cells(i, 31).value + ","+ oSheet.Cells(i, 32).value + ","+ oSheet.Cells(i, 33).value + ","
-                                + oSheet.Cells(i, 34).value + ","+ oSheet.Cells(i, 35).value + ","+ oSheet.Cells(i, 36).value + ","
-                                + oSheet.Cells(i, 37).value + ","+ oSheet.Cells(i, 38).value;
+                        var str = oSheet.Cells(i, 1).value + "," + oSheet.Cells(i, 2).value + "," + oSheet.Cells(i, 3).value + ","
+                            + oSheet.Cells(i, 4).value + "," + oSheet.Cells(i, 5).value + "," + oSheet.Cells(i, 6).value + ","
+                            + oSheet.Cells(i, 7).value + "," + oSheet.Cells(i, 8).value + "," + oSheet.Cells(i, 9).value + ","
+                            + oSheet.Cells(i, 10).value + "," + oSheet.Cells(i, 11).value + "," + oSheet.Cells(i, 12).value + ","
+                            + oSheet.Cells(i, 13).value + "," + oSheet.Cells(i, 14).value + "," + oSheet.Cells(i, 15).value + ","
+                            + oSheet.Cells(i, 16).value + "," + oSheet.Cells(i, 17).value + "," + oSheet.Cells(i, 18).value + ","
+                            + oSheet.Cells(i, 19).value + "," + oSheet.Cells(i, 20).value + "," + oSheet.Cells(i, 21).value + ","
+                            + oSheet.Cells(i, 22).value + "," + oSheet.Cells(i, 23).value + "," + oSheet.Cells(i, 24).value + ","
+                            + oSheet.Cells(i, 25).value + "," + oSheet.Cells(i, 26).value + "," + oSheet.Cells(i, 27).value + ","
+                            + oSheet.Cells(i, 28).value + "," + oSheet.Cells(i, 29).value + "," + oSheet.Cells(i, 30).value + ","
+                            + oSheet.Cells(i, 31).value + "," + oSheet.Cells(i, 32).value + "," + oSheet.Cells(i, 33).value + ","
+                            + oSheet.Cells(i, 34).value + "," + oSheet.Cells(i, 35).value + "," + oSheet.Cells(i, 36).value + ","
+                            + oSheet.Cells(i, 37).value + "," + oSheet.Cells(i, 38).value;
                         $.ajax({
                             type: "get",
                             url: '/teacherService/insertSome',
                             dataType: "json",
                             data: {str: str},
                             cache: false,
-                            async:false,//同步
+                            async: false,//同步
                             success: function (result) {
 
                             },
@@ -356,21 +359,21 @@
                             }
                         });
                     }
-                    if(flag){
+                    if (flag) {
                         alert("导入成功");
                     }
                     location.reload();
-                }else{
+                } else {
                     alert("表格格式错误，请检查文件首行与表头是否一致、“操作”列是否删除，请不要有空行。");
                 }
-            } catch(e) {
+            } catch (e) {
                 console.log(e);
             }
             //退出操作excel的实例对象
             oXL.Application.Quit();
             //手动调用垃圾收集器
             CollectGarbage();
-        }else{
+        } else {
             alert("请选择一个文件");
         }
     }

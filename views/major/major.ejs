@@ -1,4 +1,3 @@
-
 <!-- datatable -->
 <script src="../javascripts/mydatatable.js"></script>
 <!-- table2excel导出 -->
@@ -30,16 +29,20 @@
                 <div class="box-tools pull-right">
                     <button type="button" title="批量删除" class="btn btn-box-tool"
                             onclick="delSomeJys();">
-                        <i class="fa fa-fw fa-plus-circle"></i>批量删除</button>
+                        <i class="fa fa-fw fa-plus-circle"></i>批量删除
+                    </button>
                     <button type="button" title="添加" class="btn btn-box-tool"
                             onclick="editMajor(0)">
-                        <i class="fa fa-fw fa-plus-circle"></i>添加</button>
+                        <i class="fa fa-fw fa-plus-circle"></i>添加
+                    </button>
                     <button type="button" title="导出" class="btn btn-box-tool"
                             onclick="">
-                        <i class="fa fa-fw fa-plus-circle"></i>导出</button>
+                        <i class="fa fa-fw fa-plus-circle"></i>导出
+                    </button>
                     <button type="button" title="导入" class="btn btn-box-tool"
                             onclick="">
-                        <i class="fa fa-fw fa-plus-circle"></i>导入</button>
+                        <i class="fa fa-fw fa-plus-circle"></i>导入
+                    </button>
                 </div>
                 <div style="margin-top: 1%">
                     <div style="float: left;margin-left: 2%">当前显示的列：&nbsp;&nbsp;&nbsp;&nbsp;
@@ -52,7 +55,7 @@
                         各班大约人数：<input id="checkbox3" name="checkbox3" type="checkbox" value="7">&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                     <!--<div style="float: right">-->
-                        <!--<input type="file" id="upfile" accept=".xls,.xlsx" />-->
+                    <!--<input type="file" id="upfile" accept=".xls,.xlsx" />-->
                     <!--</div>-->
                 </div>
             </div>
@@ -92,14 +95,14 @@
 
     $(document).ready(function () {
         //全选  全反选处理
-        $("#checkbox1").click(function (){
+        $("#checkbox1").click(function () {
             var checkbox = document.getElementById('checkbox1');
             //是否被选中
-            if(checkbox.checked){
+            if (checkbox.checked) {
                 $('input[type="checkbox"][name="checkbox2"]').each(function () {
                     this.checked = true;
                 });
-            }else{
+            } else {
                 $('input[type="checkbox"][name="checkbox2"]').each(function () {
                     this.checked = false;
                 });
@@ -111,7 +114,7 @@
                 "mData": null,
                 "sClass": "center",
                 "mData": function (obj) {
-                    return '<input id="checkbox2" name="checkbox2" type="checkbox" value='+obj.ID+'>';
+                    return '<input id="checkbox2" name="checkbox2" type="checkbox" value=' + obj.ID + '>';
                 }
             },
             {
@@ -151,7 +154,7 @@
                 "sClass": "center",
                 "mData": function (obj) {
                     return '<a style="margin-left: 10px;" onclick="editMajor(\'' + obj.ID + '\')" href="#" role="button" data-toggle="modal" title="编辑"><i class="fa fa-fw fa-pencil"></i></a>'
-                            +'<a style="margin-left: 10px;" onclick="delMajor(\'' + obj.ID + '\')" href="#" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';
+                        + '<a style="margin-left: 10px;" onclick="delMajor(\'' + obj.ID + '\')" href="#" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';
                 }
             }
         ];
@@ -160,16 +163,16 @@
         //初始化当前显示列的checkbox判断是否选中
         $('input[type="checkbox"][name="checkbox3"]').each(function () {
             // Get the column API object
-            var column = $("#datatable").DataTable().column( $(this).val() );
+            var column = $("#datatable").DataTable().column($(this).val());
             // Toggle the visibility
             this.checked = column.visible();
         });
 
-        $('input[type="checkbox"][name="checkbox3"]').change( function () {
+        $('input[type="checkbox"][name="checkbox3"]').change(function () {
             // Get the column API object
-            var column = $("#datatable").DataTable().column( $(this).val() );
+            var column = $("#datatable").DataTable().column($(this).val());
             // Toggle the visibility
-            column.visible( ! column.visible() );
+            column.visible(!column.visible());
         });
     });
 
@@ -188,7 +191,7 @@
         });
     }
     //删除与要删除记录相关的专业-课程记录
-    function delMajorCourse(data){
+    function delMajorCourse(data) {
         $.ajax({
             type: "get",
             url: '/major_courseService/delSomeByZy',
@@ -234,7 +237,7 @@
         $('input[type="checkbox"][name="checkbox2"]:checked').each(function () {
             arr.push(this.value);
         });
-        if(arr.length != 0){
+        if (arr.length != 0) {
             var result = confirm("确认要删除这些数据？");
             if (result) {
                 //数组转字符串 ，拼接
@@ -257,7 +260,7 @@
                 });
                 location.reload();
             }
-        }else{
+        } else {
             alert("请至少选择一项");
         }
     }

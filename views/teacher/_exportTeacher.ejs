@@ -25,7 +25,8 @@
                 <div class="box-tools pull-right">
                     <button type="button" title="导出" class="btn btn-box-tool"
                             onclick="toExcel('exporttable','');">
-                        <i class="fa fa-fw fa-cloud-download"></i>导出</button>
+                        <i class="fa fa-fw fa-cloud-download"></i>导出
+                    </button>
                 </div>
 
                 <div style="margin-top: 1%">
@@ -74,58 +75,59 @@
                         附件：<input id="checkbox3" name="checkbox3" type="checkbox" value="38">&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                 </div>
-            <!-- /.box-header -->
-            <div class="box-body" >
-                <div style="overflow:scroll;width: 100%">
-                <table id="exporttable" class="table table-bordered table-striped" style="width: 350%;table-layout: fixed">
-                    <thead>
-                    <tr>
-                        <th>工号</th>
-                        <th>姓名</th>
-                        <th>性别</th>
-                        <th>出生年月</th>
-                        <th>民族</th>
-                        <th>身份证号码</th>
-                        <th>联系电话</th>
-                        <th>所属教研室</th>
-                        <th>入校时间</th>
-                        <th>分管负责人</th>
-                        <th>定职时间</th>
-                        <th>任职状态</th>
-                        <th>单位号</th>
-                        <th>单位名称</th>
-                        <th>工作单位类别</th>
-                        <th>学历</th>
-                        <th>最高学位</th>
-                        <th>是否专任</th>
-                        <th>毕业时间</th>
-                        <th>毕业院校</th>
-                        <th>学缘</th>
-                        <th>专业技术职称</th>
-                        <th>学科类别</th>
-                        <th>导师类型</th>
-                        <th>地区</th>
-                        <th>可授课程</th>
-                        <th>在我院初始代课时间</th>
-                        <th>教学效果</th>
-                        <th>是否为双师型</th>
-                        <th>是否具有工程背景</th>
-                        <th>是否具有行业背景</th>
-                        <th>身份证复印件</th>
-                        <th>工作证复印件</th>
-                        <th>教师资格证复印件</th>
-                        <th>学位证复印件</th>
-                        <th>毕业证复印件</th>
-                        <th>职称证复印件</th>
-                        <th>协议书</th>
-                        <th>附件</th>
-                    </tr>
-                    </thead>
-                </table>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div style="overflow:scroll;width: 100%">
+                        <table id="exporttable" class="table table-bordered table-striped"
+                               style="width: 350%;table-layout: fixed">
+                            <thead>
+                            <tr>
+                                <th>工号</th>
+                                <th>姓名</th>
+                                <th>性别</th>
+                                <th>出生年月</th>
+                                <th>民族</th>
+                                <th>身份证号码</th>
+                                <th>联系电话</th>
+                                <th>所属教研室</th>
+                                <th>入校时间</th>
+                                <th>分管负责人</th>
+                                <th>定职时间</th>
+                                <th>任职状态</th>
+                                <th>单位号</th>
+                                <th>单位名称</th>
+                                <th>工作单位类别</th>
+                                <th>学历</th>
+                                <th>最高学位</th>
+                                <th>是否专任</th>
+                                <th>毕业时间</th>
+                                <th>毕业院校</th>
+                                <th>学缘</th>
+                                <th>专业技术职称</th>
+                                <th>学科类别</th>
+                                <th>导师类型</th>
+                                <th>地区</th>
+                                <th>可授课程</th>
+                                <th>在我院初始代课时间</th>
+                                <th>教学效果</th>
+                                <th>是否为双师型</th>
+                                <th>是否具有工程背景</th>
+                                <th>是否具有行业背景</th>
+                                <th>身份证复印件</th>
+                                <th>工作证复印件</th>
+                                <th>教师资格证复印件</th>
+                                <th>学位证复印件</th>
+                                <th>毕业证复印件</th>
+                                <th>职称证复印件</th>
+                                <th>协议书</th>
+                                <th>附件</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.box-body -->
             </div>
-            </div>
-            <!-- /.box-body -->
-        </div>
         </div>
         <!-- /.box -->
     </section>
@@ -293,19 +295,18 @@
                 "mData": null,
                 "sClass": "center",
                 "mData": function (obj) {
-                var filep = obj.FJ;
-                var str= "";
-                if(filep == null || filep == ""){
-                    str+='无';
+                    var filep = obj.FJ;
+                    var str = "";
+                    if (filep == null || filep == "") {
+                        str += '无';
+                    }
+                    if (filep != "" && filep != null) {
+                        var locArray = filep.split("/");
+                        var fileNmae = locArray[locArray.length - 1];
+                        str += '<a href="/teacherService/download?filePath=' + filep + '" > ' + fileNmae + '</a>';
+                    }
+                    return str;
                 }
-                if(filep != "" &&filep != null)
-                {
-                    var locArray = filep.split("/");
-                    var fileNmae=locArray[locArray.length-1];
-                    str+='<a href="/teacherService/download?filePath='+filep+'" > '+fileNmae+'</a>';
-                }
-                return str;
-            }
             }
 
         ];
@@ -314,16 +315,16 @@
         //初始化当前显示列的checkbox判断是否选中
         $('input[type="checkbox"][name="checkbox3"]').each(function () {
             // Get the column API object
-            var column = $("#exporttable").DataTable().column( $(this).val() );
+            var column = $("#exporttable").DataTable().column($(this).val());
             // Toggle the visibility
             this.checked = column.visible();
         });
 
-        $('input[type="checkbox"][name="checkbox3"]').change( function () {
+        $('input[type="checkbox"][name="checkbox3"]').change(function () {
             // Get the column API object
-            var column = $("#exporttable").DataTable().column( $(this).val() );
+            var column = $("#exporttable").DataTable().column($(this).val());
             // Toggle the visibility
-            column.visible( ! column.visible() );
+            column.visible(!column.visible());
         });
     });
 
@@ -332,7 +333,8 @@
         //如果是IE浏览器
         if ("ActiveXObject" in window) {
             try {
-                var allStr = ""; var curStr = "";
+                var allStr = "";
+                var curStr = "";
                 if (inTblId != null && inTblId != "" && inTblId != "null") {
                     curStr = getTblData(inTblId, inWindow);
                 }
@@ -381,7 +383,7 @@
         $("#exporttable").table2excel({
             exclude: ".noExl",//有class = “noExl” 的行不被导出；
             name: "Excel Document Name",
-            filename: "教师信息表"+"-"+curYear+curMonth+curDate+curHour+curMinute,
+            filename: "教师信息表" + "-" + curYear + curMonth + curDate + curHour + curMinute,
             exclude_img: true,
             exclude_links: true,
             exclude_inputs: true
@@ -389,7 +391,8 @@
     }
 
     function getTblData(inTbl, inWindow) {
-        var rows = 0; var tblDocument = document;
+        var rows = 0;
+        var tblDocument = document;
         if (!!inWindow && inWindow != "") {
             if (!document.all(inWindow)) {
                 return null;
@@ -413,9 +416,10 @@
             for (var j = 0; j < curTbl.rows.length; j++) {
                 for (var i = 0; i < curTbl.rows[j].cells.length; i++) {
                     if (i == 1 && rows > 0) {
-                        outStr += " \t"; rows -= 1;
+                        outStr += " \t";
+                        rows -= 1;
                     }
-                    if(flag||j==0){
+                    if (flag || j == 0) {
                         outStr += "" + curTbl.rows[j].cells[i].innerText + "\t";
                         if (curTbl.rows[j].cells[i].colSpan > 1) {
                             for (var k = 0; k < curTbl.rows[j].cells[i].colSpan; k++) {
@@ -429,12 +433,13 @@
                         }
                     }
                 }
-                if(flag||j==0){
+                if (flag || j == 0) {
                     outStr += "\r\n";
                 }
             }
         } else {
-            outStr = null; alert(inTbl + "不存在!");
+            outStr = null;
+            alert(inTbl + "不存在!");
         }
         return outStr;
     }
@@ -456,13 +461,14 @@
         if (curHour.length == 1) {
             curHour = "0" + curHour;
         }
-        if (curMinute.length == 1) {sdasda
+        if (curMinute.length == 1) {
+            sdasda
             curMinute = "0" + curMinute;
         }
         if (curSecond.length == 1) {
             curSecond = "0" + curSecond;
         }
-        var fileName = "教师信息表"+"-"+curYear+curMonth+curDate+curHour+curMinute+".xls";
+        var fileName = "教师信息表" + "-" + curYear + curMonth + curDate + curHour + curMinute + ".xls";
         return fileName;
     }
 
@@ -471,9 +477,10 @@
         if (!!document.all("glbHideFrm")) {
             xlsWin = glbHideFrm;
         } else {
-            var width = 1; var height = 1;
+            var width = 1;
+            var height = 1;
             var openPara = "left=" + (window.screen.width / 2 + width / 2) + ",top=" + (window.screen.height + height / 2) +
-                    ",scrollbars=no,width=" + width + ",height=" + height;
+                ",scrollbars=no,width=" + width + ",height=" + height;
             xlsWin = window.open("", "_blank", openPara);
         }
         xlsWin.document.write(inStr);

@@ -46,7 +46,7 @@
         $("#KCID").val($("#KCIDTEMP").val());//自动选择课程
         $("#KSXQ").val($("#KSXQTEMP").val());//自动选择开设学期
     });
-    function submitForm(){
+    function submitForm() {
         $.ajax({
             type: "post",
             url: '/major_course/_editMajorCourse.html',

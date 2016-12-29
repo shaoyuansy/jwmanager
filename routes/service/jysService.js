@@ -5,8 +5,8 @@ var express = require('express');
 var router = express.Router();
 
 /* . */
-router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Express' });
+router.get('/', function (req, res, next) {
+    res.render('index', {title: 'Express'});
 });
 
 /* 教研室服务开始. */
@@ -35,7 +35,7 @@ router.get('/insertSome', function (req, res, next) {
     sqlArr = req.query.str.split(',');
     jysDao.insert(req, res, sqlArr, function (result) {
         if (result) {
-            res.send({"state":result});
+            res.send({"state": result});
         }
     });
 });

@@ -58,8 +58,8 @@ exports.delete = function (req, res, ID, fn) {
 //批量删除记录
 exports.deleteSome = function (req, res, idstr, fn) {
     pool.getConnection(function (err, connection) {
-        var sql = "DELETE FROM jw_zy WHERE ID IN ("+req.query.idstr+")";
-        connection.query("DELETE FROM jw_zy WHERE ID IN ("+req.query.idstr+")", function (err, result) {
+        var sql = "DELETE FROM jw_zy WHERE ID IN (" + req.query.idstr + ")";
+        connection.query("DELETE FROM jw_zy WHERE ID IN (" + req.query.idstr + ")", function (err, result) {
             connection.release();
             fn(1);
         });
@@ -75,10 +75,10 @@ exports.queryKsnj = function (req, res, fn) {
     });
 };
 /* 由年级和专业名称获取专业ID*/
-exports.queryZyId = function (req, res,sqlStr, fn) {
+exports.queryZyId = function (req, res, sqlStr, fn) {
     var arr = sqlStr.split(",");
     pool.getConnection(function (err, connection) {
-        connection.query($sql.queryZyId,arr, function (err, result) {
+        connection.query($sql.queryZyId, arr, function (err, result) {
             connection.release();
             fn(result);
         });

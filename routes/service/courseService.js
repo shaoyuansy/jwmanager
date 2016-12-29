@@ -14,7 +14,7 @@ router.get('/getList', function (req, res, next) {
 });
 //选课页面获取课程信息列表
 router.get('/selectCourse', function (req, res, next) {
-    kcDao.selectCourse(req, res,req.query.arrC, function (result) {
+    kcDao.selectCourse(req, res, req.query.arrC, function (result) {
         res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
     });
 });
@@ -36,7 +36,7 @@ router.get('/insertSome', function (req, res, next) {
     sqlArr = req.query.str.split(',');
     kcDao.insertSome(req, res, sqlArr, function (result) {
         if (result) {
-            res.send({"state":result});
+            res.send({"state": result});
         }
     });
 });

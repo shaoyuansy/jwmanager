@@ -5,8 +5,8 @@ var express = require('express');
 var router = express.Router();
 
 /* . */
-router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Express' });
+router.get('/', function (req, res, next) {
+    res.render('index', {title: 'Express'});
 });
 
 /* 专业服务开始. */
@@ -35,7 +35,7 @@ router.get('/insertSome', function (req, res, next) {
     sqlArr = req.query.str.split(',');
     zyDao.insert(req, res, sqlArr, function (result) {
         if (result) {
-            res.send({"state":result});
+            res.send({"state": result});
         }
     });
 });

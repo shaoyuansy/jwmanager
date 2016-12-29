@@ -7,39 +7,39 @@ var kcDao = require('../../models/dao/jw_kc/kcDao');
 var jysDao = require('../../models/dao/jw_jys/jysDao');
 
 //超链接跳转
-router.get('/course.html', function(req, res, next) {
-    res.render('course/course', { title: '教务信息管理系统——专业管理' });
+router.get('/course.html', function (req, res, next) {
+    res.render('course/course', {title: '教务信息管理系统——专业管理'});
 });
 //编辑信息--若是更新信息则在编辑页面显示信息
-router.get('/_editCourse.html', function(req, res, next) {
+router.get('/_editCourse.html', function (req, res, next) {
     var jysStr = "";
-    jysDao.queryAll(req, res, function(jysResult) {
+    jysDao.queryAll(req, res, function (jysResult) {
         if (jysResult.length > 0) {
             for (var i = 0; i < jysResult.length; i++) {
                 jysStr += "<option value='" + jysResult[i].JYSMC + "'>" + jysResult[i].JYSMC + "</option>";
             }
         }
-        if(req.query.id == 0){
+        if (req.query.id == 0) {
             res.render('course/_editCourse', {
                 _layoutFile: false,
                 title: '教务信息管理系统——课程管理',
-                id:0,
-                kcbh:"",
-                kcmc:"",
-                kcywmc:"",
-                kcfzr:"",
-                kclx:"",
-                zxs:"",
-                sjxs:"",
-                xf:"",
-                sydx:"",
-                xdkc:"",
-                hxkc:"",
-                jyshf:"",
-                zyfzr:"",
-                jyscode:jysStr
+                id: 0,
+                kcbh: "",
+                kcmc: "",
+                kcywmc: "",
+                kcfzr: "",
+                kclx: "",
+                zxs: "",
+                sjxs: "",
+                xf: "",
+                sydx: "",
+                xdkc: "",
+                hxkc: "",
+                jyshf: "",
+                zyfzr: "",
+                jyscode: jysStr
             });
-        }else {
+        } else {
             kcDao.queryListById(req, res, req.query.id, function (result) {
                 res.render('course/_editCourse', {
                     _layoutFile: false,
@@ -58,7 +58,7 @@ router.get('/_editCourse.html', function(req, res, next) {
                     hxkc: result[0].HXKC,
                     jyshf: result[0].JYSHF,
                     zyfzr: result[0].ZYFZR,
-                    jyscode:jysStr
+                    jyscode: jysStr
                 });
             });
         }
@@ -83,36 +83,36 @@ router.post('/_editCourse.html', function (req, res, next) {
     var jyshf = req.body.JYSHF;           //所属教研室
     var zyfzr = req.body.ZYFZR;           //专业负责人
     var sqlArr;    //字段数组
-    if(id==0){
-        sqlArr = [kcbh,kcmc,kcywmc,kcfzr,kclx,zxs,sjxs,xf,sydx,xdkc,hxkc,jyshf,zyfzr];
+    if (id == 0) {
+        sqlArr = [kcbh, kcmc, kcywmc, kcfzr, kclx, zxs, sjxs, xf, sydx, xdkc, hxkc, jyshf, zyfzr];
         //编辑课程信息
         kcDao.insert(req, res, sqlArr, function (result) {
             if (result) {
-                res.send({"result":result.affectedRows});
+                res.send({"result": result.affectedRows});
             } else {
                 //编辑失败
-                res.send({"result":0});
+                res.send({"result": 0});
             }
         });
-    }else{
-        sqlArr = [kcbh,kcmc,kcywmc,kcfzr,kclx,zxs,sjxs,xf,sydx,xdkc,hxkc,jyshf,zyfzr,id];
+    } else {
+        sqlArr = [kcbh, kcmc, kcywmc, kcfzr, kclx, zxs, sjxs, xf, sydx, xdkc, hxkc, jyshf, zyfzr, id];
         //编辑调度命令
         kcDao.update(req, res, sqlArr, function (result) {
             if (result) {
-                res.send({"result":result.affectedRows});
+                res.send({"result": result.affectedRows});
             } else {
                 //编辑失败
-                res.send({"result":0});
+                res.send({"result": 0});
             }
         });
     }
 
 });
 //由课程名称获取课程ID
-router.get('/_getKcId.html', function(req, res, next) {
-    console.log("-----"+req.query.sqlStr);
+router.get('/_getKcId.html', function (req, res, next) {
+    console.log("-----" + req.query.sqlStr);
     kcDao.queryKcId(req, res, req.query.sqlStr, function (result) {
-        res.send({"result":result});
+        res.send({"result": result});
     });
 });
 module.exports = router;

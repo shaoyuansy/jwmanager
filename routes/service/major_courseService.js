@@ -5,21 +5,21 @@ var express = require('express');
 var router = express.Router();
 
 /* . */
-router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Express' });
+router.get('/', function (req, res, next) {
+    res.render('index', {title: 'Express'});
 });
 
 /* 专业-课程服务开始. */
 var zy_kcDao = require('../../models/dao/jw_zy_kc/zy_kcDao');
 //获取专业-课程信息列表
 router.get('/getList', function (req, res, next) {
-    zy_kcDao.queryAll(req, res, req.query.sqlstr ,function (result) {
+    zy_kcDao.queryAll(req, res, req.query.sqlstr, function (result) {
         res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
     });
 });
 //只获取专业-课程表
 router.get('/getMC', function (req, res, next) {
-    zy_kcDao.queryMC(req, res,function (result) {
+    zy_kcDao.queryMC(req, res, function (result) {
         res.send({"aaData": result});
     });
 });
@@ -39,10 +39,10 @@ router.get('/delSome', function (req, res, next) {
 router.get('/insertSome', function (req, res, next) {
     var sqlArr = new Array();
     sqlArr = req.query.str.split(',');
-    console.log("sqlArr:"+sqlArr);
+    console.log("sqlArr:" + sqlArr);
     zy_kcDao.insert(req, res, sqlArr, function (result) {
         if (result) {
-            res.send({"state":result});
+            res.send({"state": result});
         }
     });
 });

@@ -68,7 +68,7 @@ app.locals.title = '教师信息管理系统';
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 //设置session
@@ -91,31 +91,31 @@ app.use('/', index);
 app.use('/index', index);
 app.use('/login', login);
 app.use('/teacher', teacher);
-app.use('/jys',jys);
-app.use('/chart',chart);
-app.use('/major',major);
-app.use('/course',course);
-app.use('/selectcourse',selectcourse);
+app.use('/jys', jys);
+app.use('/chart', chart);
+app.use('/major', major);
+app.use('/course', course);
+app.use('/selectcourse', selectcourse);
 app.use('/tools/uploadFile', uploadFile);
-app.use('/major_course',major_course);
-app.use('/assigncourse',assigncourse);
+app.use('/major_course', major_course);
+app.use('/assigncourse', assigncourse);
 
 //服务路由地址配置
-app.use('/jysService',jysService);
-app.use('/teacherService',teacherService);
-app.use('/majorService',majorService);
-app.use('/courseService',courseService);
-app.use('/major_courseService',major_courseService);
-app.use('/teacher_courseService',teacher_courseService);
-app.use('/userService',userService);
-app.use('/assignService',assignService);
+app.use('/jysService', jysService);
+app.use('/teacherService', teacherService);
+app.use('/majorService', majorService);
+app.use('/courseService', courseService);
+app.use('/major_courseService', major_courseService);
+app.use('/teacher_courseService', teacher_courseService);
+app.use('/userService', userService);
+app.use('/assignService', assignService);
 //路由地址配置结束
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+app.use(function (req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handlers
@@ -123,23 +123,23 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
+    app.use(function (err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
     });
-  });
 }
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+app.use(function (err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
 });
 
 module.exports = app;

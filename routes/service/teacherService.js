@@ -16,28 +16,28 @@ router.get('/getList', function (req, res, next) {
 });
 
 router.get('/getTidByMc', function (req, res, next) {
-    teacherDao.queryByMc(req, res,req.query.XM, function (result) {
+    teacherDao.queryByMc(req, res, req.query.XM, function (result) {
         res.send({"aaData": result});
     });
 });
 
 //教师是否重复
 router.post('/getNAME', function (req, res, next) {
-    teacherDao.queryTeacher(req, res,req.body.TNAME, function (result) {
+    teacherDao.queryTeacher(req, res, req.body.TNAME, function (result) {
         res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
     });
 });
 
 //负责人是否专任
 router.post('/getFZR', function (req, res, next) {
-    teacherDao.queryZRteacher(req, res,req.body.TNAME, function (result) {
+    teacherDao.queryZRteacher(req, res, req.body.TNAME, function (result) {
         res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
     });
 });
 
 //插入一个外聘教师，只有姓名与外聘
 router.post('/addWP', function (req, res, next) {
-    teacherDao.insertWP(req, res, req.body.XM,function (result) {
+    teacherDao.insertWP(req, res, req.body.XM, function (result) {
         res.send({"state": result});
     });
 });
@@ -53,17 +53,17 @@ router.get('/delOne', function (req, res, next) {
 router.get('/delSome', function (req, res, next) {
     teacherDao.deleteSome(req, res, req.query.idstr, function (result) {
         if (result) {
-            res.send({"result":result.affectedRows});
+            res.send({"result": result.affectedRows});
         } else {
             //编辑失败
-            res.send({"result":0});
+            res.send({"result": 0});
         }
     });
 });
 
 //导出所选教师列表
 router.get('/exportBySomeId', function (req, res, next) {
-    teacherDao.exportBySomeId(req, res, req.query.idstr,function (result) {
+    teacherDao.exportBySomeId(req, res, req.query.idstr, function (result) {
         res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
     });
 });
@@ -74,7 +74,7 @@ router.get('/insertSome', function (req, res, next) {
     sqlArr = req.query.str.split(',');
     teacherDao.insertSome(req, res, sqlArr, function (result) {
         if (result) {
-            res.send({"state":result});
+            res.send({"state": result});
         }
     });
 });

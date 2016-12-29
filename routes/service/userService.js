@@ -9,9 +9,9 @@ var router = express.Router();
 var userDao = require('../../models/dao/jw_user/userDao');
 
 /* GET 获取首页所需用户的基本信息. */
-router.get('/getUserData', function(req, res, next) {
-    var userName=req.session.userInfo.USERNAME;
-    userDao.GetUserData(req, res,userName,function(result){
+router.get('/getUserData', function (req, res, next) {
+    var userName = req.session.userInfo.USERNAME;
+    userDao.GetUserData(req, res, userName, function (result) {
         res.send(result);
     });
 });

@@ -2,10 +2,10 @@
 <script type="text/javascript" src="/chart/exporting.js"></script>
 <script type="text/javascript" src="/javascripts/myChart.js"></script>
 <style>
-    .select{
+    .select {
         border: solid 1px;
     }
-    </style>
+</style>
 <!-- 页面内容 content -->
 <div class="content-wrapper">
     <!-- 页面内容 Header -->
@@ -31,9 +31,11 @@
                         <h3 class="box-title">各专业职称教师统计表</h3>
 
                         <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i
+                                        class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <div class="box-body">
@@ -56,9 +58,11 @@
                                 <option value="%">全部</option>
                                 <%- jyscode %>
                             </select>
-                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i
+                                        class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <div class="box-body">
@@ -78,9 +82,11 @@
                                 <option value="%">全部</option>
                                 <%- jyscode %>
                             </select>
-                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i
+                                        class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <div class="box-body">
@@ -99,9 +105,11 @@
                                 <option value="%">全部</option>
                                 <%- jyscode %>
                             </select>
-                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i
+                                        class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <div class="box-body">
@@ -122,9 +130,11 @@
                                 <option value="%">全部</option>
                                 <%- jyscode %>
                             </select>
-                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i
+                                        class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <div class="box-body">
@@ -143,9 +153,11 @@
                                 <option value="%">全部</option>
                                 <%- jyscode %>
                             </select>
-                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i
+                                        class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <div class="box-body">
@@ -164,9 +176,11 @@
                                 <option value="%">全部</option>
                                 <%- jyscode %>
                             </select>
-                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i
+                                        class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <div class="box-body">
@@ -189,27 +203,27 @@
 <script>
     $(document).ready(function () {
         //监听下拉框，如果信息改变，则调用getGender方法
-        $("#JYS").change(function (){
+        $("#JYS").change(function () {
             getGender(this.value);
         });
 
-        $("#JYS_AGE").change(function (){
+        $("#JYS_AGE").change(function () {
             getCsny(this.value);
         });
 
-        $("#JYS_XW").change(function (){
+        $("#JYS_XW").change(function () {
             getZgxw(this.value);
         });
 
-        $("#JYS_DSLX").change(function (){
+        $("#JYS_DSLX").change(function () {
             getDslx(this.value);
         });
 
-        $("#JYS_DQ").change(function (){
+        $("#JYS_DQ").change(function () {
             getDq(this.value);
         });
 
-        $("#JYS_JXXG").change(function (){
+        $("#JYS_JXXG").change(function () {
             getJxxg(this.value);
         });
     });

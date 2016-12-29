@@ -20,18 +20,18 @@ exports.queryAll = function (req, res, fn) {
     });
 };
 /* 选课页面获取课程信息列表*/
-exports.selectCourse = function (req, res,arrC, fn) {
+exports.selectCourse = function (req, res, arrC, fn) {
     pool.getConnection(function (err, connection) {
-        arrC =  req.query.arrC.split(",");
-        var sql ="SELECT DISTINCT ID,KCBH,KCMC,KCYWMC,KCFZR,KCLX,ZXS,SJXS,XF,SYDX,XDKC,HXKC,JYSHF,ZYFZR " +
+        arrC = req.query.arrC.split(",");
+        var sql = "SELECT DISTINCT ID,KCBH,KCMC,KCYWMC,KCFZR,KCLX,ZXS,SJXS,XF,SYDX,XDKC,HXKC,JYSHF,ZYFZR " +
             "FROM " +
             "(SELECT kc.ID,kc.KCBH,kc.KCMC,kc.KCYWMC,kc.KCFZR,kc.KCLX,kc.ZXS,kc.SJXS,kc.XF,kc.SYDX,kc.XDKC,kc.HXKC,kc.JYSHF,kc.ZYFZR,zy.ZYMC,zy.KSNJ,zk.KSXQ " +
             "FROM jw_zy_kc AS zk,jw_zy AS zy,jw_kc AS kc " +
             "WHERE zk.ZYID=zy.ID AND zk.KCID=kc.ID)t " +
-            "WHERE KSNJ LIKE '" + arrC[0] + "' AND KSXQ LIKE '"+arrC[1]+"' OR KSNJ LIKE '"+arrC[2]+"' AND KSXQ LIKE '"+arrC[3]+"' " +
-            "OR KSNJ LIKE '"+arrC[4]+"' AND KSXQ LIKE '"+arrC[5]+"' OR KSNJ LIKE '"+arrC[6]+"' AND KSXQ LIKE '"+arrC[7]+"' " +
+            "WHERE KSNJ LIKE '" + arrC[0] + "' AND KSXQ LIKE '" + arrC[1] + "' OR KSNJ LIKE '" + arrC[2] + "' AND KSXQ LIKE '" + arrC[3] + "' " +
+            "OR KSNJ LIKE '" + arrC[4] + "' AND KSXQ LIKE '" + arrC[5] + "' OR KSNJ LIKE '" + arrC[6] + "' AND KSXQ LIKE '" + arrC[7] + "' " +
             "ORDER BY ID;";
-        connection.query(sql, function (err,result) {
+        connection.query(sql, function (err, result) {
             connection.release();
             fn(result);
         });
@@ -76,8 +76,8 @@ exports.delete = function (req, res, ID, fn) {
 //批量删除记录
 exports.deleteSome = function (req, res, idstr, fn) {
     pool.getConnection(function (err, connection) {
-        var sql = "DELETE FROM jw_kc WHERE ID IN ("+req.query.idstr+")";
-        connection.query("DELETE FROM jw_kc WHERE ID IN ("+req.query.idstr+")", function (err, result) {
+        var sql = "DELETE FROM jw_kc WHERE ID IN (" + req.query.idstr + ")";
+        connection.query("DELETE FROM jw_kc WHERE ID IN (" + req.query.idstr + ")", function (err, result) {
             connection.release();
             fn(1);
         });
@@ -86,7 +86,7 @@ exports.deleteSome = function (req, res, idstr, fn) {
 /* 获取数据列表信息*/
 exports.querySome = function (req, res, idstr, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query("SELECT * FROM jw_kc WHERE ID NOT IN ("+idstr+") ORDER BY ID ASC", function (err, result) {
+        connection.query("SELECT * FROM jw_kc WHERE ID NOT IN (" + idstr + ") ORDER BY ID ASC", function (err, result) {
             connection.release();
             fn(result);
         });
@@ -102,10 +102,10 @@ exports.insertSome = function (req, res, arrayPar, fn) {
     });
 };
 /* 由课程名称获取课程ID*/
-exports.queryKcId = function (req, res,sqlStr, fn) {
-    console.log("kcDao "+sqlStr);
+exports.queryKcId = function (req, res, sqlStr, fn) {
+    console.log("kcDao " + sqlStr);
     pool.getConnection(function (err, connection) {
-        connection.query($sql.queryKcId,[sqlStr], function (err, result) {
+        connection.query($sql.queryKcId, [sqlStr], function (err, result) {
             connection.release();
             fn(result);
         });

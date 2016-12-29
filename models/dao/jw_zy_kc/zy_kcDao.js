@@ -11,10 +11,10 @@ var $sql = require('./zy_kcSqlMapping');
 var pool = mysql.createPool($util.extend({}, $conf.mysql));
 
 /* 获取数据列表信息*/
-exports.queryAll = function (req, res,sqlStr, fn) {
+exports.queryAll = function (req, res, sqlStr, fn) {
     var arr = sqlStr.split(",");
     pool.getConnection(function (err, connection) {
-        connection.query($sql.queryAll,arr, function (err, result) {
+        connection.query($sql.queryAll, arr, function (err, result) {
             connection.release();
             fn(result);
         });
@@ -68,7 +68,7 @@ exports.delete = function (req, res, ID, fn) {
 //批量删除记录
 exports.deleteSome = function (req, res, idstr, fn) {
     pool.getConnection(function (err, connection) {
-        var sql = "DELETE FROM jw_zy_kc WHERE ID IN ("+req.query.idstr+")";
+        var sql = "DELETE FROM jw_zy_kc WHERE ID IN (" + req.query.idstr + ")";
         connection.query(sql, function (err, result) {
             connection.release();
             fn(1);
@@ -78,7 +78,7 @@ exports.deleteSome = function (req, res, idstr, fn) {
 //批量删除记录 BY 专业ID
 exports.deleteSomeByZy = function (req, res, idstr, fn) {
     pool.getConnection(function (err, connection) {
-        var sql = "DELETE FROM jw_zy_kc WHERE ZYID IN ("+req.query.idstr+")";
+        var sql = "DELETE FROM jw_zy_kc WHERE ZYID IN (" + req.query.idstr + ")";
         connection.query(sql, function (err, result) {
             connection.release();
             fn(1);
@@ -88,7 +88,7 @@ exports.deleteSomeByZy = function (req, res, idstr, fn) {
 //批量删除记录 BY 课程ID
 exports.deleteSomeByKc = function (req, res, idstr, fn) {
     pool.getConnection(function (err, connection) {
-        var sql = "DELETE FROM jw_zy_kc WHERE KCID IN ("+req.query.idstr+")";
+        var sql = "DELETE FROM jw_zy_kc WHERE KCID IN (" + req.query.idstr + ")";
         connection.query(sql, function (err, result) {
             connection.release();
             fn(1);
