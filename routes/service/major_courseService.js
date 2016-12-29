@@ -13,7 +13,9 @@ router.get('/', function (req, res, next) {
 var zy_kcDao = require('../../models/dao/jw_zy_kc/zy_kcDao');
 //获取专业-课程信息列表
 router.get('/getList', function (req, res, next) {
-    zy_kcDao.queryAll(req, res, req.query.sqlstr, function (result) {
+    //var sqlStr = decodeURI(req.query.sqlStr,"UTF-8");
+    console.log("++++++++查询开始"+sqlStr);
+    zy_kcDao.queryAll(req, res, sqlStr, function (result) {
         res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
     });
 });
@@ -39,7 +41,6 @@ router.get('/delSome', function (req, res, next) {
 router.get('/insertSome', function (req, res, next) {
     var sqlArr = new Array();
     sqlArr = req.query.str.split(',');
-    console.log("sqlArr:" + sqlArr);
     zy_kcDao.insert(req, res, sqlArr, function (result) {
         if (result) {
             res.send({"state": result});

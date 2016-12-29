@@ -196,13 +196,16 @@
     //由年级和专业获取专业ID
     function getZyId(data) {
         var temp2 = [];
+        var dataURI = encodeURI(data);
+        console.log("dataURI:" + dataURI);
         $.ajax({
             type: "get",
-            url: "/major/_getZyId.html?sqlStr=" + data,
+            url: "/major/_getZyId.html?sqlStr=" + dataURI,
             dataType: "json",
             async: false,
             cache: true,
             success: function (msg) {
+                console.log("msg:" + msg);
                 temp2 = msg;
             },
             error: function (e) {
@@ -210,6 +213,7 @@
             }
         });
         var result = temp2.result;
+        console.log("result:" + result);
         zyid = result[0].ID;
     }
     //为该年级该专业添加课程
@@ -222,7 +226,7 @@
             arr.push(zyid + "," + this.value + "," + $("#ksxq").val());
         });
         for (var i = 0; i < arr.length; i++) {
-            var str = arr[i]
+            var str = arr[i];
             $.ajax({
                 type: "get",
                 url: '/major_courseService/insertSome',
@@ -241,8 +245,10 @@
         }
         if (flag) {
             var arr3 = "<%= sqlStr %>".split(",");
+            var KSNJ = encodeURI(arr3[0]);
+            var ZYMC = encodeURI(arr3[1]);
             //返回上一页并刷新
-            window.location.href = "/major_course/getData.html?ksnj=" + arr3[0] + "&zymc=" + arr3[1];
+            window.location.href = "/major_course/getData.html?ksnj=" + KSNJ + "&zymc=" + ZYMC;
         } else if (!flag) {
             alert("请至少选择一项");
         }

@@ -71,7 +71,9 @@ function bindMenu(menus,son){
                 if(tempStr == ""){
                     tempStr = fatherMenus[i].KSNJ+","+sonMenus[j].ZYMC;
                 }
-                itemStr += "<li><a href='/major_course/getData.html?ksnj="+fatherMenus[i].KSNJ+"&zymc="+sonMenus[j].ZYMC+"'><i class='fa fa-caret-right text-blue'></i>"+sonMenus[j].ZYMC+"</a></li>";
+                var KSNJ = encodeURI(fatherMenus[i].KSNJ);
+                var ZYMC = encodeURI(sonMenus[j].ZYMC);
+                itemStr += "<li><a href='/major_course/getData.html?ksnj="+KSNJ+"&zymc="+ZYMC+"'><i class='fa fa-caret-right text-blue'></i>"+sonMenus[j].ZYMC+"</a></li>";
             }
         }
         itemStr += "</ul>";

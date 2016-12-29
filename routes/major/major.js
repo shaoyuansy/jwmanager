@@ -92,15 +92,16 @@ router.get('/_getKsnj.html', function (req, res, next) {
         res.send({"result": result});
     });
 });
-//获取专业所有专业，取消重复
+//获取专业名称
 router.get('/_getZymc.html', function (req, res, next) {
     zyDao.queryAll(req, res, function (result) {
         res.send({"result": result});
     });
 });
-//获取专业所有专业，取消重复
+//获取专业ID
 router.get('/_getZyId.html', function (req, res, next) {
-    zyDao.queryZyId(req, res, req.query.sqlStr, function (result) {
+    var sqlStr = decodeURI(req.query.sqlStr,"UTF-8");
+    zyDao.queryZyId(req, res, sqlStr, function (result) {
         res.send({"result": result});
     });
 });

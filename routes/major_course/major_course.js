@@ -17,20 +17,22 @@ router.get('/major_course.html', function (req, res, next) {
 
 //
 router.get('/getData.html', function (req, res, next) {
-    var sqlStr = req.query.ksnj + "," + req.query.zymc;
+    var ksnj = decodeURI(req.query.ksnj,"UTF-8");
+    var zymc = decodeURI(req.query.zymc,"UTF-8");
+    var sqlStr = ksnj + "," + zymc;
     res.render('major_course/major_course', {
         title: '教务信息管理系统——专业-课程管理',
         sqlStr: sqlStr,
-        box_title: req.query.ksnj + "-" + req.query.zymc + "专业 课程信息"
+        box_title: ksnj + "-" + zymc + "专业 课程信息"
     });
 });
 
 //
 router.get('/addCourse.html', function (req, res, next) {
-    var sqlStr = req.query.data;
+    var sqlStr = decodeURI(req.query.data,"UTF-8");
     res.render('major_course/majorAddCourse', {
         title: '教务信息管理系统——专业-课程添加',
-        sqlStr: sqlStr,
+        sqlStr: sqlStr
     });
 });
 //编辑信息--若是更新信息则在编辑页面显示信息

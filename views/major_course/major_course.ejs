@@ -215,9 +215,9 @@
     }
     //跳转到添加课程页面
     function insert(str) {
-        var temp = str;
+        var temp = encodeURI(str);
         if (str == "") {
-            temp = tempStr;
+            temp = encodeURI(tempStr);
         }
         window.location.href = "/major_course/addCourse.html?data=" + temp;
     }
@@ -306,7 +306,6 @@
     function ReadExcel() {
         //得到文件路径的值
         var filePath = document.getElementById("upfile").value;
-        console.log("-----------" + filePath);
         //判断是否选择文件
         if (filePath != "") {
             var oXL = new ActiveXObject("Excel.application");
