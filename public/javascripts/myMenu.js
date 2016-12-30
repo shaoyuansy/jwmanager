@@ -68,11 +68,11 @@ function bindMenu(menus,son){
         itemStr += "<ul id='top_menu' class='nav nav-pills nav-stacked'>";
         for(var j = 0;j < sonMenus.length;j++){
             if(fatherMenus[i].KSNJ == sonMenus[j].KSNJ){
-                if(tempStr == ""){
-                    tempStr = fatherMenus[i].KSNJ+","+sonMenus[j].ZYMC;
-                }
                 var KSNJ = encodeURI(fatherMenus[i].KSNJ);
                 var ZYMC = encodeURI(sonMenus[j].ZYMC);
+                if(tempStr == ""){
+                    tempStr = KSNJ+","+ZYMC;
+                }
                 itemStr += "<li><a href='/major_course/getData.html?ksnj="+KSNJ+"&zymc="+ZYMC+"'><i class='fa fa-caret-right text-blue'></i>"+sonMenus[j].ZYMC+"</a></li>";
             }
         }

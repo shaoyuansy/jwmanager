@@ -211,7 +211,8 @@
             var h = document.getElementById("h3");
             h.innerHTML = sqlstr.replace(",", "-") + "专业 课程信息";
         }
-        mytable = CreateDataTable('#datatable', "/major_courseService/getList?sqlstr=" + sqlstr, columns);
+        var sqlStr = encodeURI("<%= sqlStr %>");
+        mytable = CreateDataTable('#datatable', "/major_courseService/getList?sqlstr=" + sqlStr, columns);
     }
     //跳转到添加课程页面
     function insert(str) {

@@ -20,6 +20,7 @@ router.get('/getData.html', function (req, res, next) {
     var ksnj = decodeURI(req.query.ksnj,"UTF-8");
     var zymc = decodeURI(req.query.zymc,"UTF-8");
     var sqlStr = ksnj + "," + zymc;
+    console.log("点击左边传过来的sqlstr:"+sqlStr);
     res.render('major_course/major_course', {
         title: '教务信息管理系统——专业-课程管理',
         sqlStr: sqlStr,
