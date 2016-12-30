@@ -1,7 +1,3 @@
-/**
- * Created by fujunou on 2015/3/6.
- */
-
 module.exports = {
     extend: function (target, source, flag) {
         for (var key in source) {

@@ -1,5 +1,5 @@
 /**
- * Created by peng on 2016/9/27.
+ * Created by sy on 2016/9/27.
  */
 // 实现与MySQL交互
 var mysql = require('mysql');
