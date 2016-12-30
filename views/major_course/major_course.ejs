@@ -209,10 +209,9 @@
         if ("<%= sqlStr %>" == "") {
             sqlstr = tempStr;
             var h = document.getElementById("h3");
-            h.innerHTML = sqlstr.replace(",", "-") + "专业 课程信息";
+            h.innerHTML = decodeURI(sqlstr.replace(",", "-"),"UTF-8") + "专业 课程信息";
         }
-        var sqlStr = encodeURI("<%= sqlStr %>");
-        mytable = CreateDataTable('#datatable', "/major_courseService/getList?sqlstr=" + sqlStr, columns);
+        mytable = CreateDataTable('#datatable', "/major_courseService/getList?sqlstr=" + sqlstr, columns);
     }
     //跳转到添加课程页面
     function insert(str) {
