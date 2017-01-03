@@ -19,6 +19,17 @@ exports.queryAll = function (req, res, fn) {
         });
     });
 };
+/* 选课页面获取课程信息列表*/
+exports.selectMajor = function (req, res, arrXN, fn) {
+    pool.getConnection(function (err, connection) {
+        arrXN = req.query.arrXN.split(",");
+        var sql = "SELECT ID,ZYBH,ZYMC,SSJYS,KSNJ,BJGS,GBDYRS FROM jw_zy WHERE KSNJ IN ('"+arrXN[0]+"','"+arrXN[1]+"','"+arrXN[2]+"','"+arrXN[3]+"');";
+        connection.query(sql, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
 /* 获取数据列表信息 BY ID*/
 exports.queryListById = function (req, res, id, fn) {
     pool.getConnection(function (err, connection) {

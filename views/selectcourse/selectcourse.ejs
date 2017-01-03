@@ -196,7 +196,9 @@
                     }
                     //2.生成中间部分专业信息
                     //开始生成专业信息
-                    readMajor(coursemsg);
+                    var arrXN = new Array(xuenian1,xuenian2,xuenian3,xuenian4);
+                    arrXN = arrXN.join(",");
+                    readMajor(coursemsg,arrXN);
                 }
             },
             error: function (e) {
@@ -206,15 +208,17 @@
     });
 
     //读取专业信息
-    function readMajor(coursemsg) {
+    function readMajor(coursemsg,arrXN) {
+        console.log(arrXN);
         $.ajax({
             type: "get",
-            url: "/majorService/getList",
+            url: "/majorService/selectMajor",
             dataType: "json",
+            data: {arrXN: arrXN},
             cache: true,
             async: false,
             success: function (majormsg) {
-                console.log("专业信息长度=" + majormsg.aaData.length + "课程信息长度" + coursemsg.aaData.length);
+                //console.log("专业信息长度=" + majormsg.aaData.length + "课程信息长度" + coursemsg.aaData.length);
                 if (majormsg.aaData.length > 0) {
                     for (var m = 0; m < majormsg.aaData.length; m++) {
                         var tempm = majormsg.aaData[m];
@@ -284,10 +288,12 @@
 
     //读取专业选课信息
     function readMajorCourse(majormsg) {
+        var KSXQ = '';
         $.ajax({
             type: "get",
             url: "/major_courseService/getMC",
             dataType: "json",
+            data:{ksxq:KSXQ},
             cache: true,
             async: false,
             success: function (majorcoursemsg) {

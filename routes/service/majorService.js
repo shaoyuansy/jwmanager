@@ -1,5 +1,5 @@
 /**
- * Created by peng on 2016/9/26.
+ * Created by sy on 2016/9/26.
  */
 var express = require('express');
 var router = express.Router();
@@ -14,6 +14,12 @@ var zyDao = require('../../models/dao/jw_zy/zyDao');
 //获取专业信息列表
 router.get('/getList', function (req, res, next) {
     zyDao.queryAll(req, res, function (result) {
+        res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
+    });
+});
+//选课页面获取本年专业信息列表
+router.get('/selectMajor', function (req, res, next) {
+    zyDao.selectMajor(req, res, req.query.arrXN, function (result) {
         res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
     });
 });
