@@ -471,7 +471,7 @@
         } else if ($('#SFZHM').val() != "" && !regSFZHM.test($('#SFZHM').val())) {
             alert("身份证格式不正确，请仔细检查");
             var verge = false;
-        } else if (!(regSJH.test($('#LXDH').val()) || regGH.test($('#LXDH').val()))) {
+        } else if ($('#LXDH').val() != "" && !(regSJH.test($('#LXDH').val()) || regGH.test($('#LXDH').val()))) {
             alert("联系电话格式或位数不正确，若固话：xxxx-xxxxxxx 或 （无区号）xxxxxxx");
             var verge = false;
         } else if ($('#RXSJ').val() != "" && !(regRXSJ.test($('#RXSJ').val()))) {
@@ -501,7 +501,7 @@
                 var verge = false;
             }
         }
-        if (verge) {
+        if ($('#RXSJ').val() != "" && verge) {
             getFZR($('#FGFZR').val());
             if ($('#FZRSF').val() == "否" || $('#FZRSF').val() == "无") {
                 alert("此教师不存在 或 非专任教师，请重新填写");

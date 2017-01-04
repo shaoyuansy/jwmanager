@@ -198,7 +198,7 @@
                     //开始生成专业信息
                     var arrXN = new Array(xuenian1,xuenian2,xuenian3,xuenian4);
                     arrXN = arrXN.join(",");
-                    readMajor(coursemsg,arrXN);
+                    readMajor(coursemsg,arrXN,arrC);
                 }
             },
             error: function (e) {
@@ -208,8 +208,7 @@
     });
 
     //读取专业信息
-    function readMajor(coursemsg,arrXN) {
-        console.log(arrXN);
+    function readMajor(coursemsg,arrXN,arrC) {
         $.ajax({
             type: "get",
             url: "/majorService/selectMajor",
@@ -239,7 +238,7 @@
                     }
                     //3.生成中间部分专业-选课信息
                     //读取专业选课信息
-                    readMajorCourse(majormsg);
+                    readMajorCourse(majormsg,arrC);
                     //4.生成中间部分总头数和剩余头数
                     //添加总头数一列
                     var sumtoushu = document.createElement("th");//总头数th
@@ -287,17 +286,42 @@
     }
 
     //读取专业选课信息
-    function readMajorCourse(majormsg) {
-        var KSXQ = '';
+    function readMajorCourse(majormsg,arrC) {
+        arrC = arrC.split(",");
+        var zy1 = '';var xq1 = '';
+        var zy2 = '';var xq2 = '';
+        var zy3 = '';var xq3 = '';
+        var zy4 = '';var xq4 = '';
+        for (var i = 0; i < majormsg.aaData.length; i++) {//读取本学年不同专业不同学期课程
+            var temp = majormsg.aaData[i];
+            if(temp.KSNJ == arrC[0]){
+                zy1 += temp.ID+",";
+                xq1 = arrC[1];
+            }else if(temp.KSNJ == arrC[2]){
+                zy2 += temp.ID+",";
+                xq2 = arrC[3];
+            }else if(temp.KSNJ == arrC[4]){
+                zy3 += temp.ID+",";
+                xq3 = arrC[5];
+            }else if(temp.KSNJ == arrC[6]){
+                zy4 += temp.ID+",";
+                xq4 = arrC[7];
+            }
+    }
+        zy1 = zy1.substring(0,zy1.length-1);
+        zy2 = zy2.substring(0,zy2.length-1);
+        zy3 = zy3.substring(0,zy3.length-1);
+        zy4 = zy4.substring(0,zy4.length-1);
+        var queryarr = new Array(zy1,xq1,zy2,xq2,zy3,xq3,zy4,xq4);
         $.ajax({
             type: "get",
             url: "/major_courseService/getMC",
             dataType: "json",
-            data:{ksxq:KSXQ},
+            data:{arr:queryarr},
             cache: true,
             async: false,
             success: function (majorcoursemsg) {
-                console.log("专业选修课程信息记录数：" + majorcoursemsg.aaData.length);
+                //console.log("专业选修课程信息记录数：" + majorcoursemsg.aaData.length);
                 if (majorcoursemsg.aaData.length > 0) {
                     for (var a = 0; a < majorcoursemsg.aaData.length; a++) {
                         var tempmc = majorcoursemsg.aaData[a];
@@ -309,7 +333,6 @@
                         //获取每个专业头数并显示
                         var toushu = document.getElementById("m" + zyid).innerHTML;
                         mctd.innerHTML = toushu.substring(toushu.length - 2, toushu.length - 1);
-
                     }
                 }
             },

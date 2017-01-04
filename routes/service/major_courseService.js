@@ -20,7 +20,7 @@ router.get('/getList', function (req, res, next) {
 });
 //只获取专业-课程表
 router.get('/getMC', function (req, res, next) {
-    zy_kcDao.queryMC(req, res, function (result) {
+    zy_kcDao.queryMC(req, res,req.query.arr, function (result) {
         res.send({"aaData": result});
     });
 });

@@ -21,9 +21,16 @@ exports.queryAll = function (req, res, sqlStr, fn) {
     });
 };
 /* 只获取专业课程关联表*/
-exports.queryMC = function (req, res, fn) {
+exports.queryMC = function (req, res,arr,fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.queryMC, function (err, result) {
+        if(err!=""){
+            var sql = "SELECT ID, ZYID,KCID,KSXQ FROM jw_zy_kc " +
+                "WHERE KSXQ = '"+ arr[1]+"' AND ZYID IN ("+ arr[0] +") " +
+                "OR KSXQ = '"+ arr[3]+"' AND ZYID IN ("+ arr[2] +") " +
+                "OR KSXQ = '"+ arr[5]+"' AND ZYID IN ("+ arr[4] +") " +
+                "OR KSXQ = '"+ arr[7]+"' AND ZYID IN ("+ arr[6] +");"
+        }
+        connection.query(sql, function (err, result) {
             connection.release();
             fn(result);
         });
