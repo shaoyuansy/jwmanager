@@ -35,6 +35,12 @@ router.get('/deleteXk', function (req, res, next) {
         res.send({"state": result});
     });
 });
+//删除一个课程所有信息
+router.get('/delKc', function (req, res, next) {
+    kc_jsDao.deleteKc(req, res, req.query.idstr, function (result) {
+        res.send({"state": result});
+    });
+});
 
 
 module.exports = router;

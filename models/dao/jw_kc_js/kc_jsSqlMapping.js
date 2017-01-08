@@ -10,6 +10,7 @@ var kc_js = {
     queryWP: "SELECT kj.TS,js.XM,kj.BZ,kj.CZR FROM jw_kc_js AS kj,jw_teacher AS js WHERE kj.KCID=? AND kj.JSID=js.ID AND js.SFZR='否';",
     queryXk: "SELECT js.XM,kj.KCID,kj.JSID,kj.TS,kj.BZ FROM jw_kc_js AS kj,jw_teacher AS js WHERE kj.JSID=js.ID AND KCID=? AND CZR=?;",
     deleteXk: "DELETE FROM jw_kc_js WHERE KCID=? AND JSID=?;",
+    deleteKc: "DELETE FROM jw_kc_js WHERE KCID=?;",
     exztXk: "SELECT ID FROM jw_kc_js WHERE JSID=? AND KCID=?;"
 };
 module.exports = kc_js;

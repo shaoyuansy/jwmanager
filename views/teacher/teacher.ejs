@@ -41,6 +41,23 @@
                     </button>
                 </div>
                 <div style="margin-top: 1%">
+                    <div style="float: left;margin-left: 2%">当前显示的列：&nbsp;&nbsp;&nbsp;&nbsp;
+                        #：<input id="checkbox3" name="checkbox3" type="checkbox" value="1">&nbsp;&nbsp;&nbsp;&nbsp;
+                        姓名：<input id="checkbox3" name="checkbox3" type="checkbox" value="2">&nbsp;&nbsp;&nbsp;&nbsp;
+                        工号：<input id="checkbox3" name="checkbox3" type="checkbox" value="3">&nbsp;&nbsp;&nbsp;&nbsp;
+                        是否专任：<input id="checkbox3" name="checkbox3" type="checkbox" value="4">&nbsp;&nbsp;&nbsp;&nbsp;
+                        联系电话：<input id="checkbox3" name="checkbox3" type="checkbox" value="5">&nbsp;&nbsp;&nbsp;&nbsp;
+                        分管负责人：<input id="checkbox3" name="checkbox3" type="checkbox" value="6">&nbsp;&nbsp;&nbsp;&nbsp;
+                        专业技术职称：<input id="checkbox3" name="checkbox3" type="checkbox" value="7">&nbsp;&nbsp;&nbsp;&nbsp;
+                        <br>
+                        学历：<input id="checkbox3" name="checkbox3" type="checkbox" value="8">&nbsp;&nbsp;&nbsp;&nbsp;
+                        最高学位：<input id="checkbox3" name="checkbox3" type="checkbox" value="9">&nbsp;&nbsp;&nbsp;&nbsp;
+                        学科类别：<input id="checkbox3" name="checkbox3" type="checkbox" value="10">&nbsp;&nbsp;&nbsp;&nbsp;
+                        导师类型：<input id="checkbox3" name="checkbox3" type="checkbox" value="11">&nbsp;&nbsp;&nbsp;&nbsp;
+                        单位名称: <input id="checkbox3" name="checkbox3" type="checkbox" value="12">&nbsp;&nbsp;&nbsp;&nbsp;
+                        教学效果: <input id="checkbox3" name="checkbox3" type="checkbox" value="13">&nbsp;&nbsp;&nbsp;&nbsp;
+                        是否上交证件: <input id="checkbox3" name="checkbox3" type="checkbox" value="14">&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
                     <div style="float: right">
                         <input type="file" id="upfile" accept=".xls,.xlsx"/>
                     </div>
@@ -187,6 +204,20 @@
             }
         ];
         mytable = CreateDataTable('#datatable', '/teacherService/getList', columns);
+        //初始化当前显示列的checkbox判断是否选中
+        $('input[type="checkbox"][name="checkbox3"]').each(function () {
+            // Get the column API object
+            var column = $("#datatable").DataTable().column($(this).val());
+            // Toggle the visibility
+            this.checked = column.visible();
+        });
+
+        $('input[type="checkbox"][name="checkbox3"]').change(function () {
+            // Get the column API object
+            var column = $("#datatable").DataTable().column($(this).val());
+            // Toggle the visibility
+            column.visible(!column.visible());
+        });
     });
     //编辑
     function editTeacher(id) {

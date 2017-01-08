@@ -294,25 +294,34 @@
         var zy4 = '';var xq4 = '';
         for (var i = 0; i < majormsg.aaData.length; i++) {//读取本学年不同专业不同学期课程
             var temp = majormsg.aaData[i];
+            xq1 = arrC[1];
+            xq2 = arrC[3];
+            xq3 = arrC[5];
+            xq4 = arrC[7];
             if(temp.KSNJ == arrC[0]){
                 zy1 += temp.ID+",";
-                xq1 = arrC[1];
             }else if(temp.KSNJ == arrC[2]){
                 zy2 += temp.ID+",";
-                xq2 = arrC[3];
             }else if(temp.KSNJ == arrC[4]){
                 zy3 += temp.ID+",";
-                xq3 = arrC[5];
             }else if(temp.KSNJ == arrC[6]){
                 zy4 += temp.ID+",";
-                xq4 = arrC[7];
             }
-    }
+        }
         zy1 = zy1.substring(0,zy1.length-1);
         zy2 = zy2.substring(0,zy2.length-1);
         zy3 = zy3.substring(0,zy3.length-1);
         zy4 = zy4.substring(0,zy4.length-1);
+        if(zy1=="")
+            zy1 = "-1";
+        if(zy2=="")
+            zy2 = "-1";
+        if(zy3=="")
+            zy3 = "-1";
+        if(zy4=="")
+            zy4 = "-1";
         var queryarr = new Array(zy1,xq1,zy2,xq2,zy3,xq3,zy4,xq4);
+        console.log(queryarr);
         $.ajax({
             type: "get",
             url: "/major_courseService/getMC",
@@ -321,7 +330,7 @@
             cache: true,
             async: false,
             success: function (majorcoursemsg) {
-                //console.log("专业选修课程信息记录数：" + majorcoursemsg.aaData.length);
+                console.log("专业选修课程信息记录数：" + majorcoursemsg.aaData.length);
                 if (majorcoursemsg.aaData.length > 0) {
                     for (var a = 0; a < majorcoursemsg.aaData.length; a++) {
                         var tempmc = majorcoursemsg.aaData[a];

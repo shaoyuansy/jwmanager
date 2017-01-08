@@ -59,6 +59,16 @@ exports.deleteXk = function (req, res, kcid, jsid, fn) {
     });
 };
 
+/* 删除一条课程所有信息*/
+exports.deleteKc = function (req, res, idstr, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.deleteKc, idstr, function (err, result) {
+            connection.release();
+            fn(1);
+        });
+    });
+};
+
 /*教师选择头数*/
 exports.xuanzets = function (req, res, kcid, jsid, xzts, bz, czr, fn) {
     pool.getConnection(function (err, connection) {

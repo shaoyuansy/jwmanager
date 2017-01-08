@@ -30,6 +30,7 @@ exports.queryMC = function (req, res,arr,fn) {
                 "OR KSXQ = '"+ arr[5]+"' AND ZYID IN ("+ arr[4] +") " +
                 "OR KSXQ = '"+ arr[7]+"' AND ZYID IN ("+ arr[6] +");"
         }
+        console.log(sql);
         connection.query(sql, function (err, result) {
             connection.release();
             fn(result);

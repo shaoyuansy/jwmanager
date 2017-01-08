@@ -45,7 +45,7 @@
                     </button>
                 </div>
                 <div style="margin-top: 1%">
-                    <div style="float: left;margin-left: 2%">当前显示的列：<br>
+                    <div style="float: left;margin-left: 2%">当前显示的列：
                         课程编号：<input id="checkbox3" name="checkbox3" type="checkbox" value="1">&nbsp;&nbsp;&nbsp;&nbsp;
                         课程名称：<input id="checkbox3" name="checkbox3" type="checkbox" value="2">&nbsp;&nbsp;&nbsp;&nbsp;
                         课程英文名称：<input id="checkbox3" name="checkbox3" type="checkbox" value="3">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -235,11 +235,27 @@
             }
         });
     }
+    //删除与要删除记录相关的教师选课记录
+    function delSelectCourse(data) {
+        $.ajax({
+            type: "get",
+            url: '/teacher_courseService/delKc',
+            dataType: "json",
+            data: {idstr: data},
+            cache: true,
+            success: function (msg) {
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    }
     //删除记录
     function delCourse(ID) {
-        var result = confirm("确认要删除？");
+        var result = confirm("删除本课会将选择本门课程的教师记录一并删除，确认要删除吗？");
         if (result) {
             delMajorCourse(ID);
+            delSelectCourse(ID);
             $.ajax({
                 type: "get",
                 url: '/courseService/delOne',
