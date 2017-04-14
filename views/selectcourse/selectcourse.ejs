@@ -76,13 +76,50 @@
 <div class="modal fade" id="modal-edit-event"></div>
 
 <script>
-
+    function get_term() {
+        var nowDate = new Date();
+        var nowYear = nowDate.getFullYear();
+        var nowMonth = nowDate.getMonth() + 1;
+        if (nowMonth >= 8 && nowMonth <= 12) {
+            //四个学年判断
+            var xuenian1 = nowYear + "级";//2016级
+            var xuenian2 = nowYear - 1 + "级";//2015级
+            var xuenian3 = nowYear - 2 + "级";//2014级
+            var xuenian4 = nowYear - 3 + "级";//2013级
+            //当前四个学期判断
+            var xueqi1 = "第" + replaceNo((nowYear - nowYear) * 2 + 1) + "学期";//1
+            var xueqi2 = "第" + replaceNo((nowYear - (nowYear - 1)) * 2 + 1) + "学期";//2
+            var xueqi3 = "第" + replaceNo((nowYear - (nowYear - 2)) * 2 + 1) + "学期";//3
+            var xueqi4 = "第" + replaceNo((nowYear - (nowYear - 3)) * 2 + 1) + "学期";//4
+        } else if (nowMonth >= 1 && nowMonth < 2 || nowMonth >= 2 && nowMonth <= 7) {
+            var xuenian1 = nowYear - 1 + "级";
+            var xuenian2 = nowYear - 2 + "级";
+            var xuenian3 = nowYear - 3 + "级";
+            var xuenian4 = nowYear - 4 + "级";
+            if (nowMonth >= 1 && nowMonth < 2) {
+                var xueqi1 = "第" + replaceNo((nowYear - nowYear) * 2 + 1) + "学期";//1
+                var xueqi2 = "第" + replaceNo((nowYear - (nowYear - 1)) * 2 + 1) + "学期";//2
+                var xueqi3 = "第" + replaceNo((nowYear - (nowYear - 2)) * 2 + 1) + "学期";//3
+                var xueqi4 = "第" + replaceNo((nowYear - (nowYear - 3)) * 2 + 1) + "学期";//4
+            }
+            else if (nowMonth >= 2 && nowMonth <= 7) {
+                var xueqi1 = "第" + replaceNo((nowYear - nowYear) * 2 + 2) + "学期";//1
+                var xueqi2 = "第" + replaceNo((nowYear - (nowYear - 1)) * 2 + 2) + "学期";//2
+                var xueqi3 = "第" + replaceNo((nowYear - (nowYear - 2)) * 2 + 2) + "学期";//3
+                var xueqi4 = "第" + replaceNo((nowYear - (nowYear - 3)) * 2 + 2) + "学期";//4
+            }
+        }
+        var year = [xuenian1,xuenian2,xuenian3,xuenian4];
+        var term = [xueqi1,xueqi2,xueqi3,xueqi4];
+        return {"year":year,"term":term};
+    }
     $(document).ready(function () {
-        $("#box").css('height', $(window).height() * 0.8 + 'px');//调整表格显示高度
+        console.log(get_term());
+        $("#box").css('height', $(window).height() * 0.85 + 'px');//调整表格显示高度
         //1.生成左半部分课程信息
         //判断当前时间，用来查询当前时间所属课程
         var xueqi = "";
-        var nowDate = new Date('2016/10/21,00:00:00');
+        var nowDate = new Date();
         //系统判断学期与时间
         var nowYear = nowDate.getFullYear();//当前年份
         var nowMonth = nowDate.getMonth() + 1;//当前月份

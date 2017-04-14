@@ -4,84 +4,48 @@
     <title><%= title %></title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="/AdminLTE/bootstrap/css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="/AdminLTE/plugins/Font-Awesome-master/css/font-awesome.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="/AdminLTE/plugins/ionicons-master/css/ionicons.min.css">
-    <!-- Select2 -->
-    <link rel="stylesheet" href="/AdminLTE/plugins/select2/select2.min.css">
-    <!-- bootstrap Select -->
-    <link rel="stylesheet" href="/AdminLTE/plugins/bootstrap-select/css/bootstrap-select.min.css">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="/AdminLTE/dist/css/skins/_all-skins.min.css">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="/AdminLTE/plugins/iCheck/flat/blue.css">
-    <!-- DataTables -->
-    <link rel="stylesheet" href="/AdminLTE/plugins/datatables/dataTables.bootstrap.css">
-    <!-- iCheck for checkboxes and radio inputs -->
-    <link rel="stylesheet" href="/AdminLTE/plugins/iCheck/all.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="/AdminLTE/dist/css/AdminLTE.min.css">
-    <!-- ./wrapper -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/plugins/Font-Awesome-master/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/plugins/ionicons-master/css/ionicons.min.css">
+    <link rel="stylesheet" href="/plugins/select2/select2.min.css">
+    <link rel="stylesheet" href="/plugins/bootstrap-select/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="/plugins/iCheck/flat/blue.css">
+    <link rel="stylesheet" href="/plugins/datatables/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="/plugins/iCheck/all.css">
+    <link rel="stylesheet" href="/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/css/commend.css">
+    <link rel="stylesheet" href="/css/left.css">
 
-    <!-- jQuery 2.2.3 -->
-    <script src="/AdminLTE/plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="/AdminLTE/plugins/jQueryUI/jquery-ui.min.js"></script>
-    <!-- Bootstrap 3.3.6 -->
-    <script src="/AdminLTE/bootstrap/js/bootstrap.min.js"></script>
-    <!-- DataTables -->
-    <script src="/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>
-
-
+    <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="/plugins/jQueryUI/jquery-ui.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
 </head>
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
     <% include _header.ejs %>
-
     <% include _lefter.ejs %>
-
     <%- body %>
-
     <% include _footer.ejs %>
-
     <!-- 右侧边工具栏 -->
     <aside class="control-sidebar control-sidebar-dark">
-        <!-- Tab panes -->
         <div class="tab-content">
-            <!-- Home tab content -->
             <div class="tab-pane" id="control-sidebar-home-tab"></div>
-            <!-- /.tab-pane -->
-            <!-- Stats tab content -->
             <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
-            <!-- /.tab-pane -->
-            <!-- Settings tab content -->
             <div class="tab-pane" id="control-sidebar-settings-tab"></div>
-            <!-- /.tab-pane -->
         </div>
     </aside>
-    <!-- /.control-sidebar -->
-    <!-- Add the sidebar's background. This div must be placed
-         immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
-    <!-- 右侧边工具栏 END-->
 </div>
-<!-- Select2 -->
-<script src="/AdminLTE/plugins/select2/select2.min.js"></script>
-<!-- Slimscroll -->
-<script src="/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="/AdminLTE/plugins/fastclick/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="/AdminLTE/dist/js/app.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="/AdminLTE/dist/js/demo.js"></script>
+<script src="/plugins/select2/select2.min.js"></script>
+<script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="/plugins/fastclick/fastclick.js"></script>
+<script src="/dist/js/app.min.js"></script>
+<script src="/dist/js/demo.js"></script>
 </body>
 </html>
 
