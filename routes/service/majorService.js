@@ -18,9 +18,9 @@ router.get('/getList', function (req, res, next) {
     });
 });
 //选课页面获取本年专业信息列表
-router.get('/selectMajor', function (req, res, next) {
-    zyDao.selectMajor(req, res, req.query.arrXN, function (result) {
-        res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
+router.post('/selectMajor', function (req, res, next) {
+    zyDao.selectMajor(req, res, req.body.years, function (result) {
+        res.send({"data": result});
     });
 });
 //删除一条专业信息记录

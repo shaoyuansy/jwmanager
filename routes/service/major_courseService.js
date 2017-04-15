@@ -13,15 +13,14 @@ router.get('/', function (req, res, next) {
 var zy_kcDao = require('../../models/dao/jw_zy_kc/zy_kcDao');
 //获取专业-课程信息列表
 router.get('/getList', function (req, res, next) {
-    console.log("开始查询："+req.query.sqlstr);
     zy_kcDao.queryAll(req, res, req.query.sqlstr, function (result) {
         res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
     });
 });
 //只获取专业-课程表
-router.get('/getMC', function (req, res, next) {
-    zy_kcDao.queryMC(req, res,req.query.arr, function (result) {
-        res.send({"aaData": result});
+router.post('/getMC', function (req, res, next) {
+    zy_kcDao.queryMC(req, res,req.body.arr, function (result) {
+        res.send({"data": result});
     });
 });
 //删除一条专业-课程信息记录

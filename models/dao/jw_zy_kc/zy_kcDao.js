@@ -22,6 +22,7 @@ exports.queryAll = function (req, res, sqlStr, fn) {
 };
 /* 只获取专业课程关联表*/
 exports.queryMC = function (req, res,arr,fn) {
+    var arr = arr.split("-");
     pool.getConnection(function (err, connection) {
         if(err!=""){
             var sql = "SELECT ID, ZYID,KCID,KSXQ FROM jw_zy_kc " +
@@ -30,7 +31,6 @@ exports.queryMC = function (req, res,arr,fn) {
                 "OR KSXQ = '"+ arr[5]+"' AND ZYID IN ("+ arr[4] +") " +
                 "OR KSXQ = '"+ arr[7]+"' AND ZYID IN ("+ arr[6] +");"
         }
-        console.log(sql);
         connection.query(sql, function (err, result) {
             connection.release();
             fn(result);

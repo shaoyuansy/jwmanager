@@ -20,16 +20,16 @@ exports.queryAll = function (req, res, fn) {
     });
 };
 /* 选课页面获取课程信息列表*/
-exports.selectCourse = function (req, res, arrC, fn) {
+exports.selectCourse = function (req, res, term, fn) {
+    term =term.split(",");
     pool.getConnection(function (err, connection) {
-        arrC = req.query.arrC.split(",");
         var sql = "SELECT DISTINCT ID,KCBH,KCMC,KCYWMC,KCFZR,KCLX,ZXS,SJXS,XF,SYDX,XDKC,HXKC,JYSHF,ZYFZR " +
             "FROM " +
             "(SELECT kc.ID,kc.KCBH,kc.KCMC,kc.KCYWMC,kc.KCFZR,kc.KCLX,kc.ZXS,kc.SJXS,kc.XF,kc.SYDX,kc.XDKC,kc.HXKC,kc.JYSHF,kc.ZYFZR,zy.ZYMC,zy.KSNJ,zk.KSXQ " +
             "FROM jw_zy_kc AS zk,jw_zy AS zy,jw_kc AS kc " +
             "WHERE zk.ZYID=zy.ID AND zk.KCID=kc.ID)t " +
-            "WHERE KSNJ LIKE '" + arrC[0] + "' AND KSXQ LIKE '" + arrC[1] + "' OR KSNJ LIKE '" + arrC[2] + "' AND KSXQ LIKE '" + arrC[3] + "' " +
-            "OR KSNJ LIKE '" + arrC[4] + "' AND KSXQ LIKE '" + arrC[5] + "' OR KSNJ LIKE '" + arrC[6] + "' AND KSXQ LIKE '" + arrC[7] + "' " +
+            "WHERE KSNJ='" + term[0] + "' AND KSXQ='" + term[1] + "' OR KSNJ='" + term[2] + "' AND KSXQ='" + term[3] + "' " +
+            "OR KSNJ='" + term[4] + "' AND KSXQ='" + term[5] + "' OR KSNJ='" + term[6] + "' AND KSXQ='" + term[7] + "' " +
             "ORDER BY ID;";
         connection.query(sql, function (err, result) {
             connection.release();

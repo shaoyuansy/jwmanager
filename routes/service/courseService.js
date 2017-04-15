@@ -13,9 +13,9 @@ router.get('/getList', function (req, res, next) {
     });
 });
 //选课页面获取课程信息列表
-router.get('/selectCourse', function (req, res, next) {
-    kcDao.selectCourse(req, res, req.query.arrC, function (result) {
-        res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
+router.post('/selectCourse', function (req, res, next) {
+    kcDao.selectCourse(req, res, req.body.term, function (result) {
+        res.send({"data": result});
     });
 });
 //删除一条课程信息记录
