@@ -11,9 +11,9 @@ var $sql = require('./kc_jsSqlMapping');
 var pool = mysql.createPool($util.extend({}, $conf.mysql));
 
 /* 获取院内授课老师选课头数信息*/
-exports.getYN = function (req, res, kcid, fn) {
+exports.getTc = function (req, res, kcid, term, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.queryYN, kcid, function (err, result) {
+        connection.query($sql.queryTc, [kcid, term], function (err, result) {
             connection.release();
             fn(result);
         });

@@ -97,7 +97,7 @@
     <!-- /.content -->
 </div>
 
-<div class="modal" id="modal-edit-event"></div>
+<div class="modal" id="edit-teacher-modal"></div>
 <script>
     var mytable;
 
@@ -139,7 +139,28 @@
             },
             {
                 "mData": "SFZR",
-                "sClass": "center"
+                "mData": function (obj) {
+                    switch(obj.SFZR){
+                        case 1:
+                            return "学院教师";
+                            break;
+                        case 2:
+                            return "大校教师";
+                            break;
+                        case 3:
+                            return "其他高校教师（有教师资格证）";
+                            break;
+                        case 4:
+                            return "实习机构";
+                            break;
+                        case 5:
+                            return "其他人员";
+                            break;
+                        default:
+                            return "";
+                    }
+                    
+                }
             },
             {
                 "mData": "LXDH",
@@ -228,8 +249,8 @@
             async: false,
             success: function (htmlContent) {
                 //模态框
-                $('#modal-edit-event').html(htmlContent);
-                $("#modal-edit-event").modal('show');
+                $('#edit-teacher-modal').html(htmlContent);
+                $("#edit-teacher-modal").modal('show');
             }
         });
     }
@@ -245,9 +266,8 @@
                 cache: true,
                 success: function (msg) {
                     if (msg.state == 1) {
-                        alert("删除成功");
+                        location.reload();
                     }
-                    location.reload();
                 },
                 error: function (e) {
                     console.log(e);

@@ -12,12 +12,11 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">教师信息编辑</h4>
+            <h4 class="modal-title">教师信息编辑</h4>
         </div>
 
         <div class="modal-body">
             <div class="box">
-                <!-- box-body -->
                 <div class="box-body">
                     <form id="teacherform" method="post" action="teacher/_editTeacher.html">
                         <input id="ID" name="ID" type="hidden" class="form-control" value="<%= id %>">
@@ -143,8 +142,11 @@
                                 <td style="text-align: left;">
                                     <select class="form-control" id="SFZR" name="SFZR" style="width: 100%">
                                         <option value="">请选择</option>
-                                        <option>是</option>
-                                        <option>否</option>
+                                        <option value="1">学院教师</option>
+                                        <option value="2">大校教师</option>
+                                        <option value="3">其他高校教师（有教师资格证）</option>
+                                        <option value="4">实习机构</option>
+                                        <option value="5">其他人员</option>
                                     </select>
                                     <input id="SFZRTEMP" name="SFZRTEMP" type="hidden" value="<%= sfzr %>">
                                 </td>
@@ -356,13 +358,13 @@
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             <button type="button" class="btn btn-primary" onclick="submitForm()">提交</button>
         </div>
-    </div><!-- /.modal-content -->
-</div><!-- /.modal -->
+    </div>
+</div>
 
 <script>
     $(document).ready(function () {
         if ($("#ID").val() > 0) {
-            $('#XM').attr("disabled", true);
+            $('#XM').attr("readonly", true);
         }
         $("#XB").val($("#XBTEMP").val());
         $("#MZ").val($("#MZTEMP").val());
@@ -527,12 +529,11 @@
                 cache: true,
                 success: function (msg) {
                     if (msg.result != 0) {
-                        $("#modal-edit-event").modal('hide');
+                        $("#edit-teacher-modal").modal('hide');
                     }
-                    location.reload();
+                    //location.reload();
                 },
                 error: function (e) {
-                    alert("提交失败！");
                     console.log(e);
                 }
             });
@@ -548,7 +549,6 @@
             async: false,
             cache: true,
             success: function (msg) {
-                console.log(msg);
                 if (msg.aaData[0]) {
                     if (msg.aaData[0]['ID'] > 0) {
                         $('#TXM').val("exi");

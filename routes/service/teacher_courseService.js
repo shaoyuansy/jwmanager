@@ -5,10 +5,10 @@ var express = require('express');
 var router = express.Router();
 var kc_jsDao = require('../../models/dao/jw_kc_js/kc_jsDao');
 
-//获取院内教师-课程信息列表
-router.get('/getYN', function (req, res, next) {
-    kc_jsDao.getYN(req, res, req.query.kcid, function (result) {
-        res.send({"result": result});
+//获取某一门课程 某一学期的记录
+router.post('/getTc', function (req, res, next) {
+    kc_jsDao.getTc(req, res, req.body.kcid, req.body.term, function (result) {
+        res.send({"data": result});
     });
 });
 //获取外聘教师-课程信息列表

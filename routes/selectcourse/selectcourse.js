@@ -6,7 +6,6 @@ var router = express.Router();
 var kc_jsDao = require('../../models/dao/jw_kc_js/kc_jsDao');
 var teacherDao = require('../../models/dao/jw_teacher/teacherDao');
 
-/* . */
 router.get('/', function(req, res, next) {
     res.render('selectcourse/selectcourse', { title: '教务信息管理系统——教师选课' });
 });
