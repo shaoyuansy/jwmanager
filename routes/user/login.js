@@ -13,26 +13,25 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
-    var icheck = req.body.icheck;//icheck cookie勾选0或1判断
+    var remember = req.body.remember;//icheck cookie勾选0或1判断
     userDao.queryByUser(req, res, username, password, function (result) {
         if (result.length == 0) {
             //登陆失败
-            var jsonStr = {"success":true,"error":"login","errorMassage":"用户名或密码错误"};
-            return jsonStr;
+            res.send({"success":true,"error":"login","errorMassage":"用户名或密码错误"});
         }else {
-            var jsonStr = {"success":true,"error":"login","errorMassage":"用户名或密码错误"};
-            return jsonStr;
-            // res.cookie('userInfo', {username:result[0].USERNAME,password:result[0].PASSWORD}, { expires: new Date(Date.now() + 1800000), httpOnly: true });
-            // req.session.userInfo = result[0];
-            // var info = {
-            //     "isAdmin":false,
-            //     "isLogin":true,
-            //     "uId":result[0].ID,
-            //     "uName":result[0].USERNAME,
-            //     "tNo":result[0].YHBH,
-            // };
-            // req.session.loginInfo = info;
-            // res.redirect('/index');
+            if(remember == 1){
+                res.cookie('userInfo', {username:result[0].USERNAME,password:result[0].PASSWORD}, { expires: new Date(Date.now() + 1800000), httpOnly: true });
+            }
+            req.session.userInfo = result[0];
+            var info = {
+                "isAdmin":false,
+                "isLogin":true,
+                "uId":result[0].ID,
+                "uName":result[0].USERNAME,
+                "tNo":result[0].YHBH,
+            };
+            req.session.loginInfo = info;
+            res.send({"success":true,"data":"/index"});
         }
     });
 });

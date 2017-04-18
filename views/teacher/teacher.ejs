@@ -2,7 +2,33 @@
 <script src="../javascripts/mydatatable.js"></script>
 <!-- table2excel导出 -->
 <script src="/table2excel/jquery.table2excel.js"></script>
-
+<style>
+    #upfile {
+        display: none;
+    }
+    
+    .upload_group {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    
+    .style_upload {
+        height: 20px;
+        border-radius: 5px;
+        width: 120px;
+    }
+    
+    .open {
+        font-size: 12px;
+        color: #606c84;
+        margin-bottom: 0px;
+        font-weight: 500;
+        border: 1px solid #606c84;
+        border-radius: 5px;
+        padding: 0px 2px;
+        cursor: pointer;
+    }
+</style>
 <!-- 页面内容 content -->
 <div class="content-wrapper">
     <!-- 页面内容 Header -->
@@ -23,43 +49,47 @@
             <div class="box-header">
                 <h3 class="box-title">教师信息管理列表</h3>
                 <div class="box-tools pull-right">
-                    <button type="button" title="批量删除" class="btn btn-box-tool"
-                            onclick="delSomeTeacher()">
-                        <i class="fa fa-fw fa-times"></i>批量删除
-                    </button>
-                    <button type="button" title="添加" class="btn btn-box-tool"
-                            onclick="editTeacher(0)">
-                        <i class="fa fa-fw fa-user-plus"></i>添加
-                    </button>
-                    <button type="button" title="导出" class="btn btn-box-tool"
-                            onclick="exportData()">
-                        <i class="fa fa-fw fa-cloud-download"></i>导出
-                    </button>
-                    <button type="button" title="导入" class="btn btn-box-tool"
-                            onclick="isIE();">
+                    <div class="upload_group">
+                        <input type="file" id="upfile" accept=".xls,.xlsx" />
+                        <input type="text" class="style_upload" readonly/>
+                        <label for="upfile" class="open">浏览</label>
+                    </div>
+                    <button type="button" title="导入" class="btn btn-box-tool" onclick="isIE();">
                         <i class="fa fa-fw fa-sign-in"></i>导入
                     </button>
+                    <button type="button" title="导出" class="btn btn-box-tool" onclick="exportData()">
+                        <i class="fa fa-fw fa-cloud-download"></i>导出
+                    </button>
+                    <button type="button" title="批量删除" class="btn btn-box-tool" onclick="delSomeTeacher()">
+                        <i class="fa fa-fw fa-times"></i>批量删除
+                    </button>
+                    <button type="button" title="添加" class="btn btn-box-tool" onclick="editTeacher(0)">
+                        <i class="fa fa-fw fa-user-plus"></i>添加
+                    </button>
                 </div>
-                <div style="margin-top: 1%">
-                    <div style="float: left;margin-left: 2%">当前显示的列：&nbsp;&nbsp;&nbsp;&nbsp;
-                        #：<input id="checkbox3" name="checkbox3" type="checkbox" value="1">&nbsp;&nbsp;&nbsp;&nbsp;
-                        姓名：<input id="checkbox3" name="checkbox3" type="checkbox" value="2">&nbsp;&nbsp;&nbsp;&nbsp;
-                        工号：<input id="checkbox3" name="checkbox3" type="checkbox" value="3">&nbsp;&nbsp;&nbsp;&nbsp;
-                        是否专任：<input id="checkbox3" name="checkbox3" type="checkbox" value="4">&nbsp;&nbsp;&nbsp;&nbsp;
-                        联系电话：<input id="checkbox3" name="checkbox3" type="checkbox" value="5">&nbsp;&nbsp;&nbsp;&nbsp;
-                        分管负责人：<input id="checkbox3" name="checkbox3" type="checkbox" value="6">&nbsp;&nbsp;&nbsp;&nbsp;
-                        专业技术职称：<input id="checkbox3" name="checkbox3" type="checkbox" value="7">&nbsp;&nbsp;&nbsp;&nbsp;
-                        <br>
-                        学历：<input id="checkbox3" name="checkbox3" type="checkbox" value="8">&nbsp;&nbsp;&nbsp;&nbsp;
-                        最高学位：<input id="checkbox3" name="checkbox3" type="checkbox" value="9">&nbsp;&nbsp;&nbsp;&nbsp;
-                        学科类别：<input id="checkbox3" name="checkbox3" type="checkbox" value="10">&nbsp;&nbsp;&nbsp;&nbsp;
-                        导师类型：<input id="checkbox3" name="checkbox3" type="checkbox" value="11">&nbsp;&nbsp;&nbsp;&nbsp;
-                        单位名称: <input id="checkbox3" name="checkbox3" type="checkbox" value="12">&nbsp;&nbsp;&nbsp;&nbsp;
-                        教学效果: <input id="checkbox3" name="checkbox3" type="checkbox" value="13">&nbsp;&nbsp;&nbsp;&nbsp;
-                        是否上交证件: <input id="checkbox3" name="checkbox3" type="checkbox" value="14">&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="box box-default box-solid" style="margin-top:10px;">
+                    <div class="box-header with-border" style="padding:3px;font-size:14px;">
+                        <h3 class="box-title" style="font-size:14px;">当前显示的列</h3>
+                        <div class="box-tools pull-right" style="top: 1px;">
+                            <button type="button" style="padding:0px;line-height:0px" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div style="float: right">
-                        <input type="file" id="upfile" accept=".xls,.xlsx"/>
+                    <div class="box-body">
+                        <input id="checkshow" name="checkshow" type="checkbox" value="1"> # |
+                        <input id="checkshow" name="checkshow" type="checkbox" value="2"> <lable>姓名</lable> |
+                        <input id="checkshow" name="checkshow" type="checkbox" value="3"> 工号 |
+                        <input id="checkshow" name="checkshow" type="checkbox" value="4"> 是否专任 |
+                        <input id="checkshow" name="checkshow" type="checkbox" value="5"> 联系电话 |
+                        <input id="checkshow" name="checkshow" type="checkbox" value="6"> 分管负责人 |
+                        <input id="checkshow" name="checkshow" type="checkbox" value="7"> 专业技术职称 |
+                        <input id="checkshow" name="checkshow" type="checkbox" value="8"> 学历 |
+                        <input id="checkshow" name="checkshow" type="checkbox" value="9"> 最高学位 |
+                        <input id="checkshow" name="checkshow" type="checkbox" value="10"> 学科类别 |
+                        <input id="checkshow" name="checkshow" type="checkbox" value="11"> 导师类型 |
+                        <input id="checkshow" name="checkshow" type="checkbox" value="12"> 单位名称 |
+                        <input id="checkshow" name="checkshow" type="checkbox" value="13"> 教学效果 |
+                        <input id="checkshow" name="checkshow" type="checkbox" value="14"> 是否上交证件 
                     </div>
                 </div>
             </div>
@@ -67,53 +97,57 @@
             <div class="box-body">
                 <table id="datatable" class="table table-bordered table-striped">
                     <thead>
-                    <tr>
-                        <th><input id="checkbox1" name="checkbox1" type="checkbox"></th>
-                        <th>#</th>
-                        <th>姓名</th>
-                        <th>工号</th>
-                        <th>是否专任</th>
-                        <th>联系电话</th>
-                        <th>分管负责人</th>
-                        <th>专业技术职称</th>
-                        <th>学历</th>
-                        <th>最高学位</th>
-                        <th>学科类别</th>
-                        <th>导师类型</th>
-                        <th>单位名称</th>
-                        <th>教学效果</th>
-                        <th>是否上交证件</th>
-                        <th>操作</th>
-                    </tr>
+                        <tr>
+                            <th><input id="checkall" name="checkall" type="checkbox"></th>
+                            <th>#</th>
+                            <th>姓名</th>
+                            <th>工号</th>
+                            <th>是否专任</th>
+                            <th>联系电话</th>
+                            <th>分管负责人</th>
+                            <th>专业技术职称</th>
+                            <th>学历</th>
+                            <th>最高学位</th>
+                            <th>学科类别</th>
+                            <th>导师类型</th>
+                            <th>单位名称</th>
+                            <th>教学效果</th>
+                            <th>是否上交证件</th>
+                            <th>操作</th>
+                        </tr>
                     </thead>
                     <tbody>
                     </tbody>
                 </table>
             </div>
-            <!-- /.box-body -->
         </div>
-        <!-- /.box -->
     </section>
-    <!-- /.content -->
 </div>
 
 <div class="modal" id="edit-teacher-modal"></div>
+
 <script>
     var mytable;
 
     //全选  全反选处理
-    $("#checkbox1").click(function () {
-        var checkbox = document.getElementById('checkbox1');
+    $("#checkall").click(function () {
+        var checkbox = document.getElementById('checkall');
         //是否被选中
         if (checkbox.checked) {
-            $('input[type="checkbox"][name="checkbox2"]').each(function () {
+            $('input[type="checkbox"][name="checkrow"]').each(function () {
                 this.checked = true;
             });
         } else {
-            $('input[type="checkbox"][name="checkbox2"]').each(function () {
+            $('input[type="checkbox"][name="checkrow"]').each(function () {
                 this.checked = false;
             });
         }
+    });
+
+    $("#upfile").change(function () {
+        var filename = $(this).val();
+        $(".style_upload").val(filename);
+
     });
 
     $(document).ready(function () {
@@ -122,7 +156,7 @@
                 "mData": null,
                 "sClass": "center",
                 "mData": function (obj) {
-                    return '<input id="checkbox2" name="checkbox2" type="checkbox" value=' + obj.ID + '>';
+                    return '<input id="checkrow" name="checkrow" type="checkbox" value=' + obj.ID + '>';
                 }
             },
             {
@@ -140,7 +174,7 @@
             {
                 "mData": "SFZR",
                 "mData": function (obj) {
-                    switch(obj.SFZR){
+                    switch (obj.SFZR) {
                         case 1:
                             return "学院教师";
                             break;
@@ -159,7 +193,7 @@
                         default:
                             return "";
                     }
-                    
+
                 }
             },
             {
@@ -226,17 +260,13 @@
         ];
         mytable = CreateDataTable('#datatable', '/teacherService/getList', columns);
         //初始化当前显示列的checkbox判断是否选中
-        $('input[type="checkbox"][name="checkbox3"]').each(function () {
-            // Get the column API object
+        $('input[type="checkbox"][name="checkshow"]').each(function () {
             var column = $("#datatable").DataTable().column($(this).val());
-            // Toggle the visibility
             this.checked = column.visible();
         });
 
-        $('input[type="checkbox"][name="checkbox3"]').change(function () {
-            // Get the column API object
+        $('input[type="checkbox"][name="checkshow"]').change(function () {
             var column = $("#datatable").DataTable().column($(this).val());
-            // Toggle the visibility
             column.visible(!column.visible());
         });
     });
@@ -262,7 +292,7 @@
                 type: "get",
                 url: '/teacherService/delOne',
                 dataType: "json",
-                data: {ID: ID},
+                data: { ID: ID },
                 cache: true,
                 success: function (msg) {
                     if (msg.state == 1) {
@@ -280,7 +310,7 @@
         var flag = false;
         var arr = new Array();
         //遍历所有checkbox
-        $('input[type="checkbox"][name="checkbox2"]:checked').each(function () {
+        $('input[type="checkbox"][name="checkrow"]:checked').each(function () {
             arr.push(this.value);
         });
         if (arr.length != 0) {
@@ -292,7 +322,7 @@
                     type: "get",
                     url: '/teacherService/delSome',
                     dataType: "json",
-                    data: {idstr: idstr},
+                    data: { idstr: idstr },
                     cache: true,
                     success: function (msg) {
                         if (msg.result != 0) {
@@ -318,7 +348,7 @@
         var flag = false;
         var arr = new Array();
         //遍历所有checkbox
-        $('input[type="checkbox"][name="checkbox2"]:checked').each(function () {
+        $('input[type="checkbox"][name="checkrow"]:checked').each(function () {
             arr.push(this.value);
         });
         if (arr.length != 0) {
@@ -397,7 +427,7 @@
                             type: "get",
                             url: '/teacherService/insertSome',
                             dataType: "json",
-                            data: {str: str},
+                            data: { str: str },
                             cache: false,
                             async: false,//同步
                             success: function (result) {
@@ -428,5 +458,5 @@
             alert("请选择一个文件");
         }
     }
-</script>
 
+</script>

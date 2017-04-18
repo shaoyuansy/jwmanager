@@ -78,8 +78,10 @@ app.use(function (req, res, next) {
     var url = req.originalUrl;
     if (url != '/login' && req.session.userInfo == undefined) {
         return res.redirect('/login');
+    }else {
+        next();
     }
-    next();
+    
 });
 
 //路由地址配置

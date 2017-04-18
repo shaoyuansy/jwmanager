@@ -18,46 +18,55 @@
             </div>
         </form>
         <ul class="sidebar-menu">
-            <li class="active treeview">
+            <li class="treeview">
                 <a href="#">
                     <i class="fa fa-graduation-cap"></i> <span>教师信息管理</span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/teacher">&nbsp;&nbsp;教师信息管理</a></li>
-                    <li><a href="/jys/jys.html">&nbsp;&nbsp;教研室管理</a></li>
-                    <li><a href="/chart/chart.html">&nbsp;&nbsp;信息统计</a></li>
+                    <li class="/teacher"><a href="/teacher">&nbsp;&nbsp;教师信息管理</a></li>
+                    <li class="/jys/jys.html"><a href="/jys/jys.html">&nbsp;&nbsp;教研室管理</a></li>
+                    <li class="/chart/chart.html"><a href="/chart/chart.html">&nbsp;&nbsp;信息统计</a></li>
                 </ul>
             </li>
-            <li class="active treeview">
+            <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-files-o"></i><span>专业&课程管理</span>
+                    <i class="fa fa-files-o"></i><span>教学计划</span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/major/major.html">&nbsp;&nbsp;专业管理</a></li>
-                    <li><a href="/course/course.html">&nbsp;&nbsp;课程管理</a></li>
-                    <li><a href="/major_course/major_course.html">&nbsp;&nbsp;专业-课程管理</a></li>
+                    <li class="/major/major.html"><a href="/major/major.html">&nbsp;&nbsp;专业管理</a></li>
+                    <li class="/course/course.html"><a href="/course/course.html">&nbsp;&nbsp;课程管理</a></li>
+                    <li class="/major_course/major_course.html"><a href="/major_course/major_course.html">&nbsp;&nbsp;专业-课程管理</a></li>
                 </ul>
             </li>
-            <li class="active treeview">
+            <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-calculator"></i><span>教师选课</span>
+                    <i class="fa fa-calculator"></i><span>教师选课管理</span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/selectcourse">&nbsp;&nbsp;教师选课信息</a></li>
+                    <li class="/selectcourse"><a href="/selectcourse">&nbsp;&nbsp;专业课选课</a></li>
+                </ul>
+                <ul class="treeview-menu">
+                    <li><a href="#">&nbsp;&nbsp;计算机文化选课</a></li>
+                </ul>
+                <ul class="treeview-menu">
+                    <li><a href="#">&nbsp;&nbsp;小实训分配</a></li>
+                </ul>
+                <ul class="treeview-menu">
+                    <li><a href="#">&nbsp;&nbsp;毕业设计分配</a></li>
                 </ul>
             </li>
-            <li class="active treeview">
+            <li class="treeview">
                 <a href="#">
                     <i class="fa fa-check-square-o"></i><span>授课管理</span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/assigncourse">&nbsp;&nbsp;授课信息</a></li>
+                    <li class="/assigncourse"><a href="/assigncourse">&nbsp;&nbsp;授课信息</a></li>
                 </ul>
                 <ul class="treeview-menu">
-                    <li><a href="#">&nbsp;&nbsp;工作量统计</a></li>
+                    <li ><a href="#">&nbsp;&nbsp;工作量统计</a></li>
                 </ul>
             </li>
-            <li class="active treeview">
+            <li class="treeview">
                 <a href="#">
                     <i class="fa fa-user"></i><span>权限管理</span>
                 </a>
@@ -65,7 +74,7 @@
                     <li><a href="#">&nbsp;&nbsp;权限管理</a></li>
                 </ul>
             </li>
-            <li class="active treeview">
+            <li class="treeview">
                 <a href="#">
                     <i class="fa fa-newspaper-o"></i><span>公告管理</span>
                 </a>
@@ -76,3 +85,12 @@
         </ul>
     </section>
 </aside>
+<script>
+    $().ready(function(){
+		var getclass = window.location.pathname;
+		var cla = document.getElementsByClassName(getclass);
+		$(cla).addClass("active");
+		var getul = $(cla).parent().parent();
+		$(getul).addClass("active");
+	});
+</script>

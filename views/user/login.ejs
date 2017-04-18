@@ -19,7 +19,6 @@
         </div>
         <div class="login-box-body">
             <p class="login-box-msg">欢迎您，请输入登录信息</p>
-            <form id="loginForm" >
                 <div class="form-group has-feedback">
                     <input id="username" name="username" type="text" class="form-control" placeholder="用户名">
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
@@ -28,7 +27,6 @@
                     <input id="password" name="password" type="password" class="form-control" placeholder="密码">
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
-                <span class="errormsg" style="color:red;"></span>
                 <div class="row">
                     <div class="col-xs-8">
                         <div class="checkbox icheck remember">
@@ -39,14 +37,13 @@
                         </div>
                     </div>
                     <div class="col-xs-4">
-                        <button type="button" onclick="login()" class="btn btn-primary btn-block btn-flat">登录</button>
+                        <button type="button" onclick="login()" class="btn btn-primary btn-block btn-flat">登录</button>                        
                     </div>
                 </div>
-            </form>
+                <p class="errormsg" style="color:firebrick"></p>
             <div class="social-auth-links text-center">
                 <p>- 郑州大学软件与应用科技学院 -</p>
             </div>
-            <a href="#">忘记密码？</a>
         </div>
     </div>
 </div>
@@ -63,6 +60,7 @@
             radioClass: 'iradio_square-blue',
             increaseArea: '20%' // optional
         });
+        $(".remember input").val(0);
         $('.remember input').on('ifChecked', function (event) {
             $(".remember input").val(1);
         });
@@ -79,20 +77,28 @@
         var username = $("#username").val();
         var password = sha1($("#password").val());
         var remember = $(".remember input").val();
-        $.ajax({
+        $.ajax({            
             type: "post",
-            url: '/index',
+            url: '/login',
             dataType: "json",
-            data: {username:username,password:password,remember:remember},
             async: false,
+            cache: true,
+            data: {username:username,password:password,remember:remember},
             success: function (msg) {
-                console.log(msg);
+                if(msg.success){
+                    if(msg.error == "login"){
+                        $(".errormsg").text(msg.errorMassage);
+                    }else{
+                        location.href = msg.data;
+                    }                    
+                }
             },
             error: function (e) {
                 console.log(e);
             }
         })
-    }
+    };
+
     function sha1(str) {
         var sha1_str = hex_sha1(str);
         return sha1_str;

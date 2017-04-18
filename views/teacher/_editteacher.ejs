@@ -6,6 +6,10 @@
         text-align: right;
         vertical-align: middle;
     }
+    .form-control{
+        height: 28px;
+        padding: 3px;
+    }
 </style>
 
 <div class="modal-dialog" style="margin-top: 5%;width: 70%">
@@ -16,11 +20,11 @@
         </div>
 
         <div class="modal-body">
-            <div class="box">
+            <div class="box" style="margin-bottom: 0px">
                 <div class="box-body">
                     <form id="teacherform" method="post" action="teacher/_editTeacher.html">
                         <input id="ID" name="ID" type="hidden" class="form-control" value="<%= id %>">
-                        <table id="edittable" class="table table-bordered">
+                        <table id="edittable" class="table table-bordered"  style="margin-bottom: 0px;">
                             <tr></tr>
                             <tr>
                                 <td><span style="color: red;font-size: 20px">*</span>&nbsp; 姓名</td>
@@ -338,15 +342,12 @@
                                 <td>附件
                                     <input id="FJ" name="FJ" type="hidden" value="<%= fj %>"/></td>
                                 <td><span id="fileList"></span></td>
-                                <td>上传附件
-                                </td>
+                                <td>上传附件</td>
                                 <td style="text-align: left ">
-                                    <div>
-                                        <div id="file_upload_1"></div>
-                                        <a href="javascript:$('#file_upload_1').uploadify('upload','*');">
-                                            确认上传
-                                        </a>
-                                    </div>
+                                    <div id="file_upload_1"></div>
+                                    <a href="javascript:$('#file_upload_1').uploadify('upload','*');">
+                                        确认上传
+                                    </a>
                                 </td>
                             </tr>
                         </table>
@@ -354,7 +355,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal-footer" style="text-align:center;margin: auto">
+        <div class="modal-footer" style="text-align:center;margin: auto;padding:0px 15px 10px 15px;">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             <button type="button" class="btn btn-primary" onclick="submitForm()">提交</button>
         </div>

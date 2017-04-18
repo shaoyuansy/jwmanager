@@ -29,6 +29,9 @@
     .ttype{
         white-space: nowrap;
     }
+    .heng{
+        white-space: nowrap;
+    }
     tr{
         cursor: pointer;
     }
@@ -152,14 +155,14 @@
                     //生成thead
                     $("#selectcourseTL").append(
                             '<thead><tr id="TLtheadtr">' +
-                            '<th rowspan="2" style="width: 7%;">教研室划分</th>' +
-                            '<th rowspan="2" style="width: 5%">专业负责人</th>' +
-                            '<th rowspan="2" style="width: 5%">课程负责人</th>' +
-                            '<th rowspan="2" style="width: 4%">课程编号</th>' +
-                            '<th rowspan="2" style="width: 15%">' + xueqi + '课程</th>' +
-                            '<th rowspan="2" style="width: 1%" >周学时</th>' +
-                            '<th rowspan="2" style="width: 1%">上机</th>' +
-                            '<th rowspan="2" style="width: 1%">学分</th>' +
+                            '<th class="heng" rowspan="2" style="width: 7%;">教研室划分</th>' +
+                            '<th class="heng" rowspan="2" style="width: 5%">专业负责人</th>' +
+                            '<th class="heng" rowspan="2" style="width: 5%">课程负责人</th>' +
+                            '<th class="heng" rowspan="2" style="width: 4%">课程编号</th>' +
+                            '<th class="heng" rowspan="2" style="width: 15%">' + xueqi + '课程</th>' +
+                            '<th class="heng" rowspan="2" style="width: 1%" >周学时</th>' +
+                            '<th class="heng" rowspan="2" style="width: 1%">上机</th>' +
+                            '<th class="heng" rowspan="2" style="width: 1%">学分</th>' +
                             '</tr><tr id="TLtheadtr2"></tr></thead>'
                     );
                     //生成tbody
