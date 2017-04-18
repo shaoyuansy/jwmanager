@@ -5,7 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
-//路由配置开始
 
 //登录
 var login = require('./routes/user/login');
@@ -27,7 +26,6 @@ var selectcourse = require('./routes/selectcourse/selectcourse');
 var assigncourse = require('./routes/assign_course/assigncourse');
 //插件(上传)
 var uploadFile = require('./routes/tools/uploadFile');
-
 //专业-课程信息
 var major_course = require('./routes/major_course/major_course');
 
@@ -48,7 +46,6 @@ var teacher_courseService = require('./routes/service/teacher_courseService');
 var userService = require('./routes/service/userService');
 //授课管理服务
 var assignService = require('./routes/service/assignService');
-//路由配置结束
 
 var app = express();
 
@@ -64,18 +61,17 @@ app.engine('ejs', require('ejs-mate'));
 app.locals._layoutFile = 'master.ejs';
 app.locals.title = '教师信息管理系统';
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 //设置session
 app.use(cookieSession({
     name: 'session',
     keys: ['123', '321']
 }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 //登陆拦截器
 app.use(function (req, res, next) {
@@ -109,7 +105,6 @@ app.use('/major_courseService', major_courseService);
 app.use('/teacher_courseService', teacher_courseService);
 app.use('/userService', userService);
 app.use('/assignService', assignService);
-//路由地址配置结束
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

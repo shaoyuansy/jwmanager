@@ -3,17 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="/plugins/Font-Awesome-master/css/font-awesome.min.css">
-    <!-- Ionicons -->
     <link rel="stylesheet" href="/plugins/ionicons-master/css/ionicons.min.css">
-    <!-- Theme style -->
     <link rel="stylesheet" href="/dist/css/AdminLTE.min.css">
-    <!-- iCheck -->
     <link rel="stylesheet" href="/plugins/iCheck/square/blue.css">
     <link rel="stylesheet" href="/css/login.css">
 </head>
@@ -23,70 +17,57 @@
         <div class="login-logo">
             <a href="#">教务信息管理系统</a>
         </div>
-        <!-- /.login-logo -->
         <div class="login-box-body">
             <p class="login-box-msg">欢迎您，请输入登录信息</p>
-            <form id="loginForm" action="/login" method="post">
+            <form id="loginForm" >
                 <div class="form-group has-feedback">
-                    <input id="username" name="username" type="text" class="form-control" placeholder="Access">
+                    <input id="username" name="username" type="text" class="form-control" placeholder="用户名">
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input id="password" name="password" type="password" class="form-control" placeholder="Password">
+                    <input id="password" name="password" type="password" class="form-control" placeholder="密码">
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
-                <span style="color:red;"> <%= errorMessage %></span>
+                <span class="errormsg" style="color:red;"></span>
                 <div class="row">
                     <div class="col-xs-8">
-                        <div class="checkbox icheck">
+                        <div class="checkbox icheck remember">
                             <label>
-                                <input type="checkbox"> 记住信息
-                                <input id="icheck" name="icheck" type="hidden" value="">
+                                <input type="checkbox" for="remember"> 记住信息
+                                <input id="remember" name="remember" type="hidden" value="">
                             </label>
                         </div>
                     </div>
-                    <!-- /.col -->
                     <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
+                        <button type="button" onclick="login()" class="btn btn-primary btn-block btn-flat">登录</button>
                     </div>
-                    <!-- /.col -->
                 </div>
             </form>
             <div class="social-auth-links text-center">
                 <p>- 郑州大学软件与应用科技学院 -</p>
             </div>
-            <!-- /.social-auth-links -->
             <a href="#">忘记密码？</a>
         </div>
-        <!-- /.login-box-body -->
     </div>
-    <!-- /.login-box -->
 </div>
 
-<!-- jQuery 2.2.3 -->
 <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<!-- Bootstrap 3.3.6 -->
 <script src="/bootstrap/js/bootstrap.min.js"></script>
-<!-- iCheck -->
 <script src="/plugins/iCheck/icheck.min.js"></script>
-<!--<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>-->
-<!-- 粒子 -->
 <script src="/javascripts/jparticle.jquery.min.js"></script>
-
+<script src="/javascripts/SHA1.js"></script>
 <script>
     $(function () {
-        $('input').iCheck({
+        $('.remember input').iCheck({
             checkboxClass: 'icheckbox_square-blue',
             radioClass: 'iradio_square-blue',
             increaseArea: '20%' // optional
         });
-        //iCheck选中事件
-        $('input').on('ifChecked', function (event) {
-            document.getElementById("icheck").setAttribute("value", "1");
+        $('.remember input').on('ifChecked', function (event) {
+            $(".remember input").val(1);
         });
-        //iCheck取消选中事件
-        $('input').on('ifUnchecked', function (event) {
-            document.getElementById("icheck").setAttribute("value", "0");
+        $('.remember input').on('ifUnchecked', function (event) {
+            $(".remember input").val(0);
         });
         $(".htmleaf-container").jParticle({
             background: "#d2d6de",
@@ -94,6 +75,28 @@
         });
     });
 
+    function login(){
+        var username = $("#username").val();
+        var password = sha1($("#password").val());
+        var remember = $(".remember input").val();
+        $.ajax({
+            type: "post",
+            url: '/index',
+            dataType: "json",
+            data: {username:username,password:password,remember:remember},
+            async: false,
+            success: function (msg) {
+                console.log(msg);
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        })
+    }
+    function sha1(str) {
+        var sha1_str = hex_sha1(str);
+        return sha1_str;
+    }
 </script>
 </body>
 </html>

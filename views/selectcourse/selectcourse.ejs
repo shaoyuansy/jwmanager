@@ -73,7 +73,7 @@
         </div>
     </section>
 </div>
-<div class="modal fade" id="modal-edit-event"></div>
+<div class="modal fade" id="modal-edit-xk"></div>
 <script>
     $(document).ready(function () {
         $("#box").css('height', $(window).height() * 0.85 + 'px');//调整表格显示高度
@@ -116,8 +116,8 @@
             async: false,
             success: function (htmlContent) {
                 //模态框
-                $('#modal-edit-event').html(htmlContent);
-                $('#modal-edit-event').modal('show');
+                $('#modal-edit-xk').html(htmlContent);
+                $('#modal-edit-xk').modal('show');
             }
         });
     }
@@ -316,7 +316,7 @@
         $("#TLtheadtr").append('<th colspan="6">授课老师（院内/外聘）</th>');
         $("#TLtheadtr2").append('<th class="ttype" id="t1">学院教师</th><th class="ttype" id="t2">大校教师</th><th class="ttype" id="t3">其他高校教师（有教师资格证）</th>'+
         '<th class="ttype" id="t4">实习机构</th><th class="ttype" id="t5">其他人员</th><th class="ttype" id="t6">其他</th>');
-        //获取院内授课老师
+        //获取授课老师选课信息
         coursemsg.data.forEach(function(v,i,arr){
             $("#c"+v['ID']).append('<td id=c'+v['ID']+'t1></td><td id=c'+v['ID']+'t2></td><td id=c'+v['ID']+'t3></td>'+
             '<td id=c'+v['ID']+'t4></td><td id=c'+v['ID']+'t5></td><td id=c'+v['ID']+'t6></td>');
