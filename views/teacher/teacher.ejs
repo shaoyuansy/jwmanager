@@ -16,8 +16,8 @@
         height: 20px;
         border-radius: 5px;
         width: 120px;
+        font-size: 10px;
     }
-    
     .open {
         font-size: 12px;
         color: #606c84;
@@ -28,23 +28,33 @@
         padding: 0px 2px;
         cursor: pointer;
     }
+    .box-body span{
+        display: inline-block;
+    }
+    .box-body span input{
+        margin: 0px;
+        vertical-align: middle;
+    }
+    .box {
+        margin-bottom: 0px;
+    }
+    #datatable th, 
+    #datatable td{
+        white-space:nowrap;    
+    }
+    .text_center{
+        text-align: center;
+    }
 </style>
-<!-- 页面内容 content -->
 <div class="content-wrapper">
-    <!-- 页面内容 Header -->
     <section class="content-header">
-        <h1>
-            教师信息管理页面
-        </h1>
+        <h1>教师信息管理页面</h1>
         <ol class="breadcrumb">
             <li><a href="/index"><i class="fa fa-home"></i> 首页</a></li>
             <li class="active">教师信息管理</li>
         </ol>
     </section>
-
-    <!-- Main content -->
     <section class="content">
-        <!-- /.box -->
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">教师信息管理列表</h3>
@@ -76,26 +86,25 @@
                         </div>
                     </div>
                     <div class="box-body">
-                        <input id="checkshow" name="checkshow" type="checkbox" value="1"> # |
-                        <input id="checkshow" name="checkshow" type="checkbox" value="2"> <lable>姓名</lable> |
-                        <input id="checkshow" name="checkshow" type="checkbox" value="3"> 工号 |
-                        <input id="checkshow" name="checkshow" type="checkbox" value="4"> 是否专任 |
-                        <input id="checkshow" name="checkshow" type="checkbox" value="5"> 联系电话 |
-                        <input id="checkshow" name="checkshow" type="checkbox" value="6"> 分管负责人 |
-                        <input id="checkshow" name="checkshow" type="checkbox" value="7"> 专业技术职称 |
-                        <input id="checkshow" name="checkshow" type="checkbox" value="8"> 学历 |
-                        <input id="checkshow" name="checkshow" type="checkbox" value="9"> 最高学位 |
-                        <input id="checkshow" name="checkshow" type="checkbox" value="10"> 学科类别 |
-                        <input id="checkshow" name="checkshow" type="checkbox" value="11"> 导师类型 |
-                        <input id="checkshow" name="checkshow" type="checkbox" value="12"> 单位名称 |
-                        <input id="checkshow" name="checkshow" type="checkbox" value="13"> 教学效果 |
-                        <input id="checkshow" name="checkshow" type="checkbox" value="14"> 是否上交证件 
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="1"> # |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="2"> 姓名 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="3"> 工号 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="4"> 是否专任 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="5"> 联系电话 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="6"> 分管负责人 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="7"> 专业技术职称 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="8"> 学历 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="9"> 最高学位 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="10"> 学科类别 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="11"> 导师类型 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="12"> 单位名称 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="13"> 教学效果 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="14"> 是否上交证件 </span>
                     </div>
                 </div>
             </div>
-            <!-- /.box-header -->
             <div class="box-body">
-                <table id="datatable" class="table table-bordered table-striped">
+                <table id="datatable" class="table table-bordered table-striped" width="100%">
                     <thead>
                         <tr>
                             <th><input id="checkall" name="checkall" type="checkbox"></th>
@@ -127,8 +136,6 @@
 <div class="modal" id="edit-teacher-modal"></div>
 
 <script>
-    var mytable;
-
     //全选  全反选处理
     $("#checkall").click(function () {
         var checkbox = document.getElementById('checkall');
@@ -145,7 +152,7 @@
     });
 
     $("#upfile").change(function () {
-        var filename = $(this).val();
+        var filename = $(this).val().split("\\").pop();
         $(".style_upload").val(filename);
 
     });
@@ -153,41 +160,40 @@
     $(document).ready(function () {
         var columns = [
             {
-                "mData": null,
-                "sClass": "center",
-                "mData": function (obj) {
+                "className": "text_center",
+                "data": function (obj) {
                     return '<input id="checkrow" name="checkrow" type="checkbox" value=' + obj.ID + '>';
                 }
             },
             {
-                "mData": "ID",
-                "sClass": "center"
+                "data": "ID",
+                "className": "text_center"
             },
             {
-                "mData": "XM",
-                "sClass": "center"
+                "data": "XM",
+                "className": "text_center"
             },
             {
-                "mData": "GH",
-                "sClass": "center"
+                "data": "GH",
+                "className": "text_center"
             },
             {
-                "mData": "SFZR",
+                "data": "SFZR",
                 "mData": function (obj) {
                     switch (obj.SFZR) {
-                        case 1:
+                        case '1':
                             return "学院教师";
                             break;
-                        case 2:
+                        case '2':
                             return "大校教师";
                             break;
-                        case 3:
+                        case '3':
                             return "其他高校教师（有教师资格证）";
                             break;
-                        case 4:
+                        case '4':
                             return "实习机构";
                             break;
-                        case 5:
+                        case '5':
                             return "其他人员";
                             break;
                         default:
@@ -197,45 +203,44 @@
                 }
             },
             {
-                "mData": "LXDH",
-                "sClass": "center"
+                "data": "LXDH",
+                "className": "text_center"
             },
             {
-                "mData": "FGFZR",
-                "sClass": "center"
+                "data": "FGFZR",
+                "className": "text_center"
             },
             {
-                "mData": "ZYJSZC",
-                "sClass": "center"
+                "data": "ZYJSZC",
+                "className": "text_center"
             },
             {
-                "mData": "XL",
-                "sClass": "center"
+                "data": "XL",
+                "className": "text_center"
             },
             {
-                "mData": "ZGXW",
-                "sClass": "center"
+                "data": "ZGXW",
+                "className": "text_center"
             },
             {
-                "mData": "XKLB",
-                "sClass": "center"
+                "data": "XKLB",
+                "className": "text_center"
             },
             {
-                "mData": "DSLX",
-                "sClass": "center"
+                "data": "DSLX",
+                "className": "text_center"
             },
             {
-                "mData": "DWMC",
-                "sClass": "center"
+                "data": "DWMC",
+                "className": "text_center"
             },
             {
-                "mData": "JXXG",
-                "sClass": "center"
+                "data": "JXXG",
+                "className": "text_center"
             },
             {
-                "mData": null,
-                "sClass": "center",
-                "mData": function (obj) {
+                "className": "text_center",
+                "data": function (obj) {
                     var filep = obj.FJ;
                     var str = "";
                     if (filep == "null" || filep == null || filep == "") {
@@ -250,15 +255,14 @@
                 }
             },
             {
-                "mData": null,
-                "sClass": "center",
-                "mData": function (obj) {
+                "className": "text_center",
+                "data": function (obj) {
                     return '<a style="margin-left: 10px;" onclick="editTeacher(\'' + obj.ID + '\')" href="#" role="button" data-toggle="modal" title="编辑"><i class="fa fa-fw fa-pencil"></i></a>'
                         + '<a style="margin-left: 10px;" onclick="delTeacher(\'' + obj.ID + '\')" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';
                 }
             }
         ];
-        mytable = CreateDataTable('#datatable', '/teacherService/getList', columns);
+        var mytable = CreateDataTable('#datatable', '/teacherService/getList', columns);
         //初始化当前显示列的checkbox判断是否选中
         $('input[type="checkbox"][name="checkshow"]').each(function () {
             var column = $("#datatable").DataTable().column($(this).val());
@@ -286,25 +290,29 @@
     }
     //删除记录
     function delTeacher(ID) {
-        var result = confirm("确认要删除？");
-        if (result) {
-            $.ajax({
-                type: "get",
-                url: '/teacherService/delOne',
-                dataType: "json",
-                data: { ID: ID },
-                cache: true,
-                success: function (msg) {
-                    if (msg.state == 1) {
-                        location.reload();
-                    }
-                },
-                error: function (e) {
-                    console.log(e);
+        $.ajax({
+            type: "get",
+            url: '/teacherService/delOne',
+            dataType: "json",
+            data: { ID: ID },
+            cache: true,
+            success: function (msg) {
+                if (msg.state == 1) {
+                    var table = $('#datatable').DataTable();
+                    table.ajax.reload();
+                    table.draw();		
+                    $("#success_modal").modal();
+                    setTimeout(function(){			
+                        $("#success_modal").modal('hide');
+                    },1000);
                 }
-            });
-        }
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
     }
+
     //批量删除记录
     function delSomeTeacher() {
         var flag = false;
@@ -314,32 +322,37 @@
             arr.push(this.value);
         });
         if (arr.length != 0) {
-            var result = confirm("确认要删除这些数据？");
-            if (result) {
-                //数组转字符串 ，拼接
-                var idstr = arr.join(",");
-                $.ajax({
-                    type: "get",
-                    url: '/teacherService/delSome',
-                    dataType: "json",
-                    data: { idstr: idstr },
-                    cache: true,
-                    success: function (msg) {
-                        if (msg.result != 0) {
-                            alert("删除成功！");
-
-                        } else {
-                            alert("删除失败！");
-                        }
-                    },
-                    error: function (e) {
-                        console.log(e);
+            //数组转字符串 ，拼接
+            var idstr = arr.join(",");
+            $.ajax({
+                type: "post",
+                url: '/teacherService/delSome',
+                dataType: "json",
+                data: { idstr: idstr },
+                cache: true,
+                success: function (msg) {
+                    if (msg.result != 0) {
+                        var table = $('#datatable').DataTable();
+                        table.ajax.reload();
+                        table.draw();		
+                        $("#success_modal").modal();
+                        setTimeout(function(){			
+                            $("#success_modal").modal('hide');
+                        },1000);
+                    } else {
+                        $("#faile_modal").modal();
+                        setTimeout(function(){					
+                            $("#faile_modal").modal('hide');
+                        },1000);
                     }
-                });
-                location.reload();
-            }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
         } else {
-            alert("请至少选择一项");
+            $("#warning_content").text("请选择一项删除");
+            $("#warning_modal").modal("show");
         }
     }
 
@@ -352,15 +365,12 @@
             arr.push(this.value);
         });
         if (arr.length != 0) {
-            var result = confirm("确认导出这些数据？");
-            if (result) {
-                //数组转字符串 ，拼接
-                var idstr = arr.join(",");
-                //不可以写成:window.location.href（""）;
-                window.location.href = "/teacher/_exportTeacher?IDstr=" + idstr;
-            }
+            //数组转字符串 ，拼接
+            var idstr = arr.join(",");
+            window.location.href = "/teacher/_exportTeacher?IDstr=" + idstr;
         } else {
-            alert("请至少选择一项");
+            $("#warning_content").text("请选择一项导出");
+            $("#warning_modal").modal("show");
         }
     }
 
@@ -370,16 +380,19 @@
         if (flag) {
             ReadExcel();
         } else {
-            alert("导入功能暂不支持IE外的浏览器");
+            $("#warning_content").text("导入功能暂不支持IE外的浏览器");
+            $("#warning_modal").modal("show");
         }
     }
+
     //导入excel并将数据存储到数据库
     function ReadExcel() {
         //得到文件路径的值
-        var filePath = document.getElementById("upfile").value;
+        var filePath = $("#upfile").val();
         var houzhui = /\.[^\.]+/.exec(filePath);
         if (houzhui == ".xlsx") {
-            alert("文件" + filePath + "文件格式或文件扩展名无效。请确定文件未损坏，并且文件扩展名为“.xls”");
+            $("#warning_content").text("文件" + filePath + "文件格式或文件扩展名无效。请确定文件未损坏，并且文件扩展名为“.xls”");
+            $("#warning_modal").modal("show");
         } else if (filePath != "") {
             var oXL = new ActiveXObject("Excel.application");
             //打开指定路径的excel文件
@@ -435,17 +448,24 @@
                             },
                             error: function (e) {
                                 flag = false;
-                                alert("出错了");
+                                $("#warning_content").text("导入出错");
+                                $("#warning_modal").modal("show");
                                 console.log(e);
                             }
                         });
                     }
                     if (flag) {
-                        alert("导入成功");
+                        var table = $('#datatable').DataTable();
+                        table.ajax.reload();
+                        table.draw();		
+                        $("#success_modal").modal();
+                        setTimeout(function(){			
+                            $("#success_modal").modal('hide');
+                        },1000);
                     }
-                    location.reload();
                 } else {
-                    alert("表格格式错误，请检查文件首行与表头是否一致、“操作”列是否删除，请不要有空行。");
+                    $("#warning_content").text("表格格式错误，请检查文件首行与表头是否一致、“操作”列是否删除，请不要有空行。");
+                    $("#warning_modal").modal("show");
                 }
             } catch (e) {
                 console.log(e);
@@ -455,7 +475,8 @@
             //手动调用垃圾收集器
             CollectGarbage();
         } else {
-            alert("请选择一个文件");
+            $("#warning_content").text("请选择一个文件");
+            $("#warning_modal").modal("show");
         }
     }
 

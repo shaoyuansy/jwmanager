@@ -24,14 +24,14 @@ router.get('/getTidByMc', function (req, res, next) {
 //教师是否重复
 router.post('/getNAME', function (req, res, next) {
     teacherDao.queryTeacher(req, res, req.body.TNAME, function (result) {
-        res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
+        res.send({"data": result});
     });
 });
 
 //负责人是否专任
 router.post('/getFZR', function (req, res, next) {
     teacherDao.queryZRteacher(req, res, req.body.TNAME, function (result) {
-        res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
+        res.send({"data": result});
     });
 });
 
@@ -50,10 +50,10 @@ router.get('/delOne', function (req, res, next) {
 });
 
 //批量删除教师信息记录
-router.get('/delSome', function (req, res, next) {
-    teacherDao.deleteSome(req, res, req.query.idstr, function (result) {
+router.post('/delSome', function (req, res, next) {
+    teacherDao.deleteSome(req, res, req.body.idstr, function (result) {
         if (result) {
-            res.send({"result": result.affectedRows});
+            res.send({"result": result});
         } else {
             //编辑失败
             res.send({"result": 0});
@@ -92,7 +92,7 @@ router.get('/download', function (req, res, next) {
             });
         } else {
             res.setHeader('content-type', 'text/html;charset=utf-8');
-            res.write("<script type='text/javascript'  charset='UTF-8'>alert('文件不存在');history.go(-1);</script>");
+            res.write("<script type='text/javascript' charset='UTF-8'>alert('文件不存在');history.go(-1);</script>");
             res.end();
         }
     });

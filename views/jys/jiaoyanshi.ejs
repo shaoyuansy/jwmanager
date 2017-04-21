@@ -2,31 +2,71 @@
 <script src="../javascripts/mydatatable.js"></script>
 <!-- table2excel导出 -->
 <script src="/table2excel/jquery.table2excel.js"></script>
-
-<!-- page script -->
-
-<!-- 页面内容 content -->
+<style>
+    #upfile {
+        display: none;
+    }
+    .upload_group {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .style_upload {
+        height: 20px;
+        border-radius: 5px;
+        width: 120px;
+        font-size: 10px;
+    }
+    .open {
+        font-size: 12px;
+        color: #606c84;
+        margin-bottom: 0px;
+        font-weight: 500;
+        border: 1px solid #606c84;
+        border-radius: 5px;
+        padding: 0px 2px;
+        cursor: pointer;
+    }
+    .box-body span{
+        display: inline-block;
+    }
+    .box-body span input{
+        margin: 0px;
+        vertical-align: middle;
+    }
+    .box {
+        margin-bottom: 0px;
+    }
+    #datatable th, 
+    #datatable td{
+        white-space:nowrap;    
+    }
+</style>
 <div class="content-wrapper">
-    <!-- 页面内容 Header -->
     <section class="content-header">
-        <h1>
-            教研室管理页面
-        </h1>
+        <h1>教研室管理页面</h1>
         <ol class="breadcrumb">
             <li><a href="/index"><i class="fa fa-home"></i> 首页</a></li>
             <li class="active">教研室管理</li>
         </ol>
     </section>
-
-    <!-- Main content -->
     <section class="content">
-        <!-- /.box -->
-
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">教研室列表</h3>
-
                 <div class="box-tools pull-right">
+                    <div class="upload_group">
+                        <input type="file" id="upfile" accept=".xls,.xlsx" />
+                        <input type="text" class="style_upload" readonly/>
+                        <label for="upfile" class="open">浏览</label>
+                    </div>
+                    <button type="button" title="导入" class="btn btn-box-tool"
+                            onclick="isIE();">
+                        <i class="fa fa-fw fa-sign-in"></i>导入
+                    </button>
+                    <button type="button" title="导出" class="btn btn-box-tool"
+                            onclick="toExcel('datatable','');">
+                        <i class="fa fa-fw fa-cloud-download"></i>导出
+                    </button>
                     <button type="button" title="批量删除" class="btn btn-box-tool"
                             onclick="delSomeJys();">
                         <i class="fa fa-fw fa-times"></i>批量删除
@@ -35,32 +75,27 @@
                             onclick="editJys(0)">
                         <i class="fa fa-fw fa-user-plus"></i>添加
                     </button>
-                    <button type="button" title="导出" class="btn btn-box-tool"
-                            onclick="toExcel('datatable','');">
-                        <i class="fa fa-fw fa-cloud-download"></i>导出
-                    </button>
-                    <button type="button" title="导入" class="btn btn-box-tool"
-                            onclick="isIE();">
-                        <i class="fa fa-fw fa-sign-in"></i>导入
-                    </button>
                 </div>
-                <div style="margin-top: 1%">
-                    <div style="float: left;margin-left: 2%">当前显示的列：&nbsp;&nbsp;&nbsp;&nbsp;
-                        教研室编号：<input id="checkbox3" name="checkbox3" type="checkbox" value="1">&nbsp;&nbsp;&nbsp;&nbsp;
-                        教研室名称：<input id="checkbox3" name="checkbox3" type="checkbox" value="2">&nbsp;&nbsp;&nbsp;&nbsp;
-                        教研室主任：<input id="checkbox3" name="checkbox3" type="checkbox" value="3">&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="box box-default box-solid" style="margin-top:10px;">
+                    <div class="box-header with-border" style="padding:3px;font-size:14px;">
+                        <h3 class="box-title" style="font-size:14px;">当前显示的列</h3>
+                        <div class="box-tools pull-right" style="top: 1px;">
+                            <button type="button" style="padding:0px;line-height:0px" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div style="float: right">
-                        <input type="file" id="upfile" accept=".xls,.xlsx"/>
+                    <div class="box-body">
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="1"> 教研室编号 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="2"> 教研室名称 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="3"> 教研室主任 |</span>
                     </div>
                 </div>
             </div>
-            <!-- /.box-header -->
             <div class="box-body" style="padding-top: 0">
-                <table id="datatable" class="table table-bordered table-striped">
+                <table id="datatable" class="table table-bordered table-striped"  width="100%">
                     <thead>
                     <tr>
-                        <th><input id="checkbox1" name="checkbox1" type="checkbox"></th>
+                        <th><input id="checkall" name="checkall" type="checkbox"></th>
                         <th>教研室编号</th>
                         <th>教研室名称</th>
                         <th>教研室主任</th>
@@ -71,33 +106,34 @@
                     </tbody>
                 </table>
             </div>
-            <!-- /.box-body -->
         </div>
-        <!-- /.box -->
     </section>
-    <!-- /.content -->
-
-
 </div>
 
 <div class="modal" id="modal-edit-event"></div>
+
 <script>
     var mytable;
 
     $(document).ready(function () {
         //全选  全反选处理
-        $("#checkbox1").click(function () {
-            var checkbox = document.getElementById('checkbox1');
-            //是否被选中
+        $("#checkall").click(function () {
+            var checkbox = document.getElementById('checkall');
             if (checkbox.checked) {
-                $('input[type="checkbox"][name="checkbox2"]').each(function () {
+                $('input[type="checkbox"][name="checkrow"]').each(function () {
                     this.checked = true;
                 });
             } else {
-                $('input[type="checkbox"][name="checkbox2"]').each(function () {
+                $('input[type="checkbox"][name="checkrow"]').each(function () {
                     this.checked = false;
                 });
             }
+        });
+
+        $("#upfile").change(function () {
+            var filename = $(this).val().split("\\").pop();
+            $(".style_upload").val(filename);
+
         });
 
         var columns = [
@@ -105,7 +141,7 @@
                 "mData": null,
                 "sClass": "center",
                 "mData": function (obj) {
-                    return '<input id="checkbox2" name="checkbox2" type="checkbox" value=' + obj.ID + '>';
+                    return '<input id="checkrow" name="checkrow" type="checkbox" value=' + obj.ID + '>';
                 }
             },
             {
@@ -132,18 +168,21 @@
         mytable = CreateDataTable('#datatable', '/jysService/getList', columns);
 
         //初始化当前显示列的checkbox判断是否选中
-        $('input[type="checkbox"][name="checkbox3"]').each(function () {
+        $('input[type="checkbox"][name="checkshow"]').each(function () {
             // Get the column API object
             var column = $("#datatable").DataTable().column($(this).val());
             // Toggle the visibility
             this.checked = column.visible();
+            // var table = $('#datatable').DataTable();
+            // table.columns.adjust().draw();
         });
 
-        $('input[type="checkbox"][name="checkbox3"]').change(function () {
+        $('input[type="checkbox"][name="checkshow"]').change(function () {
             // Get the column API object
             var column = $("#datatable").DataTable().column($(this).val());
             // Toggle the visibility
             column.visible(!column.visible());
+            
         });
     });
 
@@ -161,27 +200,30 @@
             }
         });
     }
+
     //删除记录
     function delJys(ID) {
-        var result = confirm("确认要删除？");
-        if (result) {
-            $.ajax({
-                type: "get",
-                url: '/jysService/delOne',
-                dataType: "json",
-                data: {ID: ID},
-                cache: true,
-                success: function (msg) {
-                    if (msg.state == 1) {
-                        alert("删除成功");
-                    }
-                    location.reload();
-                },
-                error: function (e) {
-                    console.log(e);
+        $.ajax({
+            type: "get",
+            url: '/jysService/delOne',
+            dataType: "json",
+            data: {ID: ID},
+            cache: true,
+            success: function (msg) {
+                if (msg.state == 1) {
+                    var table = $('#datatable').DataTable();
+                    table.ajax.reload();
+                    table.draw();		
+                    $("#success_modal").modal();
+                    setTimeout(function(){			
+                        $("#success_modal").modal('hide');
+                    },1000);
                 }
-            });
-        }
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
     }
 
     //批量删除记录
@@ -189,33 +231,40 @@
         var flag = false;
         var arr = new Array();
         //遍历所有checkbox
-        $('input[type="checkbox"][name="checkbox2"]:checked').each(function () {
+        $('input[type="checkbox"][name="checkrow"]:checked').each(function () {
             arr.push(this.value);
         });
         if (arr.length != 0) {
-            var result = confirm("确认要删除这些数据？");
-            if (result) {
-                //数组转字符串 ，拼接
-                var idstr = arr.join(",");
-                $.ajax({
-                    type: "get",
-                    url: '/jysService/delSome',
-                    dataType: "json",
-                    data: {idstr: idstr},
-                    cache: true,
-                    success: function (msg) {
-                        if (msg.state == 1) {
-                            alert("删除成功");
-                        }
-                    },
-                    error: function (e) {
-                        console.log(e);
+            var idstr = arr.join(",");
+            $.ajax({
+                type: "get",
+                url: '/jysService/delSome',
+                dataType: "json",
+                data: {idstr: idstr},
+                cache: true,
+                success: function (msg) {
+                    if (msg.state == 1) {
+                        var table = $('#datatable').DataTable();
+                        table.ajax.reload();
+                        table.draw();		
+                        $("#success_modal").modal();
+                        setTimeout(function(){			
+                            $("#success_modal").modal('hide');
+                        },1000);
+                    } else {
+                        $("#faile_modal").modal();
+                        setTimeout(function(){					
+                            $("#faile_modal").modal('hide');
+                        },1000);
                     }
-                });
-                location.reload();
-            }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
         } else {
-            alert("请至少选择一项");
+            $("#warning_content").text("请选择一项删除");
+            $("#warning_modal").modal("show");
         }
     }
 
@@ -225,17 +274,19 @@
         if (flag) {
             ReadExcel();
         } else {
-            alert("导入功能暂不支持IE外的浏览器");
+            $("#warning_content").text("导入功能暂不支持IE外的浏览器");
+            $("#warning_modal").modal("show");
         }
     }
 
     //导入excel并将数据存储到数据库
     function ReadExcel() {
         //得到文件路径的值
-        var filePath = document.getElementById("upfile").value;
+        var filePath = $("#upfile").val();
         var houzhui = /\.[^\.]+/.exec(filePath);
         if (houzhui == ".xlsx") {
-            alert("文件" + filePath + "文件格式或文件扩展名无效。请确定文件未损坏，并且文件扩展名为“.xls”");
+            $("#warning_content").text("文件" + filePath + "文件格式或文件扩展名无效。请确定文件未损坏，并且文件扩展名为“.xls”");
+            $("#warning_modal").modal("show");
         } else if (filePath != "") {
             var oXL = new ActiveXObject("Excel.application");
             //打开指定路径的excel文件
@@ -265,17 +316,24 @@
                             },
                             error: function (e) {
                                 flag = false;
-                                alert("出错了");
+                                $("#warning_content").text("导入出错");
+                                $("#warning_modal").modal("show");
                                 console.log(e);
                             }
                         });
                     }
                     if (flag) {
-                        alert("导入成功");
+                        var table = $('#datatable').DataTable();
+                        table.ajax.reload();
+                        table.draw();		
+                        $("#success_modal").modal();
+                        setTimeout(function(){			
+                            $("#success_modal").modal('hide');
+                        },1000);
                     }
-                    location.reload();
                 } else {
-                    alert("表格格式错误，请检查文件首行与表头是否一致、“操作”列是否删除，请不要有空行。");
+                    $("#warning_content").text("表格格式错误，请检查文件首行与表头是否一致、“操作”列是否删除，请不要有空行。");
+                    $("#warning_modal").modal("show");
                 }
             } catch (e) {
                 console.log(e);
@@ -285,7 +343,8 @@
             //手动调用垃圾收集器
             CollectGarbage();
         } else {
-            alert("请选择一个文件");
+            $("#warning_content").text("请选择一个文件");
+            $("#warning_modal").modal("show");
         }
     }
     //IE浏览器导出
@@ -293,7 +352,7 @@
         //定义一个flag判断存在单选框被选中
         var flag = false;
         //遍历所有checkbox,未选中选项所在行设置class为noExl
-        $('input[type="checkbox"][name="checkbox2"]').each(function () {
+        $('input[type="checkbox"][name="checkrow"]').each(function () {
             if (this.checked == false) {
                 //设置该checkbox所在行的class属性为noExl
                 this.parentNode.parentNode.classList = "noExl";
@@ -314,20 +373,23 @@
                         allStr += curStr;
                     }
                     else {
-                        alert("你要导出的表不存在！");
+                        $("#warning_content").text("你要导出的表不存在");
+                        $("#warning_modal").modal("show");
                         return;
                     }
                     var fileName = getExcelFileName();
                     doFileExport(fileName, allStr);
                 }
                 catch (e) {
-                    alert("导出发生异常:" + e.name + "->" + e.description + "!");
+                    $("#warning_content").text("导出发生异常:" + e.name + "->" + e.description);
+                    $("#warning_modal").modal("show");
                 }
             } else {
                 exportData();//批量导出(非IE浏览器)
             }
         } else {
-            alert("未选择项目，导出为模板");
+            $("#warning_content").text("未选择项目，导出为模板");
+            $("#warning_modal").modal("show");
             if ("ActiveXObject" in window) {
                 try {
                     var allStr = "";
@@ -339,14 +401,16 @@
                         allStr += curStr;
                     }
                     else {
-                        alert("你要导出的表不存在！");
+                        $("#warning_content").text("你要导出的表不存在");
+                        $("#warning_modal").modal("show");
                         return;
                     }
                     var fileName = getExcelFileName();
                     doFileExport(fileName, allStr);
                 }
                 catch (e) {
-                    alert("导出发生异常:" + e.name + "->" + e.description + "!");
+                    $("#warning_content").text("导出发生异常:" + e.name + "->" + e.description);
+                    $("#warning_modal").modal("show");
                 }
             } else {
                 exportData();//批量导出(非IE浏览器)
@@ -359,7 +423,7 @@
         //定义一个flag判断存在单选框被选中
         var flag = false;
         //遍历所有checkbox,未选中选项所在行设置class为noExl
-        $('input[type="checkbox"][name="checkbox2"]').each(function () {
+        $('input[type="checkbox"][name="checkrow"]').each(function () {
             if (this.checked == false) {
                 //设置该checkbox所在行的class属性为noExl
                 this.parentNode.parentNode.classList = "noExl";
@@ -400,7 +464,8 @@
                 exclude_inputs: true
             });
         } else {
-            alert("请至少选择一项");
+            $("#warning_content").text("请至少选择一项");
+            $("#warning_modal").modal("show");
         }
     }
     //获取table数据
@@ -416,11 +481,13 @@
         }
         var curTbl = tblDocument.getElementById(inTbl);
         if (curTbl.rows.length > 65000) {
-            alert('源行数不能大于65000行');
+            $("#warning_content").text("源行数不能大于65000行");
+            $("#warning_modal").modal("show");
             return false;
         }
         if (curTbl.rows.length <= 1) {
-            alert('数据源没有数据');
+            $("#warning_content").text("数据源没有数据");
+            $("#warning_modal").modal("show");
             return false;
         }
         var outStr = "";
@@ -461,7 +528,8 @@
             }
         } else {
             outStr = null;
-            alert(inTbl + "不存在!");
+            $("#warning_content").text("不存在");
+            $("#warning_modal").modal("show");
         }
         return outStr;
     }

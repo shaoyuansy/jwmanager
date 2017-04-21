@@ -113,8 +113,8 @@ exports.delete = function (req, res, ID, fn) {
 //批量删除记录
 exports.deleteSome = function (req, res, idstr, fn) {
     pool.getConnection(function (err, connection) {
-        var sql = "DELETE FROM jw_teacher WHERE ID IN (" + req.query.idstr + ");";
-        connection.query("DELETE FROM jw_teacher WHERE ID IN (" + req.query.idstr + ");", function (err, result) {
+        var sql = "DELETE FROM jw_teacher WHERE ID IN (" + req.body.idstr + ");";
+        connection.query("DELETE FROM jw_teacher WHERE ID IN (" + req.body.idstr + ");", function (err, result) {
             connection.release();
             fn(result);
         });
