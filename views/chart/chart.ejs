@@ -4,22 +4,21 @@
 <style>
     .select {
         border: solid 1px;
+        height: 25px;
+        line-height: 15px;
+        padding: 3px;
     }
 </style>
 <!-- 页面内容 content -->
 <div class="content-wrapper">
     <!-- 页面内容 Header -->
     <section class="content-header">
-        <h1>
-            信息统计页面
-        </h1>
+        <h1>信息统计页面</h1>
         <ol class="breadcrumb">
             <li><a href="/index"><i class="fa fa-home"></i> 首页</a></li>
             <li class="active">信息统计</li>
         </ol>
     </section>
-
-    <!-- Main content -->
     <section class="content">
         <!-- /.box -->
         <div class="row">
@@ -27,21 +26,16 @@
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <i class="fa fa-bar-chart-o"></i>
-
                         <h3 class="box-title">各专业职称教师统计表</h3>
-
                         <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i
-                                        class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i
-                                        class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <div class="box-body">
                         <div id="container" style="height: 300px;"></div>
                     </div>
-                    <!-- /.box-body-->
                 </div>
             </div>
         </div>
@@ -50,155 +44,118 @@
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <i class="fa fa-bar-chart-o"></i>
-
                         <h3 class="box-title">教师性别统计表</h3>
-
                         <div class="box-tools pull-right">
                             <select id="JYS" name="JYS" class="btn btn-box-tool select">
                                 <option value="%">全部</option>
                                 <%- jyscode %>
                             </select>
-                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i
-                                        class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i
-                                        class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <div class="box-body">
                         <div id="genderChart" style="height: 300px;"></div>
                     </div>
-                    <!-- /.box-body-->
                 </div>
 
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <i class="fa fa-bar-chart-o"></i>
-
                         <h3 class="box-title">教师最高学位统计表</h3>
-
                         <div class="box-tools pull-right">
                             <select id="JYS_XW" name="JYS_XW" class="btn btn-box-tool select">
                                 <option value="%">全部</option>
                                 <%- jyscode %>
                             </select>
-                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i
-                                        class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i
-                                        class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <div class="box-body">
                         <div id="xwChart" style="height: 300px;"></div>
                     </div>
-                    <!-- /.box-body-->
                 </div>
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <i class="fa fa-bar-chart-o"></i>
-
                         <h3 class="box-title">教师地区统计表</h3>
-
                         <div class="box-tools pull-right">
                             <select id="JYS_DQ" name="JYS_DQ" class="btn btn-box-tool select">
                                 <option value="%">全部</option>
                                 <%- jyscode %>
                             </select>
-                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i
-                                        class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i
-                                        class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <div class="box-body">
                         <div id="dqChart" style="height: 300px;"></div>
                     </div>
-                    <!-- /.box-body-->
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <i class="fa fa-bar-chart-o"></i>
-
                         <h3 class="box-title">教师年龄统计表</h3>
-
                         <div class="box-tools pull-right">
                             <select id="JYS_AGE" name="JYS_AGE" class="btn btn-box-tool select">
                                 <option value="%">全部</option>
                                 <%- jyscode %>
                             </select>
-                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i
-                                        class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i
-                                        class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <div class="box-body">
                         <div id="ageChart" style="height: 300px;"></div>
                     </div>
-                    <!-- /.box-body-->
                 </div>
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <i class="fa fa-bar-chart-o"></i>
-
                         <h3 class="box-title">教师导师类型统计表</h3>
-
                         <div class="box-tools pull-right">
                             <select id="JYS_DSLX" name="JYS_DSLX" class="btn btn-box-tool select">
                                 <option value="%">全部</option>
                                 <%- jyscode %>
                             </select>
-                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i
-                                        class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i
-                                        class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <div class="box-body">
                         <div id="dslxChart" style="height: 300px;"></div>
                     </div>
-                    <!-- /.box-body-->
                 </div>
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <i class="fa fa-bar-chart-o"></i>
-
                         <h3 class="box-title">教师教学效果统计表</h3>
-
                         <div class="box-tools pull-right">
                             <select id="JYS_JXXG" name="JYS_JXXG" class="btn btn-box-tool select">
                                 <option value="%">全部</option>
                                 <%- jyscode %>
                             </select>
-                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i
-                                        class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" title="最小化" data-widget="collapse"><i class="fa fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i
-                                        class="fa fa-times"></i></button>
+                            <button type="button" class="btn btn-box-tool" title="关闭" data-widget="remove"><i class="fa fa-times"></i></button>
                         </div>
                     </div>
                     <div class="box-body">
                         <div id="jxxgChart" style="height: 300px;"></div>
                     </div>
-                    <!-- /.box-body-->
                 </div>
             </div>
         </div>
-
-        <!-- /.box-body -->
-        <!-- /.box -->
     </section>
-    <!-- /.content -->
-
-
 </div>
-
 
 <script>
     $(document).ready(function () {

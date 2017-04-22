@@ -12,7 +12,7 @@
         "ajax": url, 
         "columns":columns,
         "pagingType": "full_numbers", 
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "lengthMenu": [[15, 30, 50, -1], [15, 30, 50, "All"]],
     });
     return data_table;
 }
@@ -30,7 +30,7 @@ function ExportDataTable(id,url,columns) {
         "autoWidth": true,
         "ajax": url, 
         "columns":columns,
-        "pagingType": "full_numbers", 
+        "pagingType": "numbers", 
         "lengthMenu": [[-1], ["ALL"]]  
     });
     return data_table;

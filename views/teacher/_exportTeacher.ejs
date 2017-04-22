@@ -2,23 +2,34 @@
 <script src="../javascripts/mydatatable.js"></script>
 <!-- table2excel导出 -->
 <script src="/table2excel/jquery.table2excel.js"></script>
-
-<!-- 页面内容 content -->
+<style>
+    .box-body span{
+        display: inline-block;
+    }
+    .box-body span input{
+        margin: 0px;
+        vertical-align: middle;
+    }
+    .box {
+        margin-bottom: 0px;
+    }
+    #exporttable th, 
+    #exporttable td{
+        white-space:nowrap;    
+    }
+    .text_center{
+        text-align: center;
+    }
+</style>
 <div class="content-wrapper">
-    <!-- 页面内容 Header -->
     <section class="content-header">
-        <h1>
-            <%= title %>
-        </h1>
+        <h1><%= title %></h1>
         <ol class="breadcrumb">
             <li><a href="/index"><i class="fa fa-home"></i> 首页</a></li>
             <li class="active">教师资料导出预览</li>
         </ol>
     </section>
-
-    <!-- Main content -->
     <section class="content">
-        <!-- /.box -->
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">教师资料导出预览</h3>
@@ -28,59 +39,59 @@
                         <i class="fa fa-fw fa-cloud-download"></i>导出
                     </button>
                 </div>
-
-                <div style="margin-top: 1%">
-                    <div style="float: left;margin-left: 2%">当前显示的列：&nbsp;&nbsp;&nbsp;&nbsp;<br>
-                        工号：<input id="checkbox3" name="checkbox3" type="checkbox" value="0">&nbsp;&nbsp;&nbsp;&nbsp;
-                        姓名：<input id="checkbox3" name="checkbox3" type="checkbox" value="1">&nbsp;&nbsp;&nbsp;&nbsp;
-                        性别：<input id="checkbox3" name="checkbox3" type="checkbox" value="2">&nbsp;&nbsp;&nbsp;&nbsp;
-                        出生年月：<input id="checkbox3" name="checkbox3" type="checkbox" value="3">&nbsp;&nbsp;&nbsp;&nbsp;
-                        民族：<input id="checkbox3" name="checkbox3" type="checkbox" value="4">&nbsp;&nbsp;&nbsp;&nbsp;
-                        身份证号码：<input id="checkbox3" name="checkbox3" type="checkbox" value="5">&nbsp;&nbsp;&nbsp;&nbsp;
-                        联系电话：<input id="checkbox3" name="checkbox3" type="checkbox" value="6">&nbsp;&nbsp;&nbsp;&nbsp;
-                        所属教研室：<input id="checkbox3" name="checkbox3" type="checkbox" value="7">&nbsp;&nbsp;&nbsp;&nbsp;
-                        入校时间：<input id="checkbox3" name="checkbox3" type="checkbox" value="8">&nbsp;&nbsp;&nbsp;&nbsp;
-                        分管负责人：<input id="checkbox3" name="checkbox3" type="checkbox" value="9">&nbsp;&nbsp;&nbsp;&nbsp;
-                        定职时间：<input id="checkbox3" name="checkbox3" type="checkbox" value="10">&nbsp;&nbsp;&nbsp;&nbsp;
-                        <br>
-                        任职状态：<input id="checkbox3" name="checkbox3" type="checkbox" value="11">&nbsp;&nbsp;&nbsp;&nbsp;
-                        单位号：<input id="checkbox3" name="checkbox3" type="checkbox" value="12">&nbsp;&nbsp;&nbsp;&nbsp;
-                        单位名称：<input id="checkbox3" name="checkbox3" type="checkbox" value="13">&nbsp;&nbsp;&nbsp;&nbsp;
-                        工作单位类别：<input id="checkbox3" name="checkbox3" type="checkbox" value="14">&nbsp;&nbsp;&nbsp;&nbsp;
-                        学历：<input id="checkbox3" name="checkbox3" type="checkbox" value="15">&nbsp;&nbsp;&nbsp;&nbsp;
-                        最高学位：<input id="checkbox3" name="checkbox3" type="checkbox" value="16">&nbsp;&nbsp;&nbsp;&nbsp;
-                        是否专任：<input id="checkbox3" name="checkbox3" type="checkbox" value="17">&nbsp;&nbsp;&nbsp;&nbsp;
-                        毕业时间：<input id="checkbox3" name="checkbox3" type="checkbox" value="18">&nbsp;&nbsp;&nbsp;&nbsp;
-                        毕业院校：<input id="checkbox3" name="checkbox3" type="checkbox" value="19">&nbsp;&nbsp;&nbsp;&nbsp;
-                        学缘：<input id="checkbox3" name="checkbox3" type="checkbox" value="20">&nbsp;&nbsp;&nbsp;&nbsp;
-                        专业技术职称：<input id="checkbox3" name="checkbox3" type="checkbox" value="21">&nbsp;&nbsp;&nbsp;&nbsp;
-                        学科类别：<input id="checkbox3" name="checkbox3" type="checkbox" value="22">&nbsp;&nbsp;&nbsp;&nbsp;
-                        <br>
-                        导师类型：<input id="checkbox3" name="checkbox3" type="checkbox" value="23">&nbsp;&nbsp;&nbsp;&nbsp;
-                        地区：<input id="checkbox3" name="checkbox3" type="checkbox" value="24">&nbsp;&nbsp;&nbsp;&nbsp;
-                        可授课程：<input id="checkbox3" name="checkbox3" type="checkbox" value="25">&nbsp;&nbsp;&nbsp;&nbsp;
-                        在我院初始代课时间：<input id="checkbox3" name="checkbox3" type="checkbox" value="26">&nbsp;&nbsp;&nbsp;&nbsp;
-                        教学效果：<input id="checkbox3" name="checkbox3" type="checkbox" value="27">&nbsp;&nbsp;&nbsp;&nbsp;
-                        是否为双师型：<input id="checkbox3" name="checkbox3" type="checkbox" value="28">&nbsp;&nbsp;&nbsp;&nbsp;
-                        是否具有工程背景：<input id="checkbox3" name="checkbox3" type="checkbox" value="29">&nbsp;&nbsp;&nbsp;&nbsp;
-                        是否具有行业背景：<input id="checkbox3" name="checkbox3" type="checkbox" value="30">&nbsp;&nbsp;&nbsp;&nbsp;
-                        身份证复印件：<input id="checkbox3" name="checkbox3" type="checkbox" value="31">&nbsp;&nbsp;&nbsp;&nbsp;
-                        <br>
-                        工作证复印件：<input id="checkbox3" name="checkbox3" type="checkbox" value="32">&nbsp;&nbsp;&nbsp;&nbsp;
-                        教师资格证复印件：<input id="checkbox3" name="checkbox3" type="checkbox" value="33">&nbsp;&nbsp;&nbsp;&nbsp;
-                        学位证复印件：<input id="checkbox3" name="checkbox3" type="checkbox" value="34">&nbsp;&nbsp;&nbsp;&nbsp;
-                        毕业证复印件：<input id="checkbox3" name="checkbox3" type="checkbox" value="35">&nbsp;&nbsp;&nbsp;&nbsp;
-                        职称证复印件：<input id="checkbox3" name="checkbox3" type="checkbox" value="36">&nbsp;&nbsp;&nbsp;&nbsp;
-                        协议书：<input id="checkbox3" name="checkbox3" type="checkbox" value="37">&nbsp;&nbsp;&nbsp;&nbsp;
-                        附件：<input id="checkbox3" name="checkbox3" type="checkbox" value="38">&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="box box-default box-solid" style="margin-top:10px;">
+                    <div class="box-header with-border" style="padding:3px;font-size:14px;">
+                        <h3 class="box-title" style="font-size:14px;">当前显示的列</h3>
+                        <div class="box-tools pull-right" style="top: 1px;">
+                            <button type="button" style="padding:0px;line-height:0px" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="0" /> 工号 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="1" /> 姓名 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="2" /> 性别 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="3" /> 出生年月 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="4" /> 民族 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="5" /> 身份证号码 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="6" /> 联系电话 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="7" /> 所属教研室 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="8" /> 入校时间 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="9" /> 分管负责人 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="10" /> 定职时间 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="11" /> 任职状态 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="12" /> 单位号 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="13" /> 单位名称 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="14" /> 工作单位类别 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="15" /> 学历 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="16" /> 最高学位 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="17" /> 是否专任 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="18" /> 毕业时间 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="19" /> 毕业院校 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="20" /> 学缘 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="21" /> 专业技术职称 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="22" /> 学科类别 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="23" /> 导师类型 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="24" /> 地区 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="25" /> 可授课程 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="26" /> 在我院初始代课时间 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="27" /> 教学效果|</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="28" /> 是否为双师型 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="29" /> 是否具有工程背景 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="30" /> 是否具有行业背景 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="31" /> 身份证复印件 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="32" /> 工作证复印件 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="33" /> 教师资格证复印件 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="34" /> 学位证复印件 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="35" /> 毕业证复印件 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="36" /> 职称证复印件 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="37" /> 协议书 |</span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="38" /> 附件 |</span>
                     </div>
                 </div>
-                <!-- /.box-header -->
                 <div class="box-body">
-                    <div style="overflow:scroll;width: 100%">
-                        <table id="exporttable" class="table table-bordered table-striped"
-                               style="width: 350%;table-layout: fixed">
-                            <thead>
+                    <table id="exporttable" class="table table-bordered table-striped">
+                        <thead>
                             <tr>
                                 <th>工号</th>
                                 <th>姓名</th>
@@ -122,179 +133,192 @@
                                 <th>协议书</th>
                                 <th>附件</th>
                             </tr>
-                            </thead>
-                        </table>
-                    </div>
+                        </thead>
+                    </table>
                 </div>
-                <!-- /.box-body -->
             </div>
         </div>
-        <!-- /.box -->
     </section>
-    <!-- /.content -->
 </div>
 
 <script>
-    var mytable;
     $(document).ready(function () {
-
         var columns = [
             {
-                "mData": "GH",
-                "sClass": "center"
+                "data": "GH",
+                "className": "text_center"
             },
             {
-                "mData": "XM",
-                "sClass": "center"
+                "data": "XM",
+                "className": "text_center"
             },
             {
-                "mData": "XB",
-                "sClass": "center"
+                "data": "XB",
+                "className": "text_center"
             },
             {
-                "mData": "CSNY",
-                "sClass": "center"
+                "data": "CSNY",
+                "className": "text_center"
             },
             {
-                "mData": "MZ",
-                "sClass": "center"
+                "data": "MZ",
+                "className": "text_center"
             },
             {
-                "mData": "SFZHM",
-                "sClass": "center"
+                "data": "SFZHM",
+                "className": "text_center"
             },
             {
-                "mData": "LXDH",
-                "sClass": "center"
+                "data": "LXDH",
+                "className": "text_center"
             },
             {
-                "mData": "JYSMC",
-                "sClass": "center"
+                "data": "JYSMC",
+                "className": "text_center"
             },
             {
-                "mData": "RXSJ",
-                "sClass": "center"
+                "data": "RXSJ",
+                "className": "text_center"
             },
             {
-                "mData": "FGFZR",
-                "sClass": "center"
+                "data": "FGFZR",
+                "className": "text_center"
             },
             {
-                "mData": "DZSJ",
-                "sClass": "center"
+                "data": "DZSJ",
+                "className": "text_center"
             },
             {
-                "mData": "RZZT",
-                "sClass": "center"
+                "data": "RZZT",
+                "className": "text_center"
             },
             {
-                "mData": "DWH",
-                "sClass": "center"
+                "data": "DWH",
+                "className": "text_center"
             },
             {
-                "mData": "DWMC",
-                "sClass": "center"
+                "data": "DWMC",
+                "className": "text_center"
             },
             {
-                "mData": "GZDWLB",
-                "sClass": "center"
+                "data": "GZDWLB",
+                "className": "text_center"
             },
             {
-                "mData": "XL",
-                "sClass": "center"
+                "data": "XL",
+                "className": "text_center"
             },
             {
-                "mData": "ZGXW",
-                "sClass": "center"
+                "data": "ZGXW",
+                "className": "text_center"
             },
             {
-                "mData": "SFZR",
-                "sClass": "center"
+                "data": "SFZR",
+                "data": function (obj) {
+                    switch (obj.SFZR) {
+                        case '1':
+                            return "学院教师";
+                            break;
+                        case '2':
+                            return "大校教师";
+                            break;
+                        case '3':
+                            return "其他高校教师（有教师资格证）";
+                            break;
+                        case '4':
+                            return "实习机构";
+                            break;
+                        case '5':
+                            return "其他人员";
+                            break;
+                        default:
+                            return "";
+                    }
+                }
             },
             {
-                "mData": "BYSJ",
-                "sClass": "center"
+                "data": "BYSJ",
+                "className": "text_center"
             },
             {
-                "mData": "BYYX",
-                "sClass": "center"
+                "data": "BYYX",
+                "className": "text_center"
             },
             {
-                "mData": "XY",
-                "sClass": "center"
+                "data": "XY",
+                "className": "text_center"
             },
             {
-                "mData": "ZYJSZC",
-                "sClass": "center"
+                "data": "ZYJSZC",
+                "className": "text_center"
             },
             {
-                "mData": "XKLB",
-                "sClass": "center"
+                "data": "XKLB",
+                "className": "text_center"
             },
             {
-                "mData": "DSLX",
-                "sClass": "center"
+                "data": "DSLX",
+                "className": "text_center"
             },
             {
-                "mData": "DQ",
-                "sClass": "center"
+                "data": "DQ",
+                "className": "text_center"
             },
             {
-                "mData": "KSKC",
-                "sClass": "center"
+                "data": "KSKC",
+                "className": "text_center"
             },
             {
-                "mData": "CSDKSJ",
-                "sClass": "center"
+                "data": "CSDKSJ",
+                "className": "text_center"
             },
             {
-                "mData": "JXXG",
-                "sClass": "center"
+                "data": "JXXG",
+                "className": "text_center"
             },
             {
-                "mData": "SFWSSX",
-                "sClass": "center"
+                "data": "SFWSSX",
+                "className": "text_center"
             },
             {
-                "mData": "SFJYGCBJ",
-                "sClass": "center"
+                "data": "SFJYGCBJ",
+                "className": "text_center"
             },
             {
-                "mData": "SFJYHYBJ",
-                "sClass": "center"
+                "data": "SFJYHYBJ",
+                "className": "text_center"
             },
             {
-                "mData": "SFSJSFZFYJ",
-                "sClass": "center"
+                "data": "SFSJSFZFYJ",
+                "className": "text_center"
             },
             {
-                "mData": "SFSJGZZFYJ",
-                "sClass": "center"
+                "data": "SFSJGZZFYJ",
+                "className": "text_center"
             },
             {
-                "mData": "SFSJJSZGZFYJ",
-                "sClass": "center"
+                "data": "SFSJJSZGZFYJ",
+                "className": "text_center"
             },
             {
-                "mData": "SFSJXWZFYJ",
-                "sClass": "center"
+                "data": "SFSJXWZFYJ",
+                "className": "text_center"
             },
             {
-                "mData": "SFSJBYZFYJ",
-                "sClass": "center"
+                "data": "SFSJBYZFYJ",
+                "className": "text_center"
             },
             {
-                "mData": "SFSJZCZFYJ",
-                "sClass": "center"
+                "data": "SFSJZCZFYJ",
+                "className": "text_center"
             },
             {
-                "mData": "SFSJXYS",
-                "sClass": "center"
+                "data": "SFSJXYS",
+                "className": "text_center"
             },
             {
-                "mData": null,
-                "sClass": "center",
-                "mData": function (obj) {
+                "className": "text_center",
+                "data": function (obj) {
                     var filep = obj.FJ;
                     var str = "";
                     if (filep == null || filep == "") {
@@ -308,22 +332,15 @@
                     return str;
                 }
             }
-
         ];
-        mytable = ExportDataTable('#exporttable', '/teacherService/exportBySomeId?idstr=<%= idstr %>', columns);
+        var mytable = ExportDataTable('#exporttable', '/teacherService/exportBySomeId?idstr=<%= idstr %>', columns);
 
-        //初始化当前显示列的checkbox判断是否选中
-        $('input[type="checkbox"][name="checkbox3"]').each(function () {
-            // Get the column API object
+        $('input[type="checkbox"][name="checkshow"]').each(function () {
             var column = $("#exporttable").DataTable().column($(this).val());
-            // Toggle the visibility
             this.checked = column.visible();
         });
-
-        $('input[type="checkbox"][name="checkbox3"]').change(function () {
-            // Get the column API object
+        $('input[type="checkbox"][name="checkshow"]').change(function () {
             var column = $("#exporttable").DataTable().column($(this).val());
-            // Toggle the visibility
             column.visible(!column.visible());
         });
     });
@@ -342,14 +359,16 @@
                     allStr += curStr;
                 }
                 else {
-                    alert("你要导出的表不存在！");
+                    $("#warning_content").text("你要导出的表不存在");
+                    $("#warning_modal").modal("show");
                     return;
                 }
                 var fileName = getExcelFileName();
                 doFileExport(fileName, allStr);
             }
             catch (e) {
-                alert("导出发生异常:" + e.name + "->" + e.description + "!");
+                $("#warning_content").text("导出发生异常:" + e.name + "->" + e.description);
+                $("#warning_modal").modal("show");
             }
         } else {
             exportData();//批量导出(非IE浏览器)
@@ -402,11 +421,13 @@
         }
         var curTbl = tblDocument.getElementById(inTbl);
         if (curTbl.rows.length > 65000) {
-            alert('源行数不能大于65000行');
+            $("#warning_content").text("源行数不能大于65000行");
+            $("#warning_modal").modal("show");
             return false;
         }
         if (curTbl.rows.length <= 1) {
-            alert('数据源没有数据');
+            $("#warning_content").text("数据源没有数据");
+            $("#warning_modal").modal("show");
             return false;
         }
         var outStr = "";
@@ -439,7 +460,8 @@
             }
         } else {
             outStr = null;
-            alert(inTbl + "不存在!");
+            $("#warning_content").text(inTbl + "不存在!");
+            $("#warning_modal").modal("show");
         }
         return outStr;
     }
@@ -488,5 +510,5 @@
         xlsWin.document.execCommand('Saveas', true, inName);
         xlsWin.close();
     }
-
+    
 </script>

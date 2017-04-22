@@ -136,10 +136,8 @@
 <div class="modal" id="edit-teacher-modal"></div>
 
 <script>
-    //全选  全反选处理
     $("#checkall").click(function () {
         var checkbox = document.getElementById('checkall');
-        //是否被选中
         if (checkbox.checked) {
             $('input[type="checkbox"][name="checkrow"]').each(function () {
                 this.checked = true;
@@ -159,11 +157,11 @@
 
     $(document).ready(function () {
         var columns = [
-            {
-                "className": "text_center",
+            {   
                 "data": function (obj) {
                     return '<input id="checkrow" name="checkrow" type="checkbox" value=' + obj.ID + '>';
-                }
+                },
+                "className": "text_center"
             },
             {
                 "data": "ID",
@@ -179,7 +177,7 @@
             },
             {
                 "data": "SFZR",
-                "mData": function (obj) {
+                "data": function (obj) {
                     switch (obj.SFZR) {
                         case '1':
                             return "学院教师";
@@ -239,7 +237,6 @@
                 "className": "text_center"
             },
             {
-                "className": "text_center",
                 "data": function (obj) {
                     var filep = obj.FJ;
                     var str = "";
@@ -252,14 +249,15 @@
                         str += '<a href="/teacherService/download?filePath=' + filep + '" > ' + fileNmae + '</a>';
                     }
                     return str;
-                }
+                },
+                "className": "text_center"
             },
             {
-                "className": "text_center",
                 "data": function (obj) {
                     return '<a style="margin-left: 10px;" onclick="editTeacher(\'' + obj.ID + '\')" href="#" role="button" data-toggle="modal" title="编辑"><i class="fa fa-fw fa-pencil"></i></a>'
                         + '<a style="margin-left: 10px;" onclick="delTeacher(\'' + obj.ID + '\')" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';
-                }
+                },
+                "className": "text_center"                
             }
         ];
         var mytable = CreateDataTable('#datatable', '/teacherService/getList', columns);
