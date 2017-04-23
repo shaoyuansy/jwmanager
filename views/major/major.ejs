@@ -6,12 +6,10 @@
     #upfile {
         display: none;
     }
-    
     .upload_group {
         display: inline-block;
         vertical-align: middle;
     }
-    
     .style_upload {
         height: 20px;
         border-radius: 5px;
@@ -226,7 +224,7 @@
     //删除与要删除记录相关的专业-课程记录
     function delMajorCourse(data) {
         $.ajax({
-            type: "get",
+            type: "post",
             url: '/major_courseService/delSomeByZy',
             dataType: "json",
             data: {idstr: data},
@@ -241,61 +239,74 @@
     
     //删除记录
     function delMajor(ID) {
-        var result = confirm("确认要删除？");
-        if (result) {
-            delMajorCourse(ID);
-            $.ajax({
-                type: "get",
-                url: '/majorService/delOne',
-                dataType: "json",
-                data: {ID: ID},
-                cache: true,
-                success: function (msg) {
-                    if (msg.state == 1) {
-                        alert("删除成功");
-                    }
-                    location.reload();
-                },
-                error: function (e) {
-                    console.log(e);
+        delMajorCourse(ID);
+        $.ajax({
+            type: "post",
+            url: '/majorService/delOne',
+            dataType: "json",
+            data: {ID: ID},
+            cache: true,
+            success: function (msg) {
+                if (msg.state == 1) {
+                    var table = $('#datatable').DataTable();
+                    table.ajax.reload();
+                    table.draw();		
+                    $("#success_modal").modal();
+                    setTimeout(function(){			
+                        $("#success_modal").modal('hide');
+                    },1000);
+                } else {
+                    $("#faile_modal").modal();
+                    setTimeout(function(){					
+                        $("#faile_modal").modal('hide');
+                    },1000);
                 }
-            });
-        }
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
     }
 
     //批量删除记录
     function delSomeJys() {
         var flag = false;
         var arr = new Array();
-        //遍历所有checkbox
         $('input[type="checkbox"][name="checkrow"]:checked').each(function () {
             arr.push(this.value);
         });
         if (arr.length != 0) {
-            var result = confirm("确认要删除这些数据？");
-            if (result) {
-                //数组转字符串 ，拼接
-                var idstr = arr.join(",");
-                delMajorCourse(idstr);
-                $.ajax({
-                    type: "get",
-                    url: '/majorService/delSome',
-                    dataType: "json",
-                    data: {idstr: idstr},
-                    cache: true,
-                    success: function (msg) {
-                        if (msg.state == 1) {
-                            alert("删除成功");
-                        }
-                    },
-                    error: function (e) {
-                        console.log(e);
+            var idstr = arr.join(",");
+            delMajorCourse(idstr);
+            $.ajax({
+                type: "post",
+                url: '/majorService/delSome',
+                dataType: "json",
+                data: {idstr: idstr},
+                cache: true,
+                success: function (msg) {
+                    if (msg.state == 1) {
+                        var table = $('#datatable').DataTable();
+                        table.ajax.reload();
+                        table.draw();		
+                        $("#success_modal").modal();
+                        setTimeout(function(){			
+                            $("#success_modal").modal('hide');
+                        },1000);
+                    } else {
+                        $("#faile_modal").modal();
+                        setTimeout(function(){					
+                            $("#faile_modal").modal('hide');
+                        },1000);
                     }
-                });
-                location.reload();
-            }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
         } else {
-            alert("请至少选择一项");
+            $("#warning_content").text("请选择一项删除");
+            $("#warning_modal").modal("show");
         }
     }
 

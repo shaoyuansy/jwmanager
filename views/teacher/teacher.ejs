@@ -99,7 +99,7 @@
                         <span><input id="checkshow" name="checkshow" type="checkbox" value="11"> 导师类型 |</span>
                         <span><input id="checkshow" name="checkshow" type="checkbox" value="12"> 单位名称 |</span>
                         <span><input id="checkshow" name="checkshow" type="checkbox" value="13"> 教学效果 |</span>
-                        <span><input id="checkshow" name="checkshow" type="checkbox" value="14"> 是否上交证件 </span>
+                        <span><input id="checkshow" name="checkshow" type="checkbox" value="14"> 是否上交证件 |</span>
                     </div>
                 </div>
             </div>
@@ -152,7 +152,6 @@
     $("#upfile").change(function () {
         var filename = $(this).val().split("\\").pop();
         $(".style_upload").val(filename);
-
     });
 
     $(document).ready(function () {
@@ -176,7 +175,6 @@
                 "className": "text_center"
             },
             {
-                "data": "SFZR",
                 "data": function (obj) {
                     switch (obj.SFZR) {
                         case '1':
@@ -302,6 +300,11 @@
                     $("#success_modal").modal();
                     setTimeout(function(){			
                         $("#success_modal").modal('hide');
+                    },1000);
+                } else {
+                    $("#faile_modal").modal();
+                    setTimeout(function(){					
+                        $("#faile_modal").modal('hide');
                     },1000);
                 }
             },

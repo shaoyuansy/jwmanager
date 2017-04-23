@@ -19,21 +19,21 @@ router.post('/selectCourse', function (req, res, next) {
     });
 });
 //删除一条课程信息记录
-router.get('/delOne', function (req, res, next) {
-    kcDao.delete(req, res, req.query.ID, function (result) {
+router.post('/delOne', function (req, res, next) {
+    kcDao.delete(req, res, req.body.ID, function (result) {
         res.send({"state": result});
     });
 });
 //批量删除课程信息记录
-router.get('/delSome', function (req, res, next) {
-    kcDao.deleteSome(req, res, req.query.idstr, function (result) {
+router.post('/delSome', function (req, res, next) {
+    kcDao.deleteSome(req, res, req.body.idstr, function (result) {
         res.send({"state": result});
     });
 });
 //批量增加课程信息记录
-router.get('/insertSome', function (req, res, next) {
+router.post('/insertSome', function (req, res, next) {
     var sqlArr = new Array();
-    sqlArr = req.query.str.split(',');
+    sqlArr = req.body.str.split(',');
     kcDao.insertSome(req, res, sqlArr, function (result) {
         if (result) {
             res.send({"state": result});

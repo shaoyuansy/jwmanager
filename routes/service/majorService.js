@@ -24,14 +24,14 @@ router.post('/selectMajor', function (req, res, next) {
     });
 });
 //删除一条专业信息记录
-router.get('/delOne', function (req, res, next) {
-    zyDao.delete(req, res, req.query.ID, function (result) {
+router.post('/delOne', function (req, res, next) {
+    zyDao.delete(req, res, req.body.ID, function (result) {
         res.send({"state": result});
     });
 });
 //批量删除专业信息记录
-router.get('/delSome', function (req, res, next) {
-    zyDao.deleteSome(req, res, req.query.idstr, function (result) {
+router.post('/delSome', function (req, res, next) {
+    zyDao.deleteSome(req, res, req.body.idstr, function (result) {
         res.send({"state": result});
     });
 });

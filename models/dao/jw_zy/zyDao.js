@@ -19,6 +19,17 @@ exports.queryAll = function (req, res, fn) {
         });
     });
 };
+/* 专业课程页面获取不同年级的专业*/
+exports.queryZybyxn = function (req, res, xn, fn) {
+    pool.getConnection(function (err, connection) {
+        var xnArr = req.body.xn.split(",");
+        var sql = "SELECT zy.ID,zy.ZYBH,zy.ZYMC,zy.SSJYS,jys.JYSZR,zy.KSNJ,zy.BJGS,zy.GBDYRS FROM jw_zy AS zy LEFT JOIN jw_jys AS jys ON zy.SSJYS=jys.JYSMC WHERE zy.KSNJ IN ('"+xnArr[0]+"','"+xnArr[1]+"','"+xnArr[2]+"','"+xnArr[3]+"') ORDER BY zy.KSNJ ASC;";
+        connection.query(sql, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
 /* 选课页面获取课程信息列表*/
 exports.selectMajor = function (req, res, arrXN, fn) {
     pool.getConnection(function (err, connection) {
@@ -69,8 +80,8 @@ exports.delete = function (req, res, ID, fn) {
 //批量删除记录
 exports.deleteSome = function (req, res, idstr, fn) {
     pool.getConnection(function (err, connection) {
-        var sql = "DELETE FROM jw_zy WHERE ID IN (" + req.query.idstr + ")";
-        connection.query("DELETE FROM jw_zy WHERE ID IN (" + req.query.idstr + ")", function (err, result) {
+        var sql = "DELETE FROM jw_zy WHERE ID IN (" + req.body.idstr + ")";
+        connection.query(sql, function (err, result) {
             connection.release();
             fn(1);
         });

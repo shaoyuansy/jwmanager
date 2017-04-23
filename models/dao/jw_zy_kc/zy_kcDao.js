@@ -11,17 +11,16 @@ var $sql = require('./zy_kcSqlMapping');
 var pool = mysql.createPool($util.extend({}, $conf.mysql));
 
 /* 获取数据列表信息*/
-exports.queryAll = function (req, res, sqlStr, fn) {
-    var arr = sqlStr.split(",");
+exports.queryAll = function (req, res, xn, zy, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.queryAll, arr, function (err, result) {
+        connection.query($sql.queryAll, [xn,zy], function (err, result) {
             connection.release();
             fn(result);
         });
     });
 };
 /* 只获取专业课程关联表*/
-exports.queryMC = function (req, res,arr,fn) {
+exports.queryMC = function (req, res, arr, fn) {
     var arr = arr.split("#");    
     pool.getConnection(function (err, connection) {
         if(err!=""){
@@ -86,7 +85,7 @@ exports.deleteSome = function (req, res, idstr, fn) {
 //批量删除记录 BY 专业ID
 exports.deleteSomeByZy = function (req, res, idstr, fn) {
     pool.getConnection(function (err, connection) {
-        var sql = "DELETE FROM jw_zy_kc WHERE ZYID IN (" + req.query.idstr + ")";
+        var sql = "DELETE FROM jw_zy_kc WHERE ZYID IN (" + req.body.idstr + ")";
         connection.query(sql, function (err, result) {
             connection.release();
             fn(1);
@@ -96,7 +95,7 @@ exports.deleteSomeByZy = function (req, res, idstr, fn) {
 //批量删除记录 BY 课程ID
 exports.deleteSomeByKc = function (req, res, idstr, fn) {
     pool.getConnection(function (err, connection) {
-        var sql = "DELETE FROM jw_zy_kc WHERE KCID IN (" + req.query.idstr + ")";
+        var sql = "DELETE FROM jw_zy_kc WHERE KCID IN (" + req.body.idstr + ")";
         connection.query(sql, function (err, result) {
             connection.release();
             fn(1);

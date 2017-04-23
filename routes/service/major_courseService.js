@@ -11,12 +11,14 @@ router.get('/', function (req, res, next) {
 
 /* 专业-课程服务开始. */
 var zy_kcDao = require('../../models/dao/jw_zy_kc/zy_kcDao');
-//获取专业-课程信息列表
+
+//获取专业-课程信息列表 根据年级与专业
 router.get('/getList', function (req, res, next) {
-    zy_kcDao.queryAll(req, res, req.query.sqlstr, function (result) {
-        res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
+    zy_kcDao.queryAll(req, res, req.query.xn, req.query.zy, function (result) {
+        res.send({"aaData": result, "iTotalRecords": result.length});
     });
 });
+
 //只获取专业-课程表
 router.post('/getMC', function (req, res, next) {
     zy_kcDao.queryMC(req, res,req.body.arr, function (result) {
@@ -46,14 +48,14 @@ router.get('/insertSome', function (req, res, next) {
     });
 });
 //批量删除专业-课程信息记录 BY 专业ID
-router.get('/delSomeByZy', function (req, res, next) {
-    zy_kcDao.deleteSomeByZy(req, res, req.query.idstr, function (result) {
+router.post('/delSomeByZy', function (req, res, next) {
+    zy_kcDao.deleteSomeByZy(req, res, req.body.idstr, function (result) {
         res.send({"state": result});
     });
 });
 //批量删除专业-课程信息记录 BY 课程ID
-router.get('/delSomeByKc', function (req, res, next) {
-    zy_kcDao.deleteSomeByKc(req, res, req.query.idstr, function (result) {
+router.post('/delSomeByKc', function (req, res, next) {
+    zy_kcDao.deleteSomeByKc(req, res, req.body.idstr, function (result) {
         res.send({"state": result});
     });
 });

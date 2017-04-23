@@ -1,12 +1,30 @@
+<style type="text/css">
+    .form-control{
+        height: 28px;
+        padding: 3px;
+        font-size: 14px;
+        vertical-align: middle;
+    }
+    .modal-footer{
+        text-align:center;
+        margin: auto;
+        padding:10px 10px;
+    } 
+    .modal-footer button{
+        padding: 5px 10px;
+        width: 70px;
+        height: 28px;
+        line-height: 15px;
+    }
+</style>
 <div class="modal-dialog" style="margin-top: 10%">
-    <div class="modal-content">
+    <div class="modal-content" style="width:80%;margin:0 auto">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h4 class="modal-title" id="myModalLabel">教研室信息编辑</h4>
         </div>
-
-        <div class="modal-body">
-            <form id="myform" method="post" action="jys/_editJys.html">
+        <div class="modal-body" >
+            <form id="myform">
                 <input id="ID" name="ID" type="hidden" class="form-control" value="<%= id %>">
                 <div class="box-body">
                     <div class="form-group">

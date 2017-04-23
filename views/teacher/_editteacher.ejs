@@ -34,7 +34,6 @@
         line-height: 15px;
     }
     .upload-button{
-        background:green;
         color:#fff;
         border:none;
         vertical-align: middle;
@@ -61,9 +60,9 @@
         <div class="modal-body">
             <div class="box" style="margin-bottom: 0px">
                 <div class="box-body">
-                    <form id="teacherform" method="post" action="teacher/_editTeacher.html">
+                    <form id="teacherform">
                         <input id="ID" name="ID" type="hidden" class="form-control" value="<%= id %>">
-                        <table id="edittable" class="table table-bordered"  style="margin-bottom: 0px;">
+                        <table id="edittable" class="table table-bordered" style="margin-bottom: 0px;">
                             <tr>
                                 <td><span class="mi">*</span>&nbsp; 姓名</td>
                                 <td><input id="XM" name="XM" type="text" class="form-control" value="<%= xm %>"></td>
@@ -555,7 +554,6 @@
                 cache: true,
                 success: function (msg) {
                     if (msg.result != 0) {
-                        $("#edit-teacher-modal").modal('hide');
                         var table = $('#datatable').DataTable();
                         table.ajax.reload();
                         table.draw();		
@@ -563,6 +561,7 @@
                         setTimeout(function(){			
                             $("#success_modal").modal('hide');
                         },1000);
+                        $("#edit-teacher-modal").modal('hide');                        
                     }
                 },
                 error: function (e) {

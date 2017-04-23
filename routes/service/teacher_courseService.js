@@ -36,8 +36,8 @@ router.get('/deleteXk', function (req, res, next) {
     });
 });
 //删除一个课程所有信息
-router.get('/delKc', function (req, res, next) {
-    kc_jsDao.deleteKc(req, res, req.query.idstr, function (result) {
+router.post('/delKc', function (req, res, next) {
+    kc_jsDao.deleteKc(req, res, req.body.idstr, function (result) {
         res.send({"state": result});
     });
 });

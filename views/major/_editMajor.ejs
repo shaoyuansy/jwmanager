@@ -1,11 +1,29 @@
-<div class="modal-dialog" style="margin-top: 10%">
-    <div class="modal-content">
+<style type="text/css">
+    .form-control{
+        height: 28px;
+        padding: 3px;
+        font-size: 14px;
+        vertical-align: middle;
+    }
+    .modal-footer{
+        text-align:center;
+        margin: auto;
+        padding:10px 10px;
+    } 
+    .modal-footer button{
+        padding: 5px 10px;
+        width: 70px;
+        height: 28px;
+        line-height: 15px;
+    }
+</style>
+<div class="modal-dialog" style="margin-top: 5%">
+    <div class="modal-content" style="width:80%;margin:0 auto">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h4 class="modal-title" id="myModalLabel">专业信息编辑</h4>
         </div>
-
-        <div class="modal-body">
+        <div class="modal-body" style="padding-bottom:0px">
             <form id="myform">
                 <input id="ID" name="ID" type="hidden" class="form-control" value="<%= id %>">
                 <div class="box-body">
@@ -37,34 +55,37 @@
                         <input id="GBDYRS" name="GBDYRS" type="text" class="form-control" value="<%= gbdyrs %>">
                     </div>
                 </div>
-                <!-- /.box-body -->
             </form>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             <button type="button" class="btn btn-primary" onclick="submitForm()">提交</button>
         </div>
-    </div><!-- /.modal-content -->
-</div><!-- /.modal -->
+    </div>
+</div>
 <script>
 
     $(document).ready(function () {
-        $("#SSJYS").val($("#TEMP").val());//自动选择文档类型
+        $("#SSJYS").val($("#TEMP").val());
     });
 
     function submitForm() {
         var verge = true;
         if ($('#ZYBH').val() == "") {
-            alert("专业编号不能为空");
+            $("#warning_content").text("专业编号不能为空");
+            $("#warning_modal").modal("show");
             var verge = false;
         } else if ($('#ZYMC').val() == "") {
-            alert("专业名称不能为空");
+            $("#warning_content").text("专业名称不能为空");
+            $("#warning_modal").modal("show");
             var verge = false;
         } else if ($('#SSJYS').val() == null) {
-            alert("所属教研室不能为空");
+            $("#warning_content").text("所属教研室不能为空");
+            $("#warning_modal").modal("show");
             var verge = false;
         } else if ($('#KSNJ').val() == "") {
-            alert("开设年级不能为空");
+            $("#warning_content").text("开设年级不能为空");
+            $("#warning_modal").modal("show");
             var verge = false;
         }
         if (verge) {
@@ -72,14 +93,25 @@
                 type: "post",
                 url: '/major/_editMajor.html',
                 dataType: "json",
-                data: $('#myform').serialize(),// 你的formid 注：后台req.body由控件name获取数据
+                data: $('#myform').serialize(),
                 async: false,
                 cache: true,
                 success: function (msg) {
                     if (msg.result != 0) {
+                        var table = $('#datatable').DataTable();
+                        table.ajax.reload();
+                        table.draw();		
+                        $("#success_modal").modal();
+                        setTimeout(function(){			
+                            $("#success_modal").modal('hide');
+                        },1000);
                         $("#modal-edit-event").modal('hide');
+                    } else {
+                        $("#faile_modal").modal();
+                        setTimeout(function(){					
+                            $("#faile_modal").modal('hide');
+                        },1000);
                     }
-                    location.reload();
                 },
                 error: function (e) {
                     console.log(e);
