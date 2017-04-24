@@ -7,57 +7,10 @@
         <a class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">教务信息管理系统</span>
         </a>
-        <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-                <li class="dropdown user user-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                        <span id="loginUserNameH" class="hidden-xs"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="user-header">
-                            <img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                            <p id="loginUserNameh"></p>
-                            <p>
-                                <small>
-                                    <script>
-                                        var d = new Date();
-                                        var curYear = d.getFullYear();
-                                        var curMonth = "" + (d.getMonth() + 1);
-                                        var curDate = "" + d.getDate();
-                                        document.write(curYear + "年" + curMonth + "月" + curDate + "日");
-                                    </script>
-                                    - 软件与应用科技学院
-                                </small>
-                            </p>
-                        </li>
-                        <li class="user-body">
-                            <div class="row">
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Followers</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Sales</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Friends</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">个人信息</a>
-                            </div>
-                            <div class="pull-right">
-                                <a href="/login/loginOut" class="btn btn-default btn-flat">退出系统</a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                </li>
-            </ul>
+        <div class="navbar-custom-menu" style="margin-right:50px;">
+            <div class="pull-right logout">
+                <span><img id="logout_img" src="/images/logout.png" onclick="logout()" /><lable for="logout_img" onclick="logout()" >注销</lable></span>
+            </div>
         </div>
     </nav>
 </header>

@@ -35,3 +35,31 @@ input[type="checkbox"][disabled]:checked {
   background: #fff url(/images/checkdisabled.png) no-repeat;
   background-size: contain;
 }
+
+.logout{
+	margin-top: 11px;
+}
+.user-panel{
+	margin: 10px 0px;
+}
+#logout_img{
+	width: 25px;
+	cursor: pointer;
+	margin-right:5px; 
+}
+.logout lable{
+	color: #FFFFFF;
+	vertical-align: middle;
+	cursor: pointer;
+}
+.user-panel{
+	float: none;
+}
+.image{
+	display: block;
+	float: none;
+}
+.info{
+	display: block;
+	float: none;
+}

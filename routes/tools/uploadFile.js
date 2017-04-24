@@ -1,6 +1,3 @@
-/**
- * Created by sy on 2016/9/27. 文件上传
- */
 var express = require('express');
 var router = express.Router();
 var multiparty = require('multiparty');
@@ -9,9 +6,6 @@ var fs = require('fs');
 /* GET home page. */
 router.get('/', function (req, res, next) {
     next();
-});
-router.get('/uploadFile.html', function (req, res, next) {
-    res.render('tools/uploadFile', {title: ''});
 });
 router.post('/uploadFile.html', function (req, res, next) {
     //生成multiparty对象，并配置上传目标路径

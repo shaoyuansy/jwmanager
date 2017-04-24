@@ -37,7 +37,7 @@ router.post('/', function (req, res, next) {
 });
 
 //退出登录
-router.get('/loginOut', function (req, res, next) {
+router.get('/logout', function (req, res, next) {
     //console.log(req.cookies.userInfo);
     res.clearCookie('userInfo', {path: '/'});
     req.session.userInfo = null;
