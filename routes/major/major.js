@@ -98,11 +98,5 @@ router.post('/_getZymc.html', function (req, res, next) {
         res.send({"result": result});
     });
 });
-//获取专业ID
-router.get('/_getZyId.html', function (req, res, next) {
-    var sqlStr = decodeURI(req.query.sqlStr,"UTF-8");
-    zyDao.queryZyId(req, res, sqlStr, function (result) {
-        res.send({"result": result});
-    });
-});
+
 module.exports = router;

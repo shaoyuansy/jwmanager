@@ -1,15 +1,10 @@
-/**
- * Created by peng on 2016/9/27.
- */
 var express = require('express');
 var router = express.Router();
 
-/* . */
 router.get('/', function (req, res, next) {
     res.render('index', {title: 'Express'});
 });
 
-/* 专业-课程服务开始. */
 var zy_kcDao = require('../../models/dao/jw_zy_kc/zy_kcDao');
 
 //获取专业-课程信息列表 根据年级与专业
@@ -38,12 +33,12 @@ router.get('/delSome', function (req, res, next) {
     });
 });
 //批量增加专业-课程信息记录
-router.get('/insertSome', function (req, res, next) {
+router.post('/insertSome', function (req, res, next) {
     var sqlArr = new Array();
-    sqlArr = req.query.str.split(',');
+    sqlArr = req.body.str.split(',');
     zy_kcDao.insert(req, res, sqlArr, function (result) {
         if (result) {
-            res.send({"state": result});
+            res.send({"state": result.affectedRows});
         }
     });
 });
@@ -59,5 +54,24 @@ router.post('/delSomeByKc', function (req, res, next) {
         res.send({"state": result});
     });
 });
+//根据选择的课程id与专业学年判断是否选课重复
+router.post('/getCourseByids', function (req, res, next) {
+    zy_kcDao.queryCourseByids(req, res, req.body.ids, req.body.zyid, req.body.xq, function (result) {
+        res.send({"result": result});
+    });
+});
+//查看是否重复记录
+router.post('/checkMajorCourse', function (req, res, next) {
+    zy_kcDao.queryRepeat(req, res, req.body.zyid, req.body.kcid, req.body.term, function (result) {
+        res.send({"result": result});
+    });
+});
+//保存编辑信息
+router.post('/editMajorCourse', function (req, res, next) {
+    zy_kcDao.update(req, res, req.body.id, req.body.term, function (result) {
+        res.send({"state": result.affectedRows});
+    });
+});
+
 /* 专业-课程服务结束. */
 module.exports = router;

@@ -40,6 +40,12 @@ router.post('/insertSome', function (req, res, next) {
         }
     });
 });
+//获取适用本专业的课程信息列表
+router.get('/getcourseByzy', function (req, res, next) {
+   kcDao.queryByzy(req, res, req.query.zy, function (result) {
+       res.send({"data": result});
+   });
+});
 //获取除去已添加课程的课程信息列表
 //router.get('/getSome', function (req, res, next) {
 //    kcDao.querySome(req, res, req.query.idstr, function (result) {

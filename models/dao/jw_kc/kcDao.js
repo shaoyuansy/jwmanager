@@ -1,6 +1,3 @@
-/**
- * Created by peng on 2016/9/26.
- */
 // 实现与MySQL交互
 var mysql = require('mysql');
 var $conf = require('../../conf/db');
@@ -101,9 +98,17 @@ exports.insertSome = function (req, res, arrayPar, fn) {
         });
     });
 };
+/* 由专业名称获取适用课程列表*/
+exports.queryByzy = function (req, res, zy, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.queryByzy, [zy], function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
 /* 由课程名称获取课程ID*/
 exports.queryKcId = function (req, res, sqlStr, fn) {
-    console.log("kcDao " + sqlStr);
     pool.getConnection(function (err, connection) {
         connection.query($sql.queryKcId, [sqlStr], function (err, result) {
             connection.release();

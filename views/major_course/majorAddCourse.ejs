@@ -1,35 +1,63 @@
-<!-- datatable -->
 <script src="../javascripts/mydatatable.js"></script>
-<!-- table2excel导出 -->
-<script src="/table2excel/jquery.table2excel.js"></script>
-
-<!-- page script -->
-
-<!-- 页面内容 content -->
+<style>
+    .box-body span{
+        display: inline-block;
+    }
+    .box-body span input{
+        margin: 0px;
+        vertical-align: middle;
+    }
+    
+    #datatable th, 
+    #datatable td{
+        white-space:nowrap;    
+    }
+    .text_center{
+        text-align: center;
+    }
+    .form-control{
+        height: 28px;
+        padding: 3px;
+        font-size: 14px;
+        vertical-align: middle;
+    }
+    .box-footer{
+        text-align:center;
+        margin: auto;
+        padding:10px 10px;
+    } 
+    .box-footer button{
+        padding: 5px 10px;
+        width: 70px;
+        height: 28px;
+        line-height: 15px;
+    }
+</style>
 <div class="content-wrapper">
-    <!-- 页面内容 Header -->
     <section class="content-header">
-        <h1>
-            添加课程页面
-        </h1>
+        <h1>专业选课</h1>
         <ol class="breadcrumb">
             <li><a href="/index"><i class="fa fa-home"></i> 首页</a></li>
             <li><a href="/major_course/major_course.html">专业-课程管理</a></li>
             <li class="active">添加课程</li>
         </ol>
     </section>
-
-    <!-- Main content -->
     <section class="content">
-        <!-- /.box -->
-
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">课程列表</h3>
-                <div style="margin-top: 1%">
-                    <div class="form-group">
-                        <label>开设学期</label>
-                        <select class="form-control select2" id="ksxq" name="ksxq">
+                <h3 class="box-title"><%= sqlStr %>专业 课程列表</h3>
+            </div>
+            <div class="box-body" style="padding-top: 0">
+                <div class="box box-default box-solid" style="margin-top:10px;">
+                    <div class="box-header with-border" style="padding:3px;font-size:14px;">
+                        <h3 class="box-title" style="font-size:14px;">选择开设学期</h3>
+                        <div class="box-tools pull-right" style="top: 1px;">
+                            <button type="button" style="padding:0px;line-height:0px" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <select class="form-control" id="ksxq" name="ksxq">
                             <option>第一学期</option>
                             <option>第二学期</option>
                             <option>第三学期</option>
@@ -41,214 +69,246 @@
                         </select>
                     </div>
                 </div>
+                <div class="box box-default box-solid" style="margin-bottom:0px;">
+                    <div class="box-header with-border" style="padding:3px;font-size:14px;">
+                        <h3 class="box-title" style="font-size:14px;" id="xk_msg"></h3>
+                        <div class="box-tools pull-right" style="top: 1px;">
+                            <button type="button" style="padding:0px;line-height:0px" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <table id="datatable" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th><input id="checkall" name="checkall" type="checkbox"></th>
+                                    <th>课程编号</th>
+                                    <th>课程名称</th>
+                                    <th>课程英文名称</th>
+                                    <th>教研室划分</th>
+                                    <th>专业负责人</th>
+                                    <th>课程负责人</th>
+                                    <th>使用对象</th>
+                                    <th>课程类型</th>
+                                    <th>周学时</th>
+                                    <th>上机学时</th>
+                                    <th>学分</th>
+                                    <th>先导课程</th>
+                                    <th>后续课程</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <!-- /.box-header -->
-            <div class="box-body" style="padding-top: 0">
-                <table id="datatable" class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        <th><input id="checkbox1" name="checkbox1" type="checkbox"></th>
-                        <th>课程编号</th>
-                        <th>课程名称</th>
-                        <th>课程英文名称</th>
-                        <th>教研室划分</th>
-                        <th>专业负责人</th>
-                        <th>课程负责人</th>
-                        <th>课程类型</th>
-                        <th>周学时</th>
-                        <th>上机学时</th>
-                        <th>学分</th>
-                        <th>使用对象</th>
-                        <th>先导课程</th>
-                        <th>后续课程</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-            <!-- /.box-body -->
             <div class="box-footer" align="center">
                 <button type="submit" class="btn btn-primary" onclick="addCourse();">添加</button>
-                <button type="submit" class="btn btn-default" onclick="history.go(-1)">取消</button>
+                <button type="submit" class="btn btn-default" onclick="history.go(-1)">返回</button>
             </div>
         </div>
-        <!-- /.box -->
     </section>
-    <!-- /.content -->
-
-
 </div>
 
 <div class="modal" id="modal-edit-event"></div>
-<script>
-    var mytable;
-    var zyid = "";//专业ID
-    $(document).ready(function () {
 
-        //全选  全反选处理
-        $("#checkbox1").click(function () {
-            var checkbox = document.getElementById('checkbox1');
-            //是否被选中
+<script>
+    $(document).ready(function () {
+        var sqlStr = "<%= sqlStr %>";
+        var xn = sqlStr.split("-")[0];
+        var zy = sqlStr.split("-")[1];
+        var zyid = "";
+
+        $("#checkall").click(function () {
+            var checkbox = document.getElementById('checkall');
             if (checkbox.checked) {
-                $('input[type="checkbox"][name="checkbox2"]').each(function () {
+                $('input[type="checkbox"][name="checkrow"]').each(function () {
                     this.checked = true;
                 });
             } else {
-                $('input[type="checkbox"][name="checkbox2"]').each(function () {
+                $('input[type="checkbox"][name="checkrow"]').each(function () {
                     this.checked = false;
                 });
             }
         });
 
+        $("#ksxq").change(function(){
+            showMsg(sqlStr);
+        });
+
+        createtable(zy);
+        showMsg(sqlStr);
+        getZyId(sqlStr);
+    });
+
+    function showMsg(sqlStr){
+        let chooseterm = $("#ksxq").val();
+        $("#xk_msg").text("当前为：" + sqlStr +"专业 "+chooseterm +" 选择开设课程");
+    }
+
+    function createtable(zy){
         var columns = [
             {
-                "mData": null,
-                "sClass": "center",
-                "mData": function (obj) {
-                    return '<input id="checkbox2" name="checkbox2" type="checkbox" value=' + obj.ID + '>';
+                "className": "text_center",
+                "data": function (obj) {
+                    return '<input id="checkrow" name="checkrow" type="checkbox" value=' + obj.ID + '>';
                 }
             },
             {
-                "mData": "KCBH",
-                "sClass": "center"
+                "data": "KCBH",
+                "className": "text_center"
             },
             {
-                "mData": "KCMC",
-                "sClass": "center"
+                "data": "KCMC",
+                "className": "text_center"
             },
             {
-                "mData": "KCYWMC",
-                "sClass": "center"
+                "data": "KCYWMC",
+                "className": "text_center"
             },
             {
-                "mData": "JYSHF",
-                "sClass": "center"
+                "data": "JYSHF",
+                "className": "text_center"
             },
             {
-                "mData": "ZYFZR",
-                "sClass": "center"
+                "data": "ZYFZR",
+                "className": "text_center"
             },
             {
-                "mData": "KCFZR",
-                "sClass": "center"
+                "data": "KCFZR",
+                "className": "text_center"
             },
             {
-                "mData": "KCLX",
-                "sClass": "center"
+                "data": "SYDX",
+                "className": "text_center"
             },
             {
-                "mData": "ZXS",
-                "sClass": "center"
-            }, {
-                "mData": "SJXS",
-                "sClass": "center"
+                "data": "KCLX",
+                "className": "text_center"
             },
             {
-                "mData": "XF",
-                "sClass": "center"
-            }, {
-                "mData": "SYDX",
-                "sClass": "center"
+                "data": "ZXS",
+                "className": "text_center"
+            }, 
+            {
+                "data": "SJXS",
+                "className": "text_center"
             },
             {
-                "mData": "XDKC",
-                "sClass": "center"
+                "data": "XF",
+                "className": "text_center"
+            }, 
+            {
+                "data": "XDKC",
+                "className": "text_center"
             },
             {
-                "mData": "HXKC",
-                "sClass": "center"
+                "data": "HXKC",
+                "className": "text_center"
             }
         ];
-        mytable = CreateDataTable('#datatable', '/courseService/getList', columns);
-    });
-    //    //获取该年级该专业已选课程ID
-    //    function getKcId(data){
-    //        var temp = new Array();
-    //        var idstr = new Array();
-    //        getZyId(data);
-    //        $.ajax({
-    //            type: "get",
-    //            url: "/major_courseService/getList?sqlstr="+data,
-    //            dataType: "json",
-    //            async: false,
-    //            cache: true,
-    //            success: function (msg) {
-    //                temp = msg;
-    //            },
-    //            error: function (e) {
-    //                console.log(e);
-    //            }
-    //        });
-    //        var result = temp.aaData;
-    //        for(var i = 0;i<result.length;i++){
-    //            idstr.push(result[i].KCID);
-    //        }
-    //        //若该年级该专业目前还没有课程，返回''
-    //        if(idstr.join(",") == ""){
-    //            return "''";
-    //        }
-    //        return idstr.join(",");
-    //    }
+        var mytable = CourseDataTable('#datatable', '/courseService/getcourseByzy?zy='+zy, columns);
+    }
+
     //由年级和专业获取专业ID
-    function getZyId(data) {
-        var temp2 = [];
-        var dataURI = encodeURI(data);
-        console.log("dataURI:" + dataURI);
+    function getZyId(sqlStr) {
         $.ajax({
-            type: "get",
-            url: "/major/_getZyId.html?sqlStr=" + dataURI,
+            type: "post",
+            url: "/majorService/getZyId",
             dataType: "json",
+            data:{sqlStr:sqlStr},
             async: false,
             cache: true,
             success: function (msg) {
-                console.log("msg:" + msg);
-                temp2 = msg;
+                if(msg.result){
+                    zyid = msg.result[0].ID;
+                }
             },
             error: function (e) {
                 console.log(e);
             }
         });
-        var result = temp2.result;
-        console.log("result:" + result);
-        zyid = result[0].ID;
     }
+
     //为该年级该专业添加课程
     function addCourse() {
-        getZyId("<%= sqlStr %>");
         var flag = false;
         var arr = [];
-        $('input[type="checkbox"][name="checkbox2"]:checked').each(function () {
+        $('input[type="checkbox"][name="checkrow"]:checked').each(function () {
             flag = true;
             arr.push(zyid + "," + this.value + "," + $("#ksxq").val());
         });
-        for (var i = 0; i < arr.length; i++) {
-            var str = arr[i];
-            $.ajax({
-                type: "get",
-                url: '/major_courseService/insertSome',
-                dataType: "json",
-                data: {str: str},
-                cache: false,
-                async: false,//同步
-                success: function (result) {
-
-                },
-                error: function (e) {
-                    alert("出错了");
-                    console.log(e);
-                }
+        if (!flag) {
+            $("#warning_content").text("请至少选择一项");
+            $("#warning_modal").modal("show");
+            return false;
+        }
+        if(checkRepeat()){
+            var index = 0;
+            arr.forEach(function(v,i,a) {
+                $.ajax({
+                    type: "post",
+                    url: '/major_courseService/insertSome',
+                    dataType: "json",
+                    data: {str: v},
+                    cache: false,
+                    async: false,//同步
+                    success: function (msg) {
+                        if(msg.state>0){
+                            index++;
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
             });
+            if(arr.length == index){
+                $("#success_modal").modal();
+                setTimeout(function(){			
+                    $("#success_modal").modal('hide');
+                    location.href = "/major_course/major_course.html";
+                },1000);
+            }else{
+                $("#faile_modal").modal();
+                setTimeout(function(){					
+                    $("#faile_modal").modal('hide');
+                },1000);
+            }
         }
-        if (flag) {
-            var arr3 = "<%= sqlStr %>".split(",");
-            var KSNJ = encodeURI(arr3[0]);
-            var ZYMC = encodeURI(arr3[1]);
-            //返回上一页并刷新
-            window.location.href = "/major_course/getData.html?ksnj=" + KSNJ + "&zymc=" + ZYMC;
-        } else if (!flag) {
-            alert("请至少选择一项");
-        }
+    }
+
+    //验证重复添加
+    function checkRepeat(){
+        var flag = true;
+        var cidArr = [];
+        $('input[type="checkbox"][name="checkrow"]:checked').each(function () {
+            cidArr.push(this.value);
+        });
+        $.ajax({
+            type: "post",
+            url: '/major_courseService/getCourseByids',
+            dataType: "json",
+            data: {ids: cidArr.join(","),zyid:zyid,xq:$("#ksxq").val()},
+            cache: false,
+            async: false,//同步
+            success: function (msg) {
+                if(msg.result.length > 0){
+                    flag = false;
+                    var repeatCourse = "";
+                    msg.result.forEach(function(v) {
+                        repeatCourse += v.KCMC+"-("+v.KCBH+")"+"，";
+                    });
+                    $("#warning_content").text("所选 <%= sqlStr %>专业 "+ $("#ksxq").val() +" 课程中，重复课程："+repeatCourse+" 请核实后再进行操作。");
+                    $("#warning_modal").modal("show");
+                }
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+        return flag;
     }
 
 </script>

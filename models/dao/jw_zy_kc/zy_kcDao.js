@@ -1,7 +1,3 @@
-/**
- * Created by sy on 2016/9/27.
- */
-// 实现与MySQL交互
 var mysql = require('mysql');
 var $conf = require('../../conf/db');
 var $util = require('../../until/util');
@@ -54,10 +50,19 @@ exports.insert = function (req, res, arrayPar, fn) {
         });
     });
 };
-/*更新记录*/
-exports.update = function (req, res, arrayPar, fn) {
+/*查询时候有重复记录*/
+exports.queryRepeat = function (req, res, zyid, kcid, term, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.update, arrayPar, function (err, result) {
+        connection.query($sql.queryRepeat, [zyid, kcid, term], function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+/*更新记录*/
+exports.update = function (req, res, id, term, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.update, [term, id], function (err, result) {
             connection.release();
             fn(result);
         });
@@ -99,6 +104,16 @@ exports.deleteSomeByKc = function (req, res, idstr, fn) {
         connection.query(sql, function (err, result) {
             connection.release();
             fn(1);
+        });
+    });
+};
+//根据专业id，所选课程ID，学期 判断是否重复添加
+exports.queryCourseByids = function (req, res, ids, zyid, xq, fn) {
+    pool.getConnection(function (err, connection) {
+        var sql = "SELECT k.*,zk.* FROM jw_zy_kc as zk,jw_kc as k WHERE zk.KCID = k.ID AND zk.ZYID = "+ zyid +" AND zk.KSXQ = '"+ xq +"' AND zk.KCID IN ("+ ids +");";
+        connection.query(sql, function (err, result) {
+            connection.release();
+            fn(result);
         });
     });
 };

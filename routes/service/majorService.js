@@ -1,15 +1,10 @@
-/**
- * Created by sy on 2016/9/26.
- */
 var express = require('express');
 var router = express.Router();
 
-/* . */
 router.get('/', function (req, res, next) {
     res.render('index', {title: 'Express'});
 });
 
-/* 专业服务开始. */
 var zyDao = require('../../models/dao/jw_zy/zyDao');
 //获取专业信息列表
 router.get('/getList', function (req, res, next) {
@@ -43,6 +38,12 @@ router.get('/insertSome', function (req, res, next) {
         if (result) {
             res.send({"state": result});
         }
+    });
+});
+//获取专业ID
+router.post('/getZyId', function (req, res, next) {
+    zyDao.queryZyId(req, res, req.body.sqlStr, function (result) {
+        res.send({"result": result});
     });
 });
 /* 专业服务结束. */

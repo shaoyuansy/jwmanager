@@ -35,3 +35,18 @@ function ExportDataTable(id,url,columns) {
     });
     return data_table;
 }
+
+function CourseDataTable(id,url,columns) {
+    var data_table= $(id).dataTable({
+        "scrollX": true,
+        "ordering": false,
+        "language": {
+            "url": "/dist/i18n/Chinese.json"
+        },
+        "paging": false,
+        "autoWidth": true,
+        "ajax": url, 
+        "columns":columns
+    });
+    return data_table;
+}
