@@ -1,10 +1,6 @@
-/**
- * Created by peng on 2016/9/20.
- */
 var express = require('express');
 var router = express.Router();
 
-/* . */
 router.get('/', function (req, res, next) {
     res.render('index', {title: 'Express'});
 });
@@ -29,15 +25,6 @@ router.get('/delSome', function (req, res, next) {
         res.send({"state": result});
     });
 });
-//批量增加教研室信息记录
-router.get('/insertSome', function (req, res, next) {
-    var sqlArr = new Array();
-    sqlArr = req.query.str.split(',');
-    jysDao.insert(req, res, sqlArr, function (result) {
-        if (result) {
-            res.send({"state": result});
-        }
-    });
-});
+
 /* 教研室服务结束. */
 module.exports = router;

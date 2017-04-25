@@ -30,16 +30,6 @@ router.post('/delSome', function (req, res, next) {
         res.send({"state": result});
     });
 });
-//批量增加课程信息记录
-router.post('/insertSome', function (req, res, next) {
-    var sqlArr = new Array();
-    sqlArr = req.body.str.split(',');
-    kcDao.insertSome(req, res, sqlArr, function (result) {
-        if (result) {
-            res.send({"state": result});
-        }
-    });
-});
 //获取适用本专业的课程信息列表
 router.get('/getcourseByzy', function (req, res, next) {
    kcDao.queryByzy(req, res, req.query.zy, function (result) {

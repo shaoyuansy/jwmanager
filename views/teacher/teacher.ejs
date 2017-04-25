@@ -359,7 +359,7 @@
     function readExcel() {
         var formData = new FormData(); //构建formdata
         formData.append('file', $('#upfile')[0].files[0]);
-        if (formData) {
+        if ($('#upfile')[0].files[0]) {
             $.ajax({
                 type: 'post',
                 url: '/teacher/readExcel',

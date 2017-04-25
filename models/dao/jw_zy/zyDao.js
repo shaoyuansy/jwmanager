@@ -59,6 +59,15 @@ exports.insert = function (req, res, arrayPar, fn) {
         });
     });
 };
+/*批量导入记录*/
+exports.insertSome = function (req, res, sqlStr, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query(sqlStr, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
 /*更新记录*/
 exports.update = function (req, res, arrayPar, fn) {
     pool.getConnection(function (err, connection) {

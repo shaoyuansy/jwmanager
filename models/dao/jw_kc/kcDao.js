@@ -89,10 +89,10 @@ exports.querySome = function (req, res, idstr, fn) {
         });
     });
 };
-/*新增记录*/
-exports.insertSome = function (req, res, arrayPar, fn) {
+/*批量导入记录*/
+exports.insertSome = function (req, res, sqlStr, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.insertSome, arrayPar, function (err, result) {
+        connection.query(sqlStr, function (err, result) {
             connection.release();
             fn(result);
         });

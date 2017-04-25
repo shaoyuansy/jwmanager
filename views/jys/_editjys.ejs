@@ -40,15 +40,14 @@
                         <input id="JYSZR" name="JYSZR" type="text" class="form-control" value="<%= jyszr %>">
                     </div>
                 </div>
-                <!-- /.box-body -->
             </form>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             <button type="button" class="btn btn-primary" onclick="submitForm()">提交</button>
         </div>
-    </div><!-- /.modal-content -->
-</div><!-- /.modal -->
+    </div>
+</div>
 <script>
     function submitForm() {
         var verge = true;
@@ -67,7 +66,7 @@
                 type: "post",
                 url: '/jys/_editJys.html',
                 dataType: "json",
-                data: $('#myform').serialize(),// 你的formid 注：后台req.body由控件name获取数据
+                data: $('#myform').serialize(),
                 async: false,
                 cache: true,
                 success: function (msg) {

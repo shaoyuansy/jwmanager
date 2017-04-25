@@ -58,25 +58,21 @@
                 <h3 class="box-title">专业列表</h3>
                 <div class="box-tools pull-right">
                     <div class="upload_group">
-                        <input type="file" id="upfile" accept=".xls,.xlsx" />
+                        <input type="file" id="upfile" accept=".xls" />
                         <input type="text" class="style_upload" readonly/>
                         <label for="upfile" class="open">浏览</label>
                     </div>
-                    <button type="button" title="导入" class="btn btn-box-tool"
-                            onclick="">
-                        <i class="fa fa-fw fa-plus-circle"></i>导入
+                    <button type="button" title="导入" class="btn btn-box-tool" onclick="readExcel()">
+                        <i class="fa fa-fw fa-sign-in"></i>导入
                     </button>
-                    <button type="button" title="导出" class="btn btn-box-tool"
-                            onclick="">
-                        <i class="fa fa-fw fa-plus-circle"></i>导出
+                    <button type="button" title="导出" class="btn btn-box-tool" onclick="toExcel()">
+                        <i class="fa fa-fw fa-cloud-download"></i>导出
                     </button>
-                    <button type="button" title="批量删除" class="btn btn-box-tool"
-                            onclick="delSomeJys();">
-                        <i class="fa fa-fw fa-plus-circle"></i>批量删除
+                    <button type="button" title="批量删除" class="btn btn-box-tool" onclick="delSomeJys();">
+                        <i class="fa fa-fw fa-times"></i>批量删除
                     </button>
-                    <button type="button" title="添加" class="btn btn-box-tool"
-                            onclick="editMajor(0)">
-                        <i class="fa fa-fw fa-plus-circle"></i>添加
+                    <button type="button" title="添加" class="btn btn-box-tool" onclick="editMajor(0)">
+                        <i class="fa fa-fw fa-user-plus"></i>添加
                     </button>
                 </div>
                 <div class="box box-default box-solid" style="margin-top:10px;">
@@ -129,7 +125,6 @@
     $("#upfile").change(function () {
         var filename = $(this).val().split("\\").pop();
         $(".style_upload").val(filename);
-
     });
     
     $(document).ready(function () {
@@ -221,6 +216,70 @@
         });
     }
 
+    //导入excel并解析
+    function readExcel() {
+        var formData = new FormData(); //构建formdata
+        formData.append('file', $('#upfile')[0].files[0]);
+        if ($('#upfile')[0].files[0]) {
+            $.ajax({
+                type: 'post',
+                url: '/major/readExcel',
+                enctype: 'multipart/form-data',
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (msg) {
+                    if(msg.success){
+                        var table = $('#datatable').DataTable();
+                        table.ajax.reload();
+                        table.draw();		
+                        $("#success_modal").modal();
+                        setTimeout(function(){			
+                            $("#success_modal").modal('hide');
+                        },1000);
+                    }else{
+                        $("#warning_content").text(msg.errorMassage);
+                        $("#warning_modal").modal("show");
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        } else {
+            $("#warning_content").text("请选择一个文件");
+            $("#warning_modal").modal("show");
+        }
+    }
+
+    //批量导出
+    function toExcel() {
+        //定义一个flag判断存在单选框被选中
+        var flag = false;
+        $('input[type="checkbox"][name="checkrow"]').each(function () {
+            if (this.checked == false) {
+                this.parentNode.parentNode.classList = "noExl";
+            } else if (this.checked == true) {
+                this.parentNode.parentNode.classList = "";
+                flag = true;
+            }
+        });
+        if (flag) {
+            $("#datatable").table2excel({
+                exclude: ".noExl",
+                name: "Excel Document Name",
+                filename: "专业信息表" + "-" + GetTimeStr(),
+                exclude_img: true,
+                exclude_links: true,
+                exclude_inputs: true
+            });
+        } else {
+            $("#warning_content").text("请至少选择一项");
+            $("#warning_modal").modal("show");
+        }
+    }    
+    
     //删除与要删除记录相关的专业-课程记录
     function delMajorCourse(data) {
         $.ajax({

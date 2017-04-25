@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var multiparty = require('multiparty');
-var util = require('util');
 var fs = require('fs');
 var xl = require('node-xlrd');
 var teacherDao = require('../../models/dao/jw_teacher/teacherDao');
@@ -237,7 +236,7 @@ router.post('/readExcel', function (req, res, next) {
                                 if(rIdx == 0 ){
                                     if(sht.cell(rIdx,cIdx) != tableFormat[cIdx]){
                                         res.send({"success":false,"errorMassage":"文件列内容有误，请仔细检查"});
-                                        return errormsg;
+                                        return;
                                     }
                                     valueStr = '';
                                 }
@@ -273,7 +272,6 @@ router.post('/readExcel', function (req, res, next) {
             })
         }  
     });
-    
 });
 
 /* 导出预览 */
