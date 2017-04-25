@@ -68,17 +68,6 @@ router.get('/exportBySomeId', function (req, res, next) {
     });
 });
 
-//批量增加教师信息记录
-router.get('/insertSome', function (req, res, next) {
-    var sqlArr = new Array();
-    sqlArr = req.query.str.split(',');
-    teacherDao.insertSome(req, res, sqlArr, function (result) {
-        if (result) {
-            res.send({"state": result});
-        }
-    });
-});
-
 //教师资料下载
 var path = require('path');
 var fs = require('fs');

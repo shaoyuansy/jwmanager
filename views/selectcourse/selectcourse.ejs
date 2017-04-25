@@ -1,3 +1,4 @@
+<script src="/table2excel/jquery.table2excel.js"></script>
 <style type="text/css">
     #selectcourseTL td {
         vertical-align: middle;
@@ -64,7 +65,7 @@
                 </div>
                 <div class="box-tools pull-right">
                     <button type="button" title="导出" class="btn btn-box-tool"
-                            onclick="">
+                            onclick="exportData()">
                         <i class="fa fa-fw fa-cloud-download"></i>导出
                     </button>
                 </div>
@@ -108,6 +109,43 @@
 
     });
     
+    //批量导出(非IE浏览器)
+    function exportData() {
+        //定义一个flag判断存在单选框被选中
+        
+
+            var d = new Date();
+            var curYear = d.getFullYear();
+            var curMonth = "" + (d.getMonth() + 1);
+            var curDate = "" + d.getDate();
+            var curHour = "" + d.getHours();
+            var curMinute = "" + d.getMinutes();
+            var curSecond = "" + d.getSeconds();
+            if (curMonth.length == 1) {
+                curMonth = "0" + curMonth;
+            }
+            if (curDate.length == 1) {
+                curDate = "0" + curDate;
+            }
+            if (curHour.length == 1) {
+                curHour = "0" + curHour;
+            }
+            if (curMinute.length == 1) {
+                curMinute = "0" + curMinute;
+            }
+            if (curSecond.length == 1) {
+                curSecond = "0" + curSecond;
+            }
+            $("#selectcourseTL").table2excel({
+                exclude: ".noExl",//有class = “noExl” 的行不被导出；
+                name: "Excel Document Name",
+                filename: "选课表" + "-" + curYear + curMonth + curDate + curHour + curMinute,
+                exclude_img: true,
+                exclude_links: true,
+                exclude_inputs: true
+            });
+    }
+
     //编辑选课
     function editXk(cid) {
         var sur = document.getElementById("sur" + cid).innerHTML;

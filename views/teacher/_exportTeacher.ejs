@@ -35,7 +35,7 @@
                 <h3 class="box-title">教师资料导出预览</h3>
                 <div class="box-tools pull-right">
                     <button type="button" title="导出" class="btn btn-box-tool"
-                            onclick="toExcel('exporttable','');">
+                            onclick="toExcel();">
                         <i class="fa fa-fw fa-cloud-download"></i>导出
                     </button>
                 </div>
@@ -86,7 +86,7 @@
                         <span><input id="checkshow" name="checkshow" type="checkbox" value="35" /> 毕业证复印件 |</span>
                         <span><input id="checkshow" name="checkshow" type="checkbox" value="36" /> 职称证复印件 |</span>
                         <span><input id="checkshow" name="checkshow" type="checkbox" value="37" /> 协议书 |</span>
-                        <span><input id="checkshow" name="checkshow" type="checkbox" value="38" /> 附件 |</span>
+                        <!--<span><input id="checkshow" name="checkshow" type="checkbox" value="38" /> 附件 |</span>-->
                     </div>
                 </div>
                 <div class="box-body">
@@ -131,7 +131,7 @@
                                 <th>毕业证复印件</th>
                                 <th>职称证复印件</th>
                                 <th>协议书</th>
-                                <th>附件</th>
+                                <!--<th>附件</th>-->
                             </tr>
                         </thead>
                     </table>
@@ -214,27 +214,7 @@
             },
             {
                 "data": "SFZR",
-                "data": function (obj) {
-                    switch (obj.SFZR) {
-                        case '1':
-                            return "学院教师";
-                            break;
-                        case '2':
-                            return "大校教师";
-                            break;
-                        case '3':
-                            return "其他高校教师（有教师资格证）";
-                            break;
-                        case '4':
-                            return "实习机构";
-                            break;
-                        case '5':
-                            return "其他人员";
-                            break;
-                        default:
-                            return "";
-                    }
-                }
+                "className": "text_center"
             },
             {
                 "data": "BYSJ",
@@ -315,23 +295,23 @@
             {
                 "data": "SFSJXYS",
                 "className": "text_center"
-            },
-            {
-                "className": "text_center",
-                "data": function (obj) {
-                    var filep = obj.FJ;
-                    var str = "";
-                    if (filep == null || filep == "") {
-                        str += '无';
-                    }
-                    if (filep != "" && filep != null) {
-                        var locArray = filep.split("/");
-                        var fileNmae = locArray[locArray.length - 1];
-                        str += '<a href="/teacherService/download?filePath=' + filep + '" > ' + fileNmae + '</a>';
-                    }
-                    return str;
-                }
             }
+            // {
+            //     "className": "text_center",
+            //     "data": function (obj) {
+            //         var filep = obj.FJ;
+            //         var str = "";
+            //         if (filep == null || filep == "") {
+            //             str += '无';
+            //         }
+            //         if (filep != "" && filep != null) {
+            //             var locArray = filep.split("/");
+            //             var fileNmae = locArray[locArray.length - 1];
+            //             str += '<a href="/teacherService/download?filePath=' + filep + '" > ' + fileNmae + '</a>';
+            //         }
+            //         return str;
+            //     }
+            // }
         ];
         var mytable = ExportDataTable('#exporttable', '/teacherService/exportBySomeId?idstr=<%= idstr %>', columns);
 
@@ -345,38 +325,9 @@
         });
     });
 
+    
     //导出
-    function toExcel(inTblId, inWindow) {
-        //如果是IE浏览器
-        if ("ActiveXObject" in window) {
-            try {
-                var allStr = "";
-                var curStr = "";
-                if (inTblId != null && inTblId != "" && inTblId != "null") {
-                    curStr = getTblData(inTblId, inWindow);
-                }
-                if (curStr != null) {
-                    allStr += curStr;
-                }
-                else {
-                    $("#warning_content").text("你要导出的表不存在");
-                    $("#warning_modal").modal("show");
-                    return;
-                }
-                var fileName = getExcelFileName();
-                doFileExport(fileName, allStr);
-            }
-            catch (e) {
-                $("#warning_content").text("导出发生异常:" + e.name + "->" + e.description);
-                $("#warning_modal").modal("show");
-            }
-        } else {
-            exportData();//批量导出(非IE浏览器)
-        }
-    }
-
-    //导出(非IE浏览器)
-    function exportData() {
+    function toExcel() {
         var d = new Date();
         var curYear = d.getFullYear();
         var curMonth = "" + (d.getMonth() + 1);
@@ -407,108 +358,6 @@
             exclude_links: true,
             exclude_inputs: true
         })
-    }
-
-    function getTblData(inTbl, inWindow) {
-        var rows = 0;
-        var tblDocument = document;
-        if (!!inWindow && inWindow != "") {
-            if (!document.all(inWindow)) {
-                return null;
-            } else {
-                tblDocument = eval(inWindow).document;
-            }
-        }
-        var curTbl = tblDocument.getElementById(inTbl);
-        if (curTbl.rows.length > 65000) {
-            $("#warning_content").text("源行数不能大于65000行");
-            $("#warning_modal").modal("show");
-            return false;
-        }
-        if (curTbl.rows.length <= 1) {
-            $("#warning_content").text("数据源没有数据");
-            $("#warning_modal").modal("show");
-            return false;
-        }
-        var outStr = "";
-
-        if (curTbl != null) {
-            var flag = true;
-            for (var j = 0; j < curTbl.rows.length; j++) {
-                for (var i = 0; i < curTbl.rows[j].cells.length; i++) {
-                    if (i == 1 && rows > 0) {
-                        outStr += " \t";
-                        rows -= 1;
-                    }
-                    if (flag || j == 0) {
-                        outStr += "" + curTbl.rows[j].cells[i].innerText + "\t";
-                        if (curTbl.rows[j].cells[i].colSpan > 1) {
-                            for (var k = 0; k < curTbl.rows[j].cells[i].colSpan; k++) {
-                                outStr += " \t";
-                            }
-                        }
-                    }
-                    if (i == 0) {
-                        if (rows == 0 && curTbl.rows[j].cells[i].rowSpan > 1) {
-                            rows = curTbl.rows[j].cells[i].rowSpan;
-                        }
-                    }
-                }
-                if (flag || j == 0) {
-                    outStr += "\r\n";
-                }
-            }
-        } else {
-            outStr = null;
-            $("#warning_content").text(inTbl + "不存在!");
-            $("#warning_modal").modal("show");
-        }
-        return outStr;
-    }
-
-    function getExcelFileName() {
-        var d = new Date();
-        var curYear = d.getFullYear();
-        var curMonth = "" + (d.getMonth() + 1);
-        var curDate = "" + d.getDate();
-        var curHour = "" + d.getHours();
-        var curMinute = "" + d.getMinutes();
-        var curSecond = "" + d.getSeconds();
-        if (curMonth.length == 1) {
-            curMonth = "0" + curMonth;
-        }
-        if (curDate.length == 1) {
-            curDate = "0" + curDate;
-        }
-        if (curHour.length == 1) {
-            curHour = "0" + curHour;
-        }
-        if (curMinute.length == 1) {
-            sdasda
-            curMinute = "0" + curMinute;
-        }
-        if (curSecond.length == 1) {
-            curSecond = "0" + curSecond;
-        }
-        var fileName = "教师信息表" + "-" + curYear + curMonth + curDate + curHour + curMinute + ".xls";
-        return fileName;
-    }
-
-    function doFileExport(inName, inStr) {
-        var xlsWin = null;
-        if (!!document.all("glbHideFrm")) {
-            xlsWin = glbHideFrm;
-        } else {
-            var width = 1;
-            var height = 1;
-            var openPara = "left=" + (window.screen.width / 2 + width / 2) + ",top=" + (window.screen.height + height / 2) +
-                ",scrollbars=no,width=" + width + ",height=" + height;
-            xlsWin = window.open("", "_blank", openPara);
-        }
-        xlsWin.document.write(inStr);
-        xlsWin.document.close();
-        xlsWin.document.execCommand('Saveas', true, inName);
-        xlsWin.close();
     }
     
 </script>

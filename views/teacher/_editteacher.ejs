@@ -175,11 +175,11 @@
                                 <td style="text-align: left;">
                                     <select class="form-control" id="SFZR" name="SFZR" style="width: 100%">
                                         <option value="">请选择</option>
-                                        <option value="1">学院教师</option>
-                                        <option value="2">大校教师</option>
-                                        <option value="3">其他高校教师（有教师资格证）</option>
-                                        <option value="4">实习机构</option>
-                                        <option value="5">其他人员</option>
+                                        <option value="学院教师">学院教师</option>
+                                        <option value="大校教师">大校教师</option>
+                                        <option value="其他高校教师（有教师资格证）">其他高校教师（有教师资格证）</option>
+                                        <option value="实习机构">实习机构</option>
+                                        <option value="其他人员">其他人员</option>
                                     </select>
                                     <input id="SFZRTEMP" name="SFZRTEMP" type="hidden" value="<%= sfzr %>">
                                 </td>
@@ -443,19 +443,19 @@
                 }
             },
             'onUploadSuccess':function (fileObj, dataObj, response) { //上传完成后事件
-                    if (response == true) {
-                        $("#goto_upload").hide();
-                        var fileName = fileObj.name;
-                        var filePath = '/uploads/' + fileName;
-                        //将上传的附件链接显示在附件栏中
-                        $('#fileList').html('<a href="javascript:void(0)" onclick="aclick(\'/teacherService/download?filePath=' + filePath + '\')" '+
-                        ' ondblclick="adblclick(this)" > ' + fileName + '</a><input id="hidfj" name="hidfj" type="hidden" value="' + filePath + '"/>');
-                    }
-                    else {
-                        $("#warning_content").text("文件上传出错");
-                        $("#warning_modal").modal("show");
-                    }
+                if (response == true) {
+                    $("#goto_upload").hide();
+                    var fileName = fileObj.name;
+                    var filePath = '/uploads/' + fileName;
+                    //将上传的附件链接显示在附件栏中
+                    $('#fileList').html('<a href="javascript:void(0)" onclick="aclick(\'/teacherService/download?filePath=' + filePath + '\')" '+
+                    ' ondblclick="adblclick(this)" > ' + fileName + '</a><input id="hidfj" name="hidfj" type="hidden" value="' + filePath + '"/>');
                 }
+                else {
+                    $("#warning_content").text("文件上传出错");
+                    $("#warning_modal").modal("show");
+                }
+            }
         });
     });
 
@@ -603,7 +603,7 @@
             cache: true,
             success: function (msg) {
                 if(msg.data.length>0){
-                    if(msg.data[0]['SFZR'] != "1"){
+                    if(msg.data[0]['SFZR'] != "学院教师"){
                         flag = false;
                     }
                 }else{

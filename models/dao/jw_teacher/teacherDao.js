@@ -71,9 +71,9 @@ exports.insert = function (req, res, arrayPar, fn) {
 };
 
 //导入时批量插入教师
-exports.insertSome = function (req, res, arrayPar, fn) {
+exports.insertSome = function (req, res, sqlStr, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.insertSome, arrayPar, function (err, result) {
+        connection.query(sqlStr, function (err, result) {
             connection.release();
             fn(result);
         });
