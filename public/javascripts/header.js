@@ -1,6 +1,5 @@
 $(document).ready(function () {
     getUserName();
-    
 })
 function getUserName() {
     var menus = GetIndexData();
@@ -26,6 +25,7 @@ function GetIndexData() {
     });
     return data;
 }
+
 function logout(){
     location.href="/login/logout";
 }

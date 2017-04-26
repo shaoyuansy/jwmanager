@@ -192,9 +192,9 @@ router.post('/readExcel', function (req, res, next) {
     });
 });
 
-//由课程名称获取课程ID
-router.get('/_getKcId.html', function (req, res, next) {
-    kcDao.queryKcId(req, res, req.query.sqlStr, function (result) {
+//获取课程ID
+router.post('/getKcId', function (req, res, next) {
+    kcDao.queryKcId(req, res, req.body.kcmc, function (result) {
         res.send({"result": result});
     });
 });

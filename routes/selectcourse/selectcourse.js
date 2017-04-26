@@ -1,6 +1,3 @@
-/**
- * Created by sy on 2016/10/10.
- */
 var express = require('express');
 var router = express.Router();
 var kc_jsDao = require('../../models/dao/jw_kc_js/kc_jsDao');
@@ -15,14 +12,8 @@ router.get('/_editXk.html', function(req, res, next) {
     res.render('selectcourse/_editXk', {
         _layoutFile: false,
         title: '教务信息管理系统——教师选课',
-        kcid:req.query.cid,
-        kcidxg:req.query.cid,
-        sur:req.query.sur,
-        jsid:'',
-        jsidxg:'',
-        xzts:'',
-        jsmc:req.session.userInfo.USERNAME,
-        bz:''
+        kcid:req.query.kcid,
+        surts:req.query.surts
     });
 
 });

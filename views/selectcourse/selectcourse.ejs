@@ -3,25 +3,38 @@
     #selectcourseTL td {
         vertical-align: middle;
         text-align: center;
-
     }
     #selectcourseTL thead th {
         vertical-align: bottom;
         text-align: center;
-
     }
     #selectcourseTL thead {
         background-color: rgba(100, 183, 136, 0.21);
-
     }
-    .selectleft {
+    .box-header>.box-tools{
+        top:8px;
+    }
+    .date-box{
         position: absolute;
         right: 0px;
         left: 120px;
+        top:8px;
     }
-    .selecttop {
-        margin-top: 3px;
-
+    .export-box button{
+        padding-top: 2px;
+    }
+    #datechoose .form-control{
+        height: 24px;
+        padding: 0px 5px;
+    }
+    #datechoose{
+        width: 150px;
+    }
+    .input-group-addon{
+        padding: 0px 5px;
+    }
+    .export-btn{
+        
     }
     .toushu{
         background-color: #ffcc33;
@@ -38,9 +51,7 @@
     }
 </style>
 
-<!-- 页面内容 content -->
 <div class="content-wrapper">
-    <!-- 页面内容 Header -->
     <section class="content-header">
         <h1>
             教师选课信息管理页面
@@ -50,22 +61,20 @@
             <li class="active">教师选课管理</li>
         </ol>
     </section>
-
-    <!-- Main content -->
     <section class="content">
-        <div id="box" class="box" style="width: 100%;overFlow-x: scroll;overFlow-y: scroll;">
+        <div id="box" class="box" style="width: 100%;overFlow-x: scroll;">
             <div class="box-header">
                 <h3 class="box-title">教师选课</h3>
-                <div class="box-tools selectleft">
-                    <select class="selecttop">
-                        <option value="">请选择学期</option>
-                        <option value="">2016-2017第一学期</option>
-                        <option value="">2016-2017第二学期</option>
-                    </select>
+                <div class="box-tools date-box">
+                    <div class="input-group date" id="datechoose">
+                        <input type="text" class="form-control">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                    </div>
                 </div>
-                <div class="box-tools pull-right">
-                    <button type="button" title="导出" class="btn btn-box-tool"
-                            onclick="exportData()">
+                <div class="box-tools export-box">
+                    <button type="button" title="导出" class="btn btn-box-tool export-btn" onclick="exportData()">
                         <i class="fa fa-fw fa-cloud-download"></i>导出
                     </button>
                 </div>
@@ -80,9 +89,27 @@
 <div class="modal fade" id="modal-edit-xk"></div>
 <script>
     $(document).ready(function () {
-        $("#box").css('height', $(window).height() * 0.85 + 'px');//调整表格显示高度
+        
+        $("#datechoose").datepicker({ //构建时间选择器
+            format: 'yyyy/mm',
+            autoclose:true,
+            language:'zh-CN',
+            todayHighlight:true,
+            startView:'2',
+            minViewMode:'months',
+            title:'--------学期选择--------'
+        });
+        var time = new Date("2016-10-10");
+        $('#datechoose').datepicker('setDate', time); //初始化现在时间
+        bulid_table(time); //构建datatable
+        $('#datechoose').datepicker().on('hide', function(e) { //改变时间选择器重新获取当前的信息
+            time = $('#datechoose').datepicker('getDate');
+            bulid_table(time);  
+        });
+    });
+    function bulid_table(time){
+        $("#selectcourseTL").html("");
         //获取到当前时间或者要查询的时间 然后取得当前有哪些专业选择了哪些课
-        var time = "2016-10-10";
         var term = get_term(time);
         //1.生成左半部分课程信息
         var course = setCourse(term,time);
@@ -106,53 +133,27 @@
         if(teacher.flag){
             var comput = computToushu(course.data, major.data, teacher);
         }
-
-    });
+    }
     
     //批量导出(非IE浏览器)
     function exportData() {
-        //定义一个flag判断存在单选框被选中
-        
-
-            var d = new Date();
-            var curYear = d.getFullYear();
-            var curMonth = "" + (d.getMonth() + 1);
-            var curDate = "" + d.getDate();
-            var curHour = "" + d.getHours();
-            var curMinute = "" + d.getMinutes();
-            var curSecond = "" + d.getSeconds();
-            if (curMonth.length == 1) {
-                curMonth = "0" + curMonth;
-            }
-            if (curDate.length == 1) {
-                curDate = "0" + curDate;
-            }
-            if (curHour.length == 1) {
-                curHour = "0" + curHour;
-            }
-            if (curMinute.length == 1) {
-                curMinute = "0" + curMinute;
-            }
-            if (curSecond.length == 1) {
-                curSecond = "0" + curSecond;
-            }
-            $("#selectcourseTL").table2excel({
-                exclude: ".noExl",//有class = “noExl” 的行不被导出；
-                name: "Excel Document Name",
-                filename: "选课表" + "-" + curYear + curMonth + curDate + curHour + curMinute,
-                exclude_img: true,
-                exclude_links: true,
-                exclude_inputs: true
-            });
+        $("#selectcourseTL").table2excel({
+            exclude: ".noExl",//有class = “noExl” 的行不被导出；
+            name: "Excel Document Name",
+            filename: "教师选课信息表" + "-" + GetTimeStr(),
+            exclude_img: true,
+            exclude_links: true,
+            exclude_inputs: true
+        });
     }
 
     //编辑选课
     function editXk(cid) {
-        var sur = document.getElementById("sur" + cid).innerHTML;
+        var sur = $("#sur" + cid).text();
         $.ajax({
             url: "/selectcourse/_editXk.html",
             type: "get",
-            data: {cid: cid, sur: sur},
+            data: {kcid: cid, surts: sur},
             dataType: 'html',
             async: false,
             success: function (htmlContent) {
@@ -423,10 +424,10 @@
         var nowMonth = nowDate.getMonth() + 1;
         if (nowMonth >= 8 && nowMonth <= 12) {
             //四个学年判断
-            var xuenian1 = nowYear + "级";//2016级
-            var xuenian2 = nowYear - 1 + "级";//2015级
-            var xuenian3 = nowYear - 2 + "级";//2014级
-            var xuenian4 = nowYear - 3 + "级";//2013级
+            var xuenian1 = nowYear + "级";
+            var xuenian2 = nowYear - 1 + "级";
+            var xuenian3 = nowYear - 2 + "级";
+            var xuenian4 = nowYear - 3 + "级";
             //当前四个学期判断
             var xueqi1 = "第" + replaceNo((nowYear - nowYear) * 2 + 1) + "学期";//1
             var xueqi2 = "第" + replaceNo((nowYear - (nowYear - 1)) * 2 + 1) + "学期";//2

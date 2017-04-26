@@ -169,15 +169,16 @@ router.post('/readExcel', function (req, res, next) {
     });
 });
 
-//获取专业所有开设年级，取消重复
-router.post('/_getKsnj.html', function (req, res, next) {
-    zyDao.queryKsnj(req, res, function (result) {
+//获取专业
+router.post('/getZymc', function (req, res, next) {
+    zyDao.queryZybyxn(req, res, req.query.xn, function (result) {
         res.send({"result": result});
     });
 });
-//获取专业名称
-router.post('/_getZymc.html', function (req, res, next) {
-    zyDao.queryZybyxn(req, res, req.query.xn, function (result) {
+
+//获取专业ID
+router.post('/getZyId', function (req, res, next) {
+    zyDao.queryZyId(req, res, req.body.zynj, function (result) {
         res.send({"result": result});
     });
 });

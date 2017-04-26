@@ -15,9 +15,9 @@ router.get('/getList', function (req, res, next) {
     });
 });
 
-router.get('/getTidByMc', function (req, res, next) {
-    teacherDao.queryByMc(req, res, req.query.XM, function (result) {
-        res.send({"aaData": result});
+router.post('/getTidByMc', function (req, res, next) {
+    teacherDao.queryByMc(req, res, req.body.XM, function (result) {
+        res.send({"result": result});
     });
 });
 
@@ -37,7 +37,7 @@ router.post('/getFZR', function (req, res, next) {
 
 //插入一个外聘教师，只有姓名与外聘
 router.post('/addWP', function (req, res, next) {
-    teacherDao.insertWP(req, res, req.body.XM, function (result) {
+    teacherDao.insertWP(req, res, req.body.XM, req.body.SFZR, function (result) {
         res.send({"state": result});
     });
 });

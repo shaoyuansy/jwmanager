@@ -108,9 +108,9 @@ exports.queryByzy = function (req, res, zy, fn) {
     });
 };
 /* 由课程名称获取课程ID*/
-exports.queryKcId = function (req, res, sqlStr, fn) {
+exports.queryKcId = function (req, res, kcmc, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.queryKcId, [sqlStr], function (err, result) {
+        connection.query($sql.queryKcId, [kcmc], function (err, result) {
             connection.release();
             fn(result);
         });

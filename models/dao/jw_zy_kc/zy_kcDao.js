@@ -50,6 +50,16 @@ exports.insert = function (req, res, arrayPar, fn) {
         });
     });
 };
+// 导入多个添加记录
+exports.insertSome = function (req, res, insertStr, fn) {
+    pool.getConnection(function (err, connection) {
+        var sql = 'INSERT INTO jw_zy_kc (ZYID,KCID,KSXQ) VALUES ' + insertStr;
+        connection.query(sql, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
 /*查询时候有重复记录*/
 exports.queryRepeat = function (req, res, zyid, kcid, term, fn) {
     pool.getConnection(function (err, connection) {

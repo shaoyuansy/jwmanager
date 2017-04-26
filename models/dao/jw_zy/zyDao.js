@@ -1,6 +1,3 @@
-/**
- * Created by sy on 2016/9/26.
- */
 // 实现与MySQL交互
 var mysql = require('mysql');
 var $conf = require('../../conf/db');
@@ -96,18 +93,9 @@ exports.deleteSome = function (req, res, idstr, fn) {
         });
     });
 };
-/* 获取专业开设年级信息*/
-exports.queryKsnj = function (req, res, fn) {
-    pool.getConnection(function (err, connection) {
-        connection.query($sql.ksnj, function (err, result) {
-            connection.release();
-            fn(result);
-        });
-    });
-};
 /* 由年级和专业名称获取专业ID*/
 exports.queryZyId = function (req, res, sqlStr, fn) {
-    var arr = sqlStr.split("-");
+    var arr = sqlStr.split(",");
     pool.getConnection(function (err, connection) {
         connection.query($sql.queryZyId, arr, function (err, result) {
             connection.release();

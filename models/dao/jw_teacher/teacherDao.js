@@ -81,9 +81,9 @@ exports.insertSome = function (req, res, sqlStr, fn) {
 };
 
 //插入一个外聘教师，只有姓名与外聘
-exports.insertWP = function (req, res, XM, fn) {
+exports.insertWP = function (req, res, XM, SFZR, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.insertWP, XM, function (err, result) {
+        connection.query($sql.insertWP, [XM,SFZR], function (err, result) {
             connection.release();
             fn(result);
         });
