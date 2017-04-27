@@ -4,13 +4,12 @@
 var express = require('express');
 var router = express.Router();
 
-
-/* 授课管理服务开始. */
 var assignDao = require('../../models/dao/jw_assign/assignDao');
 //获取教师选课信息列表
 router.get('/assignList', function (req, res, next) {
-    assignDao.queryAll(req, res, function (result) {
-        res.send({"aaData": result});
+    var term = decodeURI(req.query.term,"UTF-8");
+    assignDao.queryAll(req, res, term, function (result) {
+        res.send({"data": result});
     });
 });
 
@@ -49,23 +48,20 @@ router.get('/insertSome', function (req, res, next) {
     });
 });
 //删除一条教师信息记录
-router.get('/delOne', function (req, res, next) {
-    assignDao.delete(req, res, req.query.ID, function (result) {
+router.post('/delOne', function (req, res, next) {
+    assignDao.delete(req, res, req.body.ID, function (result) {
         res.send({"state": result});
     });
 });
 //批量删除教师信息记录
-router.get('/delSome', function (req, res, next) {
-    assignDao.deleteSome(req, res, req.query.idstr, function (result) {
+router.post('/delSome', function (req, res, next) {
+    assignDao.deleteSome(req, res, req.body.idstr, function (result) {
         if (result) {
             res.send({"result": result.affectedRows});
         } else {
-            //编辑失败
             res.send({"result": 0});
         }
     });
 });
 
-
-/* 授课管理服务结束. */
 module.exports = router;

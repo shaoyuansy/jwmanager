@@ -11,9 +11,9 @@ var $sql = require('./assignSqlMapping');
 var pool = mysql.createPool($util.extend({}, $conf.mysql));
 
 /* 获取教师授课数据列表信息*/
-exports.queryAll = function (req, res, fn) {
+exports.queryAll = function (req, res, term, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.queryAll, function (err, result) {
+        connection.query($sql.queryAll, term, function (err, result) {
             connection.release();
             fn(result);
         });

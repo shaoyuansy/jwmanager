@@ -1,6 +1,3 @@
-/**
- * Created by sy on 2016/12/15.
- */
 var express = require('express');
 var router = express.Router();
 var assignDao = require('../../models/dao/jw_assign/assignDao');
@@ -105,5 +102,86 @@ router.post('/_editAssign.html', function (req, res, next) {
 
 });
 
+/* 解析excal */
+router.post('/readExcel', function (req, res, next) {
+    var form = new multiparty.Form({ //生成multiparty对象，并配置上传目标路径
+        uploadDir: './public/temps/'
+    }); 
+    form.parse(req, function (err, fields, files) { //上传完成后处理
+        var filesTmp = JSON.stringify(files);
+        if (err) {
+            res.send({"success":false,"errorMassage":"文件上传失败"+err});
+        } else if(files.file){
+            var tempPath = path.join(__dirname,'../../'+files.file[0].path);
+            let fix = /\.[^\.]+/.exec(files.file[0].path);
+            if(fix[0] != ".xls"){
+                res.send({"success":false,"errorMassage":"文件格式错误(只能上传xls格式的文件)"});
+                return;
+            }
+            if(files.file[0].size >= 4194304 ){
+                res.send({"success":false,"errorMassage":"文件不能超过4MB"});
+                return;
+            }
+            xl.open(tempPath, function(err,bk){ //开始解析
+                if(err) { 
+                    res.send({"success":false,"errorMassage":err.message});
+                    return;
+                }
+                var shtCount = bk.sheet.count;
+                for(var sIdx = 0; sIdx < shtCount; sIdx++ ){
+                    if(bk.sheet.loaded(sIdx)){ // 加载成功
+                        var tableFormat = ["课程编号","课程名称","课程英文名称","教研室划分","专业负责人","课程负责人","课程类型","周学时","上机学时","学分","适用对象","先导课程","后续课程"]
+                        var sht = bk.sheets[sIdx],
+                        rCount = sht.row.count,
+                        cCount = sht.column.count;
+                        if(cCount != 13){
+                            res.send({"success":false,"errorMassage":"文件列有误，应为：课程编号,课程名称,课程英文名称,教研室划分,专业负责人,课程负责人,课程类型,周学时,上机学时,学分,适用对象,先导课程,后续课程"});
+                            return;
+                        }
+                        var sqlStr = 'INSERT INTO jw_kc (KCBH,KCMC,KCYWMC,JYSHF,ZYFZR,KCFZR,KCLX,ZXS,SJXS,XF,SYDX,XDKC,HXKC) VALUES ';
+                        var valueStr = '';
+                        for(var rIdx = 0; rIdx < rCount; rIdx++){
+                            valueStr += '(';
+                            for(var cIdx = 0; cIdx < cCount; cIdx++){
+                                if(rIdx == 0 ){
+                                    if(sht.cell(rIdx,cIdx) != tableFormat[cIdx]){
+                                        res.send({"success":false,"errorMassage":"文件列有误，应为：课程编号,课程名称,课程英文名称,教研室划分,专业负责人,课程负责人,课程类型,周学时,上机学时,学分,适用对象,先导课程,后续课程"});
+                                        return;
+                                    }
+                                    valueStr = '';
+                                }
+                                if(rIdx != 0){
+                                    try{
+                                        cIdx == 12 ? valueStr +=  '"'+sht.cell(rIdx,cIdx) + '"),' : valueStr +=  '"'+sht.cell(rIdx,cIdx) + '",';
+                                    }catch(e){
+                                        console.log(e.message);
+                                    }
+                                }
+                            }
+                        }
+                        valueStr = valueStr.substr(0, valueStr.length - 1);
+                        kcDao.insertSome(req, res, sqlStr+valueStr, function (result) { //批量插入数据库
+                            if (result && result.affectedRows>0) {
+                                res.send({"success":true,"data":""});
+                            }else{
+                                res.send({"success":false,"errorMassage":"插入数据失败，请检查内容是否为空"});
+                            }
+                        });
+                    }else{
+                        res.send({"success":false,"errorMassage":"文件加载失败，请重新上传"});
+                    }
+                }
+            });
+        }
+        if(tempPath){
+            fs.unlink(tempPath, function(err){
+                if(err){
+                    throw err;
+                }
+                //console.log('delete:'+tempPath+'success');
+            })
+        }  
+    });
+});
 
 module.exports = router;

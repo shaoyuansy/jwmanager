@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地local
+Source Server         : localhost_3306
 Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : jw
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2017-04-27 21:40:12
+Date: 2017-04-27 23:31:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -33,13 +33,14 @@ CREATE TABLE `jw_assign` (
   `SFWSJK` varchar(30) DEFAULT NULL COMMENT '是否为上机课',
   `SFDSZ` varchar(30) DEFAULT NULL COMMENT '是否单双周',
   `WPJSPJ` varchar(200) DEFAULT NULL COMMENT '外聘教师评价',
+  `TERM` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COMMENT='授课表';
 
 -- ----------------------------
 -- Records of jw_assign
 -- ----------------------------
-INSERT INTO `jw_assign` VALUES ('36', '李想', '体育（1）', '毛泽东', '软件开发与测试', '2015级', '1大班', '1', '1', '1', '是', '是', null);
+INSERT INTO `jw_assign` VALUES ('36', '李想', '体育（1）', '毛泽东', '软件开发与测试', '2015级', '1大班', '1', '1', '1', '是', '是', null, '2016-2017第一学期');
 
 -- ----------------------------
 -- Table structure for jw_jys

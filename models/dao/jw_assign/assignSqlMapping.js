@@ -1,10 +1,6 @@
-/**
- * Created by sy on 2016/12/12.
- */
-
 var assign = {
     queryAll: 'SELECT jw_assign.ID,JSXM,jw_kc.KCMC,SSZY,SSNJ,SSBJ,BJRS,SKSJ,SKDD,SFWSJK,SFDSZ,WPJSPJ,jw_kc.KCFZR ' +
-    'FROM jw_assign ,jw_kc WHERE jw_kc.KCMC = jw_assign.KCMC;',
+    'FROM jw_assign ,jw_kc WHERE jw_kc.KCMC = jw_assign.KCMC AND TERM=?;',
     querybyid: 'SELECT jw_assign.ID,jw_assign.JSXM,jw_assign.KCMC,jw_assign.KCFZR,jw_assign.SSZY,jw_assign.SSNJ,' +
     'jw_assign.SSBJ,jw_assign.BJRS,jw_assign.SKSJ,jw_assign.SKDD,jw_assign.SFWSJK,jw_assign.SFDSZ,jw_assign.WPJSPJ,' +
     'jw_kc_js.BZ,jw_teacher.SFZR FROM jw_assign ,jw_kc_js ,jw_kc ,jw_teacher WHERE jw_kc_js.JSID = jw_teacher.ID AND ' +
