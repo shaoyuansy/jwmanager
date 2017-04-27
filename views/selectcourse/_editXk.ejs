@@ -1,6 +1,7 @@
 <style type="text/css">
     #xgtable td {
         padding: 8px;
+        vertical-align: middle;
     }
     .nav>li>a{
         padding: 5px 15px;
@@ -35,6 +36,10 @@
         padding: 3px;
         font-size:14px;
     }
+    .delete-btn{
+        border-radius: 20px;
+        padding: 3px 7px;
+    }
 </style>
 <div class="modal-dialog" style="margin-top: 300px">
     <div class="modal-content">
@@ -49,58 +54,54 @@
                     <li class="xiugai-li"><a href="#">修改</a></li>
                 </ul>
             </div>
+            <input id="KCID" name="KCID" type="hidden" value="<%= kcid %>">
+            <input id="SURTS" name="SURTS" type="hidden" value="<%= surts %>">
             <!-- 选课table -->
             <div id="xuanke-div" class="box-body no-padding">
-                <form id="xuanke-form">
-                    <input id="KCID" name="KCID" type="hidden" value="<%= kcid %>">
-                    <input id="SURTS" name="SURTS" type="hidden" value="<%= surts %>">
-                    <table id="xuanke-table" class="table">
-                        <tr>
-                            <th style="width: 15%">头数</th>
-                            <th style="width: 20%">教师姓名</th>
-                            <th style="width: 20%">是否专任</th>
-                            <th style="width: 35%">备注</th>
-                            <th style="width: 10%"></th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input id="XZTS" name="XZTS" type="number" min="1" max="<%= surts %>" class="form-control" onblur="check_Surts()" onfocus="clear_error()">
-                            </td>
-                            <td>
-                                <input id="JSMC" name="JSMC" type="text" class="form-control" onblur="select_zr()" onfocus="clear_error()">
-                            </td>
-                            <td>
-                                <select class="form-control" id="SFZR" name="SFZR" style="width: 100%" onfocus="clear_error()">
-                                    <option value="学院教师">学院教师</option>
-                                    <option value="大校教师">大校教师</option>
-                                    <option value="其他高校教师（有教师资格证）">其他高校教师（有教师资格证）</option>
-                                    <option value="实习机构">实习机构</option>
-                                    <option value="其他人员">其他人员</option>
-                                    <option value="其他">其他</option>
-                                </select>
-                            </td>
-                            <td>
-                                <input id="BZ" name="BZ" type="text" class="form-control" placeholder="（代选老师请备注）" onfocus="clear_error()">
-                            </td>
-                            <td>
-                                <button id="xuanke-btn" clicked="0" type="button" class="btn btn-primary" onclick="submitXuanke();"> 选课</button>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
+                <table id="xuanke-table" class="table">
+                    <tr>
+                        <th style="width: 15%">头数</th>
+                        <th style="width: 20%">教师姓名</th>
+                        <th style="width: 20%">是否专任</th>
+                        <th style="width: 35%">备注</th>
+                        <th style="width: 10%"></th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input id="XZTS" name="XZTS" type="number" min="1" max="<%= surts %>" class="form-control" onblur="check_Surts(this.value)" onfocus="clear_error()">
+                        </td>
+                        <td>
+                            <input id="JSMC" name="JSMC" type="text" class="form-control" onblur="select_zr()" onfocus="clear_error()">
+                        </td>
+                        <td>
+                            <select class="form-control" id="SFZR" name="SFZR" style="width: 100%" onfocus="clear_error()">
+                                <option value="学院教师">学院教师</option>
+                                <option value="大校教师">大校教师</option>
+                                <option value="其他高校教师（有教师资格证）">其他高校教师（有教师资格证）</option>
+                                <option value="实习机构">实习机构</option>
+                                <option value="其他人员">其他人员</option>
+                                <option value="其他">其他</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input id="BZ" name="BZ" type="text" class="form-control" placeholder="（代选老师请备注）" onfocus="clear_error()">
+                        </td>
+                        <td>
+                            <button id="xuanke-btn" type="button" class="btn btn-primary" onclick="submitXuanke();"> 选课</button>
+                        </td>
+                    </tr>
+                </table>
             </div>
             <!-- 修改table -->
             <div id="xiugai-div" class="box-body no-padding">
-                <form id="xgform">
-                    <table id="xgtable" class="table">
-                        <!-- 动态生成表格 -->
-                    </table>
-                </form>
+                <table id="xgtable" class="table">
+                    <!-- 生成表格 -->
+                </table>
             </div>
         </div>
         <div class="modal-footer">
             <p class="error_msg"></p>
-            <button type="button" class="close-btn btn btn-default" data-dismiss="modal" onclick="location.reload()">关闭</button>
+            <button type="button" class="close-btn btn btn-default" data-dismiss="modal">关闭</button>
         </div>
     </div>
 </div>
@@ -110,7 +111,11 @@
 
 <script>
     $(function () {
+        $("#JSMC").val(getSessionUser());
+        select_zr();
+
         $(".xuanke-li").click(function(){
+            $(".error_msg").text('');
             $(".xiugai-li").removeClass("active");
             if(!$(this).hasClass("active")){
                 $(this).addClass("active");
@@ -119,6 +124,8 @@
             $("#xuanke-div").show();
         });
         $(".xiugai-li").click(function(){
+            $(".error_msg").text('');
+            getXk();
             $(".xuanke-li").removeClass("active");
             if(!$(this).hasClass("active")){
                 $(this).addClass("active");
@@ -126,13 +133,81 @@
             $("#xuanke-div").hide();
             $("#xiugai-div").show();
         });
-    })
+    });
 
-    function check_Surts(){ // 验证头数
-        if( Number($("#XZTS").val()) < 0 ){
+    //查询此教师选课列表
+    function getXk() {
+        var XM = getSessionUser();//获取此教师姓名为操作人
+        var KCID = $("#KCID").val();//kcid
+        var TERM = $("#xueqiStr").text();
+        $.ajax({
+            type: "post",
+            url: '/teacher_courseService/getXk',
+            dataType: "json",
+            data: {czr: XM, kcid: KCID, term: TERM},
+            async: false,
+            cache: true,
+            success: function (data) {
+                if (data.result.length > 0) {
+                    $("#xgtable").html("<tr><th style='width: 3%'></th>"+
+                        "<th style='width: 15%'>头数</th>" +
+                        "<th style='width: 20%'>教师姓名</th>" +
+                        "<th style='width: 25%'>是否专任</th>" +
+                        "<th style='width: 30%'>备注</th>" +
+                        "<th style='width: 10%'></th></tr>");
+                    var appendStr = '';
+                    data.result.forEach(function(v,i,arr) {
+                        appendStr += '<tr><td><button type="button" class="delete-btn btn btn-danger btn-sm" onclick="deleteXk(\''+ v.ID +'\')"><span class="glyphicon glyphicon-trash"></span></button></td>';
+                        appendStr += '<td><input id="ts'+ v.ID +'" type="number" min="1" max="<%= surts %>" class="form-control" onblur="check_Surts(this.value)" onfocus="clear_error()" value='+ v.TS +'></td>';
+                        appendStr += '<td><input type="text" class="form-control" readonly value="'+ v.XM +'"></td>';
+                        appendStr += '<td><input type="text" class="form-control" readonly value="'+ v.SFZR +'"></td>';
+                        appendStr += '<td><input id="bz'+ v.ID +'" type="text" class="form-control" value="'+ v.BZ +'"></td>';
+                        appendStr += '<td><botton type="button" class="btn btn-primary" onclick="submitXiugai(\''+ v.ID +'\')">修改</botton></td></tr>';
+                    });
+                    $("#xgtable").append(appendStr);
+                } else {
+                    $("#xgtable").html("<tr><th>您对该门课尚未选择</th></tr><tr></tr>");
+                }
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    }
+
+    function deleteXk(id){
+        $.ajax({
+            type: "post",
+            url: '/teacher_courseService/deleteXk',
+            dataType: "json",
+            data: {id: id},
+            async: false,
+            cache: true,
+            success: function (msg) {
+                if (msg.state == 1) {
+                    $("#success_modal").modal();
+                    setTimeout(function(){			
+                        $("#success_modal").modal('hide');
+                        getXk();
+                    },1000);
+                } else {
+                    $("#faile_modal").modal();
+                    setTimeout(function(){					
+                        $("#faile_modal").modal('hide');
+                    },1000);
+                }
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    }
+
+    function check_Surts(val){ // 验证头数
+        if( Number(val) <= 0 ){
             $(".error_msg").text('选择头数不正确');
             return false;
-        }else if( Number($("#XZTS").val()) > Number($("#SURTS").val()) ){
+        }else if( Number(val) > Number($("#SURTS").val()) ){
             $(".error_msg").text('选择头数超过剩余头数，剩余：'+$("#SURTS").val());
             return false;
         }else{
@@ -141,12 +216,46 @@
         }
     }
 
+    function submitXiugai(id){ //修改选课
+        var xgts = $("#ts"+id).val();
+        var xgbz = $("#bz"+id).val();
+        if(check_Surts(xgts)){
+            $.ajax({
+                type: "post",
+                url: '/selectcourse/saveXk',
+                dataType: "json",
+                data: {jskcid: id, ts: xgts ,bz: xgbz},
+                async: false,
+                cache: true,
+                success: function (data) {
+                    if (data.result >0) {
+                        $("#success_modal").modal();
+                        setTimeout(function(){			
+                            $("#success_modal").modal('hide');
+                            $('#modal-edit-xk').modal('hide');
+                        },1000);
+                    } else {
+                        $("#faile_modal").modal();
+                        setTimeout(function(){					
+                            $("#faile_modal").modal('hide');
+                        },1000);
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        }     
+    }
+
     function submitXuanke(){
+        var jsmc = $("#JSMC").val();
+        var sfzr = $("#SFZR").val(); // 是否专任下拉列表
         var toushu = $("#XZTS").val();
         var kcid = $("#KCID").val();
-        var jsmc = $("#JSMC").val();
-        var sfzr = $("#SFZR").val();
         var bz = $("#BZ").val();
+        var term = $("#xueqiStr").text();
+        var jskcid = 0;
         if(check_Surts()){
             var teacher = check_teacher(jsmc);
             if(teacher == ""){
@@ -154,36 +263,90 @@
                     $(".error_msg").text('此教师不存在，则不能添加为学院教师。');
                     return false;
                 }else{
-                    if(confirm("该教师不存在，是否将添加此教师为："+ sfzr +"？")){
+                    if(confirm("该教师不存在，是否将其添加为："+ sfzr +"？")){
                         var jsid = addTeacher(jsmc,sfzr);
                         if(jsid == ""){
                             $("#warning_content").text("教师信息保存失败，请重试");
                             $("#warning_modal").modal("show");
                             return false;
                         }else{
-                            todoSubmit(jsid);
+                            if(existXuanke(jsid,kcid,term)){
+                                $("#warning_content").text("该教师已经选则本门课程，不可重复选择。");
+                                $("#warning_modal").modal("show");
+                            }else{
+                                todoSubmit(jskcid,toushu,jsid,kcid,bz,jsmc,term);
+                            }
                         }
                     }
                 }
             }else{
-                var userMsg = GetIndexData();
-                var user = userMsg[0].USERNAME;
+                var user = getSessionUser();
                 if(teacher.SFZR == "学院教师" &&　user !=teacher.XM ){
                     $(".error_msg").text('此教师为专任教师，您不能代其选课。');
                     return false;
                 }else{
-                    todoSubmit(teacher.ID);
+                    if(existXuanke(teacher.ID,kcid,term)){
+                        $("#warning_content").text("该教师已经选则本门课程，不可重复选择。");
+                        $("#warning_modal").modal("show");
+                    }else{
+                        todoSubmit(jskcid,toushu,teacher.ID,kcid,bz,jsmc,term);
+                    }
                 }
             }
         }
     }
 
-    function todoSubmit(jsid){ //提交选课
-        var toushu = $("#XZTS").val();
-        var kcid = $("#KCID").val();
-        var sfzr = $("#SFZR").val();
-        var bz = $("#BZ").val();
+    function existXuanke(jsid,kcid,term){ //查看是否存在记录
+        var flag = false;
+        $.ajax({
+            type: "post",
+            url: '/teacher_courseService/exztXk',
+            dataType: "json",
+            data: {jsid: jsid, kcid: kcid ,term: term},
+            async: false,
+            cache: true,
+            success: function (data) {
+                if (data.result && data.result.length>0) {
+                    console.log(data.result);
+                    flag = true;
+                }
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+        return flag;
+    }
 
+    function todoSubmit(jskcid,toushu,jsid,kcid,bz,jsmc,term){ //提交选课
+        let user = getSessionUser();
+        if(jsmc != user){
+            bz = user +"代选 " + bz;
+        }
+        $.ajax({
+            type: "post",
+            url: '/selectcourse/saveXk',
+            dataType: "json",
+            data: {jskcid:jskcid, ts: toushu, jsid: jsid, kcid: kcid, bz: bz, czr: user, term: term},
+            async: false,
+            cache: true,
+            success: function (data) {
+                if (data.result > 0) {
+                    $("#success_modal").modal();
+                    setTimeout(function(){			
+                        $("#success_modal").modal('hide');
+                    },1000);
+                } else {
+                    $("#faile_modal").modal();
+                    setTimeout(function(){					
+                        $("#faile_modal").modal('hide');
+                    },1000);
+                }
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
     }
 
     function select_zr(){ //获取是否专任select框的值
@@ -243,265 +406,8 @@
         $(".error_msg").text('');
     }
 
-
-    // //A1提交选课表单
-    // function submitxkForm() {
-    //     if ($("#XZTS").val() == '' || $("#XZTS").val() == 0) {
-    //         alert("头数不能为空");
-    //     }
-    //     else if (parseInt($("#XZTS").val()) > parseInt($("#SUR").val())) {
-    //         alert("超出剩余头数");
-    //     }
-    //     else {
-    //         var btn = $("#btn1");//按钮提交控制
-    //         if (btn.attr("clicked") == "0") {//执行点击
-    //             //提交操作先请求教师的id
-    //             var XM = $("#JSMC").val();
-    //             var CZR = $("#CZR").val();
-    //             $.ajax({
-    //                 type: "get",
-    //                 url: '/teacherService/getTidByMc',
-    //                 dataType: "json",
-    //                 data: {XM: XM},
-    //                 async: false,
-    //                 cache: true,
-    //                 success: function (jsmsg) {
-    //                     if (jsmsg.aaData.length == "") {//没有这名教师的信息添加一个
-    //                         var result = confirm("没有此教师信息，是否将此记录加入库中，并添加其姓名信息且为非专任教师？");
-    //                         if (result) {
-    //                             addWP(XM);
-    //                         }
-    //                     } else {
-    //                         var temp = jsmsg.aaData[0];
-    //                         $("#JSID").val(temp['ID']);
-    //                         if (temp['SFZR'] == "是" && temp['XM'] != CZR) {
-    //                             alert("此教师是专任教师，您不能为其选课！");
-    //                         } else {
-    //                             $.ajax({
-    //                                 type: "get",
-    //                                 url: '/teacher_courseService/exztXk',
-    //                                 dataType: "json",
-    //                                 data: {jsid: $("#JSID").val(), kcid: $("#KCID").val()},
-    //                                 async: true,
-    //                                 cache: true,
-    //                                 success: function (exdata) {
-    //                                     if (exdata.result[0]) {
-    //                                         var result = confirm("您已有此课程的选课记录，是否覆盖您的选课信息？");
-    //                                         if (result) {
-    //                                             $('#JSKCID').val(exdata.result[0]['ID']);
-    //                                             submitxk();
-    //                                         }
-    //                                     } else {
-    //                                         submitxk();//2再提交表单
-    //                                     }
-    //                                 },
-    //                                 error: function (e) {
-    //                                     console.log('e');
-    //                                 }
-    //                             });
-    //                             btn.attr("clicked", "1");
-    //                         }
-    //                     }
-    //                 },
-    //                 error: function (e) {
-    //                     console.log('教师id请求失败');
-    //                 }
-    //             });
-
-    //         } else {
-    //             //不再执行点击操作
-    //         }
-    //     }
-    // }
-    // //A2提交选课表单
-    // function submitxk() {
-    //     $.ajax({
-    //         type: "post",
-    //         url: '/selectcourse/_editXk.html',
-    //         dataType: "json",
-    //         data: $('#xkform').serialize(),// 你的formid 注：后台req.body由控件name获取数据
-    //         async: false,
-    //         cache: true,
-    //         success: function (msg) {
-    //             if (msg.result != 0) {
-    //                 $("#modal-edit-event").modal('hide');
-    //             }
-    //             location.reload();
-    //         },
-    //         error: function (e) {
-    //             console.log(e);
-    //         }
-    //     });
-    // }
-    // //查询此教师选课列表
-    // function getXk() {
-    //     var XM = $("#JSMCX").val();//首先获取此教师姓名为操作人
-    //     var KCID = $("#KCID").val();//kcid
-    //     $.ajax({
-    //         type: "get",
-    //         url: '/teacher_courseService/getXk',
-    //         dataType: "json",
-    //         data: {czr: XM, kcid: KCID},
-    //         async: false,
-    //         cache: true,
-    //         success: function (msg) {
-    //             if (msg.result.length > 0) {
-    //                 $("#xgtable").html("<tr><th style='width: 20%'>头数</th>" +
-    //                     "<th style='width: 25%'>教师姓名</th>" +
-    //                     "<th style='width: 35%'>备注</th>" +
-    //                     "<th style='width: 10%'></th>" +
-    //                     "<th style='width: 10%'></th></tr>");
-    //                 for (var i = 0; i < msg.result.length; i++) {
-    //                     var temp = msg.result[i];
-    //                     var ctr = document.createElement("tr");
-    //                     ctr.setAttribute("id", i);
-    //                     var ctd1 = document.createElement("td");
-    //                     var ctd2 = document.createElement("td");
-    //                     var ctd3 = document.createElement("td");
-    //                     var ctd4 = document.createElement("td");
-    //                     var ctd5 = document.createElement("td");
-
-    //                     
-    //                     document.getElementById("xgtable").appendChild(ctr);
-    //                     document.getElementById(i).appendChild(ctd1);
-    //                     document.getElementById(i).appendChild(ctd2);
-    //                     document.getElementById(i).appendChild(ctd3);
-    //                     document.getElementById(i).appendChild(ctd4);
-    //                     document.getElementById(i).appendChild(ctd5);
-    //                 }
-    //             } else {
-    //                 $("#xgtable").html("<tr><th>您对该门课尚未选择</th></tr><tr></tr>");
-
-    //             }
-    //         },
-    //         error: function (e) {
-    //             console.log('此教师选课请求失败');
-    //         }
-    //     });
-    // }
-
-    // //修改选课
-    // function reviseXg() {
-    //     if ($("#XZTSXG").val() == '' || $("#XZTSXG").val() == 0) {
-    //         alert("头数不能为空");
-    //     }
-    //     else if (parseInt($("#XZTSXG").val()) > parseInt($("#SUR").val())) {
-    //         alert("超出剩余头数");
-    //     }
-    //     else {
-    //         var btn = $("#btn3");//按钮提交控制
-    //         if (btn.attr("clicked") == "0") {
-    //             //执行点击
-    //             //提交操作先请求教师的id
-    //             var XM = $("#JSMCXG").val();
-    //             $.ajax({
-    //                 type: "get",
-    //                 url: '/teacherService/getTidByMc',
-    //                 dataType: "json",
-    //                 data: {XM: XM},
-    //                 async: false,
-    //                 cache: true,
-    //                 success: function (jsmsg) {
-    //                     var temp = jsmsg.aaData[0];
-    //                     //return temp['ID'];
-    //                     $("#JSIDXG").val(temp['ID']);
-    //                     submitxg();//2再提交表单
-    //                     btn.attr("clicked", "1");
-    //                 },
-    //                 error: function (e) {
-    //                     console.log('教师id请求失败');
-    //                 }
-    //             });
-    //         } else {
-    //             //不再执行点击操作
-    //         }
-    //     }
-    // }
-
-    // //修改功能提交表单2
-    // function submitxg() {
-    //     $.ajax({
-    //         type: "post",
-    //         url: '/selectcourse/_editXg.html',
-    //         dataType: "json",
-    //         data: $('#xgform').serialize(),// 你的formid 注：后台req.body由控件name获取数据
-    //         async: false,
-    //         cache: true,
-    //         success: function (msg) {
-    //             if (msg.result != 0) {
-    //                 $("#modal-edit-event").modal('hide');
-    //             }
-    //             alert("修改成功");
-    //             location.reload();
-    //         },
-    //         error: function (e) {
-    //             console.log(e);
-    //         }
-    //     });
-    // }
-
-    // //删除教师选课
-    // function delectXk(kcid, jsid) {
-    //     var btn = $("#btn3");//按钮提交控制
-    //     if (btn.attr("clicked") == "0") {
-    //         //执行点击
-    //         $.ajax({
-    //             type: "get",
-    //             url: '/teacher_courseService/deleteXk',
-    //             dataType: "json",
-    //             data: {kcid: kcid, jsid: jsid},
-    //             async: false,
-    //             cache: true,
-    //             success: function (msg) {
-    //                 if (msg.state == 1) {
-    //                     btn.attr("clicked", "1");
-    //                     getXk();//局部刷新
-    //                 } else {
-    //                     console.log('删除失败');
-    //                 }
-    //             },
-    //             error: function (e) {
-    //                 console.log('教师课程删除请求失败');
-    //             }
-    //         });
-    //     } else {
-
-    //     }
-    // }
-    // //添加一个外聘教师只有姓名是否专任
-    // function addWP(tname) {
-    //     $.ajax({
-    //         type: "post",
-    //         url: '/teacherService/addWP',
-    //         dataType: "json",
-    //         data: {XM: tname},
-    //         async: true,
-    //         cache: true,
-    //         success: function (msg) {
-    //             if (msg.state.affectedRows > 0) {
-    //                 $.ajax({
-    //                     type: "get",
-    //                     url: '/teacherService/getTidByMc',
-    //                     dataType: "json",
-    //                     data: {XM: tname},
-    //                     async: false,
-    //                     cache: true,
-    //                     success: function (jsmsg) {
-    //                         var temp = jsmsg.aaData[0];
-    //                         console.log(temp['ID']);
-    //                         $("#JSID").val(temp['ID']);
-    //                         submitxk();//2再提交表单
-    //                     },
-    //                     error: function (e) {
-    //                         console.log('教师id请求失败');
-    //                     }
-    //                 });
-
-    //             }
-    //         },
-    //         error: function (e) {
-    //             console.log('e');
-    //         }
-    //     });
-    // }
+    function getSessionUser(){ //获取当前登录教师
+        var userMsg = GetIndexData();
+        return userMsg[0].USERNAME;
+    }
 </script>

@@ -31,18 +31,18 @@ exports.getWP = function (req, res, kcid, fn) {
 };
 
 /* 获取教师选课信息*/
-exports.getXk = function (req, res, kcid, czr, fn) {
+exports.getXk = function (req, res, kcid, czr, term, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.queryXk, [kcid, czr], function (err, result) {
+        connection.query($sql.queryXk, [kcid, czr, term], function (err, result) {
             connection.release();
             fn(result);
         });
     });
 };
 /* 判断是否存在此选课信息*/
-exports.exztXk = function (req, res, jsid, kcid, fn) {
+exports.exztXk = function (req, res, jsid, kcid, term, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.exztXk, [jsid, kcid], function (err, result) {
+        connection.query($sql.exztXk, [jsid, kcid, term], function (err, result) {
             connection.release();
             fn(result);
         });
@@ -50,9 +50,9 @@ exports.exztXk = function (req, res, jsid, kcid, fn) {
 };
 
 /* 删除一条教师选课信息*/
-exports.deleteXk = function (req, res, kcid, jsid, fn) {
+exports.deleteXk = function (req, res, id, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.deleteXk, [kcid, jsid], function (err, result) {
+        connection.query($sql.deleteXk, id, function (err, result) {
             connection.release();
             fn(1);
         });
@@ -70,27 +70,18 @@ exports.deleteKc = function (req, res, idstr, fn) {
 };
 
 /*教师选择头数*/
-exports.xuanzets = function (req, res, kcid, jsid, xzts, bz, czr, fn) {
+exports.xuanzets = function (req, res, kcid, jsid, ts, bz, czr, term, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.insert, [kcid, jsid, xzts, bz, czr], function (err, result) {
-            connection.release();
-            fn(result);
-        });
-    });
-};
-/*教师覆盖选择头数*/
-exports.xuanzetschg = function (req, res, kcid, jsid, xzts, bz, czr, jskcid, fn) {
-    pool.getConnection(function (err, connection) {
-        connection.query($sql.insertChg, [kcid, jsid, xzts, bz, czr, jskcid], function (err, result) {
+        connection.query($sql.insert, [kcid, jsid, ts, bz, czr, term], function (err, result) {
             connection.release();
             fn(result);
         });
     });
 };
 /*教师选修改头数*/
-exports.xiugaits = function (req, res, xztsxg, bzxg, kcidxg, jsidxg, czr, fn) {
+exports.xiugaits = function (req, res, ts, bz, jskcid, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.update, [xztsxg, bzxg, kcidxg, jsidxg, czr], function (err, result) {
+        connection.query($sql.update, [ts, bz, jskcid], function (err, result) {
             connection.release();
             fn(result);
         });

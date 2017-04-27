@@ -49,6 +49,9 @@
     tr{
         cursor: pointer;
     }
+    p {
+        margin: 0 0 0px;
+    }
 </style>
 
 <div class="content-wrapper">
@@ -106,6 +109,9 @@
             time = $('#datechoose').datepicker('getDate');
             bulid_table(time);  
         });
+        $('#modal-edit-xk').on('hidden.bs.modal', function () {
+            bulid_table(time); //构建datatable
+        })
     });
     function bulid_table(time){
         $("#selectcourseTL").html("");
@@ -150,10 +156,11 @@
     //编辑选课
     function editXk(cid) {
         var sur = $("#sur" + cid).text();
+        var term = get1st2nd($('#datechoose').datepicker('getDate'));
         $.ajax({
             url: "/selectcourse/_editXk.html",
             type: "get",
-            data: {kcid: cid, surts: sur},
+            data: {kcid: cid, surts: sur, term: term},
             dataType: 'html',
             async: false,
             success: function (htmlContent) {
@@ -198,7 +205,7 @@
                             '<th class="heng" rowspan="2" style="width: 5%">专业负责人</th>' +
                             '<th class="heng" rowspan="2" style="width: 5%">课程负责人</th>' +
                             '<th class="heng" rowspan="2" style="width: 4%">课程编号</th>' +
-                            '<th class="heng" rowspan="2" style="width: 15%">' + xueqi + '课程</th>' +
+                            '<th class="heng" rowspan="2" style="width: 15%"><p id="xueqiStr">' + xueqi + '</p>课程</th>' +
                             '<th class="heng" rowspan="2" style="width: 1%" >周学时</th>' +
                             '<th class="heng" rowspan="2" style="width: 1%">上机</th>' +
                             '<th class="heng" rowspan="2" style="width: 1%">学分</th>' +
@@ -374,8 +381,24 @@
                         data.push(msg.data);
                     }
                     msg.data.forEach(function(t,i,arr){
-                        str = "<code>"+t['TS']+"-"+t['XM']+"("+t['BZ']+");</code>";
-                        $("#c"+v['ID']+"t"+t['SFZR']).append(str);
+                        if(t['BZ'] != ""){                        
+                            str = "<code>"+t['TS']+"-"+t['XM']+"("+t['BZ']+");</code>";
+                        }else{
+                            str = "<code>"+t['TS']+"-"+t['XM']+";</code>";
+                        }
+                        if(t['SFZR'] == "学院教师"){
+                            $("#c"+v['ID']+"t1").append(str);
+                        }else if(t['SFZR'] == "大校教师"){
+                            $("#c"+v['ID']+"t2").append(str);
+                        }else if(t['SFZR'] == "其他高校教师（有教师资格证）"){
+                            $("#c"+v['ID']+"t3").append(str);
+                        }else if(t['SFZR'] == "实习机构"){
+                            $("#c"+v['ID']+"t4").append(str);
+                        }else if(t['SFZR'] == "其他人员"){
+                            $("#c"+v['ID']+"t5").append(str);
+                        }else{
+                            $("#c"+v['ID']+"t6").append(str);
+                        }
                     });
                     result.flag = true;
                     result.data = data;

@@ -17,56 +17,28 @@ router.get('/_editXk.html', function(req, res, next) {
     });
 
 });
-//添加教师选择头数信息
-router.post('/_editXk.html', function (req, res, next) {
-    var kcid = req.body.KCID;             //课程ID
-    var jsid = req.body.JSID;             //教师ID
-    var xzts = req.body.XZTS;           //头数
-    var bz = req.body.BZ;           //备注
-    var jsmc = req.body.JSMC;       //教师名称
-    var czr = req.session.userInfo.USERNAME;//操作人姓名
-    var jskcid = req.body.JSKCID;//已经存在的记录作为更新使用
-    //教师名称为空则为当前登录名，备注为选课班级
-    //输入的名字与登录名不一致则为带选，备注为登录老师姓名 代选
-    if(kcid==0){
-        console.log("获取课程id失败");
-    }else{
-        if(jskcid==""){
-            kc_jsDao.xuanzets(req, res,kcid,jsid,xzts,bz,czr,function (result) {
-                if (result) {
-                    //成功则返回数据库修改行数
-                    res.send({"result":result.affectedRows});
-                } else {
-                    //编辑失败返回0
-                    res.send({"result":0});
-                }
-            });
-        }else{
-            kc_jsDao.xuanzetschg(req, res,kcid,jsid,xzts,bz,czr,jskcid,function (result) {
-                if (result) {
-                    //成功则返回数据库修改行数
-                    res.send({"result":result.affectedRows});
-                } else {
-                    //编辑失败返回0
-                    res.send({"result":0});
-                }
-            });
-        }
 
-    }
-});
-
-//修改头数信息
-router.post('/_editXg.html', function (req, res, next) {
-    var kcidxg = req.body.KCIDXG;             //课程ID
-    var jsidxg = req.body.JSIDXG;             //教师ID
-    var xztsxg = req.body.XZTSXG;           //头数
-    var bzxg = req.body.BZXG;           //备注
-    var czr = req.session.userInfo.USERNAME;//操作人姓名
-    if(kcidxg==0){
-        console.log("获取课程id失败");
+//添保存教师选择头数信息
+router.post('/saveXk', function (req, res, next) {
+    var jskcid = req.body.jskcid;   //作为更新使用
+    var kcid = req.body.kcid;       //课程ID
+    var jsid = req.body.jsid;       //教师ID
+    var ts = req.body.ts;           //头数
+    var bz = req.body.bz;           //备注
+    var czr = req.body.czr;        //教师名称
+    var term = req.body.term;       //学期
+    if(jskcid == 0){
+        //添加头数信息
+        kc_jsDao.xuanzets(req, res, kcid, jsid, ts, bz, czr, term, function (result) {
+            if (result) {
+                res.send({"result":result.affectedRows});
+            } else {
+                res.send({"result":0});
+            }
+        });
     }else{
-        kc_jsDao.xiugaits(req, res,xztsxg,bzxg,kcidxg,jsidxg,czr,function (result) {
+        //修改头数信息
+        kc_jsDao.xiugaits(req, res, ts, bz, jskcid, function (result) {
             if (result) {
                 //成功则返回数据库修改行数
                 res.send({"result":result.affectedRows});
@@ -77,5 +49,7 @@ router.post('/_editXg.html', function (req, res, next) {
         });
     }
 });
+
+
 
 module.exports = router;
