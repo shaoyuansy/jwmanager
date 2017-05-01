@@ -68,7 +68,7 @@ router.post('/checkMajorCourse', function (req, res, next) {
 });
 //保存编辑信息
 router.post('/editMajorCourse', function (req, res, next) {
-    zy_kcDao.update(req, res, req.body.id, req.body.term, function (result) {
+    zy_kcDao.update(req, res, req.body.term, req.body.id, function (result) {
         res.send({"state": result.affectedRows});
     });
 });

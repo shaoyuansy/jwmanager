@@ -14,37 +14,27 @@ router.get('/assignList', function (req, res, next) {
 });
 
 //获取此门课此教师可以交哪些课程
-router.get('/getkcStr', function (req, res, next) {
-    assignDao.querykcStr(req, res, req.query.JSXM, function (result) {
+router.post('/getkcStr', function (req, res, next) {
+    assignDao.querykcStr(req, res, req.body.JSXM, function (result) {
         res.send({"state": result});
     });
 });
 //获取此门课此负责人
-router.get('/getfzrStr', function (req, res, next) {
-    assignDao.queryfzrStr(req, res, req.query.KCMC, function (result) {
+router.post('/getfzrStr', function (req, res, next) {
+    assignDao.queryfzrStr(req, res, req.body.KCMC, function (result) {
         res.send({"state": result});
     });
 });
 //获取此门课此教师可以交哪些专业
-router.get('/getzyStr', function (req, res, next) {
-    assignDao.queryzyStr(req, res, req.query.JSXM, req.query.KCMC, function (result) {
+router.post('/getzyStr', function (req, res, next) {
+    assignDao.queryzyStr(req, res, req.body.JSXM, req.body.KCMC, function (result) {
         res.send({"state": result});
     });
 });
 //获取此门课此教师可以交哪些年级->递进查询到此专业年级与班级个数
-router.get('/getnjbjStr', function (req, res, next) {
-    assignDao.querynjbjStr(req, res, req.query.JSXM, req.query.KCMC, req.query.ZYMC, function (result) {
+router.post('/getnjbjStr', function (req, res, next) {
+    assignDao.querynjbjStr(req, res, req.body.JSXM, req.body.KCMC, req.body.ZYMC, function (result) {
         res.send({"state": result});
-    });
-});
-//批量增加授课信息记录
-router.get('/insertSome', function (req, res, next) {
-    var sqlArr = new Array();
-    sqlArr = req.query.str.split(',');
-    assignDao.insertSome(req, res, sqlArr, function (result) {
-        if (result) {
-            res.send({"state": result});
-        }
     });
 });
 //删除一条教师信息记录

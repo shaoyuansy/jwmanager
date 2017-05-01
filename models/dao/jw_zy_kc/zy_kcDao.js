@@ -70,7 +70,7 @@ exports.queryRepeat = function (req, res, zyid, kcid, term, fn) {
     });
 };
 /*更新记录*/
-exports.update = function (req, res, id, term, fn) {
+exports.update = function (req, res, term, id, fn) {
     pool.getConnection(function (err, connection) {
         connection.query($sql.update, [term, id], function (err, result) {
             connection.release();

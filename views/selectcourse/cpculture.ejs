@@ -1,0 +1,96 @@
+<style>
+    #upfile {
+        display: none;
+    }
+    .upload_group {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .style_upload {
+        height: 20px;
+        border-radius: 5px;
+        width: 120px;
+        font-size: 10px;
+    }
+    .open {
+        font-size: 12px;
+        color: #606c84;
+        margin-bottom: 0px;
+        font-weight: 500;
+        border: 1px solid #606c84;
+        border-radius: 5px;
+        padding: 0px 2px;
+        cursor: pointer;
+    }
+    .box-header>.box-tools{
+        top:8px;
+    }
+    .date-box{
+        position: absolute;
+        right: 0px;
+        left: 160px;
+        top:8px;
+    }
+    .export-box button{
+        padding-top: 2px;
+    }
+    #datechoose .form-control{
+        height: 24px;
+        padding: 0px 5px;
+    }
+    #datechoose{
+        width: 150px;
+    }
+    .input-group-addon{
+        padding: 0px 5px;
+    }
+</style>
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>计算机文化选课信息管理页面</h1>
+        <ol class="breadcrumb">
+            <li><a href="/index"><i class="fa fa-home"></i> 首页</a></li>
+            <li class="active">计算机文化选课</li>
+        </ol>
+    </section>
+    <section class="content">
+       <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">计算机文化选课</h3>
+                <div class="box-tools date-box">
+                    <div class="input-group date" id="datechoose">
+                        <input type="text" class="form-control">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-tools pull-right">
+                    <div class="upload_group">
+                        <input type="file" id="upfile" accept=".xls" />
+                        <input type="text" class="style_upload" readonly/>
+                        <label for="upfile" class="open">浏览</label>
+                    </div>
+                    <button type="button" title="导入" class="btn btn-box-tool" onclick="readExcel()">
+                        <i class="fa fa-fw fa-sign-in"></i>导入
+                    </button>
+                    <button type="button" title="导出" class="btn btn-box-tool" onclick="toExcel()">
+                        <i class="fa fa-fw fa-cloud-download"></i>导出
+                    </button>
+                    <button type="button" title="批量删除" class="btn btn-box-tool" onclick="delSomeJys();">
+                        <i class="fa fa-fw fa-times"></i>批量删除
+                    </button>
+                    <button type="button" title="添加" class="btn btn-box-tool" onclick="editMajor(0)">
+                        <i class="fa fa-fw fa-user-plus"></i>添加
+                    </button>
+                </div>
+                
+            </div>
+            <div class="box-body" >
+                <table class="table table-bordered table-striped" width="100%">
+                    
+                </table>
+            </div>
+        </div>
+    </section>
+</div>

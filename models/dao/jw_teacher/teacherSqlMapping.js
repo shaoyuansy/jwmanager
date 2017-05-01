@@ -2,6 +2,7 @@ var teacher = {
     queryAll: 'SELECT ID,XM,GH,SFZR,LXDH,FGFZR,ZYJSZC,XL,ZGXW,XKLB,DSLX,DWMC,JXXG,FJ' +
     ' FROM jw_teacher ORDER BY ID DESC;',
     queryById: 'SELECT * FROM jw_teacher WHERE ID=?;',
+    queryZR: 'SELECT ID,XM FROM jw_teacher WHERE SFZR="学院教师";',
     queryByMc: "SELECT ID,XM,SFZR FROM jw_teacher WHERE XM=?;",
     queryZRteacher: "SELECT jw_teacher.SFZR FROM jw_teacher WHERE XM=?;",
     queryTeacher: "SELECT ID FROM jw_teacher WHERE XM=?;",

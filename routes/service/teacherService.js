@@ -21,6 +21,12 @@ router.post('/getTidByMc', function (req, res, next) {
     });
 });
 
+router.get('/getZRteacher', function (req, res, next) {
+    teacherDao.getZRteacher(req, res, function (result) {
+        res.send({"result": result});
+    });
+});
+
 //教师是否重复
 router.post('/getNAME', function (req, res, next) {
     teacherDao.queryTeacher(req, res, req.body.TNAME, function (result) {

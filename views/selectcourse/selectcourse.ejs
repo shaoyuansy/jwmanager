@@ -56,9 +56,7 @@
 
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>
-            教师选课信息管理页面
-        </h1>
+        <h1>教师选课信息管理页面</h1>
         <ol class="breadcrumb">
             <li><a href="/index"><i class="fa fa-home"></i> 首页</a></li>
             <li class="active">教师选课管理</li>
@@ -102,7 +100,7 @@
             minViewMode:'months',
             title:'--------学期选择--------'
         });
-        var time = new Date("2016-10-10");
+        var time = new Date();
         $('#datechoose').datepicker('setDate', time); //初始化现在时间
         build_table(time); //构建datatable
         $('#datechoose').datepicker().on('hide', function(e) { //改变时间选择器重新获取当前的信息

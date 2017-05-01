@@ -1,10 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function (req, res, next) {
-    res.render('index', {title: 'Express'});
-});
-
 /* 教研室服务开始. */
 var jysDao = require('../../models/dao/jw_jys/jysDao');
 //获取教研室信息列表

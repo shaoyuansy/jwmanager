@@ -87,17 +87,17 @@
                         <input type="text" class="style_upload" readonly/>
                         <label for="upfile" class="open">浏览</label>
                     </div>
+                    <button type="button" title="导入" class="btn btn-box-tool" onclick="readExcel();">
+                        <i class="fa fa-fw fa-sign-in"></i>导入
+                    </button>
+                    <button type="button" title="导出" class="btn btn-box-tool" onclick="toExcel();">
+                        <i class="fa fa-fw fa-cloud-download"></i>导出
+                    </button>
                     <button type="button" title="批量删除" class="btn btn-box-tool" onclick="delSomeAssign()">
                         <i class="fa fa-fw fa-times"></i>批量删除
                     </button>
                     <button type="button" title="添加" class="btn btn-box-tool" onclick="editAssign(0)">
                         <i class="fa fa-fw fa-user-plus"></i>添加
-                    </button>
-                    <button type="button" title="导出" class="btn btn-box-tool" onclick="toExcel();">
-                        <i class="fa fa-fw fa-cloud-download"></i>导出
-                    </button>
-                    <button type="button" title="导入" class="btn btn-box-tool" onclick="readExcel();">
-                        <i class="fa fa-fw fa-sign-in"></i>导入
                     </button>
                 </div>
                 <div class="box box-default box-solid" style="margin-top:10px;">
@@ -170,7 +170,7 @@
             title:'--------学期选择--------'
         });
 
-        var time = new Date("2016-10-10");
+        var time = new Date();
         $('#datechoose').datepicker('setDate', time); //初始化现在时间
         build_table(time);//获取表格
 
@@ -198,7 +198,7 @@
 
     function build_table(time){
         var term = get1st2nd(time);
-        $('.show_term').text(term+"授课详情");
+        $('.show_term').text(term+" 授课详情");
         var columns = [
             {
                 "className": "text_center",
@@ -376,6 +376,11 @@
     function readExcel() {
         var formData = new FormData(); //构建formdata
         formData.append('file', $('#upfile')[0].files[0]);
+        
+        var time = $('#datechoose').datepicker('getDate');
+        var term = get1st2nd(time);
+        formData.append('term', term);
+
         if ($('#upfile')[0].files[0]) {
             $.ajax({
                 type: 'post',

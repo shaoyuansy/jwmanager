@@ -16,6 +16,15 @@ exports.queryAll = function (req, res, fn) {
         });
     });
 };
+/* 获取数据列表信息 BY KSNJ*/
+exports.queryByYear = function (req, res, KSNJ, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.queryByYear, [KSNJ], function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
 /* 专业课程页面获取不同年级的专业*/
 exports.queryZybyxn = function (req, res, xn, fn) {
     pool.getConnection(function (err, connection) {
@@ -98,6 +107,16 @@ exports.queryZyId = function (req, res, sqlStr, fn) {
     var arr = sqlStr.split(",");
     pool.getConnection(function (err, connection) {
         connection.query($sql.queryZyId, arr, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+
+/* 根据年级与专业获取专业每个班大约人数*/
+exports.queryZyRs = function (req, res, SSNJ, ZYMC, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.queryZyRs, [SSNJ,ZYMC], function (err, result) {
             connection.release();
             fn(result);
         });

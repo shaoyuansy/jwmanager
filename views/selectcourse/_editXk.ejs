@@ -265,6 +265,7 @@
                 }else{
                     if(confirm("该教师不存在，是否将其添加为："+ sfzr +"？")){
                         var jsid = addTeacher(jsmc,sfzr);
+                        console.log(jsid);
                         if(jsid == ""){
                             $("#warning_content").text("教师信息保存失败，请重试");
                             $("#warning_modal").modal("show");
@@ -381,14 +382,14 @@
         return teacher;
     }
 
+    var jsid = "";
     function addTeacher(jsmc,sfzr){ // 添加非专任教师
-        var jsid = "";
         $.ajax({
             type: "post",
             url: '/teacherService/addWP',
             dataType: "json",
             data: {XM: jsmc,SFZR:sfzr},
-            async: true,
+            async: false,
             cache: true,
             success: function (msg) {
                 if (msg.state.affectedRows > 0) {

@@ -12,6 +12,12 @@ router.get('/getList', function (req, res, next) {
         res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
     });
 });
+//根据年份获取专业信息列表
+router.post('/getListByYear', function (req, res, next) {
+    zyDao.queryByYear(req, res, req.body.KSNJ, function (result) {
+        res.send({"data": result});
+    });
+});
 //选课页面获取本年专业信息列表
 router.post('/selectMajor', function (req, res, next) {
     zyDao.selectMajor(req, res, req.body.years, function (result) {
@@ -43,6 +49,12 @@ router.get('/insertSome', function (req, res, next) {
 //获取专业ID
 router.post('/getZyId', function (req, res, next) {
     zyDao.queryZyId(req, res, req.body.sqlStr, function (result) {
+        res.send({"result": result});
+    });
+});
+//根据年级与专业获取专业每个班大约人数
+router.post('/getRS', function (req, res, next) {
+    zyDao.queryZyRs(req, res, req.body.SSNJ, req.body.ZYMC, function (result) {
         res.send({"result": result});
     });
 });

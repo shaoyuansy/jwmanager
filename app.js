@@ -22,6 +22,10 @@ var major = require('./routes/major/major');
 var course = require('./routes/course/course');
 //教师选课信息管理
 var selectcourse = require('./routes/selectcourse/selectcourse');
+//计算机文化选课信息管理
+var cpculture = require('./routes/selectcourse/cpculture');
+//毕设信息管理
+var graproject = require('./routes/selectcourse/graproject');
 //课程分配
 var assigncourse = require('./routes/assign_course/assigncourse');
 //插件(上传)
@@ -40,6 +44,8 @@ var majorService = require('./routes/service/majorService');
 var courseService = require('./routes/service/courseService');
 //专业-课程服务
 var major_courseService = require('./routes/service/major_courseService');
+//毕设服务
+var graService = require('./routes/service/graService');
 //教师-课程服务
 var teacher_courseService = require('./routes/service/teacher_courseService');
 //用户服务
@@ -94,6 +100,8 @@ app.use('/chart', chart);
 app.use('/major', major);
 app.use('/course', course);
 app.use('/selectcourse', selectcourse);
+app.use('/cpculture', cpculture);
+app.use('/graproject', graproject);
 app.use('/tools/uploadFile', uploadFile);
 app.use('/major_course', major_course);
 app.use('/assigncourse', assigncourse);
@@ -104,6 +112,7 @@ app.use('/teacherService', teacherService);
 app.use('/majorService', majorService);
 app.use('/courseService', courseService);
 app.use('/major_courseService', major_courseService);
+app.use('/graService', graService);
 app.use('/teacher_courseService', teacher_courseService);
 app.use('/userService', userService);
 app.use('/assignService', assignService);

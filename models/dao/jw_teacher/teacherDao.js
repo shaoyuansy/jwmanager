@@ -20,6 +20,17 @@ exports.queryAll = function (req, res, fn) {
     });
 };
 
+/* 获取z专任教师*/
+exports.getZRteacher = function (req, res, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.queryZR, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+
+
 /* 获取数据列表信息 BY ID*/
 exports.queryById = function (req, res, id, fn) {
     pool.getConnection(function (err, connection) {

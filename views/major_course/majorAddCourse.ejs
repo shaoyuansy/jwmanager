@@ -57,6 +57,7 @@
                         </div>
                     </div>
                     <div class="box-body">
+                         <input id="majorid" type="hidden" >
                         <select class="form-control" id="ksxq" name="ksxq">
                             <option>第一学期</option>
                             <option>第二学期</option>
@@ -81,7 +82,9 @@
                         <table id="datatable" class="table table-bordered table-striped" width="100%">
                             <thead>
                                 <tr>
-                                    <th><input id="checkall" name="checkall" type="checkbox"></th>
+                                    <th>
+                                        <input id="checkall" name="checkall" type="checkbox">
+                                    </th>
                                     <th>课程编号</th>
                                     <th>课程名称</th>
                                     <th>课程英文名称</th>
@@ -118,7 +121,6 @@
         var sqlStr = "<%= sqlStr %>";
         var xn = sqlStr.split("-")[0];
         var zy = sqlStr.split("-")[1];
-        var zyid = "";
 
         $("#checkall").click(function () {
             var checkbox = document.getElementById('checkall');
@@ -138,8 +140,8 @@
         });
 
         createtable(zy);
-        showMsg(sqlStr);
-        getZyId(sqlStr);
+        showMsg(sqlStr);       
+        getZyId(xn+","+zy); 
     });
 
     function showMsg(sqlStr){
@@ -223,6 +225,7 @@
             success: function (msg) {
                 if(msg.result){
                     zyid = msg.result[0].ID;
+                    $("#majorid").val(zyid);
                 }
             },
             error: function (e) {
@@ -233,6 +236,7 @@
 
     //为该年级该专业添加课程
     function addCourse() {
+        var zyid = $("#majorid").val();
         var flag = false;
         var arr = [];
         $('input[type="checkbox"][name="checkrow"]:checked').each(function () {
@@ -281,6 +285,7 @@
 
     //验证重复添加
     function checkRepeat(){
+        var zyid = $("#majorid").val();
         var flag = true;
         var cidArr = [];
         $('input[type="checkbox"][name="checkrow"]:checked').each(function () {

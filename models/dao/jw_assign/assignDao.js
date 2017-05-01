@@ -74,9 +74,9 @@ exports.querynjbjStr = function (req, res, JSXM, KCMC, ZYMC, fn) {
     });
 };
 //导入时批量插入授课信息
-exports.insertSome = function (req, res, arrayPar, fn) {
+exports.insertSome = function (req, res, sqlStr, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.insertSome, arrayPar, function (err, result) {
+        connection.query(sqlStr, function (err, result) {
             connection.release();
             fn(result);
         });
@@ -113,7 +113,7 @@ exports.delete = function (req, res, ID, fn) {
 //批量删除记录
 exports.deleteSome = function (req, res, idstr, fn) {
     pool.getConnection(function (err, connection) {
-        var sql = "DELETE FROM jw_assign WHERE ID IN (" + req.query.idstr + ");";
+        var sql = "DELETE FROM jw_assign WHERE ID IN (" + idstr + ");";
         connection.query(sql, function (err, result) {
             connection.release();
             fn(result);
