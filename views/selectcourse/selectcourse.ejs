@@ -90,7 +90,6 @@
 <div class="modal fade" id="modal-edit-xk"></div>
 <script>
     $(document).ready(function () {
-        
         $("#datechoose").datepicker({ //构建时间选择器
             format: 'yyyy/mm',
             autoclose:true,
@@ -102,16 +101,18 @@
         });
         var time = new Date();
         $('#datechoose').datepicker('setDate', time); //初始化现在时间
-        build_table(time); //构建datatable
+
+        bulid_table(time); //构建datatable
+        
         $('#datechoose').datepicker().on('hide', function(e) { //改变时间选择器重新获取当前的信息
             time = $('#datechoose').datepicker('getDate');
-            build_table(time);  
+            bulid_table(time);  
         });
         $('#modal-edit-xk').on('hidden.bs.modal', function () {
-            build_table(time); //构建datatable
+            bulid_table(time); //构建datatable
         })
     });
-    function build_table(time){
+    function bulid_table(time){
         $("#selectcourseTL").html("");
         //获取到当前时间或者要查询的时间 然后取得当前有哪些专业选择了哪些课
         var term = get_term(time);
@@ -450,26 +451,26 @@
             var xuenian3 = nowYear - 2 + "级";
             var xuenian4 = nowYear - 3 + "级";
             //当前四个学期判断
-            var xueqi1 = "第" + replaceNo((nowYear - nowYear) * 2 + 1) + "学期";
-            var xueqi2 = "第" + replaceNo((nowYear - (nowYear - 1)) * 2 + 1) + "学期";
-            var xueqi3 = "第" + replaceNo((nowYear - (nowYear - 2)) * 2 + 1) + "学期";
-            var xueqi4 = "第" + replaceNo((nowYear - (nowYear - 3)) * 2 + 1) + "学期";
+            var xueqi1 = "第" + replaceNo((nowYear - nowYear) * 2 + 1) + "学期";//1
+            var xueqi2 = "第" + replaceNo((nowYear - (nowYear - 1)) * 2 + 1) + "学期";//2
+            var xueqi3 = "第" + replaceNo((nowYear - (nowYear - 2)) * 2 + 1) + "学期";//3
+            var xueqi4 = "第" + replaceNo((nowYear - (nowYear - 3)) * 2 + 1) + "学期";//4
         } else if (nowMonth >= 1 && nowMonth < 2 || nowMonth >= 2 && nowMonth <= 7) {
             var xuenian1 = nowYear - 1 + "级";
             var xuenian2 = nowYear - 2 + "级";
             var xuenian3 = nowYear - 3 + "级";
             var xuenian4 = nowYear - 4 + "级";
             if (nowMonth >= 1 && nowMonth < 2) {
-                var xueqi1 = "第" + replaceNo((nowYear - nowYear) * 2 + 1) + "学期";
-                var xueqi2 = "第" + replaceNo((nowYear - (nowYear - 1)) * 2 + 1) + "学期";
-                var xueqi3 = "第" + replaceNo((nowYear - (nowYear - 2)) * 2 + 1) + "学期";
-                var xueqi4 = "第" + replaceNo((nowYear - (nowYear - 3)) * 2 + 1) + "学期";
+                var xueqi1 = "第" + replaceNo((nowYear - nowYear) * 2 + 1) + "学期";//1
+                var xueqi2 = "第" + replaceNo((nowYear - (nowYear - 1)) * 2 + 1) + "学期";//2
+                var xueqi3 = "第" + replaceNo((nowYear - (nowYear - 2)) * 2 + 1) + "学期";//3
+                var xueqi4 = "第" + replaceNo((nowYear - (nowYear - 3)) * 2 + 1) + "学期";//4
             }
             else if (nowMonth >= 2 && nowMonth <= 7) {
-                var xueqi1 = "第" + replaceNo((nowYear - nowYear) * 2 + 2) + "学期";
-                var xueqi2 = "第" + replaceNo((nowYear - (nowYear - 1)) * 2 + 2) + "学期";
-                var xueqi3 = "第" + replaceNo((nowYear - (nowYear - 2)) * 2 + 2) + "学期";
-                var xueqi4 = "第" + replaceNo((nowYear - (nowYear - 3)) * 2 + 2) + "学期";
+                var xueqi1 = "第" + replaceNo((nowYear - nowYear) * 2 + 2) + "学期";//1
+                var xueqi2 = "第" + replaceNo((nowYear - (nowYear - 1)) * 2 + 2) + "学期";//2
+                var xueqi3 = "第" + replaceNo((nowYear - (nowYear - 2)) * 2 + 2) + "学期";//3
+                var xueqi4 = "第" + replaceNo((nowYear - (nowYear - 3)) * 2 + 2) + "学期";//4
             }
         }
         var term = [];
@@ -493,12 +494,11 @@
         var nowMonth = nowDate.getMonth() + 1;
         var xueqi = '';
         if (nowDate) {
-            if (nowMonth < 8 && nowMonth > 1) {
-                xueqi = (nowYear-1) + "-" + nowYear + "第二学期";
-            }else if (nowMonth >= 8 && nowMonth <= 12 ) {
+            if (nowMonth < 8 && nowMonth > 0) {
+                xueqi = nowYear + "-" + (nowYear + 1) + "第二学期";
+            }
+            else if (nowMonth >= 8 && nowMonth <= 12 || nowMonth > 0 && nowMonth <= 1) {
                 xueqi = nowYear + "-" + (nowYear + 1) + "第一学期";
-            }else if(nowMonth == 1){
-                xueqi = (nowYear-1) + "-" + nowYear + "第一学期";
             }
         }
         return xueqi;
