@@ -12,9 +12,12 @@ var assign = {
     queryzyStr: 'SELECT DISTINCT jw_zy.ZYMC FROM jw_teacher ,jw_kc_js ,jw_kc ,jw_zy_kc ,jw_zy ' +
     'WHERE jw_teacher.ID = jw_kc_js.JSID AND jw_kc.ID = jw_kc_js.KCID AND jw_kc.ID = jw_zy_kc.KCID AND ' +
     'jw_zy_kc.ZYID = jw_zy.ID AND jw_teacher.XM=? AND jw_kc.KCMC=?;',
-    querynjbjStr: 'SELECT jw_zy.ZYMC,jw_zy.KSNJ,jw_zy.BJGS FROM jw_teacher ,jw_kc_js ,jw_kc ,jw_zy_kc ,jw_zy ' +
+    querynjStr: 'SELECT jw_zy.ZYMC,jw_zy.KSNJ FROM jw_teacher ,jw_kc_js ,jw_kc ,jw_zy_kc ,jw_zy ' +
     'WHERE jw_teacher.ID = jw_kc_js.JSID AND jw_kc.ID = jw_kc_js.KCID AND jw_kc.ID = jw_zy_kc.KCID AND ' +
     'jw_zy_kc.ZYID = jw_zy.ID AND jw_teacher.XM=? AND jw_kc.KCMC=? AND ZYMC=?;',
+    querybjStr: 'SELECT jw_zy.BJGS FROM jw_teacher ,jw_kc_js ,jw_kc ,jw_zy_kc ,jw_zy ' +
+    'WHERE jw_teacher.ID = jw_kc_js.JSID AND jw_kc.ID = jw_kc_js.KCID AND jw_kc.ID = jw_zy_kc.KCID AND ' +
+    'jw_zy_kc.ZYID = jw_zy.ID AND jw_teacher.XM=? AND jw_kc.KCMC=? AND ZYMC=? AND KSNJ=?;',
     queryfzrStr: 'SELECT KCFZR FROM jw_kc WHERE KCMC=?;',
     insert: 'INSERT INTO jw_assign SET JSXM=?,KCMC=?,KCFZR=?,SSZY=?,SSNJ=?,SSBJ=?,BJRS=?,SKSJ=?,SKDD=?,SFWSJK=?,SFDSZ=?,WPJSPJ=?,TERM=?;',
     insertSome: 'INSERT INTO jw_assign SET JSXM=?,KCMC=?,KCFZR=?,SSZY=?,SSNJ=?,SSBJ=?,BJRS=?,SKSJ=?,SKDD=?,SFWSJK=?,SFDSZ=?,WPJSPJ=?',

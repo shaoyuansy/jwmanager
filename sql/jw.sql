@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
+Source Server         : 本地local
 Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : jw
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2017-05-01 19:59:11
+Date: 2017-05-02 22:01:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,7 +35,7 @@ CREATE TABLE `jw_assign` (
   `WPJSPJ` varchar(200) DEFAULT NULL COMMENT '外聘教师评价',
   `TERM` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COMMENT='授课表';
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COMMENT='授课表';
 
 -- ----------------------------
 -- Records of jw_assign
@@ -45,7 +45,10 @@ INSERT INTO `jw_assign` VALUES ('37', '施耐庵', '体育（1）', '毛泽东',
 INSERT INTO `jw_assign` VALUES ('38', '李想', '计算机英语', '林予松', 'JAVA', '2013级', '1大班', '125', '1', '1', '', '', '', null);
 INSERT INTO `jw_assign` VALUES ('39', '李燕超', '体育（3）', '付元忠', 'JAVA', '2014级', '1大班', '125', '2', '2', '是', '否', '', null);
 INSERT INTO `jw_assign` VALUES ('41', '施耐庵', '体育（1）', '毛泽东', '嵌入式开发', '2015级', '1大班', '74', '123', '123', '是', '否', '123', '2016-2017第一学期');
-INSERT INTO `jw_assign` VALUES ('42', '黎川江', '计算机文化', '李翠霞', '金融信息化', '2016级', '1大班', '60', '', '', '', '', null, '2016-2017第二学期');
+INSERT INTO `jw_assign` VALUES ('45', '李翠霞', '计算机文化', '李翠霞', '嵌入式开发', '2016级', '1大班', '60', '周四3,4节', '9-409', '否', '否', null, '2016-2017第二学期');
+INSERT INTO `jw_assign` VALUES ('46', '李翠霞', '计算机文化', '李翠霞', '嵌入式开发', '2016级', '2大班', '60', '周三1,2节', '9-305', '否', '否', null, '2016-2017第二学期');
+INSERT INTO `jw_assign` VALUES ('47', '李翠霞', '计算机文化', '李翠霞', '人工智能', '2016级', '1大班', '98', '周一5,6节', '9-201', '否', '否', null, '2016-2017第二学期');
+INSERT INTO `jw_assign` VALUES ('48', '李翠霞', '计算机文化', '李翠霞', '嵌入式开发', '2015级', '1大班', '98', '周五3,4节', '9-305', '否', '否', null, '2016-2017第二学期');
 
 -- ----------------------------
 -- Table structure for jw_graproject
@@ -139,7 +142,7 @@ CREATE TABLE `jw_kc_js` (
   `CZR` varchar(30) DEFAULT NULL COMMENT '操作人',
   `TERM` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of jw_kc_js
@@ -149,6 +152,7 @@ INSERT INTO `jw_kc_js` VALUES ('15', '4', '17', '2', '', '常刘凯', '2016-2017
 INSERT INTO `jw_kc_js` VALUES ('16', '4', '18', '2', '', '黎川江', '2016-2017第二学期');
 INSERT INTO `jw_kc_js` VALUES ('17', '4', '20', '2', '', '王磊', '2016-2017第二学期');
 INSERT INTO `jw_kc_js` VALUES ('18', '4', '52', '2', '', '邵远', '2016-2017第二学期');
+INSERT INTO `jw_kc_js` VALUES ('20', '4', '56', '12', '', '李翠霞', '2017-2018第二学期');
 
 -- ----------------------------
 -- Table structure for jw_teacher
@@ -196,7 +200,7 @@ CREATE TABLE `jw_teacher` (
   `SFSJXYS` varchar(30) DEFAULT NULL COMMENT '是否上交协议书',
   `FJ` varchar(255) DEFAULT NULL COMMENT '附件',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of jw_teacher
@@ -228,6 +232,7 @@ INSERT INTO `jw_teacher` VALUES ('30', '王五', 'JS0027', '男', '1980.02', '15
 INSERT INTO `jw_teacher` VALUES ('31', '微微', 'LS0028', '女', '1980.02', '15866626853', '数字媒体', '李燕超', '2016.04.15', '410527199312160033', '汉族', '2016.04.11', '在职', 'DW021', '厦门大学', '科研单位', '博士研究生', '硕士', '其他人员', '2016.04.15', '厦门大学', '本校', '讲师', '工学', '是', '是', '是', '硕士导师', '境内', '人工智能导论', '2016.04.15', '良好', '有', '有', '有', '有', '有', '有', '有', '/zipfiles/a1.zip');
 INSERT INTO `jw_teacher` VALUES ('39', '王五', 'JS0027', '男', '1980.02', '15268974589', '物联网工程', '李燕超', '2016.04.01', '415027193212120000', '汉族', '2016.04.01', '离职', 'DW020', '北京大学', '高等学校', '硕士研究生', '硕士', '大校教师', '2016.04.01', '北京大学', '外校（境内）', '其他正高级', '文学', '否', '是', '否', '博士导师', '境内', '数据结构', '1992.12.03', '优秀', '有', '有', '有', '有', '有', '有', '有', null);
 INSERT INTO `jw_teacher` VALUES ('52', '邵远', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '大校教师', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `jw_teacher` VALUES ('56', '李翠霞', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '学院教师', '', '', '', '', '', '', '', '', '', '', '', '', null, '', '', '', '', '', '', '', '');
 
 -- ----------------------------
 -- Table structure for jw_user
@@ -239,7 +244,7 @@ CREATE TABLE `jw_user` (
   `PASSWORD` varchar(255) DEFAULT NULL COMMENT '密码',
   `YHBH` varchar(30) DEFAULT NULL COMMENT '用户编号（用户为教师时用户编号为工号）',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='用户信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='用户信息表';
 
 -- ----------------------------
 -- Records of jw_user
@@ -257,6 +262,7 @@ INSERT INTO `jw_user` VALUES ('10', '邵远', '40bd001563085fc35165329ea1ff5c5ec
 INSERT INTO `jw_user` VALUES ('11', '乐克鹏', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS014');
 INSERT INTO `jw_user` VALUES ('12', '王磊', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', null);
 INSERT INTO `jw_user` VALUES ('13', '常刘凯', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', null);
+INSERT INTO `jw_user` VALUES ('14', '李翠霞', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', null);
 
 -- ----------------------------
 -- Table structure for jw_zy

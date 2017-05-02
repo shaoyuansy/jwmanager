@@ -65,9 +65,18 @@ exports.queryzyStr = function (req, res, JSXM, KCMC, fn) {
     });
 };
 /* 获取此门课此教师可以交哪些年级*/
-exports.querynjbjStr = function (req, res, JSXM, KCMC, ZYMC, fn) {
+exports.querynjStr = function (req, res, JSXM, KCMC, ZYMC, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.querynjbjStr, [JSXM, KCMC, ZYMC], function (err, result) {
+        connection.query($sql.querynjStr, [JSXM, KCMC, ZYMC], function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+/* 获取此门课此教师可以交哪些年级的班级个数*/
+exports.querybjStr = function (req, res, JSXM, KCMC, ZYMC, SSNJ, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.querybjStr, [JSXM, KCMC, ZYMC, SSNJ], function (err, result) {
             connection.release();
             fn(result);
         });

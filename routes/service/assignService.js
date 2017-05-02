@@ -31,9 +31,15 @@ router.post('/getzyStr', function (req, res, next) {
         res.send({"state": result});
     });
 });
-//获取此门课此教师可以交哪些年级->递进查询到此专业年级与班级个数
-router.post('/getnjbjStr', function (req, res, next) {
-    assignDao.querynjbjStr(req, res, req.body.JSXM, req.body.KCMC, req.body.ZYMC, function (result) {
+//获取此门课此教师可以交哪些年级->递进查询到此专业年级
+router.post('/getnjStr', function (req, res, next) {
+    assignDao.querynjStr(req, res, req.body.JSXM, req.body.KCMC, req.body.ZYMC, function (result) {
+        res.send({"state": result});
+    });
+});
+//获取此门课此教师可以交哪些年级->递进查询到此专业班级个数
+router.post('/getbjStr', function (req, res, next) {
+    assignDao.querybjStr(req, res, req.body.JSXM, req.body.KCMC, req.body.ZYMC, req.body.SSNJ, function (result) {
         res.send({"state": result});
     });
 });

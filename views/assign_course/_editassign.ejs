@@ -213,10 +213,9 @@
                         }
                         SSZY.html(zyStr);
                         var njStr = "";
-                        var bjStr = "";
                         $.ajax({
                             type: "post",
-                            url: '/assignService/getnjbjStr',
+                            url: '/assignService/getnjStr',
                             dataType: "json",
                             data: {JSXM: JSXM.val(), KCMC: SSKC.val(), ZYMC: SSZY.val()},
                             async: true,
@@ -224,14 +223,25 @@
                                 if (data) {
                                     for (var i = 0; i < data.state.length; i++) {
                                         njStr += "<option value='" + data.state[i].KSNJ + "'>" + data.state[i].KSNJ + "</option>";
-                                        if (data.state[i].BJGS > 0) {
-                                            for (var b = 1; b <= data.state[i].BJGS; b++)
-                                                bjStr += "<option value='" + b + "大班'>" + b + "大班</option>";
-                                        }
                                     }
+                                    SSNJ.html(njStr);
+                                    var bjStr = "";
+                                    $.ajax({
+                                        type: "post",
+                                        url: '/assignService/getbjStr',
+                                        dataType: "json",
+                                        data: {JSXM: JSXM.val(), KCMC: SSKC.val(), ZYMC: SSZY.val(), SSNJ: SSNJ.val()},
+                                        async: true,
+                                        success: function (data) {
+                                            if (data.state.length>0) {                                                
+                                            for (var b = 1; b <= data.state[0].BJGS; b++){
+                                                bjStr += "<option value='" + b + "大班'>" + b + "大班</option>";
+                                            }                                              
+                                            SSBJ.html(bjStr);
+                                            }
+                                        }
+                                    });
                                 }
-                                SSNJ.html(njStr);
-                                SSBJ.html(bjStr);
                             }
                         });
                     }
@@ -299,10 +309,9 @@
                         }
                         SSZY.html(zyStr);
                         var njStr = "";
-                        var bjStr = "";
                         $.ajax({
                             type: "post",
-                            url: '/assignService/getnjbjStr',
+                            url: '/assignService/getnjStr',
                             dataType: "json",
                             data: {JSXM: JSXM.val(), KCMC: SSKC.val(), ZYMC: SSZY.val()},
                             async: true,
@@ -310,26 +319,37 @@
                                 if (data) {
                                     for (var i = 0; i < data.state.length; i++) {
                                         njStr += "<option value='" + data.state[i].KSNJ + "'>" + data.state[i].KSNJ + "</option>";
-                                        if (data.state[i].BJGS > 0) {
-                                            for (var b = 1; b <= data.state[i].BJGS; b++)
-                                                bjStr += "<option value='" + b + "大班'>" + b + "大班</option>";
-                                        }
                                     }
+                                    SSNJ.html(njStr);
+                                    var bjStr = "";
+                                    $.ajax({
+                                        type: "post",
+                                        url: '/assignService/getbjStr',
+                                        dataType: "json",
+                                        data: {JSXM: JSXM.val(), KCMC: SSKC.val(), ZYMC: SSZY.val(), SSNJ: SSNJ.val()},
+                                        async: true,
+                                        success: function (data) {
+                                            if (data.state.length>0) {                                                
+                                                for (var b = 1; b <= data.state[0].BJGS; b++){
+                                                    bjStr += "<option value='" + b + "大班'>" + b + "大班</option>";
+                                                }                                              
+                                                SSBJ.html(bjStr);
+                                                $.ajax({
+                                                    type: "post",
+                                                    url: '/majorService/getRS',
+                                                    dataType: "json",
+                                                    data: {ZYMC: SSZY.val(), SSNJ: SSNJ.val()},
+                                                    async: true,
+                                                    success: function (data) {
+                                                        if (data && data.result.length > 0) {
+                                                        $("#BJRS").val(data.result[0].GBDYRS);
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
                                 }
-                                SSNJ.html(njStr);
-                                SSBJ.html(bjStr);
-                                $.ajax({
-                                    type: "post",
-                                    url: '/majorService/getRS',
-                                    dataType: "json",
-                                    data: {ZYMC: SSZY.val(), SSNJ: SSNJ.val()},
-                                    async: true,
-                                    success: function (data) {
-                                        if (data && data.result.length > 0) {
-                                           $("#BJRS").val(data.result[0].GBDYRS);
-                                        }
-                                    }
-                                });
                             }
                         });
                     }
@@ -356,25 +376,68 @@
 
     SSZY.change(function () {
         var njStr = "";
-        var bjStr = "";
         $.ajax({
             type: "post",
-            url: '/assignService/getnjbjStr',
+            url: '/assignService/getnjStr',
             dataType: "json",
-            data: {JSXM: $('#JSXM').val(), KCMC: $('#SSKC').val(), ZYMC: $('#SSZY').val()},
+            data: {JSXM: JSXM.val(), KCMC: SSKC.val(), ZYMC: SSZY.val()},
             async: true,
             success: function (data) {
                 if (data) {
                     for (var i = 0; i < data.state.length; i++) {
                         njStr += "<option value='" + data.state[i].KSNJ + "'>" + data.state[i].KSNJ + "</option>";
-                        if (data.state[i].BJGS > 0) {
-                            for (var b = 1; b <= data.state[i].BJGS; b++)
-                                bjStr += "<option value='" + b + "大班'>" + b + "大班</option>";
-                        }
                     }
+                    SSNJ.html(njStr);
+                    var bjStr = "";
+                    $.ajax({
+                        type: "post",
+                        url: '/assignService/getbjStr',
+                        dataType: "json",
+                        data: {JSXM: JSXM.val(), KCMC: SSKC.val(), ZYMC: SSZY.val(), SSNJ: SSNJ.val()},
+                        async: true,
+                        success: function (data) {
+                            if (data.state.length>0) {                                                
+                                if (data.state[0].BJGS > 0) {
+                                    for (var b = 1; b <= data.state[0].BJGS; b++){
+                                        bjStr += "<option value='" + b + "大班'>" + b + "大班</option>";
+                                    }
+                                }                                                
+                                SSBJ.html(bjStr);
+                                $.ajax({
+                                    type: "post",
+                                    url: '/majorService/getRS',
+                                    dataType: "json",
+                                    data: {ZYMC: SSZY.val(), SSNJ: SSNJ.val()},
+                                    async: true,
+                                    success: function (data) {
+                                        if (data && data.result.length > 0) {
+                                            $("#BJRS").val(data.result[0].GBDYRS);
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    });
                 }
-                SSNJ.html(njStr);
-                SSBJ.html(bjStr);
+            }
+        });
+    });
+
+    SSNJ.change(function () {
+        var bjStr = "";
+        $.ajax({
+            type: "post",
+            url: '/assignService/getbjStr',
+            dataType: "json",
+            data: {JSXM: JSXM.val(), KCMC: SSKC.val(), ZYMC: SSZY.val(), SSNJ: SSNJ.val()},
+            async: true,
+            success: function (data) {
+                if (data.state.length>0) {                                                
+                    for (var b = 1; b <= data.state[0].BJGS; b++){
+                        bjStr += "<option value='" + b + "大班'>" + b + "大班</option>";
+                    }                                              
+                    SSBJ.html(bjStr);
+                }
                 $.ajax({
                     type: "post",
                     url: '/majorService/getRS',
@@ -383,7 +446,7 @@
                     async: true,
                     success: function (data) {
                         if (data && data.result.length > 0) {
-                            $("#BJRS").val(data.result[0].GBDYRS);
+                        $("#BJRS").val(data.result[0].GBDYRS);
                         }
                     }
                 });
