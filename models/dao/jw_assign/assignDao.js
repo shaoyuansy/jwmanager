@@ -82,6 +82,24 @@ exports.querybjStr = function (req, res, JSXM, KCMC, ZYMC, SSNJ, fn) {
         });
     });
 };
+/* 获取计算机文化选课个数为总头数*/
+exports.queryZTS = function (req, res, SSNJ, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.queryZTS, SSNJ, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+/* 获取计算机文化选课个数为总头数*/
+exports.queryassignMsg = function (req, res, SSNJ, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.queryassignMsg, SSNJ, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
 //导入时批量插入授课信息
 exports.insertSome = function (req, res, sqlStr, fn) {
     pool.getConnection(function (err, connection) {

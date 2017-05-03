@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地local
+Source Server         : localhost_3306
 Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : jw
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2017-05-02 22:01:59
+Date: 2017-05-04 00:18:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -40,15 +40,40 @@ CREATE TABLE `jw_assign` (
 -- ----------------------------
 -- Records of jw_assign
 -- ----------------------------
-INSERT INTO `jw_assign` VALUES ('36', '李想', '体育（1）', '毛泽东', '软件开发与测试', '2015级', '1大班', '1', '1', '1', '是', '是', null, '2016-2017第一学期');
-INSERT INTO `jw_assign` VALUES ('37', '施耐庵', '体育（1）', '毛泽东', '嵌入式开发', '2015级', '1大班', '74', '20', '20', '', '', '', null);
-INSERT INTO `jw_assign` VALUES ('38', '李想', '计算机英语', '林予松', 'JAVA', '2013级', '1大班', '125', '1', '1', '', '', '', null);
-INSERT INTO `jw_assign` VALUES ('39', '李燕超', '体育（3）', '付元忠', 'JAVA', '2014级', '1大班', '125', '2', '2', '是', '否', '', null);
-INSERT INTO `jw_assign` VALUES ('41', '施耐庵', '体育（1）', '毛泽东', '嵌入式开发', '2015级', '1大班', '74', '123', '123', '是', '否', '123', '2016-2017第一学期');
+INSERT INTO `jw_assign` VALUES ('36', '李想', '体育（1）', '毛泽东', '软件开发与测试', '2015级', '1大班', '1', '周四3,4节', '9-409', '是', '是', null, '2016-2017第一学期');
+INSERT INTO `jw_assign` VALUES ('37', '施耐庵', '体育（1）', '毛泽东', '嵌入式开发', '2015级', '1大班', '74', '周四3,4节', '9-409', '是', '否', '', '2016-2017第一学期');
+INSERT INTO `jw_assign` VALUES ('38', '李想', '计算机英语', '林予松', 'JAVA', '2013级', '1大班', '125', '周三1,2节', '9-305', '否', '否', '', '2016-2017第二学期');
+INSERT INTO `jw_assign` VALUES ('39', '李燕超', '体育（3）', '付元忠', 'JAVA', '2014级', '1大班', '125', '周一5,6节', '9-201', '是', '否', '', '2016-2017第二学期');
+INSERT INTO `jw_assign` VALUES ('41', '施耐庵', '体育（1）', '毛泽东', '嵌入式开发', '2015级', '1大班', '74', '周五3,4节', '9-305', '是', '否', '', '2016-2017第一学期');
 INSERT INTO `jw_assign` VALUES ('45', '李翠霞', '计算机文化', '李翠霞', '嵌入式开发', '2016级', '1大班', '60', '周四3,4节', '9-409', '否', '否', null, '2016-2017第二学期');
 INSERT INTO `jw_assign` VALUES ('46', '李翠霞', '计算机文化', '李翠霞', '嵌入式开发', '2016级', '2大班', '60', '周三1,2节', '9-305', '否', '否', null, '2016-2017第二学期');
 INSERT INTO `jw_assign` VALUES ('47', '李翠霞', '计算机文化', '李翠霞', '人工智能', '2016级', '1大班', '98', '周一5,6节', '9-201', '否', '否', null, '2016-2017第二学期');
-INSERT INTO `jw_assign` VALUES ('48', '李翠霞', '计算机文化', '李翠霞', '嵌入式开发', '2015级', '1大班', '98', '周五3,4节', '9-305', '否', '否', null, '2016-2017第二学期');
+INSERT INTO `jw_assign` VALUES ('48', '李翠霞', '计算机文化', '李翠霞', '金融信息化', '2016级', '1大班', '60', '周五3,4节', '9-305', '否', '否', null, '2016-2017第二学期');
+
+-- ----------------------------
+-- Table structure for jw_cpculture
+-- ----------------------------
+DROP TABLE IF EXISTS `jw_cpculture`;
+CREATE TABLE `jw_cpculture` (
+  `ID` int(11) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `ZJMC` varchar(255) DEFAULT NULL,
+  `KS` varchar(255) DEFAULT NULL,
+  `ZKT` varchar(255) DEFAULT NULL,
+  `SJ` varchar(255) DEFAULT NULL,
+  `SSZY` varchar(255) DEFAULT NULL,
+  `SSNJ` varchar(255) DEFAULT NULL,
+  `SSBJ` varchar(255) DEFAULT NULL,
+  `SKSJ` varchar(255) DEFAULT NULL,
+  `SKDD` varchar(255) DEFAULT NULL,
+  `SKJS` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of jw_cpculture
+-- ----------------------------
+INSERT INTO `jw_cpculture` VALUES ('00000000001', '绪论', '2', '4', '第3周', '嵌入式开发', '2016级', '1大班', '周四3,4节', '9-409', null);
+INSERT INTO `jw_cpculture` VALUES ('00000000002', '数据在计算机中的表示', '2', '4', '第4周', '嵌入式开发', '2016级', '1大班', '周四3,4节', '9-409', '沈可可');
 
 -- ----------------------------
 -- Table structure for jw_graproject

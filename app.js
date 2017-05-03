@@ -52,6 +52,8 @@ var teacher_courseService = require('./routes/service/teacher_courseService');
 var userService = require('./routes/service/userService');
 //授课管理服务
 var assignService = require('./routes/service/assignService');
+//文化课选课服务
+var cpcultureService = require('./routes/service/cpcultureService');
 
 var app = express();
 
@@ -116,6 +118,8 @@ app.use('/graService', graService);
 app.use('/teacher_courseService', teacher_courseService);
 app.use('/userService', userService);
 app.use('/assignService', assignService);
+app.use('/cpcultureService', cpcultureService);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

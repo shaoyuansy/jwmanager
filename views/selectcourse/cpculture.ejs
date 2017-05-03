@@ -44,7 +44,20 @@
     .input-group-addon{
         padding: 0px 5px;
     }
+    .tags p{
+        vertical-align: middle;
+        color: #606c84;
+        position: relative;
+        left: 180px;
+        top:-22px;
+    }
+    .assign-table thead tr th,
+    .assign-table tbody tr td{
+        text-align: center;
+    }
 </style>
+<script src="../javascripts/mydatatable.js"></script>
+<script src="/table2excel/jquery.table2excel.js"></script>
 <div class="content-wrapper">
     <section class="content-header">
         <h1>计算机文化选课信息管理页面</h1>
@@ -64,33 +77,339 @@
                             <span class="glyphicon glyphicon-th"></span>
                         </div>
                     </div>
+                    <div class="tags">
+                        <p>注：选择年级。</p>
+                    </div>
                 </div>
                 <div class="box-tools pull-right">
-                    <div class="upload_group">
-                        <input type="file" id="upfile" accept=".xls" />
-                        <input type="text" class="style_upload" readonly/>
-                        <label for="upfile" class="open">浏览</label>
-                    </div>
-                    <button type="button" title="导入" class="btn btn-box-tool" onclick="readExcel()">
-                        <i class="fa fa-fw fa-sign-in"></i>导入
-                    </button>
                     <button type="button" title="导出" class="btn btn-box-tool" onclick="toExcel()">
                         <i class="fa fa-fw fa-cloud-download"></i>导出
                     </button>
                     <button type="button" title="批量删除" class="btn btn-box-tool" onclick="delSomeJys();">
                         <i class="fa fa-fw fa-times"></i>批量删除
                     </button>
-                    <button type="button" title="添加" class="btn btn-box-tool" onclick="editMajor(0)">
-                        <i class="fa fa-fw fa-user-plus"></i>添加
-                    </button>
                 </div>
-                
-            </div>
-            <div class="box-body" >
-                <table class="table table-bordered table-striped" width="100%">
-                    
-                </table>
+                <div class="box box-default box-solid" style="margin-top:10px;">
+                    <div class="box-header with-border" style="padding:3px;font-size:14px;">
+                        <h3 class="box-title" style="font-size:14px;">选择课程安排</h3>
+                        <div class="box-tools pull-right" style="top: 1px;">
+                            <button type="button" style="padding:0px;line-height:0px" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-bordered table-striped assign-table" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>章节名称</th>
+                                    <th>课时</th>
+                                    <th>总课头</th>
+                                    <th>授课时间</th>
+                                    <th>授课信息</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select class='ZJMC'>
+                                            <option>绪论</option>
+                                            <option>数据在计算机中的表示</option>
+                                            <option>计算机硬件系统</option>
+                                            <option>计算机软件系统</option>
+                                            <option>操作系统和文件管理</option>
+                                            <option>计算机网络</option>
+                                            <option>数字媒体技术基础</option>
+                                            <option>计算机信息安全</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class='KS'>
+                                            <option>2</option>                                            
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class='ZKT'></select>
+                                    </td>
+                                    <td>
+                                        <select class='SKSJ'>
+                                            <option>第3周</option>
+                                            <option>第4周</option>
+                                            <option>第5周</option>
+                                            <option>第7周</option>
+                                            <option>第8周</option>
+                                            <option>第9周</option>
+                                            <option>第10周</option>
+                                            <option>第11周</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class='SKXX'></select>
+                                    </td>
+                                    <td><button type="button" class="btn btn-danger" onclick="assignCpculture()" style="height:22px;width:60px;padding:0px;line-height: 20px;">选 课</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="box box-default box-solid" style="margin-top:10px;">
+                    <div class="box-header with-border" style="padding:3px;font-size:14px;">
+                        <h3 class="box-title show_term" style="font-size:14px;"></h3>
+                    </div>
+                    <div class="box-body" >
+                    <table id="culturedatatable" class="table table-bordered table-striped" width="100%">
+                        <thead>
+                            <tr>
+                                <th><input id="checkall" name="checkall" type="checkbox"></th>
+                                <th>章节名称</th>
+                                <th>课时</th>
+                                <th>总课头</th>
+                                <th>授课时间</th>
+                                <th>授课信息</th>
+                                <th>授课教师</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </section>
 </div>
+<script>
+    $(document).ready(function () {
+        $("#datechoose").datepicker({
+            format: 'yyyy',
+            autoclose:true,
+            language:'zh-CN',
+            todayHighlight:true,
+            startView:'2',
+            minViewMode:'years',
+            title:'--------年级选择--------'
+        });
+
+        var nowxn = get1st2nd('');
+        var time = new Date(nowxn+"-01-01");
+        $('#datechoose').datepicker('setDate', time); //构建时间选择器
+        build_table();//获取表格
+        getZKT();
+        getassignMsg();
+
+        $('#datechoose').datepicker().on('hide', function(e) { //改变时间选择器重新获取当前的信息
+            build_table();
+        });
+
+        $(".ZJMC").change(function () {
+            if($(".ZJMC").val() == "绪论"){
+                $(".SKSJ").val('第3周');
+            }else if($(".ZJMC").val() == "数据在计算机中的表示"){
+                $(".SKSJ").val('第4周');
+            }else if($(".ZJMC").val() == "计算机硬件系统"){
+                $(".SKSJ").val('第5周');
+            }else if($(".ZJMC").val() == "计算机软件系统"){
+                $(".SKSJ").val('第7周');
+            }else if($(".ZJMC").val() == "操作系统和文件管理"){
+                $(".SKSJ").val('第8周');
+            }else if($(".ZJMC").val() == "计算机网络"){
+                $(".SKSJ").val('第9周');
+            }else if($(".ZJMC").val() == "数字媒体技术基础"){
+                $(".SKSJ").val('第10周');
+            }else if($(".ZJMC").val() == "计算机信息安全"){
+                $(".SKSJ").val('第11周');
+            }
+        });
+
+        $(".SKSJ").change(function () {
+            if($(".SKSJ").val() == "第3周"){
+                $(".ZJMC").val('绪论');
+            }else if($(".SKSJ").val() == "第4周"){
+                $(".ZJMC").val('数据在计算机中的表示');
+            }else if($(".SKSJ").val() == "第5周"){
+                $(".ZJMC").val('计算机硬件系统');
+            }else if($(".SKSJ").val() == "第7周"){
+                $(".ZJMC").val('计算机软件系统');
+            }else if($(".SKSJ").val() == "第8周"){
+                $(".ZJMC").val('操作系统和文件管理');
+            }else if($(".SKSJ").val() == "第9周"){
+                $(".ZJMC").val('计算机网络');
+            }else if($(".SKSJ").val() == "第10周"){
+                $(".ZJMC").val('数字媒体技术基础');
+            }else if($(".SKSJ").val() == "第11周"){
+                $(".ZJMC").val('计算机信息安全');
+            }
+        });
+
+    });
+    
+    function build_table(){
+        var time = $('#datechoose').datepicker('getDate');
+        $('.show_term').text(time.getFullYear()+"级 《计算机文化》课程安排信息表");
+        var nj = time.getFullYear()+"级";
+        var columns = [
+            {
+                "className": "text_center",
+                "data": function (obj) {
+                    return '<input id="checkrow" name="checkrow" type="checkbox" value=' + obj.ID + '>';
+                }
+            },
+            {
+                "data": "ZJMC",
+                "className": "text_center"
+            },
+            {
+                "data": "KS",
+                "className": "text_center"
+            },
+            {
+                "data": "ZKT",
+                "className": "text_center"
+            },
+            {
+                "data": "SJ",
+                "className": "text_center"
+            },
+            {
+                "className": "text_center",
+                "data": function (obj) {
+                    return obj.SSZY +" "+ obj.SSBJ +" "+ obj.SKSJ +" "+ obj.SKDD;
+                }
+            },
+            {
+                "data": "SKJS",
+                "className": "text_center"
+            },
+            {
+                "className": "text_center",
+                "data": function (obj) {
+                    return '<a style="margin-left: 10px;" onclick="delAssign(\'' + obj.ID + '\')" href="#" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';
+                }
+            }
+        ];
+        if ( $.fn.dataTable.isDataTable( '#culturedatatable' ) ) { // 已经构建了database
+            var table = $('#culturedatatable').DataTable();
+            table.ajax.url( '/cpcultureService/cpcultureList?nj='+encodeURI(nj)).load();
+            table.draw();
+        } else {
+            var mytable = CultureDataTable('#culturedatatable', '/cpcultureService/cpcultureList?nj='+encodeURI(nj), columns);
+        }
+    }
+
+    function assignCpculture(){
+        var time = $('#datechoose').datepicker('getDate');
+        var SSNJ = time.getFullYear()+"级";
+        var ZJMC = $(".ZJMC").val();
+        var KS = $(".KS").val();
+        var ZKT = $(".ZKT").val();
+        var SJ = $(".SKSJ").val();
+        var SKXXArr = $(".SKXX").val().split(" ");
+        var SKJS = getSessionUser();
+        var SSZY = SKXXArr[0];
+        var SSBJ = SKXXArr[1];
+        var SKSJ = SKXXArr[2];
+        var SKDD = SKXXArr[3];
+        $.ajax({
+            url: "/cpcultureService/existCulture",
+            type: "post",
+            dataType: 'json',
+            data:{ZJMC:ZJMC,KS:KS,ZKT:ZKT,SJ:SJ,SSNJ:SSNJ,SSZY:SSZY,SSBJ:SSBJ,SKSJ:SKSJ,SKDD:SKDD},
+            async: false,
+            success: function (data) {
+                if(data.result && data.result.length>0){
+                    $("#warning_content").text("不可重复选课");
+                    $("#warning_modal").modal("show");
+                }else{
+                    $.ajax({
+                        url: "/cpcultureService/assignCulture",
+                        type: "post",
+                        dataType: 'json',
+                        data:{ZJMC:ZJMC,KS:KS,ZKT:ZKT,SJ:SJ,SSNJ:SSNJ,SSZY:SSZY,SSBJ:SSBJ,SKSJ:SKSJ,SKDD:SKDD,SKJS:SKJS},
+                        async: false,
+                        success: function (data) {
+                            if(data.result && data.result.affectedRows > 0){
+                                var table = $('#culturedatatable').DataTable();
+                                table.ajax.reload();
+                                table.draw();		
+                                $("#success_modal").modal();
+                                setTimeout(function(){			
+                                    $("#success_modal").modal('hide');
+                                },1000);
+                            } else {
+                                $("#faile_modal").modal();
+                                setTimeout(function(){					
+                                    $("#faile_modal").modal('hide');
+                                },1000);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    function getZKT(){
+        time = $('#datechoose').datepicker('getDate');
+        time = time.getFullYear()+"级";
+        $.ajax({
+            url: "/cpcultureService/getZTS",
+            type: "post",
+            dataType: 'json',
+            data:{SSNJ:time},
+            async: false,
+            success: function (data) {
+                if(data.result.length > 0){
+                    $(".ZKT").html('<option>'+ data.result[0].ZKT +'</option>');                        
+                }
+            }
+        });
+    }
+
+    function getassignMsg(){
+        time = $('#datechoose').datepicker('getDate');
+        time = time.getFullYear()+"级";
+        $.ajax({
+            url: "/cpcultureService/getassignMsg",
+            type: "post",
+            dataType: 'json',
+            data:{SSNJ:time},
+            async: false,
+            success: function (data) {
+                if(data.result.length > 0){
+                    var str = '';
+                    data.result.forEach(function(v,i,arr) {
+                        str += '<option>'+ v.SSZY +" "+ v.SSBJ +" "+ v.SKSJ +" "+ v.SKDD +'</option>';
+                    });
+                    $(".SKXX").html(str);                        
+                }
+            }
+        });
+    }
+
+    function get1st2nd(d){
+        if(d==""){
+            var nowDate = new Date();
+        }else {
+            var nowDate = new Date(d);
+        }
+        var nowYear = nowDate.getFullYear();
+        var nowMonth = nowDate.getMonth() + 1;
+        var xueqi = '';
+        if (nowDate) {
+            if (nowMonth < 8 && nowMonth > 1) {
+                xueqi = nowYear-1;
+            }else if (nowMonth >= 8 && nowMonth <= 12 ) {
+                xueqi = nowYear;
+            }else if(nowMonth == 1){
+                xueqi = nowYear-1;
+            }
+        }
+        return xueqi;
+    }
+
+    function getSessionUser(){ //获取当前登录教师
+        var userMsg = GetIndexData();
+        return userMsg[0].USERNAME;
+    }
+    
+</script>

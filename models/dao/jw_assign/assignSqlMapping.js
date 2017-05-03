@@ -18,6 +18,8 @@ var assign = {
     querybjStr: 'SELECT jw_zy.BJGS FROM jw_teacher ,jw_kc_js ,jw_kc ,jw_zy_kc ,jw_zy ' +
     'WHERE jw_teacher.ID = jw_kc_js.JSID AND jw_kc.ID = jw_kc_js.KCID AND jw_kc.ID = jw_zy_kc.KCID AND ' +
     'jw_zy_kc.ZYID = jw_zy.ID AND jw_teacher.XM=? AND jw_kc.KCMC=? AND ZYMC=? AND KSNJ=?;',
+    queryZTS:'SELECT COUNT(*) AS ZKT FROM jw_assign WHERE KCMC="计算机文化" AND SSNJ=?;',
+    queryassignMsg:'SELECT SSZY,SSBJ,SKSJ,SKDD FROM jw_assign WHERE KCMC="计算机文化" AND SSNJ=?;',
     queryfzrStr: 'SELECT KCFZR FROM jw_kc WHERE KCMC=?;',
     insert: 'INSERT INTO jw_assign SET JSXM=?,KCMC=?,KCFZR=?,SSZY=?,SSNJ=?,SSBJ=?,BJRS=?,SKSJ=?,SKDD=?,SFWSJK=?,SFDSZ=?,WPJSPJ=?,TERM=?;',
     insertSome: 'INSERT INTO jw_assign SET JSXM=?,KCMC=?,KCFZR=?,SSZY=?,SSNJ=?,SSBJ=?,BJRS=?,SKSJ=?,SKDD=?,SFWSJK=?,SFDSZ=?,WPJSPJ=?',
