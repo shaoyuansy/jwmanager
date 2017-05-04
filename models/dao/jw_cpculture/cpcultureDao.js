@@ -33,3 +33,22 @@ exports.queryassignCulture = function (req, res, ZJMC,KS,ZKT,SJ,SSNJ,SSZY,SSBJ,S
         });
     });
 };
+//删除记录
+exports.delete = function (req, res, ID, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.delete, [ID], function () {
+            connection.release();
+            fn(1);
+        });
+    });
+};
+//批量删除记录
+exports.deleteSome = function (req, res, idstr, fn) {
+    pool.getConnection(function (err, connection) {
+        var sql = "DELETE FROM jw_cpculture WHERE ID IN (" + idstr + ");";
+        connection.query(sql, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};

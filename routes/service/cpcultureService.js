@@ -34,5 +34,21 @@ router.post('/assignCulture', function (req, res, next) {
         res.send({"result": result});
     });
 });
+//删除一条文化课选课记录
+router.post('/delOne', function (req, res, next) {
+    cpcultureDao.delete(req, res, req.body.ID, function (result) {
+        res.send({"state": result});
+    });
+});
+//批量删除文化课选课记录
+router.post('/delSome', function (req, res, next) {
+    cpcultureDao.deleteSome(req, res, req.body.idstr, function (result) {
+        if (result) {
+            res.send({"result": result.affectedRows});
+        } else {
+            res.send({"result": 0});
+        }
+    });
+});
 
 module.exports = router;
