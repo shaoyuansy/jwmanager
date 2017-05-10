@@ -23,6 +23,12 @@ router.post('/getXk', function (req, res, next) {
         res.send({"result": result});
     });
 });
+//获取外聘教师-课程选课信息列表
+router.post('/admingetXk', function (req, res, next) {
+    kc_jsDao.admingetXk(req, res, req.body.kcid, req.body.term, function (result) {
+        res.send({"result": result});
+    });
+});
 //判断是否存在此选课信息
 router.post('/exztXk', function (req, res, next) {
     kc_jsDao.exztXk(req, res, req.body.jsid, req.body.kcid, req.body.term, function (result) {

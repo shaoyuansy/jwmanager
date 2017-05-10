@@ -111,7 +111,10 @@
 
 <script>
     $(function () {
-        $("#JSMC").val(getSessionUser());
+        var rule = getRule();
+        if(rule != 1){
+            $("#JSMC").val(getSessionUser());
+        }
         select_zr();
 
         $(".xuanke-li").click(function(){
@@ -137,42 +140,81 @@
 
     //查询此教师选课列表
     function getXk() {
-        var XM = getSessionUser();//获取此教师姓名为操作人
-        var KCID = $("#KCID").val();//kcid
-        var TERM = $("#xueqiStr").text();
-        $.ajax({
-            type: "post",
-            url: '/teacher_courseService/getXk',
-            dataType: "json",
-            data: {czr: XM, kcid: KCID, term: TERM},
-            async: false,
-            cache: true,
-            success: function (data) {
-                if (data.result.length > 0) {
-                    $("#xgtable").html("<tr><th style='width: 3%'></th>"+
-                        "<th style='width: 15%'>头数</th>" +
-                        "<th style='width: 20%'>教师姓名</th>" +
-                        "<th style='width: 25%'>是否专任</th>" +
-                        "<th style='width: 30%'>备注</th>" +
-                        "<th style='width: 10%'></th></tr>");
-                    var appendStr = '';
-                    data.result.forEach(function(v,i,arr) {
-                        appendStr += '<tr><td><button type="button" class="delete-btn btn btn-danger btn-sm" onclick="deleteXk(\''+ v.ID +'\')"><span class="glyphicon glyphicon-trash"></span></button></td>';
-                        appendStr += '<td><input id="ts'+ v.ID +'" type="number" min="1" max="<%= surts %>" class="form-control" onblur="check_Surts(this.value)" onfocus="clear_error()" value='+ v.TS +'></td>';
-                        appendStr += '<td><input type="text" class="form-control" readonly value="'+ v.XM +'"></td>';
-                        appendStr += '<td><input type="text" class="form-control" readonly value="'+ v.SFZR +'"></td>';
-                        appendStr += '<td><input id="bz'+ v.ID +'" type="text" class="form-control" value="'+ v.BZ +'"></td>';
-                        appendStr += '<td><botton type="button" class="btn btn-primary" onclick="submitXiugai(\''+ v.ID +'\')">修改</botton></td></tr>';
-                    });
-                    $("#xgtable").append(appendStr);
-                } else {
-                    $("#xgtable").html("<tr><th>您对该门课尚未选择</th></tr><tr></tr>");
+        var rule = getRule();//检查是否管理员
+        if(rule == 1){
+            var KCID = $("#KCID").val();//kcid
+            var TERM = $("#xueqiStr").text();
+            $.ajax({
+                type: "post",
+                url: '/teacher_courseService/admingetXk',
+                dataType: "json",
+                data: {czr: XM, kcid: KCID, term: TERM},
+                async: false,
+                cache: true,
+                success: function (data) {
+                    if (data.result.length > 0) {
+                        $("#xgtable").html("<tr><th style='width: 3%'></th>"+
+                            "<th style='width: 15%'>头数</th>" +
+                            "<th style='width: 20%'>教师姓名</th>" +
+                            "<th style='width: 25%'>是否专任</th>" +
+                            "<th style='width: 30%'>备注</th>" +
+                            "<th style='width: 10%'></th></tr>");
+                        var appendStr = '';
+                        data.result.forEach(function(v,i,arr) {
+                            appendStr += '<tr><td><button type="button" class="delete-btn btn btn-danger btn-sm" onclick="deleteXk(\''+ v.ID +'\')"><span class="glyphicon glyphicon-trash"></span></button></td>';
+                            appendStr += '<td><input id="ts'+ v.ID +'" type="number" min="1" max="<%= surts %>" class="form-control" onblur="check_Surts(this.value)" onfocus="clear_error()" value='+ v.TS +'></td>';
+                            appendStr += '<td><input type="text" class="form-control" readonly value="'+ v.XM +'"></td>';
+                            appendStr += '<td><input type="text" class="form-control" readonly value="'+ v.SFZR +'"></td>';
+                            appendStr += '<td><input id="bz'+ v.ID +'" type="text" class="form-control" value="'+ v.BZ +'"></td>';
+                            appendStr += '<td><botton type="button" class="btn btn-primary" onclick="submitXiugai(\''+ v.ID +'\')">修改</botton></td></tr>';
+                        });
+                        $("#xgtable").append(appendStr);
+                    } else {
+                        $("#xgtable").html("<tr><th>暂无教师选课</th></tr><tr></tr>");
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
                 }
-            },
-            error: function (e) {
-                console.log(e);
-            }
-        });
+            });
+        }else{
+            var XM = getSessionUser();//获取此教师姓名为操作人
+            var KCID = $("#KCID").val();//kcid
+            var TERM = $("#xueqiStr").text();
+            $.ajax({
+                type: "post",
+                url: '/teacher_courseService/getXk',
+                dataType: "json",
+                data: {czr: XM, kcid: KCID, term: TERM},
+                async: false,
+                cache: true,
+                success: function (data) {
+                    if (data.result.length > 0) {
+                        $("#xgtable").html("<tr><th style='width: 3%'></th>"+
+                            "<th style='width: 15%'>头数</th>" +
+                            "<th style='width: 20%'>教师姓名</th>" +
+                            "<th style='width: 25%'>是否专任</th>" +
+                            "<th style='width: 30%'>备注</th>" +
+                            "<th style='width: 10%'></th></tr>");
+                        var appendStr = '';
+                        data.result.forEach(function(v,i,arr) {
+                            appendStr += '<tr><td><button type="button" class="delete-btn btn btn-danger btn-sm" onclick="deleteXk(\''+ v.ID +'\')"><span class="glyphicon glyphicon-trash"></span></button></td>';
+                            appendStr += '<td><input id="ts'+ v.ID +'" type="number" min="1" max="<%= surts %>" class="form-control" onblur="check_Surts(this.value)" onfocus="clear_error()" value='+ v.TS +'></td>';
+                            appendStr += '<td><input type="text" class="form-control" readonly value="'+ v.XM +'"></td>';
+                            appendStr += '<td><input type="text" class="form-control" readonly value="'+ v.SFZR +'"></td>';
+                            appendStr += '<td><input id="bz'+ v.ID +'" type="text" class="form-control" value="'+ v.BZ +'"></td>';
+                            appendStr += '<td><botton type="button" class="btn btn-primary" onclick="submitXiugai(\''+ v.ID +'\')">修改</botton></td></tr>';
+                        });
+                        $("#xgtable").append(appendStr);
+                    } else {
+                        $("#xgtable").html("<tr><th>您对该门课尚未选择</th></tr><tr></tr>");
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        }
     }
 
     function deleteXk(id){
@@ -265,7 +307,6 @@
                 }else{
                     if(confirm("该教师不存在，是否将其添加为："+ sfzr +"？")){
                         var jsid = addTeacher(jsmc,sfzr);
-                        console.log(jsid);
                         if(jsid == ""){
                             $("#warning_content").text("教师信息保存失败，请重试");
                             $("#warning_modal").modal("show");
@@ -282,7 +323,8 @@
                 }
             }else{
                 var user = getSessionUser();
-                if(teacher.SFZR == "学院教师" &&　user !=teacher.XM ){
+                var rule = getRule();
+                if(teacher.SFZR == "学院教师" &&　user !=teacher.XM && rule != 1){
                     $(".error_msg").text('此教师为专任教师，您不能代其选课。');
                     return false;
                 }else{
@@ -308,7 +350,6 @@
             cache: true,
             success: function (data) {
                 if (data.result && data.result.length>0) {
-                    console.log(data.result);
                     flag = true;
                 }
             },
@@ -321,7 +362,8 @@
 
     function todoSubmit(jskcid,toushu,jsid,kcid,bz,jsmc,term){ //提交选课
         let user = getSessionUser();
-        if(jsmc != user){
+        let rule = getRule();
+        if(jsmc != user && rule != 1){
             bz = user +"代选 " + bz;
         }
         $.ajax({
@@ -411,4 +453,10 @@
         var userMsg = GetIndexData();
         return userMsg[0].USERNAME;
     }
+
+    function getRule(){
+        var userMsg = GetIndexData();
+        return userMsg[0].RULE;
+    }
+    
 </script>

@@ -39,6 +39,15 @@ exports.getXk = function (req, res, kcid, czr, term, fn) {
         });
     });
 };
+/* 管理员获取教师选课信息*/
+exports.admingetXk = function (req, res, kcid, term, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.adminqueryXk, [kcid, term], function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
 /* 判断是否存在此选课信息*/
 exports.exztXk = function (req, res, jsid, kcid, term, fn) {
     pool.getConnection(function (err, connection) {

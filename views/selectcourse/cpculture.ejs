@@ -55,6 +55,9 @@
     .assign-table tbody tr td{
         text-align: center;
     }
+    .adminshow{
+        display: none;
+    }
 </style>
 <script src="../javascripts/mydatatable.js"></script>
 <script src="/table2excel/jquery.table2excel.js"></script>
@@ -98,7 +101,7 @@
                         </div>
                     </div>
                     <div class="box-body">
-                        <table class="table table-bordered table-striped assign-table" width="100%">
+                        <table class="table table-bordered table-striped assign-table" >
                             <thead>
                                 <tr>
                                     <th>章节名称</th>
@@ -106,6 +109,7 @@
                                     <th>总课头</th>
                                     <th>授课时间</th>
                                     <th>授课信息</th>
+                                    <th class="adminshow">授课教师</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
@@ -145,6 +149,9 @@
                                     </td>
                                     <td>
                                         <select class='SKXX'></select>
+                                    </td>
+                                    <td class="adminshow">
+                                        <input id="A_SKJS" type="text" />
                                     </td>
                                     <td><button type="button" class="btn btn-danger" onclick="assignCpculture()" style="height:22px;width:60px;padding:0px;line-height: 20px;">选 课</button></td>
                                 </tr>
@@ -258,6 +265,11 @@
             }
         });
 
+        var rule = getRule();
+        if(rule == 1){
+            $(".adminshow").show();
+        }
+
     });
     
     function build_table(){
@@ -301,7 +313,8 @@
                 "className": "text_center",
                 "defaultContent": '',
                 "data": function (obj) {
-                    if($("#teachername").val() == obj.SKJS){
+                    var rule = getRule();
+                    if($("#teachername").val() == obj.SKJS || rule == 1){
                         return '<a style="margin-left: 10px;" onclick="delCulture(\'' + obj.ID + '\')" href="#" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';  
                     }
                 }
@@ -324,7 +337,17 @@
         var ZKT = $(".ZKT").val();
         var SJ = $(".SKSJ").val();
         var SKXXArr = $(".SKXX").val().split(" ");
-        var SKJS = getSessionUser();
+        var rule = getRule();
+        if(rule == 1){
+            var SKJS = $("#A_SKJS").val();
+            if(SKJS == ""){
+                $("#warning_content").text('授课教师不可为空');
+                $("#warning_modal").modal("show");
+                return false;
+            }
+        }else{
+            var SKJS = getSessionUser();
+        }        
         var SSZY = SKXXArr[0];
         var SSBJ = SKXXArr[1];
         var SKSJ = SKXXArr[2];
@@ -522,5 +545,10 @@
             $("#warning_modal").modal("show");
         }
     }
+
+    function getRule(){
+        var userMsg = GetIndexData();
+        return userMsg[0].RULE;
+    }    
     
 </script>

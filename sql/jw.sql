@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2017-05-04 00:18:34
+Date: 2017-05-10 21:51:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -67,13 +67,13 @@ CREATE TABLE `jw_cpculture` (
   `SKDD` varchar(255) DEFAULT NULL,
   `SKJS` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of jw_cpculture
 -- ----------------------------
-INSERT INTO `jw_cpculture` VALUES ('00000000001', '绪论', '2', '4', '第3周', '嵌入式开发', '2016级', '1大班', '周四3,4节', '9-409', null);
 INSERT INTO `jw_cpculture` VALUES ('00000000002', '数据在计算机中的表示', '2', '4', '第4周', '嵌入式开发', '2016级', '1大班', '周四3,4节', '9-409', '沈可可');
+INSERT INTO `jw_cpculture` VALUES ('00000000005', '绪论', '2', '4', '第3周', '嵌入式开发', '2016级', '1大班', '周四3,4节', '9-409', '黎川江');
 
 -- ----------------------------
 -- Table structure for jw_graproject
@@ -85,7 +85,7 @@ CREATE TABLE `jw_graproject` (
   `RS` varchar(50) DEFAULT NULL,
   `JSID` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of jw_graproject
@@ -167,17 +167,17 @@ CREATE TABLE `jw_kc_js` (
   `CZR` varchar(30) DEFAULT NULL COMMENT '操作人',
   `TERM` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of jw_kc_js
 -- ----------------------------
-INSERT INTO `jw_kc_js` VALUES ('14', '4', '19', '2', '', '乐克鹏', '2016-2017第一学期');
 INSERT INTO `jw_kc_js` VALUES ('15', '4', '17', '2', '', '常刘凯', '2016-2017第二学期');
 INSERT INTO `jw_kc_js` VALUES ('16', '4', '18', '2', '', '黎川江', '2016-2017第二学期');
 INSERT INTO `jw_kc_js` VALUES ('17', '4', '20', '2', '', '王磊', '2016-2017第二学期');
 INSERT INTO `jw_kc_js` VALUES ('18', '4', '52', '2', '', '邵远', '2016-2017第二学期');
 INSERT INTO `jw_kc_js` VALUES ('20', '4', '56', '12', '', '李翠霞', '2017-2018第二学期');
+INSERT INTO `jw_kc_js` VALUES ('22', '3', '6', '1', '', '管理员', '2017-2018第二学期');
 
 -- ----------------------------
 -- Table structure for jw_teacher
@@ -268,26 +268,27 @@ CREATE TABLE `jw_user` (
   `USERNAME` varchar(30) DEFAULT NULL COMMENT '用户名',
   `PASSWORD` varchar(255) DEFAULT NULL COMMENT '密码',
   `YHBH` varchar(30) DEFAULT NULL COMMENT '用户编号（用户为教师时用户编号为工号）',
+  `RULE` int(1) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='用户信息表';
 
 -- ----------------------------
 -- Records of jw_user
 -- ----------------------------
-INSERT INTO `jw_user` VALUES ('1', '管理员', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS000');
-INSERT INTO `jw_user` VALUES ('2', '李想', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS004');
-INSERT INTO `jw_user` VALUES ('3', '王珊珊', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS005');
-INSERT INTO `jw_user` VALUES ('4', '沈可可', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS006');
-INSERT INTO `jw_user` VALUES ('5', '郝亿佳', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS007');
-INSERT INTO `jw_user` VALUES ('6', '迪福', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS008');
-INSERT INTO `jw_user` VALUES ('7', '孙悟空', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS010');
-INSERT INTO `jw_user` VALUES ('8', '黎川江', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS011');
-INSERT INTO `jw_user` VALUES ('9', '李燕超', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS012');
-INSERT INTO `jw_user` VALUES ('10', '邵远', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS013');
-INSERT INTO `jw_user` VALUES ('11', '乐克鹏', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS014');
-INSERT INTO `jw_user` VALUES ('12', '王磊', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', null);
-INSERT INTO `jw_user` VALUES ('13', '常刘凯', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', null);
-INSERT INTO `jw_user` VALUES ('14', '李翠霞', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', null);
+INSERT INTO `jw_user` VALUES ('1', '管理员', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS000', '1');
+INSERT INTO `jw_user` VALUES ('2', '李想', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS004', '0');
+INSERT INTO `jw_user` VALUES ('3', '王珊珊', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS005', '0');
+INSERT INTO `jw_user` VALUES ('4', '沈可可', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS006', '0');
+INSERT INTO `jw_user` VALUES ('5', '郝亿佳', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS007', '0');
+INSERT INTO `jw_user` VALUES ('6', '迪福', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS008', '0');
+INSERT INTO `jw_user` VALUES ('7', '孙悟空', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS010', '0');
+INSERT INTO `jw_user` VALUES ('8', '黎川江', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS011', '0');
+INSERT INTO `jw_user` VALUES ('9', '李燕超', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS012', '0');
+INSERT INTO `jw_user` VALUES ('10', '邵远', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS013', '0');
+INSERT INTO `jw_user` VALUES ('11', '乐克鹏', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS014', '0');
+INSERT INTO `jw_user` VALUES ('12', '王磊', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS015', '0');
+INSERT INTO `jw_user` VALUES ('13', '常刘凯', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS016', '0');
+INSERT INTO `jw_user` VALUES ('14', '李翠霞', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS017', '0');
 
 -- ----------------------------
 -- Table structure for jw_zy
