@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
+Source Server         : 本地local
 Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : jw
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2017-05-10 21:51:21
+Date: 2017-05-11 18:12:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -275,9 +275,9 @@ CREATE TABLE `jw_user` (
 -- ----------------------------
 -- Records of jw_user
 -- ----------------------------
-INSERT INTO `jw_user` VALUES ('1', '管理员', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS000', '1');
-INSERT INTO `jw_user` VALUES ('2', '李想', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS004', '0');
-INSERT INTO `jw_user` VALUES ('3', '王珊珊', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS005', '0');
+INSERT INTO `jw_user` VALUES ('1', 'admin', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '0', '1');
+INSERT INTO `jw_user` VALUES ('2', '李想', '428544dd21737ef853f3cd6124e4ddc033bda3b9', 'LS004', '1');
+INSERT INTO `jw_user` VALUES ('3', '王珊珊', '428544dd21737ef853f3cd6124e4ddc033bda3b9', 'LS005', '1');
 INSERT INTO `jw_user` VALUES ('4', '沈可可', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS006', '0');
 INSERT INTO `jw_user` VALUES ('5', '郝亿佳', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS007', '0');
 INSERT INTO `jw_user` VALUES ('6', '迪福', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'LS008', '0');
@@ -414,3 +414,17 @@ INSERT INTO `jw_zy_kc` VALUES ('174', '23', '4', '第二学期');
 INSERT INTO `jw_zy_kc` VALUES ('175', '20', '4', '第二学期');
 INSERT INTO `jw_zy_kc` VALUES ('176', '21', '4', '第二学期');
 INSERT INTO `jw_zy_kc` VALUES ('177', '24', '4', '第二学期');
+
+-- ----------------------------
+-- Table structure for web_conf
+-- ----------------------------
+DROP TABLE IF EXISTS `web_conf`;
+CREATE TABLE `web_conf` (
+  `conf` varchar(100) DEFAULT NULL,
+  `value` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of web_conf
+-- ----------------------------
+INSERT INTO `web_conf` VALUES ('init_pswd', '428544dd21737ef853f3cd6124e4ddc033bda3b9');
