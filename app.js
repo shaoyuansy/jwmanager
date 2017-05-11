@@ -32,6 +32,8 @@ var assigncourse = require('./routes/assign_course/assigncourse');
 var uploadFile = require('./routes/tools/uploadFile');
 //专业-课程信息
 var major_course = require('./routes/major_course/major_course');
+//权限控制
+var auth = require('./routes/auth_manage/auth');
 
 //服务类Service路由
 //教师服务
@@ -54,6 +56,9 @@ var userService = require('./routes/service/userService');
 var assignService = require('./routes/service/assignService');
 //文化课选课服务
 var cpcultureService = require('./routes/service/cpcultureService');
+//系统配置服务
+var web_confService = require('./routes/service/web_confService');
+
 
 var app = express();
 
@@ -106,6 +111,7 @@ app.use('/graproject', graproject);
 app.use('/tools/uploadFile', uploadFile);
 app.use('/major_course', major_course);
 app.use('/assigncourse', assigncourse);
+app.use('/auth',auth);
 
 //服务路由地址配置
 app.use('/jysService', jysService);
@@ -118,7 +124,7 @@ app.use('/teacher_courseService', teacher_courseService);
 app.use('/userService', userService);
 app.use('/assignService', assignService);
 app.use('/cpcultureService', cpcultureService);
-
+app.use('/web_confService', web_confService);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

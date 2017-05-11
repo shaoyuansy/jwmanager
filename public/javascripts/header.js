@@ -3,9 +3,7 @@ $(document).ready(function () {
 })
 function getUserName() {
     var menus = GetIndexData();
-    $('#loginUserNameH').html(menus[0].USERNAME + " 老师")
-    $('#loginUserNameh').html(menus[0].USERNAME)
-    $('#loginUserNameL').html(menus[0].USERNAME + " 老师")
+    $('#loginUserNameL').html(menus[0].USERNAME)
 }
 //获取用户信息
 function GetIndexData() {

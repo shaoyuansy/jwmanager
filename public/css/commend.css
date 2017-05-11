@@ -36,18 +36,24 @@ input[type="checkbox"][disabled]:checked {
   background-size: contain;
 }
 
-.logout{
+.logout,
+.changepwd{
 	margin-top: 11px;
+}
+.changepwd{
+	margin-right: 15px;
 }
 .user-panel{
 	margin: 10px 0px;
 }
-#logout_img{
+#logout_img,
+#change_pwd{
 	width: 25px;
 	cursor: pointer;
 	margin-right:5px; 
 }
-.logout lable{
+.logout lable,
+.changepwd lable{
 	color: #FFFFFF;
 	vertical-align: middle;
 	cursor: pointer;
@@ -62,4 +68,10 @@ input[type="checkbox"][disabled]:checked {
 .info{
 	display: block;
 	float: none;
+}
+.chgpwd_table{
+	margin-bottom: 5px;
+}
+p{
+	margin-bottom: 0px;
 }

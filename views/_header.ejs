@@ -11,7 +11,18 @@
             <div class="pull-right logout">
                 <span><img id="logout_img" src="/images/logout.png" onclick="logout()" /><lable for="logout_img" onclick="logout()" >注销</lable></span>
             </div>
+            <div class="pull-right changepwd">
+                <span><img id="change_pwd" src="/images/pwd.png" onclick="user_change_pwd()" /><lable for="change_pwd" onclick="user_change_pwd()" >修改密码</lable></span>
+            </div>            
         </div>
     </nav>
 </header>
 <script src="/javascripts/header.js"></script>
+<script>
+    function user_change_pwd(){
+        $('#changepwd_modal').modal();
+        var oldpwd = $('#oldpwd').val();
+        var newpwd = $('#newpwd').val();
+        var renewpwd = $('#renewpwd').val();
+    }
+    </script>

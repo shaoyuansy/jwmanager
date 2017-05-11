@@ -65,4 +65,49 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="changepwd_modal" tabindex="-1" role="dialog" style="background:none;top:270px" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width:400px;margin:0 auto;">
+                <div class="modal-header" style="padding:5px 10px;background-color: #337ab7;color:#FFF">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" style="font-size:15px;">
+                        修改密码
+                    </h4>
+                </div>
+                <div class="modal-body" style="margin:0 auto;text-align:center;padding-top:20px;padding-bottom:5px;height:205px">
+                    <table class="table table-bordered table-striped chgpwd_table">
+						<tbody>
+							<tr> 
+								<td style="width:150px;">原密码：</td>
+								<td style="width:350px;">
+                                    <input type="password" class="form-control" id="oldpwd" style="height: 28px;padding: 0px 5px;"/>
+                                </td>
+							</tr>
+                            <tr>
+								<td style="width:150px;">新密码：</td>
+								<td style="width:350px;">
+                                    <input type="password" class="form-control" id="newpwd" style="height: 28px;padding: 0px 5px;"/>
+                                </td>
+							</tr>
+							<tr>
+								<td style="width:150px;">重复新密码：</td>
+								<td style="width:350px;">
+                                    <input type="password" class="form-control" id="renewpwd" style="height: 28px;padding: 0px 5px;"    />
+                                </td>
+							</tr>
+						</tbody>
+					</table>
+                    <p style="text-align:left;padding-left:10px;"> 注：密码长度为6~15位字符</p>
+                    <div class='chgpwd_error' style="color:red;text-align:left;padding-left:10px;"></div>
+                </div>
+                <div class="modal-footer" style="padding:5px 10px;">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" style="height:22px;width:70px;padding:0px;line-height: 20px;">确 认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </footer>

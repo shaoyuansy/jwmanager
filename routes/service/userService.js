@@ -1,6 +1,3 @@
-/**
- * Created by sy on 2016/9/29.
- */
 var express = require('express');
 var router = express.Router();
 
@@ -15,6 +12,43 @@ router.get('/getUserData', function (req, res, next) {
         res.send(result);
     });
 });
+
+/* 获取管理员身份教师信息 */
+router.get('/getAdmins', function (req, res, next) {
+    userDao.getAdmins(req, res, function (result) {
+        res.send(result);
+    });
+});
+
+/* 添加管理员身份 */
+router.post('/changepswd', function (req, res, next) {
+    userDao.changepswd(req, res, req.body.npassword, req.body.atname,function (result) {
+        res.send({"state": result});
+    });
+});
+
+/* 添加管理员身份 */
+router.post('/addAdmin', function (req, res, next) {
+    userDao.addAdmin(req, res, req.body.tname, function (result) {
+        res.send({"state": result});
+    });
+});
+
+/* 删除管理员身份 */
+router.post('/delAdmin', function (req, res, next) {
+    userDao.delAdmin(req, res, req.body.ID, function (result) {
+        res.send({"state": result});
+    });
+});
+
+/* 验证管理员身份 */
+router.post('/isAdmin', function (req, res, next) {
+    userDao.isAdmin(req, res, req.body.tname, function (result) {
+        res.send({"result": result});
+    });
+});
+
+
 
 /* 用户服务结束. */
 module.exports = router;
