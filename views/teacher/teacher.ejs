@@ -45,6 +45,9 @@
     .text_center{
         text-align: center;
     }
+    .left_center{
+        text-align: left;
+    }
 </style>
 <div class="content-wrapper">
     <section class="content-header">
@@ -74,7 +77,7 @@
                         <i class="fa fa-fw fa-times"></i>批量删除
                     </button>
                     <button type="button" title="添加" class="btn btn-box-tool" onclick="editTeacher(0)">
-                        <i class="fa fa-fw fa-user-plus"></i>添加
+                        <i class="fa fa-fw fa-plus-circle"></i>添加
                     </button>
                 </div>
                 <div class="box box-default box-solid" style="margin-top:10px;">
@@ -232,10 +235,19 @@
             },
             {
                 "data": function (obj) {
-                    return '<a style="margin-left: 10px;" onclick="editTeacher(\'' + obj.ID + '\')" href="#" role="button" data-toggle="modal" title="编辑"><i class="fa fa-fw fa-pencil"></i></a>'
-                        + '<a style="margin-left: 10px;" onclick="delTeacher(\'' + obj.ID + '\')" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';
+                    var str = '';
+                    str += '<a style="margin-left: 10px;" onclick="editTeacher(\'' + obj.ID + '\')" href="#" role="button" data-toggle="modal" title="编辑"><i class="fa fa-fw fa-pencil"></i></a>';
+                    str += '<a style="margin-left: 10px;" onclick="delTeacher(\'' + obj.ID + '\',\'' + obj.XM + '\')" role="button" data-toggle="modal" title="删除"><i class="fa fa-fw fa-trash-o"></i></a>';
+                    if(obj.SFZR=='学院教师'){
+                        if(obj.RULE == 0 || obj.RULE == 1){
+                            str += '<a style="margin-left: 10px;" onclick="closeTeacher(\'' + obj.XM + '\')" role="button" data-toggle="modal" title="注销"><i class="fa fa-fw fa-user-times"></i></a>';                            
+                        }else{
+                            str += '<a style="margin-left: 10px;" onclick="registTeacher(\'' + obj.XM + '\')" role="button" data-toggle="modal" title="激活"><i class="fa fa-fw fa-user-plus"></i></a>';
+                        }
+                    } 
+                    return str;
                 },
-                "className": "text_center"                
+                "className": "left_center"
             }
         ];
         var mytable = CreateDataTable('#datatable', '/teacherService/getList', columns);
@@ -264,8 +276,70 @@
             }
         });
     }
+    //激活用户
+    function registTeacher(XM){
+        $.ajax({
+            type: "get",
+            url: '/web_confService/getinitpwd',
+            dataType: "json",
+            cache: true,
+            success: function (pwd) {
+                pwd = pwd.data.value;
+                $.ajax({
+                    type: "post",
+                    url: '/userService/adduser',
+                    dataType: "json",
+                    data: {name:XM, pwd:pwd},
+                    cache: true,
+                    success: function (msg) {
+                        if (msg.state.affectedRows == 1) {
+                            var table = $('#datatable').DataTable();
+                            table.ajax.reload();
+                            table.draw();		
+                            $("#success_modal").modal();
+                            setTimeout(function(){			
+                                $("#success_modal").modal('hide');
+                            },1000);
+                        } else {
+                            $("#faile_modal").modal();
+                            setTimeout(function(){					
+                                $("#faile_modal").modal('hide');
+                            },1000);
+                        }
+                    }
+                })
+            }   
+        })
+    }
+    //删除用户
+    function closeTeacher(XM){
+        $.ajax({
+            type: "post",
+            url: '/userService/deluser',
+            dataType: "json",
+            data: {name:XM},
+            cache: true,
+            success: function (msg) {
+                if (msg.state.affectedRows == 1) {
+                    var table = $('#datatable').DataTable();
+                    table.ajax.reload();
+                    table.draw();		
+                    $("#success_modal").modal();
+                    setTimeout(function(){			
+                        $("#success_modal").modal('hide');
+                    },1000);
+                } else {
+                    $("#faile_modal").modal();
+                    setTimeout(function(){					
+                        $("#faile_modal").modal('hide');
+                    },1000);
+                }
+            }
+        })
+    }
+
     //删除记录
-    function delTeacher(ID) {
+    function delTeacher(ID,XM) {
         $.ajax({
             type: "get",
             url: '/teacherService/delOne',
@@ -274,6 +348,15 @@
             cache: true,
             success: function (msg) {
                 if (msg.state == 1) {
+                    $.ajax({
+                        type: "post",
+                        url: '/userService/deluser',
+                        dataType: "json",
+                        data: {name:XM},
+                        cache: true,
+                        success: function (m) {
+                        }
+                    })
                     var table = $('#datatable').DataTable();
                     table.ajax.reload();
                     table.draw();		
@@ -298,13 +381,18 @@
     function delSomeTeacher() {
         var flag = false;
         var arr = new Array();
+        var names = new Array();
         //遍历所有checkbox
         $('input[type="checkbox"][name="checkrow"]:checked').each(function () {
             arr.push(this.value);
+            var name= $(this).parent().parent().find("td")[2];
+            name = $(name).text();
+            names.push(name);
         });
         if (arr.length != 0) {
             //数组转字符串 ，拼接
             var idstr = arr.join(",");
+            var namestr = names.join(",");
             $.ajax({
                 type: "post",
                 url: '/teacherService/delSome',
@@ -313,6 +401,16 @@
                 cache: true,
                 success: function (msg) {
                     if (msg.result != 0) {
+                        $.ajax({
+                            type: "post",
+                            url: '/userService/delSomeuser',
+                            dataType: "json",
+                            data: {tnames:namestr},
+                            cache: true,
+                            success: function (m) {
+                                console.log(m);
+                            }
+                        })
                         var table = $('#datatable').DataTable();
                         table.ajax.reload();
                         table.draw();		

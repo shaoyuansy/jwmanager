@@ -1,6 +1,7 @@
 var teacher = {
-    queryAll: 'SELECT ID,XM,GH,SFZR,LXDH,FGFZR,ZYJSZC,XL,ZGXW,XKLB,DSLX,DWMC,JXXG,FJ' +
-    ' FROM jw_teacher ORDER BY ID DESC;',
+    queryAll: 'SELECT jw_teacher.ID,jw_teacher.XM,jw_teacher.GH,jw_teacher.SFZR,jw_teacher.LXDH,jw_teacher.FGFZR,jw_teacher.ZYJSZC,'+
+        'jw_teacher.XL,jw_teacher.ZGXW,jw_teacher.XKLB,jw_teacher.DSLX,jw_teacher.DWMC,jw_teacher.JXXG,jw_teacher.FJ,jw_user.RULE '+
+        'FROM jw_teacher LEFT JOIN jw_user on XM = USERNAME ORDER BY ID DESC;',
     queryById: 'SELECT * FROM jw_teacher WHERE ID=?;',
     queryZR: 'SELECT ID,XM FROM jw_teacher WHERE SFZR="学院教师";',
     queryByMc: "SELECT ID,XM,SFZR FROM jw_teacher WHERE XM=?;",

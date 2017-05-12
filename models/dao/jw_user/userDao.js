@@ -10,6 +10,39 @@ var $sql = require('./userSqlMapping');
 // 使用连接池，提升性能
 var pool = mysql.createPool($util.extend({}, $conf.mysql));
 
+exports.adduser = function (req, res, name, pwd, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.adduser, [name, pwd], function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+
+exports.deluser = function (req, res, name, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.deluser, name, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+
+exports.delSomeuser = function (req, res, tnames, fn) {
+    pool.getConnection(function (err, connection) {
+        var nameArr = tnames.split(",");
+        namestr = '';
+        nameArr.forEach(function(v,i,arr) {
+            namestr += '"'+ v +'",';
+        });
+        var sql = 'DELETE FROM jw_user WHERE USERNAME in ('+ namestr.substring(0,namestr.length-1) +');';
+        connection.query(sql, function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+
 exports.queryByUser = function (req, res, userName, passWord, fn) {
     pool.getConnection(function (err, connection) {
         connection.query($sql.queryByUser, [userName, passWord], function (err, result) {
@@ -36,6 +69,16 @@ exports.getAdmins = function (req, res, fn) {
         });
     });
 };
+
+exports.CheckPwd = function (req, res, id, pwd, fn) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.checkpwd, [id,pwd], function (err, result) {
+            connection.release();
+            fn(result);
+        });
+    });
+};
+
 
 exports.changepswd = function (req, res, npassword, tname, fn) {
     pool.getConnection(function (err, connection) {

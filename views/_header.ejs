@@ -11,18 +11,94 @@
             <div class="pull-right logout">
                 <span><img id="logout_img" src="/images/logout.png" onclick="logout()" /><lable for="logout_img" onclick="logout()" >注销</lable></span>
             </div>
-            <div class="pull-right changepwd">
-                <span><img id="change_pwd" src="/images/pwd.png" onclick="user_change_pwd()" /><lable for="change_pwd" onclick="user_change_pwd()" >修改密码</lable></span>
+            <div class="pull-right navbar-changepwd">
+                <span><img id="change_pwd" src="/images/pwd.png" onclick="show_user_change_pwd()" /><lable for="change_pwd" onclick="show_user_change_pwd()" >修改密码</lable></span>
             </div>            
         </div>
     </nav>
 </header>
 <script src="/javascripts/header.js"></script>
+<script src="/javascripts/SHA1.js"></script>
 <script>
-    function user_change_pwd(){
+    $().ready(function(){
+        if(getRule().RULE == 0){
+            $('.navbar-changepwd').show();
+        }
+    })
+    function show_user_change_pwd(){
+        $('.chgpwd_error').text("");
         $('#changepwd_modal').modal();
+    }
+    function user_change_pwd(){
+        $('.chgpwd_error').text("");
+        var id = getRule().ID;
         var oldpwd = $('#oldpwd').val();
         var newpwd = $('#newpwd').val();
         var renewpwd = $('#renewpwd').val();
+        if(oldpwd == ''){
+            $('.chgpwd_error').text("请输入原密码");
+            return false;
+        }
+        if(newpwd == ''){
+            $('.chgpwd_error').text("请输入新密码");
+            return false;
+        }
+        if(renewpwd == ''){
+            $('.chgpwd_error').text("请再次输入新密码");
+            return false;
+        }
+        if(newpwd.length < 6){
+            $('.chgpwd_error').text("密码至少由6个字符组成");
+            return false;
+        }
+        if(newpwd != renewpwd){
+            $('.chgpwd_error').text("两次密码输入不一致");
+            return false;
+        }
+        $.ajax({
+            type: "post",
+            url: '/userService/check_pwd',
+            dataType: "json",
+            data: {id:id,pwd:sha1(oldpwd)},
+            async: false,
+            cache: true,
+            success: function (msg) {
+                if(msg==''){
+                    $('.chgpwd_error').text("原密码错误");
+                    return false;
+                }else{
+                    $.ajax({
+                        type: "post",
+                        url: '/userService/changepswd',
+                        dataType: "json",
+                        data: {atname:msg[0].USERNAME,npassword:sha1(newpwd)},
+                        async: false,
+                        cache: true,
+                        success: function (result) {
+                            if(result.state.changedRows>0){
+                                $('.chgpwd_error').text("修改成功，请使用新密码重新登陆");
+                                setTimeout(function(){
+                                    location.href="/login/logout";
+                                },1000);
+                            }else if(result.state.changedRows == 0){
+                                $('.chgpwd_error').text("密码与原密码相同");
+                            }else{
+                                $('.chgpwd_error').text("修改失败，请重试");
+                            }
+                        }
+                    });
+                }
+            }
+        });
     }
-    </script>
+
+    function sha1(str) {
+        var sha1_str = hex_sha1(str);
+        return sha1_str;
+    }
+
+    function getRule(){
+        var userMsg = GetIndexData();
+        return userMsg[0];
+    }  
+</script>

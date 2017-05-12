@@ -37,10 +37,10 @@ input[type="checkbox"][disabled]:checked {
 }
 
 .logout,
-.changepwd{
+.navbar-changepwd{
 	margin-top: 11px;
 }
-.changepwd{
+.navbar-changepwd{
 	margin-right: 15px;
 }
 .user-panel{
@@ -52,8 +52,11 @@ input[type="checkbox"][disabled]:checked {
 	cursor: pointer;
 	margin-right:5px; 
 }
+.navbar-changepwd{
+	display: none;
+}
 .logout lable,
-.changepwd lable{
+.navbar-changepwd lable{
 	color: #FFFFFF;
 	vertical-align: middle;
 	cursor: pointer;
