@@ -29,15 +29,15 @@
                 <div class="box-body">
                     <div class="form-group">
                         <label>教研室编号</label>
-                        <input id="JYSBH" name="JYSBH" type="text" class="form-control" value="<%= jysbh %>">
+                        <input id="JYSBH" name="JYSBH" type="text" class="form-control" value="<%= jysbh %>" >
                     </div>
                     <div class="form-group">
                         <label>教研室名称</label>
-                        <input id="JYSMC" name="JYSMC" type="text" class="form-control" value="<%= jysmc %>">
+                        <input id="JYSMC" name="JYSMC" type="text" class="form-control" value="<%= jysmc %>" placeholder="如：软件工程">
                     </div>
                     <div class="form-group">
                         <label>教研室主任</label>
-                        <input id="JYSZR" name="JYSZR" type="text" class="form-control" value="<%= jyszr %>">
+                        <input id="JYSZR" name="JYSZR" type="text" class="form-control" value="<%= jyszr %>" placeholder="如：陶渊">
                     </div>
                 </div>
             </form>
@@ -52,13 +52,16 @@
     function submitForm() {
         var verge = true;
         if ($('#JYSBH').val() == "") {
-            alert("教研室编号不能为空");
+            $("#warning_content").text("教研室编号不能为空");
+            $("#warning_modal").modal("show");
             var verge = false;
         } else if ($('#JYSMC').val() == "") {
-            alert("教研室名称不能为空");
+            $("#warning_content").text("教研室名称不能为空");
+            $("#warning_modal").modal("show");
             var verge = false;
         } else if ($('#JYSZR').val() == "") {
-            alert("教研室主任不能为空");
+            $("#warning_content").text("教研室主任不能为空");
+            $("#warning_modal").modal("show");
             var verge = false;
         }
         if (verge) {
@@ -71,9 +74,15 @@
                 cache: true,
                 success: function (msg) {
                     if (msg.result != 0) {
+                        var table = $('#datatable').DataTable();
+                        table.ajax.reload();
+                        table.draw();		
+                        $("#success_modal").modal();
+                        setTimeout(function(){			
+                            $("#success_modal").modal('hide');
+                        },1000);
                         $("#modal-edit-event").modal('hide');
                     }
-                    location.reload();
                 },
                 error: function (e) {
                     console.log(e);

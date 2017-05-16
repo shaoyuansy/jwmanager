@@ -202,6 +202,11 @@
                     },1000);
                     return false;
                 }
+                if(msg.result[0].RULE == 1){
+                    $("#warning_content").text("不可修改其他管理员密码");
+                    $("#warning_modal").modal("show");
+                    return false;
+                }
                 $.ajax({
                     type: "post",
                     url: '/userService/changepswd',
@@ -217,6 +222,11 @@
                                 setTimeout(function(){			
                                     $("#warning_modal").modal('hide');
                                     location.href="/login/logout";
+                                },1000);
+                            }else{
+                                $("#success_modal").modal();
+                                setTimeout(function(){			
+                                    $("#success_modal").modal('hide');
                                 },1000);
                             }
                         }else if(result.state.changedRows == 0){

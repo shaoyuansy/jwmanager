@@ -1,17 +1,56 @@
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>
-            教务信息管理首页
-            <small>这里是教务信息管理首页</small>
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="/index"><i class="fa fa-home"></i> 首页</a></li>
-            <li class="active">欢迎页</li>
-        </ol>
+        <div style="padding-bottom:10px;">
+            <img src="/images/yuanhui.jpg"  height="80px;"/>
+        </div>
     </section>
 
     <section class="content">
-        欢迎 <%= loginuser %> 登陆教务管理系统~
+        <section class="invoice" style="margin:5px;">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="page-header">
+                        <i class="fa fa-globe"></i> <%= loginuser %>,欢迎您登陆教务管理系统
+                        <small class="pull-right nowdate" ></small>
+                    </h2>
+                    <div class="info-box bg-aqua ">
+                    <span class="info-box-icon"><i class="ion-ios-chatbubble-outline"></i></span>
+                        <div class="info-box-content">
+                            <h5 style="margin:0 auto;margin:5px 0px 8px 0px;">信息</h5>
+                            <hr style="margin:0 auto;">
+                            <p style="margin:0 auto;margin-top:10px;" class="rulemsg"></p>
+                        </div>
+                    </div>
+                    <div class="info-box bg-yellow usertags-div" style="display:none;">
+                    <span class="info-box-icon"><i class="ion-ios-chatbubble-outline"></i></span>
+                        <div class="info-box-content">
+                            <h5 style="margin:0 auto;margin:5px 0px 8px 0px;">提示</h5>
+                            <hr style="margin:0 auto;">
+                            <p style="margin:0 auto;margin-top:10px;" >若您是第一次登录系统，建议您点击右上角“修改密码”，修改您的密码。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </section>
 </div>
+<script>
+    $().ready(function(){
+        var myDate = new Date();
+        var year=myDate.getFullYear();
+        var month=myDate.getMonth()+1;
+        var date=myDate.getDate(); 
+        var timeStr=year+"年"+month+'月'+date+'日';
+        $(".nowdate").text(timeStr);
+        var data = GetIndexData();
+        if(data[0].ID === 1){
+            $(".rulemsg").text("当前身份为：超级管理员。您拥有所有操作权限。");
+        }else if(data[0].ID !== 1 && data[0].RULE === 1){
+            $(".rulemsg").text("当前身份为：管理员。您可以管理教师、专业、选课等信息。");
+        }else{
+            $(".rulemsg").text("当前身份为：学院教师。您可以进行选课。");
+            $('.usertags-div').show();
+        }
+    })
+    </script>
 

@@ -17,7 +17,7 @@
         line-height: 15px;
     }
 </style>
-<div class="modal-dialog" style="margin-top: 5%">
+<div class="modal-dialog" style="margin-top: 150px">
     <div class="modal-content" style="width:80%;margin:0 auto">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -44,15 +44,15 @@
                     </div>
                     <div class="form-group">
                         <label>开设年级</label>
-                        <input id="KSNJ" name="KSNJ" type="text" class="form-control" value="<%= ksnj %>">
+                        <input id="KSNJ" name="KSNJ" type="text" class="form-control" value="<%= ksnj %>" placeholder="如：2015级">
                     </div>
                     <div class="form-group">
                         <label>班级个数</label>
-                        <input id="BJGS" name="BJGS" type="text" class="form-control" value="<%= bjgs %>">
+                        <input id="BJGS" name="BJGS" type="text" class="form-control" value="<%= bjgs %>" placeholder="如：60">
                     </div>
                     <div class="form-group">
                         <label>各班大约人数</label>
-                        <input id="GBDYRS" name="GBDYRS" type="text" class="form-control" value="<%= gbdyrs %>">
+                        <input id="GBDYRS" name="GBDYRS" type="text" class="form-control" value="<%= gbdyrs %>" placeholder="如：2">
                     </div>
                 </div>
             </form>
@@ -87,7 +87,27 @@
             $("#warning_content").text("开设年级不能为空");
             $("#warning_modal").modal("show");
             var verge = false;
-        }
+        } else if (!/^[0-9]*级$/.test($('#KSNJ').val())) {
+            $("#warning_content").text("开设年级格式错误");
+            $("#warning_modal").modal("show");
+            var verge = false;
+        } else if ($('#BJGS').val() == "") {
+            $("#warning_content").text("班级个数不能为空");
+            $("#warning_modal").modal("show");
+            var verge = false;
+        } else if (!/^[0-9]*$/.test($('#BJGS').val())) {
+            $("#warning_content").text("班级个数格式错误");
+            $("#warning_modal").modal("show");
+            var verge = false;
+        } else if ($('#GBDYRS').val() == "") {
+            $("#warning_content").text("各班大约人数不能为空");
+            $("#warning_modal").modal("show");
+            var verge = false;
+        } else if (!/^[0-9]*$/.test($('#GBDYRS').val())) {
+            $("#warning_content").text("各班大约人数格式错误");
+            $("#warning_modal").modal("show");
+            var verge = false;
+        } 
         if (verge) {
             $.ajax({
                 type: "post",
