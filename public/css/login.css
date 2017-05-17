@@ -16,5 +16,33 @@
     left: 0;
     right: 0;
     margin: 0 auto;
-    top: 30%;
+    top: 20%;
+}
+.loginerrormsg{
+    color:firebrick;
+    height:16px;
+    margin-bottom:5px;
+}
+.text-center,
+.text-center p{
+    margin:0px;
+}
+.checkbox-p{
+    margin:0px;display:inline-block;position:relative;top:2px;left:2px;
+}
+.checkbox{
+    margin-top:6px;margin-bottom:6px;
+}
+.login-logo{
+    margin-bottom: 20px;
+}
+.login-logo img{
+    position: relative;top:-5px;right:5px;width:60px;
+}
+.login-box-body{
+    padding-bottom:15px;
+}
+.login-logo p{
+    position: relative;left:5px;
+    display: inline-block;
 }

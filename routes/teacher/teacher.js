@@ -7,7 +7,7 @@ var xl = require('node-xlrd');
 var teacherDao = require('../../models/dao/jw_teacher/teacherDao');
 var jysDao = require('../../models/dao/jw_jys/jysDao');
 
-router.get('/', function (req, res, next) {
+router.get('/teacher.html', function (req, res, next) {
     res.render('teacher/teacher', {title: '教务信息管理系统——教研室管理'});
 });
 

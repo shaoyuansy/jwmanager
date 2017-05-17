@@ -1,0 +1,66 @@
+#upfile {
+    display: none;
+}
+.upload_group {
+    display: inline-block;
+    vertical-align: middle;
+}
+.style_upload {
+    height: 20px;
+    border-radius: 5px;
+    width: 120px;
+    font-size: 10px;
+}
+.open {
+    font-size: 12px;
+    color: #606c84;
+    margin-bottom: 0px;
+    font-weight: 500;
+    border: 1px solid #606c84;
+    border-radius: 5px;
+    padding: 0px 2px;
+    cursor: pointer;
+}
+.box-body span{
+    display: inline-block;
+}
+.box-body span input{
+    margin: 0px;
+    vertical-align: middle;
+}
+.box {
+    margin-bottom: 0px;
+}
+#datatable th, 
+#datatable td{
+    white-space:nowrap;    
+}
+.text_center{
+    text-align: center;
+}
+.tags p{
+    margin: 5px 10px 0px 10px ;
+    vertical-align: middle;
+    color: #606c84;
+}
+.form-control{
+    height: 28px;
+    padding: 3px;
+    font-size: 14px;
+    vertical-align: middle;
+}
+.modal-content{
+    width: 400px;
+    margin: 0 auto;
+}
+.modal-footer{
+    text-align:center;
+    margin: auto;
+    padding:10px 10px;
+} 
+.modal-footer button{
+    padding: 5px 10px;
+    width: 70px;
+    height: 28px;
+    line-height: 15px;
+}

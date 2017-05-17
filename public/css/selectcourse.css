@@ -1,0 +1,52 @@
+#selectcourseTL td {
+    vertical-align: middle;
+    text-align: center;
+}
+#selectcourseTL thead th {
+    vertical-align: bottom;
+    text-align: center;
+}
+#selectcourseTL thead {
+    background-color: rgba(100, 183, 136, 0.21);
+}
+.box-header>.box-tools{
+    top:8px;
+}
+.date-box{
+    position: absolute;
+    right: 0px;
+    left: 120px;
+    top:8px;
+}
+.export-box button{
+    padding-top: 2px;
+}
+#datechoose .form-control{
+    height: 24px;
+    padding: 0px 5px;
+}
+#datechoose{
+    width: 150px;
+}
+.input-group-addon{
+    padding: 0px 5px;
+}
+.export-btn{
+    
+}
+.toushu{
+    background-color: #ffcc33;
+    color: #FFFFFF;
+}
+.ttype{
+    white-space: nowrap;
+}
+.heng{
+    white-space: nowrap;
+}
+tr{
+    cursor: pointer;
+}
+p {
+    margin: 0 0 0px;
+}

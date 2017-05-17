@@ -1,0 +1,22 @@
+.invoice{
+    margin:5px;
+}
+.info-box-content h5{
+    margin:0 auto;margin:5px 0px 8px 0px;
+}
+.info-box-content hr{
+    margin:0 auto;
+}
+.info-box-content p,
+.rulemsg{
+    margin:0 auto;margin-top:10px;
+}
+.xueyuan-logo{
+    padding-bottom:10px;
+}
+.xueyuan-logo > img {
+     height:80px;
+}
+.usertags-div {
+    display: none;
+}

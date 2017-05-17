@@ -1,0 +1,17 @@
+.box-body span{
+    display: inline-block;
+}
+.box-body span input{
+    margin: 0px;
+    vertical-align: middle;
+}
+.box {
+    margin-bottom: 0px;
+}
+#exporttable th, 
+#exporttable td{
+    white-space:nowrap;    
+}
+.text_center{
+    text-align: center;
+}

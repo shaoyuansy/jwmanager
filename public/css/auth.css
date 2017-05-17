@@ -1,0 +1,58 @@
+.form-group{
+    padding:20px 10px 20px 10px;
+    margin: 0px ;
+    vertical-align: middle;
+    padding-left: 20px;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+}
+.form-group label{
+    width: 100px;
+    display: inline-block;
+}
+.form-group input{
+    height: 28px;
+    padding: 0px 5px;
+    width: 200px;
+    display: inline-block;
+}
+.form-group button{
+    height: 28px;
+    padding: 0px 10px;
+    margin-left: 5px;
+}
+.form-group p{
+    padding: 0px 5px;
+    padding-left: 20px;
+    display: inline-block;
+    margin: 0px;
+}
+.form-group .tmsg,
+.form-group .amsg{
+    margin-left: 100px;
+    padding-top: 2px;
+    color: red;
+}
+.tdiv{
+    border-bottom: 1px solid #ddd;
+    padding:20px 10px 20px 10px;
+    margin: 0px ;
+    vertical-align: middle;
+    max-height: 400px;
+    min-height: 200px;
+    overflow-y: auto;
+}
+.admin-table{
+    height: 100%;
+}
+.admin-table thead tr th ,
+.admin-table tbody tr td {
+    text-align: center;
+}
+.del-btn{
+    border-radius: 30px;
+    padding: 3px 7px;
+}
+.superAdmin{
+    display: none;
+}

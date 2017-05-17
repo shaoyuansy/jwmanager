@@ -1,0 +1,59 @@
+#upfile {
+    display: none;
+}
+.upload_group {
+    display: inline-block;
+    vertical-align: middle;
+}
+.style_upload {
+    height: 20px;
+    border-radius: 5px;
+    width: 120px;
+    font-size: 10px;
+}
+.open {
+    font-size: 12px;
+    color: #606c84;
+    margin-bottom: 0px;
+    font-weight: 500;
+    border: 1px solid #606c84;
+    border-radius: 5px;
+    padding: 0px 2px;
+    cursor: pointer;
+}
+.box-header>.box-tools{
+    top:8px;
+}
+.date-box{
+    position: absolute;
+    right: 0px;
+    left: 160px;
+    top:8px;
+}
+.export-box button{
+    padding-top: 2px;
+}
+#datechoose .form-control{
+    height: 24px;
+    padding: 0px 5px;
+}
+#datechoose{
+    width: 150px;
+}
+.input-group-addon{
+    padding: 0px 5px;
+}
+.tags p{
+    vertical-align: middle;
+    color: #606c84;
+    position: relative;
+    left: 180px;
+    top:-22px;
+}
+.assign-table thead tr th,
+.assign-table tbody tr td{
+    text-align: center;
+}
+.adminshow{
+    display: none;
+}

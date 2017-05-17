@@ -1,26 +1,5 @@
-<!-- datatable -->
-<script src="../javascripts/mydatatable.js"></script>
-<!-- table2excel导出 -->
-<script src="/table2excel/jquery.table2excel.js"></script>
-<style>
-    .box-body span{
-        display: inline-block;
-    }
-    .box-body span input{
-        margin: 0px;
-        vertical-align: middle;
-    }
-    .box {
-        margin-bottom: 0px;
-    }
-    #exporttable th, 
-    #exporttable td{
-        white-space:nowrap;    
-    }
-    .text_center{
-        text-align: center;
-    }
-</style>
+<link rel="stylesheet" href="/css/exportteacher.css">
+
 <div class="content-wrapper">
     <section class="content-header">
         <h1><%= title %></h1>
@@ -141,6 +120,8 @@
     </section>
 </div>
 
+<script src="/javascripts/mydatatable.js"></script>
+<script src="/table2excel/jquery.table2excel.js"></script>
 <script>
     $(document).ready(function () {
         var columns = [

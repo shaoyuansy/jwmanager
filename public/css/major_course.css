@@ -1,0 +1,76 @@
+#upfile {
+    display: none;
+}
+.upload_group {
+    display: inline-block;
+    vertical-align: middle;
+}
+.style_upload {
+    height: 20px;
+    border-radius: 5px;
+    width: 120px;
+    font-size: 10px;
+}
+.open {
+    font-size: 12px;
+    color: #606c84;
+    margin-bottom: 0px;
+    font-weight: 500;
+    border: 1px solid #606c84;
+    border-radius: 5px;
+    padding: 0px 2px;
+    cursor: pointer;
+}
+.box-body span{
+    display: inline-block;
+}
+.box-body span input{
+    margin: 0px;
+    vertical-align: middle;
+}
+
+#datatable th, 
+#datatable td{
+    white-space:nowrap;    
+}
+.text_center{
+    text-align: center;
+}
+
+.cursor{
+    cursor: pointer;
+}
+.nav>li>a {
+    padding: 5px 5px 5px 10px;
+}
+.box-header.with-border{
+    border-bottom: 1px solid #C7C7C7;
+    padding: 8px;
+}
+.box-header 
+.box-title{
+    font-size: 16px;
+}
+.tags,
+.times,
+.tags p{
+    display: inline-block;
+}
+.tags p{
+    margin: 5px 10px 0px 10px ;
+    vertical-align: middle;
+    color: #606c84;
+}
+.modal-footer{
+    padding:10px 20px;
+} 
+.modal-footer button{
+    padding: 5px 10px;
+    width: 70px;
+    height: 28px;
+    line-height: 15px;
+}
+.modal-content{
+    width: 400px;
+    margin: 0 auto;
+}

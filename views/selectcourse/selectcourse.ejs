@@ -1,58 +1,4 @@
-<script src="/table2excel/jquery.table2excel.js"></script>
-<style type="text/css">
-    #selectcourseTL td {
-        vertical-align: middle;
-        text-align: center;
-    }
-    #selectcourseTL thead th {
-        vertical-align: bottom;
-        text-align: center;
-    }
-    #selectcourseTL thead {
-        background-color: rgba(100, 183, 136, 0.21);
-    }
-    .box-header>.box-tools{
-        top:8px;
-    }
-    .date-box{
-        position: absolute;
-        right: 0px;
-        left: 120px;
-        top:8px;
-    }
-    .export-box button{
-        padding-top: 2px;
-    }
-    #datechoose .form-control{
-        height: 24px;
-        padding: 0px 5px;
-    }
-    #datechoose{
-        width: 150px;
-    }
-    .input-group-addon{
-        padding: 0px 5px;
-    }
-    .export-btn{
-        
-    }
-    .toushu{
-        background-color: #ffcc33;
-        color: #FFFFFF;
-    }
-    .ttype{
-        white-space: nowrap;
-    }
-    .heng{
-        white-space: nowrap;
-    }
-    tr{
-        cursor: pointer;
-    }
-    p {
-        margin: 0 0 0px;
-    }
-</style>
+<link rel="stylesheet" href="/css/selectcourse.css">
 
 <div class="content-wrapper">
     <section class="content-header">
@@ -88,6 +34,9 @@
     </section>
 </div>
 <div class="modal fade" id="modal-edit-xk"></div>
+
+<script src="/table2excel/jquery.table2excel.js"></script>
+
 <script>
     $(document).ready(function () {
         $("#datechoose").datepicker({ //构建时间选择器
@@ -177,7 +126,6 @@
             "data" : ''
         };
         if(!term){
-            console.log("获取四个学期失败");
             return false;
         }
         //获取到当前时间或者要查询的时间 然后取得当前有哪些专业选择了哪些课

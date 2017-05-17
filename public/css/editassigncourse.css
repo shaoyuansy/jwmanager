@@ -1,0 +1,29 @@
+.select {
+    width: 200%;
+}
+.modal-dialog {
+    margin-top: 5%;
+    width: 70%;
+}
+
+#edittable td {
+    text-align: right;
+    vertical-align: middle;
+    font-size: 14px;
+}
+.form-control{
+    height: 28px;
+    padding: 3px;
+    font-size: 12px;
+}
+.modal-footer{
+    text-align:center;
+    margin: auto;
+    padding:10px 10px;
+} 
+.modal-footer button{
+    padding: 5px 10px;
+    width: 70px;
+    height: 28px;
+    line-height: 15px;
+}

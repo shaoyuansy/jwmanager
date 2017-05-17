@@ -69,8 +69,9 @@ router.post('/delSome', function (req, res, next) {
 
 //导出所选教师列表
 router.get('/exportBySomeId', function (req, res, next) {
+    console.log(req.query.idstr);
     teacherDao.exportBySomeId(req, res, req.query.idstr, function (result) {
-        res.send({"sEcho": 10, "aaData": result, "iTotalRecords": result.length});
+        res.send({"data": result});
     });
 });
 

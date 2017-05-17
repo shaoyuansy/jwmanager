@@ -6,33 +6,33 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/plugins/Font-Awesome-master/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/plugins/ionicons-master/css/ionicons.min.css">
     <link rel="stylesheet" href="/dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="/plugins/iCheck/square/blue.css">
     <link rel="stylesheet" href="/css/login.css">
 </head>
 <body class="hold-transition login-page">
-<div class="htmleaf-container">
-    <div class="login-box">
-        <div class="login-logo">
-            <img src="/images/yuanhui10.png" style="position: relative;top:-5px" width="60px" ><a href="#">教务信息管理系统</a>
-        </div>
-        <div class="login-box-body">
-            <p class="login-box-msg">欢迎您，请输入登录信息</p>
+    <div class="htmleaf-container">
+        <div class="login-box">
+            <div class="login-logo">
+                <img src="/images/yuanhui10.png">
+                <p>教务信息管理系统</p>
+            </div>
+            <div class="login-box-body">
+                <p class="login-box-msg">欢迎您，请输入登录信息</p>
                 <div class="form-group has-feedback">
-                    <input id="username" name="username" type="text" class="form-control" placeholder="用户名">
+                    <input id="username" name="username" type="text" class="form-control" placeholder="用户名" onfocus="claer()">
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input id="password" name="password" type="password" class="form-control" placeholder="密码">
+                    <input id="password" name="password" type="password" class="form-control" placeholder="密码" onfocus="claer()">
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row">
                     <div class="col-xs-8">
-                        <div class="checkbox icheck remember" >
+                        <div class="checkbox icheck remember">
                             <label>
-                                <input type="checkbox" for="remember"> 记住信息
-                                <input id="remember" name="remember" type="hidden" value="">
+                                <input type="checkbox" for="remember">
+                                <p class="checkbox-p">下次自动登陆</p>
                             </label>
                         </div>
                     </div>
@@ -40,74 +40,18 @@
                         <button type="button" onclick="login()" class="btn btn-primary btn-block btn-flat">登录</button>                        
                     </div>
                 </div>
-                <p class="errormsg" style="color:firebrick"></p>
-            <div class="social-auth-links text-center">
-                <p>- 郑州大学软件与应用科技学院 -</p>
+                <p class="loginerrormsg"></p>
+                <div class="social-auth-links text-center">
+                    <p>- 郑州大学软件与应用科技学院 -</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="/bootstrap/js/bootstrap.min.js"></script>
-<script src="/plugins/iCheck/icheck.min.js"></script>
-<script src="/javascripts/jparticle.jquery.min.js"></script>
-<script src="/javascripts/SHA1.js"></script>
-<script>
-    $(function () {
-        $('.remember input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' // optional
-        });
-        $(".remember input").val(0);
-        $('.remember input').on('ifChecked', function (event) {
-            $(".remember input").val(1);
-        });
-        $('.remember input').on('ifUnchecked', function (event) {
-            $(".remember input").val(0);
-        });
-        $(".htmleaf-container").jParticle({
-            background: "#d2d6de",
-            color: "#ffffff"
-        });
-        $(document).keyup(function(event){  
-            if(event.keyCode ==13){  
-                login();  
-            }  
-        });
-    });
-
-    function login(){
-        var username = $("#username").val();
-        var password = sha1($("#password").val());
-        var remember = $(".remember input").val();
-        $.ajax({            
-            type: "post",
-            url: '/login',
-            dataType: "json",
-            async: false,
-            cache: true,
-            data: {username:username,password:password,remember:remember},
-            success: function (msg) {
-                if(msg.success){
-                    if(msg.error == "login"){
-                        $(".errormsg").text(msg.errorMassage);
-                    }else{
-                        location.href = msg.data;
-                    }                    
-                }
-            },
-            error: function (e) {
-                console.log(e);
-            }
-        })
-    };
-
-    function sha1(str) {
-        var sha1_str = hex_sha1(str);
-        return sha1_str;
-    }
-</script>
+    <script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/plugins/iCheck/icheck.min.js"></script>
+    <script src="/javascripts/jparticle.jquery.min.js"></script>
+    <script src="/javascripts/SHA1.js"></script>
+    <script src="/javascripts/login.js"></script>
 </body>
 </html>
