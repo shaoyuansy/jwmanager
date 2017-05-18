@@ -20,7 +20,7 @@ router.get('/_editCourse.html', function (req, res, next) {
                 jysStr += "<option value='" + jysResult[i].JYSMC + "'>" + jysResult[i].JYSMC + "</option>";
             }
         }
-        if (req.query.id == 0) {
+        if (req.query.id === '') {
             res.render('course/_editCourse', {
                 _layoutFile: false,
                 title: '教务信息管理系统——课程管理',
@@ -84,7 +84,7 @@ router.post('/_editCourse.html', function (req, res, next) {
     var jyshf = req.body.JYSHF;           //所属教研室
     var zyfzr = req.body.ZYFZR;           //专业负责人
     var sqlArr;    //字段数组
-    if (id == 0) {
+    if (id === '') {
         sqlArr = [kcbh, kcmc, kcywmc, kcfzr, kclx, zxs, sjxs, xf, sydx, xdkc, hxkc, jyshf, zyfzr];
         //编辑课程信息
         kcDao.insert(req, res, sqlArr, function (result) {

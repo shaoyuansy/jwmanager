@@ -20,7 +20,7 @@ router.get('/_editMajor.html', function (req, res, next) {
                 jysStr += "<option value='" + jysResult[i].JYSMC + "'>" + jysResult[i].JYSMC + "</option>";
             }
         }
-        if (req.query.id == 0) {
+        if (req.query.id === '') {
             res.render('major/_editMajor', {
                 _layoutFile: false,
                 title: '教务信息管理系统——专业管理',
@@ -62,7 +62,7 @@ router.post('/_editMajor.html', function (req, res, next) {
     var bjgs = req.body.BJGS;           //班级个数
     var gbdyrs = req.body.GBDYRS;           //各班大约人数
     var sqlArr;    //字段数组
-    if (id == 0) {
+    if (id === '') {
         sqlArr = [zybh, zymc, ssjys, ksnj, bjgs, gbdyrs];
         //编辑专业信息
         zyDao.insert(req, res, sqlArr, function (result) {

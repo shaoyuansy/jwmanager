@@ -18,6 +18,7 @@
                                 <td>教师姓名</td>
                                 <td>
                                     <select id="JSXM" name="JSXM" class="form-control">
+                                        <option value="" disabled selected>请先选择教师</option>  
                                         <%- jsStr %>
                                     </select>
                                     <input id="JSXMTEMP" name="JSXMTEMP" type="hidden" value="<%= jsxm %>">
@@ -64,15 +65,15 @@
                             <tr>
                                 <td>班级人数</td>
                                 <td>
-                                    <input id="BJRS" name="BJRS" type="text" class="form-control" value="<%= bjrs %>">
+                                    <input id="BJRS" name="BJRS" type="text" class="form-control" value="<%= bjrs %>" readonly>
                                 </td>
                                 <td>上课时间</td>
                                 <td>
-                                    <input id="SKSJ" name="SKSJ" type="text" class="form-control" value="<%= sksj %>">
+                                    <input id="SKSJ" name="SKSJ" type="text" class="form-control" value="<%= sksj %>" placeholder="如：周一 3,4节">
                                 </td>
                                 <td>上课地点</td>
                                 <td>
-                                    <input id="SKDD" name="SKDD" type="text" class="form-control" value="<%= skdd %>">
+                                    <input id="SKDD" name="SKDD" type="text" class="form-control" value="<%= skdd %>" placeholder="如：9-102">
                                 </td>
                             </tr>
                             <tr>
@@ -100,7 +101,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td colspan="6" style="text-align:left">
                                     <div>选课时备注：<%= bz %></div>
                                 </td>
                             </tr>

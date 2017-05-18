@@ -298,7 +298,7 @@ SSNJ.change(function () {
                 async: true,
                 success: function (data) {
                     if (data && data.result.length > 0) {
-                    $("#BJRS").val(data.result[0].GBDYRS);
+                        $("#BJRS").val(data.result[0].GBDYRS);
                     }
                 }
             });
@@ -307,6 +307,32 @@ SSNJ.change(function () {
 });
 
 function submitForm() {
+    
+    if($('#JSXM').val()==null){
+        $("#warning_content").text("请选择教师");
+        $("#warning_modal").modal("show");
+        return false;
+    }
+    if($('#SKSJ').val()==''){
+        $("#warning_content").text("请填写上课时间");
+        $("#warning_modal").modal("show");
+        return false;
+    }
+    if($('#SKDD').val()==null){
+        $("#warning_content").text("请填写上课地点");
+        $("#warning_modal").modal("show");
+        return false;
+    }
+    if($('#SFWSJK').val()==""){
+        $("#warning_content").text("请选择是否为上机课");
+        $("#warning_modal").modal("show");
+        return false;
+    }
+    if($('#SFDSZ').val()==""){
+        $("#warning_content").text("请选择是否为单双周");
+        $("#warning_modal").modal("show");
+        return false;
+    }
     $.ajax({
         type: "post",
         url: '/assigncourse/_editAssign.html',

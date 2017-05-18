@@ -12,7 +12,7 @@ router.get('/jys.html', function (req, res, next) {
 });
 //编辑信息--若是更新信息则在编辑页面显示信息
 router.get('/_editJys.html', function (req, res, next) {
-    if (req.query.id == 0) {
+    if (req.query.id === '') {
         res.render('jys/_editJys', {
             _layoutFile: false,
             title: '教务信息管理系统——教研室管理',
@@ -42,7 +42,7 @@ router.post('/_editJys.html', function (req, res, next) {
     var jysmc = req.body.JYSMC;
     var jyszr = req.body.JYSZR;
     var sqlArr;    //字段数组
-    if (id == 0) {
+    if (id === '') {
         sqlArr = [jysbh, jysmc, jyszr];
 
         //编辑调度命令

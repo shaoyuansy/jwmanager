@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    if ($("#ID").val() > 0) {
+    if ($("#ID").val() >= 0) {
         $('#XM').attr("readonly", true);
     }
     $("#XB").val($("#XBTEMP").val());
@@ -43,7 +43,7 @@ $(document).ready(function () {
         'height':'28',
         'width':'75',
         'buttonText': '浏览文件',//显示在浏览按钮上的文本
-        'removeTimeout': "1",//清除延迟
+        'removeTimeout': "0.5",//清除延迟
         'fileTypeExts': '*.zip; *.rar; *.7z',//格式
         'fileTypeDesc': '请选择10MB以下的zip、rar、7z文件',//格式
         'folder': '/uploads',//上传到的文件路径
@@ -54,6 +54,14 @@ $(document).ready(function () {
         'multi': false,//多文件上传
         'onDialogClose':function(queueData){ //关闭对话框触发
             if(queueData.queueLength > 0){
+                let filefullname = queueData.files.SWFUpload_0_0.name;
+                let filename = filefullname.split('.')[0];
+                if(filename != $('#XM').val()){
+                    $("#warning_content").text("请将文件命名为："+$('#XM').val()+"."+filefullname.split('.')[1]+" 后，重新添加上传");
+                    $("#warning_modal").modal("show");
+                    $('#upload_append').uploadify('cancel','*');
+                    return false;
+                }
                 $("#goto_upload").show();
             }
         },
@@ -65,8 +73,7 @@ $(document).ready(function () {
                 //将上传的附件链接显示在附件栏中
                 $('#fileList').html('<a href="javascript:void(0)" onclick="aclick(\'/teacherService/download?filePath=' + filePath + '\')" '+
                 ' ondblclick="adblclick(this)" > ' + fileName + '</a><input id="hidfj" name="hidfj" type="hidden" value="' + filePath + '"/>');
-            }
-            else {
+            } else {
                 $("#warning_content").text("文件上传出错");
                 $("#warning_modal").modal("show");
             }
@@ -145,10 +152,16 @@ function submitForm() {
     }
     if ($('#FGFZR').val() != "" && verge) {
         if ( !getFZR($('#FGFZR').val()) ) {
-            $("#warning_content").text("此教师非专任教师，请重新填写");
+            $("#warning_content").text("分管负责人非专任教师，请重新填写");
             $("#warning_modal").modal("show");
             var verge = false;
         }
+    }
+    if( ($("#SFSJSFZFYJ").val()=='有' || $("#SFSJGZZFYJ").val()=='有' || $("#SFSJJSZGZFYJ").val()=='有' || $("#SFSJXWZFYJ").val()=='有'
+        || $("#SFSJBYZFYJ").val()=='有' || $("#SFSJZCZFYJ").val()=='有' || $("#SFSJXYS").val()=='有' ) && $("#fileList").html() == '') {
+            $("#warning_content").text("请上传附件");
+            $("#warning_modal").modal("show");
+            return false;
     }
     if (verge) {
         //获取服务器上的附件的值

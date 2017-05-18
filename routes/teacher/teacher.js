@@ -20,7 +20,7 @@ router.get('/_editTeacher.html', function (req, res, next) {
                 jysStr += "<option value='" + jysResult[i].JYSMC + "'>" + jysResult[i].JYSMC + "</option>";
             }
         }
-        if (req.query.id == 0) {
+        if (req.query.id === '') {
             res.render('teacher/_editteacher', {
                 _layoutFile: false,
                 id: 0,
@@ -160,7 +160,7 @@ router.post('/_editTeacher.html', function (req, res, next) {
     var fj = req.body.FJ;
 
     var sqlArr;    //字段数组
-    if (id == 0) {
+    if (id === '') {
         sqlArr = [xm, gh, xb, csny, lxdh, jysmc, fgfzr, rxsj, sfzhm, mz, dzsj, rzzt, dwh, dwmc, gzdwlb, xl, zgxw, sfzr, bysj, byyx, xy,
             zyjszc, xklb, sfwssx, sfjygcbj, sfjyhybj, dslx, dq, kskc, csdksj, jxxg, sfsjsfzfyj, sfsjbyzfyj, sfsjxwzfyj, sfsjzczfyj,
             sfsjjszgzfyj, sfsjgzzfyj, sfsjxys, fj];
@@ -176,7 +176,7 @@ router.post('/_editTeacher.html', function (req, res, next) {
         sqlArr = [xm, gh, xb, csny, lxdh, jysmc, fgfzr, rxsj, sfzhm, mz, dzsj, rzzt, dwh, dwmc, gzdwlb, xl, zgxw, sfzr, bysj, byyx, xy,
             zyjszc, xklb, sfwssx, sfjygcbj, sfjyhybj, dslx, dq, kskc, csdksj, jxxg, sfsjsfzfyj, sfsjbyzfyj, sfsjxwzfyj, sfsjzczfyj,
             sfsjjszgzfyj, sfsjgzzfyj, sfsjxys, fj, id];
-        //编辑调度命令
+        //编辑教师
         teacherDao.update(req, res, sqlArr, function (result) {
             if (result) {
                 res.send({"result": result.affectedRows});
