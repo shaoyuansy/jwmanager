@@ -20,10 +20,10 @@ router.get('/_editAssign.html', function (req, res, next) {
                 jsStr += "<option value='" + jsResult[i].XM + "'>" + jsResult[i].XM + "</option>";
             }
         }
-        if (req.query.id == 0) {
+        if (req.query.id === '') {
             res.render('assign_course/_editassign', {
                 _layoutFile: false,
-                id: 0,
+                id: '',
                 jsStr: jsStr,
                 jsxm: "",
                 sskc: "",
@@ -80,7 +80,7 @@ router.post('/_editAssign.html', function (req, res, next) {
     var wpjspj = req.body.WPJSPJ;
     var term = req.body.TERM;
     var sqlArr;    //字段数组
-    if (id == 0) {
+    if (id === '') {
         sqlArr = [jsxm, sskc, kcfzr, sszy, ssnj, ssbj, bjrs, sksj, skdd, sfwsjk, sfdsz, wpjspj, term];
         //新建授课信息保存
         assignDao.insert(req, res, sqlArr, function (result) {

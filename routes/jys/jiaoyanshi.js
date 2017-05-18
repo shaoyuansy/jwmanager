@@ -16,7 +16,7 @@ router.get('/_editJys.html', function (req, res, next) {
         res.render('jys/_editJys', {
             _layoutFile: false,
             title: '教务信息管理系统——教研室管理',
-            id: 0,
+            id: "",
             jysbh: "",
             jysmc: "",
             jyszr: ""

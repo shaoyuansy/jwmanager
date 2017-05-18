@@ -23,7 +23,7 @@ router.get('/_editTeacher.html', function (req, res, next) {
         if (req.query.id === '') {
             res.render('teacher/_editteacher', {
                 _layoutFile: false,
-                id: 0,
+                id: "",
                 xm: "",
                 gh: "",
                 xb: "",

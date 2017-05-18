@@ -24,7 +24,7 @@ router.get('/_editMajor.html', function (req, res, next) {
             res.render('major/_editMajor', {
                 _layoutFile: false,
                 title: '教务信息管理系统——专业管理',
-                id: 0,
+                id: "",
                 zybh: "",
                 zymc: "",
                 ssjys: "",

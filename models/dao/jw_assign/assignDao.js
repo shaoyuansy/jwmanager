@@ -22,7 +22,7 @@ exports.queryAll = function (req, res, term, fn) {
 /*根据id获取此条选课信息*/
 exports.queryById = function (req, res, id, fn) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.querybyid, [id], function (err, result) {
+        connection.query($sql.querybyid, id, function (err, result) {
             connection.release();
             fn(result);
         });

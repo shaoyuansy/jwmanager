@@ -24,7 +24,7 @@ router.get('/_editCourse.html', function (req, res, next) {
             res.render('course/_editCourse', {
                 _layoutFile: false,
                 title: '教务信息管理系统——课程管理',
-                id: 0,
+                id: "",
                 kcbh: "",
                 kcmc: "",
                 kcywmc: "",
