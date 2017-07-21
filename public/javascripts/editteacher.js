@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    if ($("#ID").val() >= 0) {
+    if ($("#ID").val() > 0) {
         $('#XM').attr("readonly", true);
     }
     $("#XB").val($("#XBTEMP").val());
